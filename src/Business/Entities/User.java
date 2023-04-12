@@ -14,6 +14,9 @@ public class User {
         this.email = email;
     }
 
+    public User(String dni, String emails, String pass, int number, String phone) {
+    }
+
 
     //Getters and Setters
     public String getDni() {

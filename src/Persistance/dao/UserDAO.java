@@ -1,5 +1,6 @@
 package Persistance.dao;
 
+import Business.Entities.User;
 import Persistance.UserDAOInt;
 
 import java.sql.*;
