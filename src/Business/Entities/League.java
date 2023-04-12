@@ -1,4 +1,4 @@
-package Business.Managers;
+package Business.Entities;
 
 public class League {
 

@@ -1,4 +1,4 @@
-package Business.Managers;
+package Business.Entities;
 
 /**
  *Esta clase representa los datos de la configuracion de la base de datos
