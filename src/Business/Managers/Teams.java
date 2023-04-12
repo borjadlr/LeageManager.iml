@@ -1,4 +1,4 @@
-package Business.Entities;
+package Business.Managers;
 
 public class Teams {
     private String name;

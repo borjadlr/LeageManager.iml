@@ -28,7 +28,7 @@ public class UserManager {
         }
 
         while (i < users.size()) {
-            if (users.get(i).getDNI().equals(input) || users.get(i).getEmail().equals(input)) {
+            if (users.get(i).getDni().equals(input) || users.get(i).getEmail().equals(input)) {
                 if (users.get(i).getPassword().equals(password)) {
                     userLocal = createUser(input, password, users.get(i).getEmail());
                     return;
@@ -55,7 +55,7 @@ public class UserManager {
             while (i < users.size()) {
                 if (users.get(i).getEmail().equals(user.getEmail())) {
                     throw new EmailAlreadyExistsException();
-                } else if (users.get(i).getDNI().equals(user.getDNI())) {
+                } else if (users.get(i).getDni().equals(user.getDni())) {
                     throw new ExistingDNIException();
                 } else if (!comprovaCaractersPassword(user)) {
                     throw new InvalidPasswordException();
@@ -126,7 +126,7 @@ public class UserManager {
     }*/
 
     public User createUser(String username, String password, String email) {
-        userLocal.setDni(username);
+        userLocal.;
         userLocal.setPassword(password);
         userLocal.setEmail(email);
         return userLocal;
@@ -138,7 +138,7 @@ public class UserManager {
         //ArrayList<String> leagues = songManager.getSongByCreator(username);
         int i = 0, j = 0;
         while (i < users.size()) {
-            if (users.get(i).getDNI().equals(username)) {
+            if (users.get(i).getDni().equals(username)) {
                 if (users.get(i).getPassword().equals(password)) {
                     /*while (songs.size() > j) {
                         songManager.deleteSong(songs.get(j), username, password);
@@ -162,7 +162,7 @@ public class UserManager {
     }
 
     public String getUsername() {
-        return userLocal.getDNI();
+        return userLocal.getDni();
     }
 }
 

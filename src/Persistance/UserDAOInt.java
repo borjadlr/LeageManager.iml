@@ -1,7 +1,5 @@
 package Persistance;
 
-import Business.Entities.User;
-
 import java.util.LinkedList;
 
 public interface UserDAOInt {

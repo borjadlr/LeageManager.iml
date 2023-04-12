@@ -1,9 +1,5 @@
 package Persistance;
 
-import Business.Entities.User;
-
-import java.util.LinkedList;
-
 public interface TeamsDAOInt {
     public void InsertDataTeams(String name, int nplayers, int wins, int ties, int losses, int points);
 
