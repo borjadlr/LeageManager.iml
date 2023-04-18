@@ -20,7 +20,7 @@ public class UserManager {
 
     public void signIn(String input, String password) throws DNIDontExistException, IncorrectPassword4UserException {
         int i = 0;
-        List<User> users = userDAO.getAllUsers();
+        List<User> users = userDAO.select;
 
         if (input.equalsIgnoreCase("admin")){
             adminManager();
@@ -121,9 +121,31 @@ public class UserManager {
         return dotCounter >= MIN_DOT && arrobaCounter >= MIN_ARROBA;
     }
 
-    /*public boolean comprovaDNI(User user){
+    public boolean comprovaDNI(String dni){
+        boolean isValid = false;
+        List<String> dniList = getAllDNI();
+        int i = 0;
 
-    }*/
+        if (dni != null && dni.length() == 8) {
+            while (dniList.size() > i){
+                i++;
+                isValid = isValidDNI(dni);
+            }
+        }
+        return isValid;
+    }
+
+    public boolean isValidDNI(String dni) {
+        if (dni == null || dni.isEmpty()) {
+            return false;
+        }
+        if (!dni.matches("\\d{8}")) {
+            return false;
+        }
+        int dniNumber = Integer.parseInt(dni.substring(0, 8));
+        char verificationLetter = "TRWAGMYFPDXBNJZSQVHLCKE".charAt(dniNumber % 23);
+        return dni.charAt(8) == verificationLetter;
+    }
 
     public User createUser(String dni, String password, String email) {
         userLocal.setDni(dni);
