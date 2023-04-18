@@ -157,7 +157,7 @@ public class UserManager {
 
     public void deleteUser(String dni, String password) throws DNIDontExistException, IncorrectPassword4UserException {
         List<User> users = userDAO.getAllUsers();
-        //ArrayList<String> leagues = leagueManager.getLeague(username);
+        ArrayList<String> leagues = leagueManager.getLeagues;
         int i = 0, j = 0;
         while (i < users.size()) {
             if (users.get(i).getDni().equals(dni)) {
