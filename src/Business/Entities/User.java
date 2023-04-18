@@ -5,6 +5,10 @@ public class User {
     private String password;
     private String email;
 
+    private int number;
+
+    private String phone;
+
     public User() {
     }
 
@@ -14,7 +18,12 @@ public class User {
         this.email = email;
     }
 
-    public User(String dni, String emails, String pass, int number, String phone) {
+    public User(String dni, String email, String pass, int number, String phone) {
+        this.email = email;
+        this.dni = dni;
+        this.password = pass;
+        this.number = number;
+        this.phone = phone;
     }
 
 
@@ -43,5 +52,20 @@ public class User {
         this.email = email;
     }
 
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
 }
 
