@@ -1,40 +1,47 @@
 package Business.Entities;
 
-/**
- * Clase que representa el usuario que esta logeado
- */
 public class User {
     private String dni;
-    private String email;
     private String password;
-    private int number;
-    private String phone;
+    private String email;
 
-    public User(String name, String email, String password,int number, String phone) {
-        this.dni = dni;
-        this.email = email;
+    public User() {
+    }
+
+    public User(String user_name, String password, String email) {
+        this.dni = user_name;
         this.password = password;
-        this.number = number;
-        this.phone = phone;
-
+        this.email = email;
     }
 
-    public User () {
+    public User(String dni, String emails, String pass, int number, String phone) {
     }
 
+
+    //Getters and Setters
     public String getDni() {
         return dni;
     }
 
-    public String getEmail() {
-        return email;
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public int getNumber() {return number;}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public String getPhone() {return phone;}
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }
+

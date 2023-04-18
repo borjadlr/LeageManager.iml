@@ -1,10 +1,8 @@
 package Persistance.dao;
 
-import Business.Entities.League;
 import Persistance.LeagueDAOInt;
 
 import java.sql.*;
-import java.util.LinkedList;
 
 /**
  * The type Sql connector LEAGUE.
