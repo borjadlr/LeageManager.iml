@@ -20,7 +20,7 @@ public class UserManager {
 
     public void signIn(String input, String password) throws DNIDontExistException, IncorrectPassword4UserException {
         int i = 0;
-        List<User> users = userDAO.getAllUsers();
+        List<User> users = userDAO.select;
 
         if (input.equalsIgnoreCase("admin")){
             adminManager();
@@ -77,10 +77,10 @@ public class UserManager {
 
     public boolean comprovaCaractersPassword(User user) {
         String password = user.getPassword();
-        final int MIN_Uppercase = 1;
-        final int MIN_Lowercase = 1;
-        final int MIN_Number = 1;
-        final int MIN_Total = 8;
+        final int MIN_UPPERCASE = 1;
+        final int MIN_LOWERCASE = 1;
+        final int MIN_NUMBER = 1;
+        final int MIN_TOTAL = 8;
         int uppercaseCounter = 0;
         int lowercaseCounter = 0;
         int digitCounter = 0;
@@ -96,16 +96,16 @@ public class UserManager {
                 digitCounter++;
         }
 
-        return password.length() >= MIN_Total && uppercaseCounter >= MIN_Uppercase
-                && lowercaseCounter >= MIN_Lowercase && digitCounter >= MIN_Number;
+        return password.length() >= MIN_TOTAL && uppercaseCounter >= MIN_UPPERCASE
+                && lowercaseCounter >= MIN_LOWERCASE && digitCounter >= MIN_NUMBER;
     }
 
     public boolean comprovaCaractersMail(User user) {
         String email = user.getEmail();
         final char dot = '.';
         final char arroba = '@';
-        final int MIN_Dot = 1;
-        final int MIN_Arroba = 1;
+        final int MIN_DOT = 1;
+        final int MIN_ARROBA = 1;
         int dotCounter = 0;
         int arrobaCounter = 0;
 
@@ -118,33 +118,51 @@ public class UserManager {
                 arrobaCounter++;
         }
 
-        return dotCounter >= MIN_Dot && arrobaCounter >= MIN_Arroba;
+        return dotCounter >= MIN_DOT && arrobaCounter >= MIN_ARROBA;
     }
 
-    /*public boolean comprovaDNI(User user){
+    public boolean comprovaDNI(String dni){
+        boolean isValid = false;
+        List<String> dniList = getAllDNI();
+        int i = 0;
 
-    }*/
+        if (dni != null && dni.length() == 8) {
+            while (dniList.size() > i){
+                i++;
+                isValid = isValidDNI(dni);
+            }
+        }
+        return isValid;
+    }
 
-    public User createUser(String username, String password, String email) {
-        userLocal.;
+    public boolean isValidDNI(String dni) {
+        if (dni == null || dni.isEmpty()) {
+            return false;
+        }
+        if (!dni.matches("\\d{8}")) {
+            return false;
+        }
+        int dniNumber = Integer.parseInt(dni.substring(0, 8));
+        char verificationLetter = "TRWAGMYFPDXBNJZSQVHLCKE".charAt(dniNumber % 23);
+        return dni.charAt(8) == verificationLetter;
+    }
+
+    public User createUser(String dni, String password, String email) {
+        userLocal.setDni(dni);
         userLocal.setPassword(password);
         userLocal.setEmail(email);
         return userLocal;
     }
 
 
-    public void deleteUser(String username, String password) throws DNIDontExistException, IncorrectPassword4UserException {
+    public void deleteUser(String dni, String password) throws DNIDontExistException, IncorrectPassword4UserException {
         List<User> users = userDAO.getAllUsers();
-        //ArrayList<String> leagues = songManager.getSongByCreator(username);
+        ArrayList<String> leagues = leagueManager.getLeagues;
         int i = 0, j = 0;
         while (i < users.size()) {
-            if (users.get(i).getDni().equals(username)) {
+            if (users.get(i).getDni().equals(dni)) {
                 if (users.get(i).getPassword().equals(password)) {
-                    /*while (songs.size() > j) {
-                        songManager.deleteSong(songs.get(j), username, password);
-                        j++;
-                    }*/
-                    userDAO.deleteUser(username);
+                    userDAO.DeleteDataUser(dni);
                     logOut();
                     return;
                 } else {
@@ -161,7 +179,7 @@ public class UserManager {
         userLocal.setPassword(null);
     }
 
-    public String getUsername() {
+    public String getDNI() {
         return userLocal.getDni();
     }
 }
