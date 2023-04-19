@@ -9,5 +9,6 @@ public class Main {
         ChangePasswordGUI changePasswordGUI = new ChangePasswordGUI();
         CurrentLeaguesGUI currentLeagueGUI = new CurrentLeaguesGUI();
         MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, currentLeagueGUI);
+
     }
 }
