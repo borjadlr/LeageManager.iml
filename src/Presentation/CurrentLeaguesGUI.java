@@ -33,6 +33,7 @@ public class CurrentLeaguesGUI extends JFrame{
             JScrollPane scrollPane = new JScrollPane(tabla);
 
             // Añadir scroll pane al JFrame
+
             Container contentPane = getContentPane();
             contentPane.add(scrollPane);
 

@@ -65,7 +65,7 @@ public class ChangePasswordGUI extends JFrame implements ActionListener {
         setVisible(true);
         pack();
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnCambiar) {
