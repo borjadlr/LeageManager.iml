@@ -1,7 +1,8 @@
 package Business.Managers;
 
-public class LeagueManager {
+import Business.Entities.League;
 
+public class LeagueManager {
 
 
 }
