@@ -148,15 +148,13 @@ public class NewLeagueGUI {
                 }
             });
 
-            //Botó logout.
             logout.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JOptionPane.showMessageDialog(null, "Error: Logout functionality not implemented yet.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             });
-            //Botó delete.
-            deleteAccount.addActionListener(new ActionListener() {
+                        deleteAccount.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JOptionPane.showMessageDialog(null, "Error: Delete account functionality not implemented yet.", "Error", JOptionPane.ERROR_MESSAGE);
