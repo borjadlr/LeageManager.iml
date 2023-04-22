@@ -20,7 +20,7 @@ public class UserManager {
 
     public void signIn(String input, String password) throws DNIDontExistException, IncorrectPassword4UserException {
         int i = 0;
-        List<User> users = userDAO.select;
+        List<User> users = userDAO.s;
 
         if (input.equalsIgnoreCase("admin")){
             adminManager();

@@ -1,6 +1,6 @@
 package Business.Entities;
 
-public class Teams {
+public class Team {
     private String name;
     private int NPlayers;
     private int wins;
@@ -8,7 +8,7 @@ public class Teams {
     private int losses;
     private int points;
 
-    public Teams(String name, int NPlayers, int wins, int ties, int losses, int points) {
+    public Team(String name, int NPlayers, int wins, int ties, int losses, int points) {
         this.name = name;
         this.NPlayers = NPlayers;
         this.wins = wins;
