@@ -61,9 +61,6 @@ public class TeamManager {
             }
         }
 
-        userManager.comprovaCaractersMail();
-        userManager.comprovaDNI();
-
 
         int nPlayers = newPlayersList.size();
         Team Team = new Team(name, nPlayers, 0, 0, 0, 0);

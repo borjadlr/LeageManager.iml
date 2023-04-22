@@ -6,6 +6,7 @@ import Persistance.UserDAOInt;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class UserManager {
     private final UserDAOInt userDAO;
@@ -49,7 +50,7 @@ public class UserManager {
     }
 
 
-    public void signUp(User user, String password) throws InvalidPasswordException, EmailAlreadyExistsException, ExistingDNIException, DNIDontExistException, InvalidEmailException, SamePasswordException {
+    public void signUp(User user, String password) throws InvalidPasswordException, EmailAlreadyExistsException, ExistingDNIException, DNIDontExistException, InvalidEmailException, SamePasswordException, DNIException {
         List<User> users = userDAO.SelectDataUser();
         int i = 0;
 
@@ -63,6 +64,8 @@ public class UserManager {
                     throw new InvalidPasswordException();
                 } else if (!comprovaCaractersMail(user)) {
                     throw new InvalidEmailException();
+                } else if (comprovaDNI(user.getDni())) {
+                    throw new DNIException();
                 } else {
                     i++;
                 }
@@ -75,6 +78,33 @@ public class UserManager {
             throw new SamePasswordException();
         }
 
+    }
+
+    public static String generatePassword() {
+        String MINUSCULA = "abcdefghijklmnopqrstuvwxyz";
+        String MAYUSCULA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String NOMBRES = "0123456789";
+        String TODOS = MINUSCULA + MAYUSCULA + NOMBRES;
+        int LONGITUD = 8;
+
+        Random random = new Random();
+        StringBuilder password = new StringBuilder();
+
+        // Una lletra en minuscula
+        password.append(MINUSCULA.charAt(random.nextInt(MINUSCULA.length())));
+
+        // Una lletra en mayuscula
+        password.append(MAYUSCULA.charAt(random.nextInt(MAYUSCULA.length())));
+
+        // Una numero com a minim
+        password.append(NOMBRES.charAt(random.nextInt(NOMBRES.length())));
+
+        // Altres numero random
+        for (int i = 0; i < LONGITUD - 3; i++) {
+            password.append(TODOS.charAt(random.nextInt(TODOS.length())));
+        }
+
+        return password.toString();
     }
 
     public boolean comprovaCaractersPassword(User user) {
@@ -195,5 +225,7 @@ public class UserManager {
         user.setPassword(pastPassword);
         return false;
     }
+
+
 }
 
