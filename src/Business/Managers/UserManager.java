@@ -4,26 +4,32 @@ import Business.Entities.User;
 import Exceptions.*;
 import Persistance.UserDAOInt;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserManager {
     private final UserDAOInt userDAO;
     private final LeagueManager leagueManager;
+
+    private final TeamManager teamManager;
     private User userLocal;
 
-    public UserManager(UserDAOInt userDAO, LeagueManager leagueManager, User user) {
+    private final AdminManager adminManager;
+
+    public UserManager(UserDAOInt userDAO, LeagueManager leagueManager, TeamManager teamManager, User user, AdminManager adminManager) {
         this.userDAO = userDAO;
         this.leagueManager = leagueManager;
+        this.teamManager = teamManager;
         this.userLocal = user;
+        this.adminManager = adminManager;
     }
 
 
     public void signIn(String input, String password) throws DNIDontExistException, IncorrectPassword4UserException {
         int i = 0;
-        List<User> users = userDAO.s;
+        List<User> users = userDAO.SelectDataUser();
 
-        if (input.equalsIgnoreCase("admin")){
-            adminManager();
+        if (adminManager.isAdmin(input)){
             return;
         }
 
@@ -42,13 +48,9 @@ public class UserManager {
         throw new DNIDontExistException();
     }
 
-    public void adminManager(){
-
-    }
-
 
     public void signUp(User user, String password) throws InvalidPasswordException, EmailAlreadyExistsException, ExistingDNIException, DNIDontExistException, InvalidEmailException, SamePasswordException {
-        List<User> users = userDAO.getAllUsers();
+        List<User> users = userDAO.SelectDataUser();
         int i = 0;
 
         if (user.getPassword().equals(password)) {
@@ -67,7 +69,7 @@ public class UserManager {
 
             }
             userLocal = user;
-            userDAO.InsertDataUser(user);
+            userDAO.InsertDataUser2(user);
 
         } else {
             throw new SamePasswordException();
@@ -123,7 +125,7 @@ public class UserManager {
 
     public boolean comprovaDNI(String dni){
         boolean isValid = false;
-        List<String> dniList = getAllDNI();
+        List<String> dniList = new ArrayList<>(); //getAllDNI()
         int i = 0;
 
         if (dni != null && dni.length() == 8) {
@@ -156,9 +158,9 @@ public class UserManager {
 
 
     public void deleteUser(String dni, String password) throws DNIDontExistException, IncorrectPassword4UserException {
-        List<User> users = userDAO.getAllUsers();
-        ArrayList<String> leagues = leagueManager.getLeagues;
-        int i = 0, j = 0;
+        List<User> users = userDAO.SelectDataUser();
+        int i = 0;
+
         while (i < users.size()) {
             if (users.get(i).getDni().equals(dni)) {
                 if (users.get(i).getPassword().equals(password)) {
@@ -181,6 +183,17 @@ public class UserManager {
 
     public String getDNI() {
         return userLocal.getDni();
+    }
+
+    public boolean canviContrasenya(User user, String pastPassword, String newPassword){
+        user.setPassword(newPassword);
+        if (comprovaCaractersPassword(user)){
+
+            //metode borja updatePassword
+            return true;
+        }
+        user.setPassword(pastPassword);
+        return false;
     }
 }
 
