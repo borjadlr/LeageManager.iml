@@ -1,22 +1,19 @@
 package Business.Entities;
 
-import java.util.Date;
-
 public class League {
 
     private String name;
-    private Date date;
-    private Date hour;
-
-    private Date matchDay;
+    private String date;
+    private String hour;
+    private int day;
     private int number_teams;
     private boolean state;
 
-    public League(String name, Date date, Date hour, Date matchDay, int number_teams, boolean state) {
+    public League(String name, String date, String hour, int day, int number_teams, boolean state) {
         this.name = name;
         this.date = date;
         this.hour = hour;
-        this.matchDay = matchDay;
+        this.day = day;
         this.number_teams = number_teams;
         this.state = state;
     }
@@ -25,16 +22,16 @@ public class League {
         return name;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public Date getHour() {
+    public String getHour() {
         return hour;
     }
 
-    public Date getMatchDay() {
-        return matchDay;
+    public int getDay() {
+        return day;
     }
 
     public int getNumber_teams() {
@@ -49,16 +46,16 @@ public class League {
         this.name = name;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public void setHour(Date hour) {
+    public void setHour(String hour) {
         this.hour = hour;
     }
 
-    public void setDay(Date day) {
-        this.matchDay = matchDay;
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public void setNumber_teams(int number_teams) {
