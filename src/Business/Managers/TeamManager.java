@@ -31,11 +31,9 @@ public class TeamManager {
 
     public void newTeam(TeamsDAOInt teamsDAO) {
 
-
-        // Read JSON file content as a string
         String jsonContenido;
         try {
-            jsonContenido = teamsDAO.InsertDataTeams();
+            jsonContenido = Files.readString(Paths.get(jsonFile.getPath()));
         } catch (IOException e) {
             System.err.println("Error reading JSON file");
             return;
@@ -72,47 +70,6 @@ public class TeamManager {
         teamsList.add(Team);
 
         teamsDAO.InsertDataTeams(name, nPlayers, 0, 0, 0, 0);
-
-
-
-
-
-    /*public void deleteTeam (Teams teams) {
-
-        for (League league : teams.getLeagues()) {
-            league.removeTeam(teams);
-        }
-
-        // Delete all matches played by the team in all leagues
-        for (Match match : teams.getMatches()) {
-            if (match.getStatus() == MatchStatus.IN_PROGRESS) {
-                // Stop execution if the match is in progress
-                throw new RuntimeException("Cannot delete team while match is in progress");
-            }
-            match.removeMatch(match);
-
-        }
-
-        // Delete the team itself
-        TeamRepository.delete(teams);
-    }
-
-    public void removeTeam(Teams teams) {
-        if (!teams.contains(teams)) {
-            throw new IllegalArgumentException("Team is not in league");
-        }
-        teams.remove(teams);
-    }
-
-    public void removeMatch(Match match) {
-        if (!matches.contains(match)) {
-            throw new IllegalArgumentException("Match is not in team's record");
-        }
-
-        matches.remove(match);
-    }
-*/
-
         }
 
         public boolean deleteTeam(String teamName) {
