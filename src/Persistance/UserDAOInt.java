@@ -2,7 +2,9 @@ package Persistance;
 
 import Business.Entities.User;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.List;
 
 public interface UserDAOInt {
     public void InsertDataUser(String dni, String email,int id_equipo, String pass, int number, String phone);
@@ -13,6 +15,7 @@ public interface UserDAOInt {
 
     public LinkedList<User> SelectDataUser();
 
+    public List<String> obtenerDNIs() throws SQLException;
 
-    void InsertDataUser2(User user);
+    public void InsertDataUser2(User user);
 }

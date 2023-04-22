@@ -4,9 +4,12 @@ import Business.Entities.User;
 import Persistance.UserDAOInt;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class UserDAO implements UserDAOInt {
+
     private static String dbURL = "jdbc:mariadb://localhost:3306/testeando";
     private static String username = "dreamteam";
     private static String password = "dreamteam";
@@ -22,6 +25,7 @@ public class UserDAO implements UserDAOInt {
      * @param number numero de dorsal
      * @param phone telefono del usuario
      */
+
     public void InsertDataUser(String dni, String email,int id_equipo, String pass_jugador, int number, String phone) {
         //Connectamos a la base de datos y controlamos excepciones.
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
@@ -179,6 +183,7 @@ public class UserDAO implements UserDAOInt {
     public LinkedList<User> SelectDataUser(){
         String dni, emails, pass, phone;
         int number;
+
         //Creamos linkedlists de user
         LinkedList<User> users = new LinkedList<>();
         //Connectamos a la base de datos y controlamos excepciones.
@@ -211,6 +216,32 @@ public class UserDAO implements UserDAOInt {
             return null;
         }
     }
+    public List<String> obtenerDNIs() throws SQLException {
+        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+
+            System.out.println("Conexion ok");
+            //Generamos statement sql para seleccionar de la tabla user.
+            String sql = "SELECT dni_jugador FROM jugadores";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            //blucle para ir llenando la linked list con la informacion extraida de la base de datos
+            List<String> dniList = new ArrayList<>();
+
+            while (rs.next()) {
+                String dni = rs.getString("dni_jugador");
+                dniList.add(dni);
+            }
+            statement.close();
+            return dniList ;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+
+    }
+
+
 
 
 
