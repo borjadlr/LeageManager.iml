@@ -12,7 +12,7 @@ public class AdminManager {
         this.userDAO = userDAO;
     }
 
-    public boolean isAdmin(String name){
+    public boolean isAdmin (String name){
         if (name.equalsIgnoreCase("admin")){
             Admin admin = new Admin();
             admin.setName(name.toLowerCase());

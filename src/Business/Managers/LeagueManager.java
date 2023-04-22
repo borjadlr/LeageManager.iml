@@ -4,6 +4,7 @@ import Business.Entities.League;
 import Exceptions.LeagueAlreadyExistsException;
 import Persistance.LeagueDAOInt;
 
+import java.util.Date;
 import java.util.List;
 
 public class LeagueManager {
@@ -23,15 +24,19 @@ public class LeagueManager {
         while (i < leagues.size()){
             if (!leagues.get(i).getName().equals(league.getName())){
                 throw new LeagueAlreadyExistsException();
-            } else if () {
-                
+            } else if (/*comprovaData(league.getDate(), league.getHour())*/) {
+
             }
             i++;
         }
     }
 
-    public boolean comprovaData(String date, String hour){
+    /*public boolean comprovaData(Date date, Date hour){
+        Date today = new Date();
 
-    }
+        if (date.getTime() == today.){
+
+        }
+    }*/
 
 }
