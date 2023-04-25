@@ -1,6 +1,7 @@
 package Business.Managers;
 
 import Business.Entities.League;
+import Exceptions.DateExpiredException;
 import Exceptions.LeagueAlreadyExistsException;
 import Persistance.LeagueDAOInt;
 
@@ -17,26 +18,24 @@ public class LeagueManager {
         this.teamManager = teamManager;
     }
 
-    public void introduceLeague(League league) throws LeagueAlreadyExistsException {
-        List<League> leagues = leagueDAO.InsertDataLeague(); //metode borja nou
+    public void introduceLeague(League league) throws LeagueAlreadyExistsException, DateExpiredException {
+        List<League> leagues = leagueDAO.InsertDataLeague(); //metodo borja nuevo
         int i = 0;
         
         while (i < leagues.size()){
             if (!leagues.get(i).getName().equals(league.getName())){
                 throw new LeagueAlreadyExistsException();
-            } else if (/*comprovaData(league.getDate(), league.getHour())*/) {
-
+            } else if (!comprovaData(league.getDate())) {
+                throw new DateExpiredException();
             }
             i++;
         }
     }
 
-    /*public boolean comprovaData(Date date, Date hour){
-        Date today = new Date();
+    public boolean comprovaData(Date date){
+        Date today = new Date(System.currentTimeMillis());
 
-        if (date.getTime() == today.){
-
-        }
-    }*/
+        return date.after(today);
+    }
 
 }
