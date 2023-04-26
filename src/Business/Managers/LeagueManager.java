@@ -1,7 +1,6 @@
 package Business.Managers;
 
 import Business.Entities.League;
-import Business.Entities.Team;
 import Exceptions.DateExpiredException;
 import Exceptions.LeagueAlreadyExistsException;
 import Persistance.LeagueDAOInt;
@@ -37,19 +36,6 @@ public class LeagueManager {
         Date today = new Date(System.currentTimeMillis());
 
         return date.after(today);
-    }
-
-    public void deleteLeague(String leagueName) {
-        List<League> leagues = leagueDAO.;
-
-        for (League league : leagues) {
-            if (league.getName().equals(leagueName)) {
-                leagueDAO.DeleteDataLeague(leagueName);
-                return;
-            } else {
-                throw new IncorrectLeagueNameException();
-            }
-        }
     }
 
 }
