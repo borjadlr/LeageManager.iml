@@ -38,4 +38,17 @@ public class LeagueManager {
         return date.after(today);
     }
 
+    public void deleteLeague(String leagueName) {
+        List<League> leagues = leagueDAO.;
+
+        for (League league : leagues) {
+            if (league.getName().equals(leagueName)) {
+                leagueDAO.DeleteDataLeague(leagueName);
+                return;
+            } else {
+                throw new IncorrectLeagueNameException();
+            }
+        }
+    }
+
 }
