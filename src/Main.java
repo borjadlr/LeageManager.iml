@@ -1,3 +1,4 @@
+import Persistance.dao.UserDAO;
 import Presentation.Views.*;
 
 public class Main {
@@ -8,7 +9,14 @@ public class Main {
         MenuAdminGUI menuAdminGUI = new MenuAdminGUI();
         ChangePasswordGUI changePasswordGUI = new ChangePasswordGUI();
         CurrentLeaguesGUI currentLeagueGUI = new CurrentLeaguesGUI();
-        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, currentLeagueGUI);
+        NewLeagueGUI newLeaguesGUI = new NewLeagueGUI();
+        RegistrationGUI newRegistration = new RegistrationGUI();
 
+        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, currentLeagueGUI, newLeaguesGUI, newRegistration);
+
+        UserDAO userDAO = new UserDAO();
+
+
+        userDAO.InsertDataUser("267598111c","borjhs@gmail.com",2,"holaqtal",5,"554322233");
     }
 }
