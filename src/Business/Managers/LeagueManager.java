@@ -1,7 +1,6 @@
 package Business.Managers;
 
 import Business.Entities.League;
-import Business.Entities.Team;
 import Exceptions.DateExpiredException;
 import Exceptions.LeagueAlreadyExistsException;
 import Persistance.LeagueDAOInt;
