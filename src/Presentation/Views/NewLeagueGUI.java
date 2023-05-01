@@ -1,82 +1,115 @@
 package Presentation.Views;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import static java.awt.Font.PLAIN;
 
-public class NewLeagueGUI extends JFrame {
+public class NewLeagueGUI extends JPanel {
 
     private JTextField leagueName;
-    private JTextField date;
-    private String leagueNameText;
-    private String dateText;
+    private JTextField password;
+    private JButton ok;
+    private JButton createAccount;
 
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
 
+    private Color backgroundColor;
+
+    public static final String OK_BUTTON = "OK_BUTTON";
+    public static final String BACK_BUTTON = "BACK_BUTTON";
 
     public NewLeagueGUI() {
-        //Panel on s'ha de fer CardLayout.
-        JPanel restSection = new JPanel(new BorderLayout());
-        restSection.setVisible(true);
-        restSection.setBorder(BorderFactory.createEmptyBorder(100,0,0,0));
-        add(restSection, BorderLayout.CENTER);
-        restSection.setBackground(Color.white);
 
-        JLabel Titol = new JLabel("Create a new league");
-        Titol.setHorizontalAlignment(JLabel.CENTER);
-        Titol.setVerticalAlignment(JLabel.NORTH);
-        Titol.setFont(new Font("Inter", PLAIN, 60));
-        restSection.add(Titol, BorderLayout.NORTH);
+        this.backgroundColor = Color.white;
+        this.setLayout(new GridBagLayout());
+        this.setBackground(backgroundColor);
+        this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(null);
-        restSection.add(inputPanel, BorderLayout.CENTER);
-        inputPanel.setBackground(Color.white);
+        // General panel
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 50, 100, 50));
+        panel.setBackground(backgroundColor);
+        panel.setOpaque(true);
 
-        JLabel leagueNameLabel = new JLabel("league name:");
-        leagueNameLabel.setFont(new Font("Inter", PLAIN, 20));
-        leagueNameLabel.setBounds(448, 30, 150, 25);
-        inputPanel.add(leagueNameLabel);
-        leagueName = new JTextField(20);
+        //Title
+        JLabel title = new JLabel("Create a new league");
+        title.setFont(new Font("Apple Casual", Font.PLAIN, 60));
+        title.setForeground(Color.BLACK);
+        title.setBorder(BorderFactory.createEmptyBorder(4, 0, 10, 0));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(title, BorderLayout.NORTH);
+
+        panel.add(Box.createVerticalStrut(90));
+
+        // Dni/Email
+        String defaultDniText = "League name: ";
+        leagueName = new JTextField(defaultDniText);
         leagueName.setFont(new Font("Inter", PLAIN, 20));
-        leagueName.setBounds(590, 30, 200, 30);
         leagueName.setBackground(Color.decode("#D9D9D9"));
         leagueName.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        inputPanel.add(leagueName);
-
-        JLabel dateLabel = new JLabel("date:");
-        dateLabel.setFont(new Font("Inter", PLAIN, 20));
-        dateLabel.setBounds(522, 90, 150, 25);
-        inputPanel.add(dateLabel);
-        date = new JTextField(20);
-        date.setFont(new Font("Inter", PLAIN, 20));
-        date.setBounds(590, 90, 200, 30);
-        date.setBackground(Color.decode("#D9D9D9"));
-        date.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        inputPanel.add(date);
-
-        JButton ok = new JButton("OK");
-        ok.setBounds(628, 140, 40, 30);
-        ok.setBorder(BorderFactory.createLineBorder(Color.black,2));
-        inputPanel.add(ok);
-
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                leagueNameText = leagueName.getText();
-                dateText = date.getText();
-
-                // Add code here to save the values to a file or database
+        leagueName.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+                if (leagueName.getText().equals(defaultDniText)) {
+                    leagueName.setText("");
+                }
+            }
+            public void focusLost(FocusEvent e) {
+                if (leagueName.getText().isEmpty()) {
+                    leagueName.setText(defaultDniText);
+                }
             }
         });
+        panel.add(leagueName);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
-        setSize(1000, 800);
-        setTitle("New League");
+        panel.add(Box.createVerticalStrut(15));
+
+        JPanel date = new JPanel(new BorderLayout());
+        date.setBackground(backgroundColor);
+
+        panel.add(date);
+
+        String defaultDateText = "Date: ";
+        password = new JTextField(defaultDateText);
+        password.setFont(new Font("Inter", PLAIN, 20));
+        password.setBackground(Color.decode("#D9D9D9"));
+        password.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        password.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+                if (password.getText().equals(defaultDateText)) {
+                    password.setText("");
+                }
+            }
+            public void focusLost(FocusEvent e) {
+                if (password.getText().isEmpty()) {
+                    password.setText(defaultDateText);
+                }
+            }
+        });
+        password.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                password.setText("");
+            }
+        });
+        date.add(password, BorderLayout.CENTER);
+
+        panel.add(Box.createVerticalStrut(10));
+
+        ok = new JButton("OK");
+        ok.setActionCommand(OK_BUTTON);
+        ok.setPreferredSize(new Dimension(600, 40));
+        ok.setAlignmentX(Component.CENTER_ALIGNMENT);
+        ok.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        ok.setBackground(Color.gray);
+        panel.add(ok);
+
+        this.add(panel);
     }
 }
