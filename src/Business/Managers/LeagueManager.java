@@ -2,6 +2,7 @@ package Business.Managers;
 
 import Business.Entities.League;
 import Exceptions.DateExpiredException;
+import Exceptions.IncorrectLeagueNameException;
 import Exceptions.LeagueAlreadyExistsException;
 import Persistance.LeagueDAOInt;
 
@@ -27,6 +28,8 @@ public class LeagueManager {
                 throw new LeagueAlreadyExistsException();
             } else if (!comprovaData(league.getDate())) {
                 throw new DateExpiredException();
+            } else {
+                //metodo borja
             }
             i++;
         }
@@ -34,12 +37,11 @@ public class LeagueManager {
 
     public boolean comprovaData(Date date){
         Date today = new Date(System.currentTimeMillis());
-
         return date.after(today);
     }
 
-    public void deleteLeague(String leagueName) {
-        List<League> leagues = leagueDAO.;
+    public void deleteLeague(String leagueName) throws IncorrectLeagueNameException {
+        List<League> leagues = leagueDAO.InsertDataLeague();
 
         for (League league : leagues) {
             if (league.getName().equals(leagueName)) {

@@ -1,5 +1,7 @@
 package Business.Entities;
 
+import java.util.Date;
+
 public class League {
 
     private String name;
@@ -22,7 +24,7 @@ public class League {
         return name;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
