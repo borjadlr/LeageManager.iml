@@ -1,6 +1,7 @@
 package Business.Entities;
 
 import java.util.Date;
+import java.util.List;
 
 public class League {
 
@@ -8,13 +9,19 @@ public class League {
     private Date date;
     private int day;
     private int number_teams;
+
+    private List<Team> teams;
+
+    private List<Match> matches;
     private boolean state;
 
-    public League(String name, Date date, int day, int number_teams, boolean state) {
+    public League(String name, Date date, int day, int number_teams, List<Team> teams, List<Match> matches, boolean state) {
         this.name = name;
         this.date = date;
         this.day = day;
         this.number_teams = number_teams;
+        this.teams = teams;
+        this.matches = matches;
         this.state = state;
     }
 
@@ -32,6 +39,14 @@ public class League {
 
     public int getNumber_teams() {
         return number_teams;
+    }
+
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public List<Match> getMatches() {
+        return matches;
     }
 
     public boolean isState() {
@@ -52,6 +67,14 @@ public class League {
 
     public void setNumber_teams(int number_teams) {
         this.number_teams = number_teams;
+    }
+
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
+    }
+
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
     }
 
     public void setState(boolean state) {

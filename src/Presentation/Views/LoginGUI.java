@@ -83,7 +83,7 @@ public class LoginGUI extends JPanel {
 
     }
 
-    public void registerListener(ActionListener actionListener) {
+    public void logInListener(ActionListener actionListener) {
 
         password.addActionListener(actionListener);
 

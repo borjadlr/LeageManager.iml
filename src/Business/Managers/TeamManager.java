@@ -74,4 +74,8 @@ public class TeamManager {
         }
     }
 
+    public List<Team> getAllTeams() {
+        return teamsDAO.getAllTeams();
+    }
+
 }
