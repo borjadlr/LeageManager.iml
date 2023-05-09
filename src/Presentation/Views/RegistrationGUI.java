@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 import static java.awt.Font.PLAIN;
 
-public class RegistrationGUI extends JFrame {
+public class RegistrationGUI extends JPanel {
 
     private JTextField name;
     private JTextField dni;
@@ -17,8 +17,14 @@ public class RegistrationGUI extends JFrame {
     private JTextField dorsal;
     private JTextField email;
 
-    private JButton dropdownButton;
-    private static String leagueNameText;
+    private static final int MAX_SPACE_BUTTONS = 15;
+
+    private static final int THICKNESS_BORDER = 2;
+
+    private static final int MAX_SPACE_TITTLE = 90;
+
+    private static final int SIZE_TITLE = 60;
+
 
     private String phoneNumberText;
     private String dorsalText;
@@ -30,167 +36,88 @@ public class RegistrationGUI extends JFrame {
     private JMenuItem logout;
     private JMenuItem deleteAccount;
 
+    private Color backgroundColor;
+
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
+
     public RegistrationGUI() {
-        //FRAME LLIGA
-        setTitle("New League");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setLocationRelativeTo(null);
 
-        //Barra de dalt.
-        JPanel upSection = new JPanel(new BorderLayout());
-        upSection.setPreferredSize(new Dimension(0, 50)); // set a different preferred height here
-        add(upSection, BorderLayout.NORTH);
-        upSection.setBackground(Color.WHITE);
+        this.backgroundColor = Color.white;
+        this.setLayout(new GridBagLayout());
+        this.setBackground(backgroundColor);
+        this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
-        //Botó enrera
-        JButton atras = new JButton("◀");
-        atras.setFont(new Font("Inter", PLAIN, 20));
-        atras.setBackground(Color.white);
-        atras.setSize(new Dimension(30, 5));
-        atras.setBorder(BorderFactory.createEmptyBorder());
-        Border emptyBorder = BorderFactory.createEmptyBorder();
-        upSection.setBorder(emptyBorder);
-        upSection.add(atras, BorderLayout.WEST);
+        //General panel
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 50, 100, 50));
+        panel.setBackground(backgroundColor);
+        panel.setOpaque(true);
 
-        //Desplegable
-        dropdownButton = new JButton("  ▼  ");
-        JPanel drop = new JPanel();
-        drop.add(dropdownButton);
+        //Title
+        JLabel title = new JLabel("LaegueManager Registration");
+        title.setForeground(Color.BLACK);
+        title.setBorder(BorderFactory.createEmptyBorder(4, 0, 10, 0));
+        title.setFont(new Font("Apple Casual", PLAIN, SIZE_TITLE));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(title, BorderLayout.NORTH);
 
-        dropdownButton.setPreferredSize(new Dimension(40,2)); // set a different preferred height here
-        dropdownButton.setBackground(Color.decode("#D9D9D9"));
-        dropdownButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        upSection.add(dropdownButton, BorderLayout.EAST);
-        dropdownButton.setVisible(true);
+        panel.add(Box.createVerticalStrut(MAX_SPACE_TITTLE));
 
-        JPopupMenu dropdownMenu = new JPopupMenu();
-        dropdownMenu.setBackground(Color.black);
-        logout = new JMenuItem("Log out");
-        logout.setBackground(Color.decode("#D9D9D9"));
-        logout.setPreferredSize(new Dimension(90, 30)); // set preferred size of logout button
-        logout.setBorder(BorderFactory.createLineBorder(Color.black));
-        deleteAccount = new JMenuItem("Delete Account");
-        deleteAccount.setBackground(Color.decode("#D9D9D9"));
-        deleteAccount.setBorder(BorderFactory.createLineBorder(Color.black));
-        deleteAccount.setPreferredSize(new Dimension(90, 30)); // set preferred size of delete button
-
-        //Panel on s'ha de fer CardLayout. AQUIIIIIIIII
-        JPanel restSection = new JPanel(new BorderLayout());
-        restSection.setVisible(true);
-        restSection.setBorder(BorderFactory.createEmptyBorder(50,0,0,0));
-        add(restSection, BorderLayout.CENTER);
-        restSection.setBackground(Color.WHITE);
-
-        JLabel Titol = new JLabel("LaegueManager Registration");
-        Titol.setHorizontalAlignment(JLabel.CENTER);
-        Titol.setVerticalAlignment(JLabel.NORTH);
-        Titol.setFont(new Font("Inter", PLAIN, 60));
-        restSection.add(Titol, BorderLayout.NORTH);
-
-        //Panel que fa que el boto ok no sigui gegant per la cara.
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(null);
-        restSection.add(inputPanel, BorderLayout.CENTER);
-        inputPanel.setBackground(Color.WHITE);
-
-        JLabel NameLabel = new JLabel("Name: ");
-        NameLabel.setFont(new Font("Inter", PLAIN, 20));
-        NameLabel.setBounds(528, 30, 150, 25);
-        inputPanel.add(NameLabel);
-        name = new JTextField(20);
+        String defaultNameText = "Name: ";
+        name = new JTextField(defaultNameText);
         name.setFont(new Font("Inter", PLAIN, 20));
-        name.setBounds(590, 30, 200, 30);
         name.setBackground(Color.decode("#D9D9D9"));
-        name.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        inputPanel.add(name);
+        name.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS_BORDER));
+        panel.add(name);
 
-        JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setFont(new Font("Inter", PLAIN, 20));
-        emailLabel.setBounds(532, 90, 150, 25);
-        inputPanel.add(emailLabel);
-        email = new JTextField(20);
-        email.setFont(new Font("Inter", PLAIN, 20));
-        email.setBounds(590, 90, 200, 30);
-        email.setBackground(Color.decode("#D9D9D9"));
-        email.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        inputPanel.add(email);
+        panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
 
-        JLabel phoneNumber = new JLabel("Phone Number:");
-        phoneNumber.setFont(new Font("Inter", PLAIN, 20));
-        phoneNumber.setBounds(447, 150, 150, 25);
-        inputPanel.add(phoneNumber);
-        number = new JTextField(20);
+        String defaultPhoneNumberText = "Phone Number: ";
+        number = new JTextField(defaultPhoneNumberText);
         number.setFont(new Font("Inter", PLAIN, 20));
-        number.setBounds(590, 150, 200, 30);
         number.setBackground(Color.decode("#D9D9D9"));
-        number.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        inputPanel.add(number);
+        number.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS_BORDER));
+        panel.add(number);
 
-        JLabel dorsalLabel = new JLabel("Dorsal:");
-        dorsalLabel.setFont(new Font("Inter", PLAIN, 20));
-        dorsalLabel.setBounds(522, 210, 150, 25);
-        inputPanel.add(dorsalLabel);
+        panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
 
-        dorsal = new JTextField(20);
+        String defaultDorsalText = "Dorsal: ";
+        dorsal = new JTextField(defaultDorsalText);
         dorsal.setFont(new Font("Inter", PLAIN, 20));
-        dorsal.setBounds(590, 210, 200, 30);
         dorsal.setBackground(Color.decode("#D9D9D9"));
-        dorsal.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        inputPanel.add(dorsal);
+        dorsal.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS_BORDER));
+        panel.add(dorsal);
 
-        JLabel teamLabel = new JLabel("Team:");
-        teamLabel.setFont(new Font("Inter", PLAIN, 20));
-        teamLabel.setBounds(530, 270, 150, 25);
-        inputPanel.add(teamLabel);
-        team = new JTextField(20);
+        panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
+
+        String defaultTeamText = "Team :";
+        team = new JTextField(defaultTeamText);
         team.setFont(new Font("Inter", PLAIN, 20));
-        team.setBounds(590, 270, 200, 30);
         team.setBackground(Color.decode("#D9D9D9"));
-        team.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        inputPanel.add(team);
+        team.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS_BORDER));
+        panel.add(team);
 
-        JLabel dniLabel = new JLabel("DNI:");
-        dniLabel.setFont(new Font("Inter", PLAIN, 20));
-        dniLabel.setBounds(546, 330, 150, 25);
-        inputPanel.add(dniLabel);
-        dni = new JTextField(20);
+        panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
+
+        String defaultDniText = "Dni: ";
+        dni = new JTextField(defaultDniText);
         dni.setFont(new Font("Inter", PLAIN, 20));
-        dni.setBounds(590, 330, 200, 30);
         dni.setBackground(Color.decode("#D9D9D9"));
-        dni.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        inputPanel.add(dni);
+        dni.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS_BORDER));
+        panel.add(dni);
 
-        dropdownMenu.add(logout);
-        dropdownMenu.add(deleteAccount);
+        panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
 
-        JButton ok = new JButton("OK");
+        JButton ok = new JButton("    OK    ");
+        ok.setActionCommand("OK");
+        ok.setPreferredSize(new Dimension(150, 40));
+        ok.setAlignmentX(Component.CENTER_ALIGNMENT);
+        ok.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS_BORDER));
+        panel.add(ok);
 
-        ok.setBounds(628, 390, 40, 30);
-        ok.setBorder(BorderFactory.createLineBorder(Color.black,2));
-        inputPanel.add(ok);
-
-        //BARRA DE SOTA
-        JPanel downSection = new JPanel(new BorderLayout());
-        downSection.setPreferredSize(new Dimension(0, 30)); // set a different preferred height here
-        add(downSection, BorderLayout.SOUTH);
-        downSection.setBackground(Color.white);
-        downSection.setBorder(BorderFactory.createEmptyBorder(0,0,10,5));
-        JButton changePassword = new JButton("change current password");
-        changePassword.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
-        changePassword.setFont(Font.getFont("INTER"));
-        changePassword.setPreferredSize(new Dimension(180,30));
-        changePassword.setBackground(Color.WHITE);
-
-        //Listener botó cap a sota.
-        downSection.add(changePassword, BorderLayout.EAST);
-        dropdownButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dropdownMenu.show(dropdownButton, -dropdownButton.getWidth(), dropdownButton.getHeight());
-            }
-        });
-
-        //Listener text.
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -202,25 +129,8 @@ public class RegistrationGUI extends JFrame {
                 phoneNumberText = number.getText();
             }
         });
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Error", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-        deleteAccount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Error", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
-        setSize(1000, 800);
-        setTitle("New League");
+        this.add(panel);
     }
 }
-
 

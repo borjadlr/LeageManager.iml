@@ -9,6 +9,7 @@ public class MainFrameGUI extends JFrame{
     public final String REGISTER_VIEW = "REGISTER_VIEW";
     public final String MENU_USER_VIEW = "MENU_USER_VIEW";
     public final String MENU_ADMIN_VIEW = "MENU_ADMIN_VIEW";
+    public final String MAIN_PANEL = "MAIN_PANEL";
     public final String MENU_NEW_LEAGUE = "MENU_NEW_LEAGUE";
     public final String CHANGE_PASSWORD_VIEW = "CHANGE_PASSWORD_VIEW";
     public final String CURRENT_LEAGUE_VIEW = "CURRENT_LEAGUE_VIEW";
@@ -40,6 +41,10 @@ public class MainFrameGUI extends JFrame{
 
     public void showRegister(){
         cardLayout.show(getContentPane(),REGISTER_VIEW);
+    }
+
+    public  void showMainPanel(){
+        cardLayout.show(getContentPane(), MAIN_PANEL);
     }
 
     public void showMessageToUser(String message) {

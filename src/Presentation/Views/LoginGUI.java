@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 
 public class LoginGUI extends JPanel {
 
+    private String THIS_USERNAME_DOES_NOT_EXIST = "This username does not exist.\n";
+    private String THIS_PASSWORD_IS_NOT_CORRECT = "This password is wrong\n";
+
     private JTextField dni;
     private JTextField password;
     private JButton login;
@@ -99,5 +102,12 @@ public class LoginGUI extends JPanel {
         return this.password.getText();
     }
 
+    public void userNotExistMessage() {
+        JOptionPane.showMessageDialog(null, THIS_USERNAME_DOES_NOT_EXIST);
+    }
+
+    public void passwordIsWrong() {
+        JOptionPane.showMessageDialog(null, THIS_PASSWORD_IS_NOT_CORRECT);
+    }
 }
 

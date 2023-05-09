@@ -95,7 +95,4 @@ public class MenuAdminGUI extends JPanel{
         createNewTeam.addActionListener(listener);
         back.addActionListener(listener);
     }
-
-
-
 }
