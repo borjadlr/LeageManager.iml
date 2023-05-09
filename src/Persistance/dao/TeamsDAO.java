@@ -6,7 +6,6 @@ import Persistance.TeamsDAOInt;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * The type Sql connector LEAGUE.
  */
@@ -170,6 +169,82 @@ public class TeamsDAO implements TeamsDAOInt {
         }
         return equipo;
     }
+
+
+
+
+
+    public class JsonToDatabase {
+        private static final String JDBC_URL = "jdbc:mysql://localhost:3306/league_manager_data";
+        private static final String DB_USER = "dreamteam";
+        private static final String DB_PASSWORD = "dreamteam";
+
+        public static void jsonToDatabase(String jsonString) {
+
+            // crea un objeto Gson para parsear el String JSON
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
+
+
+            // extrae el nombre del equipo de el objeto JSON.
+            String teamName = jsonObject.get("team_name").getAsString();
+
+
+            // extrae el array de jugadores de el JSON
+            JsonArray playersArray = jsonObject.getAsJsonArray("players");
+
+            try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD)) {
+
+                // introduce la informacion del elquipo en la tabla equipo
+                PreparedStatement equipoStmt = conn.prepareStatement(
+                        "INSERT INTO equipo (nombre, num_jugadores, num_victorias, num_derrotas, num_empates, puntos_acumulados) VALUES (?, ?, ?, ?, ?, ?)");
+                equipoStmt.setString(1, teamName);
+                equipoStmt.setInt(2, playersArray.size());
+                equipoStmt.setInt(3, 0);
+                equipoStmt.setInt(4, 0);
+                equipoStmt.setInt(5, 0);
+                equipoStmt.setInt(6, 0);
+                equipoStmt.executeUpdate();
+
+
+                // introduce la informacion del jugador en la tabla jugador
+                PreparedStatement jugadorStmt = conn.prepareStatement(
+                        "INSERT INTO jugador (dni, email, contrasena, dorsal, telefono) VALUES (?, ?, ?, ?, ?)");
+                for (JsonElement playerElement : playersArray) {
+                    JsonObject player = playerElement.getAsJsonObject();
+                    String name = player.get("name").getAsString();
+                    String email = player.get("email").getAsString();
+                    int number = player.get("number").getAsInt();
+                    String dni = player.get("dni").getAsString();
+                    String phone = player.get("phone").getAsString();
+
+                    jugadorStmt.setString(1, dni);
+                    jugadorStmt.setString(2, email);
+                    jugadorStmt.setString(3, "");
+                    jugadorStmt.setInt(4, number);
+                    jugadorStmt.setString(5, phone);
+                    jugadorStmt.executeUpdate();
+
+                    // introduce el jugador en la tabla 'jugador_equipo_liga' para su posterior tratamiento y relacion
+                    PreparedStatement jugadorEquipoLigaStmt = conn.prepareStatement(
+                            "INSERT INTO jugador_equipo_liga (dni_jugador, nombre_equipo, nombre_liga) VALUES (?, ?, ?)");
+                    jugadorEquipoLigaStmt.setString(1, dni);
+                    jugadorEquipoLigaStmt.setString(2, teamName);
+                    jugadorEquipoLigaStmt.setString(3, "");
+                    jugadorEquipoLigaStmt.executeUpdate();
+                }
+
+                // close all statements and connection
+                equipoStmt.close();
+                jugadorStmt.close();
+                conn.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 
     /**
