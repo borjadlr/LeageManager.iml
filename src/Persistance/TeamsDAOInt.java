@@ -1,11 +1,28 @@
 package Persistance;
 
+
+
+import Business.Entities.League;
+import Business.Entities.Team;
+
+import java.sql.SQLException;
+import java.util.List;
+
+/**
+ * Interface for accessing and manipulating teams data in a database
+ */
 public interface TeamsDAOInt {
-    public void InsertDataTeams(String name, int nplayers, int wins, int ties, int losses, int points);
 
-    public void DeleteDataTeams(String name);
+    void insertDataTeams(String name, int nplayers, int wins, int ties, int losses, int points) throws SQLException;
 
-    public void UpdateDataTeams(String name1,int nplayers, int wins, int ties, int losses, int points, String name2);
 
+    void updateDataTeams(String name1, int nplayers, int wins, int ties, int losses, int points, String name2) throws SQLException;
+
+
+    void deleteDataTeams(String name) throws SQLException;
+
+    Team selectTeam(String name) throws SQLException;
+
+    List<Team> getAllTeams() throws SQLException;
 
 }

@@ -1,5 +1,6 @@
 package Persistance;
 
+import Business.Entities.Team;
 import Business.Entities.User;
 
 import java.sql.SQLException;
@@ -7,15 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public interface UserDAOInt {
-    public void InsertDataUser(String dni, String email,int id_equipo, String pass, int number, String phone);
+    void InsertDataUser(String dni, String email,int id_equipo, String pass_jugador, int number, String phone);
+    void InsertDataUser2(User jugador);
+    void UpdateDataUser(String dni1, String email,int id_equipo,String pass_jugador,int number, String phone, String dni2);
+    void actualizarJugador(User jugador) throws SQLException;
+    void DeleteDataUser(String dni);
+    LinkedList<User> SelectDataUser();
+    List<User> getAllUsers() throws SQLException;
 
-    public void DeleteDataUser(String dni);
-
-    public void UpdateDataUser(String dni1, String email,int id_equipo, String pass,int number, String phone, String dni2);
-
-    public LinkedList<User> SelectDataUser();
-
-    public List<String> obtenerDNIs() throws SQLException;
-
-    public void InsertDataUser2(User user);
 }
