@@ -5,16 +5,14 @@ import java.util.Date;
 public class League {
 
     private String name;
-    private String date;
-    private String hour;
+    private Date date;
     private int day;
     private int number_teams;
     private boolean state;
 
-    public League(String name, String date, String hour, int day, int number_teams, boolean state) {
+    public League(String name, Date date, int day, int number_teams, boolean state) {
         this.name = name;
         this.date = date;
-        this.hour = hour;
         this.day = day;
         this.number_teams = number_teams;
         this.state = state;
@@ -26,10 +24,6 @@ public class League {
 
     public Date getDate() {
         return date;
-    }
-
-    public String getHour() {
-        return hour;
     }
 
     public int getDay() {
@@ -48,12 +42,8 @@ public class League {
         this.name = name;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
-    }
-
-    public void setHour(String hour) {
-        this.hour = hour;
     }
 
     public void setDay(int day) {
