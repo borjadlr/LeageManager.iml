@@ -1,11 +1,11 @@
 package Persistance.dao;
 
+import Business.Entities.Team;
 import Persistance.TeamsDAOInt;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Sql connector LEAGUE.
@@ -125,6 +125,50 @@ public class TeamsDAO implements TeamsDAOInt {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public List<Team> getAllTeams() throws SQLException {
+        List<Team> equipos = new ArrayList<>();
+        String sql = "SELECT * FROM equipo";
+
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+
+                String nombre = rs.getString("nombre");
+                int numJugadores = rs.getInt("num_jugadores");
+                int numVictorias = rs.getInt("num_victorias");
+                int numDerrotas = rs.getInt("num_derrotas");
+                int numEmpates = rs.getInt("num_empates");
+                int puntosAcumulados = rs.getInt("puntos_acumulados");
+
+                Team equipo = new Team( nombre, numJugadores, numVictorias, numDerrotas, numEmpates, puntosAcumulados);
+                equipos.add(equipo);
+            }
+        }
+
+        return equipos;
+    }
+
+    public Team selectTeam(String nombreEquipo) throws SQLException {
+        String query = "SELECT * FROM equipo WHERE nombre_equipo = ?";
+        Team equipo = null;
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, nombreEquipo);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+
+                    int numJugadores = resultSet.getInt("num_jugadores");
+                    int numVictorias = resultSet.getInt("num_victorias");
+                    int numDerrotas = resultSet.getInt("num_derrotas");
+                    int numEmpates = resultSet.getInt("num_empates");
+                    int puntosAcumulados = resultSet.getInt("puntos_acumulados");
+                    equipo = new Team( nombreEquipo, numJugadores, numVictorias, numDerrotas, numEmpates, puntosAcumulados);
+                }
+            }
+        }
+        return equipo;
     }
 
 
