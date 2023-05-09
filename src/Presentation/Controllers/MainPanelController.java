@@ -13,9 +13,11 @@ public class MainPanelController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
             case MAIN_PANEL_LOGIN:
+                //CAMBIA DE VISTA
                 break;
 
             case MAIN_PANEL_REGISTER:
+                //CAMBIA DE VISTA
                 break;
 
         }
