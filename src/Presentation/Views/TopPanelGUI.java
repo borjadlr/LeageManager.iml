@@ -1,13 +1,18 @@
 package Presentation.Views;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionListener;
+
+import Presentation.Controllers.TopPanelController;
 
 public class TopPanelGUI extends JPanel {
 
     private JButton dropdownButton;
     private JMenuItem logout;
     private JMenuItem deleteAccount;
+    private TopPanelController controller;
 
     public TopPanelGUI(CardLayout cardLayout, JPanel centerPanel) {
         setLayout(new BorderLayout());
@@ -54,6 +59,24 @@ public class TopPanelGUI extends JPanel {
         deleteAccount.setPreferredSize(new Dimension(90, 30));
         dropdownMenu.add(logout);
         dropdownMenu.add(deleteAccount);
-        dropdownButton.addActionListener(e -> dropdownMenu.show(dropdownButton, 0, dropdownButton.getHeight()));
+
+        // Create a controller and add action listener to dropdown button);
     }
+
+    public void dropdownButton(ActionListener actionListener){
+        dropdownButton.addActionListener(actionListener);
+    }
+
+    public JMenuItem getLogoutMenuItem() {
+        return logout;
+    }
+    
+    public JMenuItem getDeleteAccountMenuItem(){
+        return deleteAccount;
+    }
+
+    public JButton getDropdownButton() {
+        return dropdownButton;
+    }
+
 }
