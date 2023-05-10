@@ -32,17 +32,20 @@ public class LoginController implements ActionListener {
                 String password = view.getPasswordInfo();
                 try {
                     userManager.signIn(username,password);
+                    if(username.equals("admin") && password.equals("admin")){
+                        mainView.showMenuAdmin();
+                    }else {
+                        mainView.showMenuUser();
+                    }
 
                 } catch (DNIDontExistException ex) {
-                    view.userNotExistMessage();
+                   view.userNotExistMessage();
                 } catch (IncorrectPassword4UserException ex) {
                    view.passwordIsWrong();
                 }
                 break;
-            case BACK_LOGIN:
 
-                break;
-            default:
+                default:
 
         }
     }
