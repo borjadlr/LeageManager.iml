@@ -3,10 +3,7 @@ package Business.Managers;
 import Business.Entities.League;
 import Business.Entities.Match;
 import Business.Entities.Team;
-import Exceptions.DateExpiredException;
-import Exceptions.IncorrectLeagueNameException;
-import Exceptions.LeagueAlreadyExistsException;
-import Exceptions.RepeatedTeamException;
+import Exceptions.*;
 import Persistance.LeagueDAOInt;
 import Persistance.TeamsDAOInt;
 
@@ -106,8 +103,8 @@ public class LeagueManager {
                 Team team1 = teamsList.get(idx);
                 Team team2 = teamsList.get(teamsSize - idx - 1);
 
-                matches.add(new Match(team1, team2));
-                matches.add(new Match(team2, team1));
+                matches.add(new Match(team1, team2, false));
+                matches.add(new Match(team2, team1, false));
             }
 
             // Rotate teams in the list
@@ -117,7 +114,7 @@ public class LeagueManager {
         return matches;
     }
 
-    public void deleteLeagueMatches (League leagueName) throws SQLException {
+    public void deleteLeagueMatches (League leagueName) throws SQLException, MatchIsPlayingException {
 
         List<League> leagues = leagueDAO.getAllLeagues();
         // Borrar partidos jugados por el equipo en todas las ligas
@@ -126,7 +123,7 @@ public class LeagueManager {
                 for (Match match : league.getMatches()) {
                     if (match.isStatus()) {
                         // Parar la ejecución si el partido está en marcha.
-                        throw new RuntimeException("Cannot delete team while match is in progress");
+                        throw new MatchIsPlayingException();
                     }
                     league.getMatches().remove(match);
 
