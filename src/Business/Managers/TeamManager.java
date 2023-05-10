@@ -29,20 +29,7 @@ public class TeamManager {
 
     }
 
-    public void newTeam() throws InvalidPlayerNumberException, TeamAlreadyExistsException, SQLException {
 
-        String jsonContenido;
-        try {
-            jsonContenido = Files.readString(Paths.get(jsonFile.getPath()));
-        } catch (IOException e) {
-            System.err.println("Error reading JSON file");
-            return;
-        }
-
-        String teamName = teamNameFromJson(jsonContenido);
-        int NPlayers = numberPlayersFromJson(jsonContenido);
-        createTeam(teamName, NPlayers);
-    }
 
 
     private void createTeam(String teamName, int NPlayers) throws InvalidPlayerNumberException, TeamAlreadyExistsException, SQLException {
