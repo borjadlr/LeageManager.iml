@@ -119,7 +119,7 @@ public class LeagueManager {
         List<League> leagues = leagueDAO.getAllLeagues();
         // Borrar partidos jugados por el equipo en todas las ligas
         for (League league : leagues) {
-            if (league.getName().equals(leagueName)) {
+            if (league.getName().equals(leagueName.getName())) {
                 for (Match match : league.getMatches()) {
                     if (match.isStatus()) {
                         // Parar la ejecución si el partido está en marcha.
@@ -132,14 +132,14 @@ public class LeagueManager {
         }
     }
 
-    public void deleteTeamMatches (Team team) throws SQLException {
+    public void deleteTeamMatches (Team team) throws SQLException, MatchIsPlayingException {
 
         List<League> leagues = leagueDAO.getAllLeagues();
         for (League league : leagues) {
             for (Match match : league.getMatches()) {
                 if (match.isStatus()) {
                     // Parar la ejecución si el partido está en marcha.
-                    throw new RuntimeException("Cannot delete team while match is in progress");
+                    throw new MatchIsPlayingException();
                 } else {
                     if (match.getTeam1() == team || match.getTeam2() == team) {
                         league.getMatches().remove(match);
