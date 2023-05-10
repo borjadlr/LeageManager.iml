@@ -25,4 +25,5 @@ public class Match {
     public void setTeam2(Team team2) {
         this.team2 = team2;
     }
+
 }

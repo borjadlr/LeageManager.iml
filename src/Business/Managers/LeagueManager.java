@@ -10,6 +10,7 @@ import Exceptions.RepeatedTeamException;
 import Persistance.LeagueDAOInt;
 import Persistance.TeamsDAOInt;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -25,7 +26,7 @@ public class LeagueManager {
         this.teamManager = teamManager;
     }
 
-    public void introduceLeague(League league) throws LeagueAlreadyExistsException, DateExpiredException, RepeatedTeamException {
+    public void introduceLeague(League league) throws LeagueAlreadyExistsException, DateExpiredException, RepeatedTeamException, SQLException {
         List<League> leagues = leagueDAO.getAllLeagues(); //metodo borja nuevo
         int i = 0;
         
@@ -48,7 +49,7 @@ public class LeagueManager {
         return date.after(today);
     }
 
-    public boolean comprovaRepeatedTeams(League league) {
+    public boolean comprovaRepeatedTeams(League league) throws SQLException {
         List<Team> leagueTeams = league.getTeams();
         List<Team> allTeams = teamManager.getAllTeams();
         int flag = 0, i = 0, j = 0;
@@ -70,7 +71,7 @@ public class LeagueManager {
         return true;
     }
 
-    public void deleteLeague(String leagueName) throws IncorrectLeagueNameException {
+    public void deleteLeague(String leagueName) throws IncorrectLeagueNameException, SQLException {
         List<League> leagues = leagueDAO.getAllLeagues();
 
         for (League league : leagues) {
@@ -83,7 +84,7 @@ public class LeagueManager {
         }
     }
 
-    public List<League> listLeagues() {
+    public List<League> listLeagues() throws SQLException {
         return leagueDAO.getAllLeagues();
     }
 
@@ -114,6 +115,42 @@ public class LeagueManager {
         }
 
         return matches;
+    }
+
+    public void deleteLeagueMatches (League leagueName) throws SQLException {
+
+        List<League> leagues = leagueDAO.getAllLeagues();
+        // Borrar partidos jugados por el equipo en todas las ligas
+        for (League league : leagues) {
+            if (league.getName().equals(leagueName)) {
+                for (Match match : league.getMatches()) {
+                    if (match.getStatus() == matchStatus.IN_PROGRESS) {
+                        // Parar la ejecución si el partido está en marcha.
+                        throw new RuntimeException("Cannot delete team while match is in progress");
+                    }
+                    league.getMatches().remove(match);
+
+                }
+            }
+        }
+    }
+
+    public void deleteTeamMatches (Team team) throws SQLException {
+
+        List<League> leagues = leagueDAO.getAllLeagues();
+        for (League league : leagues) {
+            for (Match match : league.getMatches()) {
+                if (match.getStatus() == MatchStatus.IN_PROGRESS) {
+                    // Parar la ejecución si el partido está en marcha.
+                    throw new RuntimeException("Cannot delete team while match is in progress");
+                } else {
+                    if (match.getTeam1() == team || match.getTeam2() == team) {
+                        league.getMatches().remove(match);
+                    }
+                }
+
+            }
+        }
     }
 
 }

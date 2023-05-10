@@ -4,7 +4,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import Business.Entities.Team;
 import Business.Entities.User;
+import Exceptions.IncorrectTeamNameException;
+import Exceptions.InvalidPlayerNumberException;
+import Exceptions.TeamAlreadyExistsException;
 import Persistance.TeamsDAOInt;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +29,7 @@ public class TeamManager {
 
     }
 
-    public void newTeam() {
+    public void newTeam() throws InvalidPlayerNumberException, TeamAlreadyExistsException, SQLException {
 
         String jsonContenido;
         try {
@@ -40,7 +45,7 @@ public class TeamManager {
     }
 
 
-    private void createTeam(String teamName, int NPlayers) {
+    private void createTeam(String teamName, int NPlayers) throws InvalidPlayerNumberException, TeamAlreadyExistsException, SQLException {
 
         for (Team team : teamsList) {
             if (team.getName().equals(teamName)) {
@@ -57,15 +62,15 @@ public class TeamManager {
         Team team = new Team(teamName, NPlayers, 0, 0, 0, 0);
         teamsList.add(team);
 
-        teamsDAO.InsertDataTeams(teamName, NPlayers, 0, 0, 0, 0);
+        teamsDAO.insertDataTeams(teamName, NPlayers, 0, 0, 0, 0);
 
     }
 
-    public void deleteTeam(String teamName) {
-
-        for (Team team : teamsList) {
+    public void deleteTeam(String teamName) throws IncorrectTeamNameException, SQLException {
+        List<Team> teams = getAllTeams();
+        for (Team team : teams) {
             if (team.getName().equals(teamName)) {
-                teamsDAO.DeleteDataTeams(teamName);
+                teamsDAO.deleteDataTeams(teamName);
                 teamsList.remove(team);
                 return;
             } else {
@@ -74,7 +79,7 @@ public class TeamManager {
         }
     }
 
-    public List<Team> getAllTeams() {
+    public List<Team> getAllTeams() throws SQLException {
         return teamsDAO.getAllTeams();
     }
 
