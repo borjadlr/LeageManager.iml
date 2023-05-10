@@ -124,7 +124,7 @@ public class LeagueManager {
         for (League league : leagues) {
             if (league.getName().equals(leagueName)) {
                 for (Match match : league.getMatches()) {
-                    if (match.getStatus() == matchStatus.IN_PROGRESS) {
+                    if (match.isStatus()) {
                         // Parar la ejecución si el partido está en marcha.
                         throw new RuntimeException("Cannot delete team while match is in progress");
                     }
@@ -140,7 +140,7 @@ public class LeagueManager {
         List<League> leagues = leagueDAO.getAllLeagues();
         for (League league : leagues) {
             for (Match match : league.getMatches()) {
-                if (match.getStatus() == MatchStatus.IN_PROGRESS) {
+                if (match.isStatus()) {
                     // Parar la ejecución si el partido está en marcha.
                     throw new RuntimeException("Cannot delete team while match is in progress");
                 } else {
