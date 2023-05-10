@@ -1,6 +1,5 @@
 package Persistance;
 
-import Business.Entities.Team;
 import Business.Entities.User;
 
 import java.sql.SQLException;
@@ -15,5 +14,6 @@ public interface UserDAOInt {
     void DeleteDataUser(String dni);
     LinkedList<User> SelectDataUser();
     List<User> getAllUsers() throws SQLException;
+    List<String> obtenerDNIs() throws SQLException;
 
 }
