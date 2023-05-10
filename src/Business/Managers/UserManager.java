@@ -4,6 +4,7 @@ import Business.Entities.User;
 import Exceptions.*;
 import Persistance.UserDAOInt;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -50,7 +51,7 @@ public class UserManager {
     }
 
 
-    public void signUp(User user, String password) throws InvalidPasswordException, EmailAlreadyExistsException, ExistingDNIException, DNIDontExistException, InvalidEmailException, SamePasswordException, DNIException {
+    public void signUp(User user, String password) throws InvalidPasswordException, EmailAlreadyExistsException, ExistingDNIException, DNIDontExistException, InvalidEmailException, SamePasswordException, DNIException, SQLException {
         List<User> users = userDAO.SelectDataUser();
         int i = 0;
 
@@ -153,9 +154,9 @@ public class UserManager {
         return dotCounter >= MIN_DOT && arrobaCounter >= MIN_ARROBA;
     }
 
-    public boolean comprovaDNI(String dni){
+    public boolean comprovaDNI(String dni) throws SQLException {
         boolean isValid = false;
-        List<String> dniList = new ArrayList<>(); //getAllDNI()
+        List<String> dniList = userDAO.obtenerDNIs(); //getAllDNI()
         int i = 0;
 
         if (dni != null && dni.length() == 8) {
