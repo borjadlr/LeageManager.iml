@@ -6,8 +6,6 @@ import java.awt.*;
 import static javax.swing.JOptionPane.showMessageDialog;
 public class MainFrameGUI extends JFrame{
     public final String LOGIN_VIEW = "LOGIN_VIEW";
-
-    public final String REGISTER_VIEW = "REGISTER_VIEW";
     public final String MENU_USER_VIEW = "MENU_USER_VIEW";
     public final String MENU_ADMIN_VIEW = "MENU_ADMIN_VIEW";
     public final String MAIN_PANEL = "MAIN_PANEL";
@@ -16,48 +14,75 @@ public class MainFrameGUI extends JFrame{
     public final String CHANGE_PASSWORD_VIEW = "CHANGE_PASSWORD_VIEW";
     public final String CURRENT_LEAGUE_VIEW = "CURRENT_LEAGUE_VIEW";
     public final String REGISTRATION_VIEW = "REGISTRATION_VIEW";
+
+    private JPanel topPanel;
+    private JPanel centerPanel;
+    private JPanel bottomPanel;
+
     private CardLayout cardLayout;
 
-    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, CurrentLeaguesGUI currentLeagueGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI){
-        cardLayout = new CardLayout();
-        setLayout(cardLayout);
-        add(userLoginGUI, LOGIN_VIEW); //comentar estas lineas para poner a prueba otras views
-        //add(menuUserGUI, MENU_USER_VIEW); //comentar estas lineas para poner a prueba otras views
-        //add(menuAdminGUI, MENU_ADMIN_VIEW); //comentar estas lineas para poner a prueba otras views
-        add (changePasswordGUI, CHANGE_PASSWORD_VIEW);
-        //add (currentLeagueGUI, CURRENT_LEAGUE_VIEW);
-        add(mainPanelGUI, FIRST_UI);
-        add(newLeaguesGUI, MENU_NEW_LEAGUE);
-        add(registrationGUI, REGISTRATION_VIEW);
-        setSize(600,650);
-        cardLayout.show(getContentPane(),FIRST_UI);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+
+    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, CurrentLeaguesGUI currentLeagueGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI){
+
+        super("Main Frame");
+
+        setLayout(new BorderLayout());
+
+        centerPanel = new JPanel();
+        cardLayout = new CardLayout();
+        centerPanel.setLayout(cardLayout);
+        add(centerPanel, BorderLayout.NORTH);
+
+        topPanel = new TopPanelGUI(cardLayout, centerPanel);
+        add(topPanel, centerPanel);
+
+        centerPanel.add(mainPanelGUI, FIRST_UI);
+        centerPanel.add(userLoginGUI, LOGIN_VIEW);
+        centerPanel.add(menuUserGUI, MENU_USER_VIEW);
+        centerPanel.add(menuAdminGUI, MENU_ADMIN_VIEW);
+        centerPanel.add(changePasswordGUI,CHANGE_PASSWORD_VIEW);
+        centerPanel.add(currentLeagueGUI, CURRENT_LEAGUE_VIEW);
+        centerPanel.add(newLeaguesGUI, MENU_NEW_LEAGUE);
+        centerPanel.add(registrationGUI, REGISTRATION_VIEW);
+
+        cardLayout.show(centerPanel, FIRST_UI);
+
+        bottomPanel = new BottomPanelGUI();
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        setSize(1000,1200);
         setVisible(true);
-        setTitle("LeagueManager");
     }
 
     public void showLogin() {
-        cardLayout.show(getContentPane(),LOGIN_VIEW);
-    }
-
-    public void showRegister(){
-        cardLayout.show(getContentPane(),REGISTER_VIEW);
+        cardLayout.show(centerPanel,LOGIN_VIEW);
     }
 
     public  void showMainPanel(){
-        cardLayout.show(getContentPane(), MAIN_PANEL);
+        cardLayout.show(centerPanel, MAIN_PANEL);
     }
     public void showMenuUser(){
-        cardLayout.show(getContentPane(), MENU_USER_VIEW);
+        cardLayout.show(centerPanel, MENU_USER_VIEW);
     }
     public void showMenuAdmin(){
-        cardLayout.show(getContentPane(), MENU_ADMIN_VIEW);
+        cardLayout.show(centerPanel, MENU_ADMIN_VIEW);
     }
 
     public void showChangePassword(){
-        cardLayout.show(getContentPane(), CHANGE_PASSWORD_VIEW);
+        cardLayout.show(centerPanel, CHANGE_PASSWORD_VIEW);
+    }
+
+    public void showCurrentLeagues(){
+        cardLayout.show(centerPanel, CURRENT_LEAGUE_VIEW);
+    }
+
+    public void showRegistration(){
+        cardLayout.show(centerPanel, REGISTRATION_VIEW);
+    }
+
+    public void showMenuNewLeague(){
+        cardLayout.show(centerPanel, MENU_NEW_LEAGUE);
     }
 
     public void showMessageToUser(String message) {

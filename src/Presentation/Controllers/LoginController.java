@@ -8,8 +8,10 @@ import Presentation.Views.MainFrameGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
-public class LoginController implements ActionListener {
+public class LoginController implements ActionListener, FocusListener {
 
     private final MainFrameGUI mainView;
     private final LoginGUI view;
@@ -48,5 +50,15 @@ public class LoginController implements ActionListener {
                 default:
 
         }
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+
     }
 }
