@@ -1,33 +1,29 @@
 package Presentation.Controllers;
 
 import Presentation.Views.MainFrameGUI;
-
+import Presentation.Views.MainPanelGUI;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainPanelController implements ActionListener {
-
-    private static final String MAIN_PANEL_LOGIN = "Login";
-
-    private static final String MAIN_PANEL_REGISTER = "Register";
-
-    private final MainFrameGUI mainFrameGUI;
-
-    public MainPanelController(MainFrameGUI mainFrameGUI) {
-        this.mainFrameGUI = mainFrameGUI;
+    private MainFrameGUI mainFrame;
+    public MainPanelController(MainFrameGUI mainFrame) {
+        this.mainFrame = mainFrame;
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()){
-            case MAIN_PANEL_LOGIN:
-                mainFrameGUI.showLogin();
-                break;
-            case MAIN_PANEL_REGISTER:
-                mainFrameGUI.showRegister();
-                break;
+        if (e.getSource() instanceof JButton) {
+            switch (e.getActionCommand()) {
+                case "LOGIN_BUTTON":
+                    mainFrame.showLogin();
+                    break;
+                case "REGISTER_BUTTON":
+                    mainFrame.showRegister();
+                    break;
 
+            }
         }
     }
 }

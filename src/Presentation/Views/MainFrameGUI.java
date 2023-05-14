@@ -6,17 +6,19 @@ import java.awt.*;
 import static javax.swing.JOptionPane.showMessageDialog;
 public class MainFrameGUI extends JFrame{
     public final String LOGIN_VIEW = "LOGIN_VIEW";
+
     public final String REGISTER_VIEW = "REGISTER_VIEW";
     public final String MENU_USER_VIEW = "MENU_USER_VIEW";
     public final String MENU_ADMIN_VIEW = "MENU_ADMIN_VIEW";
     public final String MAIN_PANEL = "MAIN_PANEL";
+    public final String FIRST_UI = "FIRST_UI";
     public final String MENU_NEW_LEAGUE = "MENU_NEW_LEAGUE";
     public final String CHANGE_PASSWORD_VIEW = "CHANGE_PASSWORD_VIEW";
     public final String CURRENT_LEAGUE_VIEW = "CURRENT_LEAGUE_VIEW";
     public final String REGISTRATION_VIEW = "REGISTRATION_VIEW";
     private CardLayout cardLayout;
 
-    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, CurrentLeaguesGUI currentLeagueGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI){
+    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, CurrentLeaguesGUI currentLeagueGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI){
         cardLayout = new CardLayout();
         setLayout(cardLayout);
         add(userLoginGUI, LOGIN_VIEW); //comentar estas lineas para poner a prueba otras views
@@ -24,10 +26,11 @@ public class MainFrameGUI extends JFrame{
         //add(menuAdminGUI, MENU_ADMIN_VIEW); //comentar estas lineas para poner a prueba otras views
         //add (changePasswordGUI, CHANGE_PASSWORD_VIEW);
         //add (currentLeagueGUI, CURRENT_LEAGUE_VIEW);
+        add(mainPanelGUI, FIRST_UI);
         add(newLeaguesGUI, MENU_NEW_LEAGUE);
         add(registrationGUI, REGISTRATION_VIEW);
         setSize(600,650);
-        cardLayout.show(getContentPane(),"Login");
+        cardLayout.show(getContentPane(),FIRST_UI);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -45,6 +48,12 @@ public class MainFrameGUI extends JFrame{
 
     public  void showMainPanel(){
         cardLayout.show(getContentPane(), MAIN_PANEL);
+    }
+    public void showMenuUser(){
+        cardLayout.show(getContentPane(), MENU_USER_VIEW);
+    }
+    public void showMenuAdmin(){
+        cardLayout.show(getContentPane(), MENU_ADMIN_VIEW);
     }
 
     public void showMessageToUser(String message) {
