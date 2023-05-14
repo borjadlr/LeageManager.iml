@@ -24,7 +24,7 @@ public class MainFrameGUI extends JFrame{
         add(userLoginGUI, LOGIN_VIEW); //comentar estas lineas para poner a prueba otras views
         //add(menuUserGUI, MENU_USER_VIEW); //comentar estas lineas para poner a prueba otras views
         //add(menuAdminGUI, MENU_ADMIN_VIEW); //comentar estas lineas para poner a prueba otras views
-        //add (changePasswordGUI, CHANGE_PASSWORD_VIEW);
+        add (changePasswordGUI, CHANGE_PASSWORD_VIEW);
         //add (currentLeagueGUI, CURRENT_LEAGUE_VIEW);
         add(mainPanelGUI, FIRST_UI);
         add(newLeaguesGUI, MENU_NEW_LEAGUE);
@@ -54,6 +54,10 @@ public class MainFrameGUI extends JFrame{
     }
     public void showMenuAdmin(){
         cardLayout.show(getContentPane(), MENU_ADMIN_VIEW);
+    }
+
+    public void showChangePassword(){
+        cardLayout.show(getContentPane(), CHANGE_PASSWORD_VIEW);
     }
 
     public void showMessageToUser(String message) {

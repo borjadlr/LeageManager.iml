@@ -25,7 +25,7 @@ public class BottomPanelController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
        switch (e.getActionCommand()){
            case CHANGE_PASSWORD:
-               mainView.showCanviContraseña();
+               mainView.showChangePassword();
                break;
        }
     }
