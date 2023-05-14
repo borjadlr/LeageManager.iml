@@ -25,6 +25,8 @@ public class RegistrationGUI extends JPanel {
 
     private static final int SIZE_TITLE = 60;
 
+    private static final String DNI_ALREADY_EXIST = "This DNI already exist";
+
 
     private String phoneNumberText;
     private String dorsalText;
@@ -117,20 +119,38 @@ public class RegistrationGUI extends JPanel {
         ok.setAlignmentX(Component.CENTER_ALIGNMENT);
         ok.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS_BORDER));
         panel.add(ok);
-
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                nameText = name.getText();
-                dniText = dni.getText();
-                teamText = team.getText();
-                dorsalText = dorsal.getText();
-                emailText = email.getText();
-                phoneNumberText = number.getText();
-            }
-        });
+        
 
         this.add(panel);
+    }
+
+    public String getDniText() {
+        return dni.getText();
+    }
+
+    public String getDorsalText() {
+        return dorsal.getText();
+    }
+    public String getEmailText(){
+        return email.getText();
+    }
+    public String getNameTeamText(){
+        return team.getText();
+    }
+
+    public int getPhoneNumberText(){
+        return Integer.parseInt(number.getText());
+    }
+
+    public String getNameText(){
+        return name.getText();
+    }
+
+    public void dniAlreadyExist() {
+        JOptionPane.showMessageDialog(null, DNI_ALREADY_EXIST);
+    }
+
+    public void passwordIsWrong() {
     }
 }
 
