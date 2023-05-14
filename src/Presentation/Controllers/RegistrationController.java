@@ -40,12 +40,10 @@ public class RegistrationController implements FocusListener, ActionListener {
                     String teamName = view.getNameTeamText();
                     String email = view.getEmailText();
                     String name = view.getNameText();
-                    try {
+
                         userManager.createUser(dni, userManager.generatePassword(), email); //Els hi falta parametres .
                         mainFrameGUI.showMenuUser();
-                    } catch (DNIException ex) {
-                        view.dniAlreadyExist();
-                    }
+
                     break;
             }
 
