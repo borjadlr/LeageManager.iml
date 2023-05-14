@@ -15,6 +15,7 @@ public class MenuUserGUI extends JPanel{
     public static final String WATCH_MATCHES = "WATCH_MATCHES";
     public static final String CREATE_PLAYER = "CREATE_PLAYER";
     public static final String VIEW_AVAIABLE_LEAGUES = "VIEW_AVAIABLE_LEAGUES";
+
     public static final String BACK_BUTTON = "BACK_BUTTON";
 
     public MenuUserGUI() {
@@ -66,19 +67,14 @@ public class MenuUserGUI extends JPanel{
         viewAvaiableLeagues.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(viewAvaiableLeagues);
 
-        //Back button
-        back = new JButton("Back");
-        back.setActionCommand(BACK_BUTTON);
-        back.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(back);
-
         this.add(panel);
 
     }
 
     public void registerListener(ActionListener listener) {
         watchMatches.addActionListener(listener);
-        back.addActionListener(listener);
+        createPlayer.addActionListener(listener);
+        viewAvaiableLeagues.addActionListener(listener);
     }
 
 }

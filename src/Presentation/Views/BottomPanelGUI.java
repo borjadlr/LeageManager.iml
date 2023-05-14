@@ -9,7 +9,7 @@ public class BottomPanelGUI extends JPanel {
     private JButton changePassword;
 
     private static final String INTER = "INTER";
-    private static final String CHANGE_CURRENT_PASSWORD = "Change Current Password";
+    private static final String CHANGE_CURRENT_PASSWORD = "CHANGE_CURRENT_PASSWORD";
 
     public BottomPanelGUI() {
         setLayout(new BorderLayout());
