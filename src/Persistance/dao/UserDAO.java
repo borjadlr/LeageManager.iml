@@ -10,7 +10,7 @@ import java.util.List;
 
 public class UserDAO implements UserDAOInt {
 
-    private static String dbURL = "jdbc:mariadb://localhost:3306/testeando";
+    private static String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
     private static String username = "dreamteam";
     private static String password = "dreamteam";
     private static Connection conn;
@@ -26,7 +26,7 @@ public class UserDAO implements UserDAOInt {
      * @param phone telefono del usuario
      */
 
-    public void InsertDataUser(String dni, String email,int id_equipo, String pass_jugador, int number, String phone) {
+    public void InsertDataUser(String dni, String email, String pass_jugador, int number, String phone) {
         //Connectamos a la base de datos y controlamos excepciones.
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
@@ -80,22 +80,21 @@ public class UserDAO implements UserDAOInt {
 
 
 
-    public void UpdateDataUser(String dni1, String email,int id_equipo,String pass_jugador,int number, String phone, String dni2){
+    public void UpdateDataUser(String dni1, String email,String pass_jugador,int number, String phone, String dni2){
         //Connectamos a la base de datos y controlamos excepciones.
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
             System.out.println("Successful connection...");
             //Generamos un statement sql para actualizar la tabla user dependiendo del username
-            String sql = "UPDATE jugador SET dni_jugador=?,email_jugador=?,id_equipo=?,pass_jugador = ?,numero_jugador = ?,tel_jugador = ? WHERE dni_jugador=?";
+            String sql = "UPDATE jugador SET dni=?,email=?,contrasena=?,dorsal = ?,telefono = ? WHERE dni=?";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, dni1);
-            statement.setString(4, pass_jugador);
-            statement.setInt(3, id_equipo);
+            statement.setString(3, pass_jugador);
             statement.setString(2, email);
-            statement.setInt(5, number);
-            statement.setString(6, phone);
-            statement.setString(7, dni2);
+            statement.setInt(4, number);
+            statement.setString(5, phone);
+            statement.setString(6, dni2);
 
 
 
@@ -134,7 +133,7 @@ public class UserDAO implements UserDAOInt {
 
             System.out.println("Successful connection...");
             //Generamos un statement sql para eliminar dependiendo del username
-            String sql = "DELETE FROM jugadores WHERE dni_jugador = ?";
+            String sql = "DELETE FROM jugador WHERE dni = ?";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, dni);
@@ -169,7 +168,7 @@ public class UserDAO implements UserDAOInt {
 
             System.out.println("Conexion ok");
             //Generamos statement sql para seleccionar de la tabla user.
-            String sql = "SELECT * FROM jugadores";
+            String sql = "SELECT * FROM jugador";
             PreparedStatement statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery(sql);
             //blucle para ir llenando la linked list con la informacion extraida de la base de datos
@@ -230,7 +229,7 @@ public class UserDAO implements UserDAOInt {
 
             System.out.println("Conexion ok");
             //Generamos statement sql para seleccionar de la tabla user.
-            String sql = "SELECT dni_jugador FROM jugadores";
+            String sql = "SELECT dni FROM jugador";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
@@ -238,7 +237,7 @@ public class UserDAO implements UserDAOInt {
             List<String> dniList = new ArrayList<>();
 
             while (rs.next()) {
-                String dni = rs.getString("dni_jugador");
+                String dni = rs.getString("dni");
                 dniList.add(dni);
             }
             statement.close();
