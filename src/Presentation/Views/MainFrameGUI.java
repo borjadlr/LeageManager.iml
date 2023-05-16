@@ -32,10 +32,10 @@ public class MainFrameGUI extends JFrame{
         centerPanel = new JPanel();
         cardLayout = new CardLayout();
         centerPanel.setLayout(cardLayout);
-        add(centerPanel, BorderLayout.NORTH);
+        add(centerPanel, BorderLayout.CENTER);
 
         topPanel = new TopPanelGUI(cardLayout, centerPanel);
-        add(topPanel, centerPanel);
+        add(topPanel, BorderLayout.NORTH);
 
         centerPanel.add(mainPanelGUI, FIRST_UI);
         centerPanel.add(userLoginGUI, LOGIN_VIEW);
@@ -46,7 +46,7 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(newLeaguesGUI, MENU_NEW_LEAGUE);
         centerPanel.add(registrationGUI, REGISTRATION_VIEW);
 
-        cardLayout.show(centerPanel, FIRST_UI);
+        cardLayout.show(centerPanel, LOGIN_VIEW);
 
         bottomPanel = new BottomPanelGUI();
         add(bottomPanel, BorderLayout.SOUTH);
