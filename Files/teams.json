@@ -1,0 +1,20 @@
+{
+  "team_name": "Los Gambas",
+  "players": [
+    {
+      "name": "Benji Pepe",
+      "email": "b.price@shutetsu.edu",
+      "number": 1,
+      "dni": "82909129N",
+      "phone": "+81 90-5144-9519"
+    },
+    {
+      "name": "Oliver Atom",
+      "email": "oliver.atom@nankatsu.school",
+      "number": 10,
+      "dni": "18135169Z",
+      "phone": "+81 80-3390-5871"
+
+    }
+  ]
+}

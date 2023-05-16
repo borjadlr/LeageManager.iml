@@ -1,20 +1,18 @@
 package Persistance.dao;
 
 import Business.Entities.League;
-import Business.Entities.User;
 import Persistance.LeagueDAOInt;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
  * The type Sql connector LEAGUE.
  */
-public class LeagueDAO implements LeagueDAOInt {
+public abstract class LeagueDAO implements LeagueDAOInt {
 
-    private  String dbURL = "jdbc:mariadb://localhost:3306/leage_manager";
+    private  String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
     private  String username = "dreamteam";
     private  String password = "dreamteam";
     private  Connection conn;
@@ -29,21 +27,23 @@ public class LeagueDAO implements LeagueDAOInt {
      * @param teams numero de equipos que hay en la liga
      * @param state estat en el que se encuentra la liga (activa o inactiva)
      */
-    public void InsertDataLeague(String name, String date, String hour, int day, int teams, boolean state) {
+
+
+    public void insertDataLeague(String name, Date date, Time hour, int day, int teams, int state) {
         //Connectamos a la base de datos y controlamos excepciones.
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
             System.out.println("Conexion ok");
             //Generacion de un statement sql para inertar datos en la tabla league
-            String sql = "INSERT INTO ligas (LEAGE_NAME,LEAGUE_DATE,LEAGUE_HOUR,LEAGUE_DAY,LEAGUE_NTEAMS,LEAGUE_STATE) VALUES (?, ? ,? ,? ,? ,?)";
+            String sql = "INSERT INTO liga (nombre,fecha,hora,jornada,num_equipos,estado) VALUES (?, ? ,? ,? ,? ,?)";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, name);
-            statement.setString(2, date);
-            statement.setString(3, hour);
+            statement.setDate(2, date);
+            statement.setTime(3, hour);
             statement.setInt(4,day);
             statement.setInt(5,teams);
-            statement.setBoolean(6,state);
+            statement.setInt(6,state);
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -66,21 +66,21 @@ public class LeagueDAO implements LeagueDAOInt {
      * @param name2 nombre de la liga que se quiere actualizar
      */
 
-    public void UpdateDataLeague(String name1,String date, String hour, int day, int teams, boolean state, String name2){
+    public void UpdateDataLeague(String name1,Date date, Time hour, int day, int teams, int state, String name2){
         //Connectamos a la base de datos y controlamos excepciones.
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
             System.out.println("Conexion ok");
             //Generacion de un statement sql para actualizar la tabla liga.
-            String sql = "UPDATE ligas SET LEAGE_NAME = ?,LEAGUE_DATE = ?,LEAGUE_HOUR = ?,LEAGUE_DAY = ?,LEAGUE_NTEAMS = ?,LEAGUE_STATE = ? WHERE TEAM_NAME= ?";
+            String sql = "UPDATE liga SET nombre = ?,fecha = ?,hora = ?,jornada = ?,num_equipos = ?,estado = ? WHERE nombre= ?";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, name1);
-            statement.setString(2, date);
-            statement.setString(3, hour);
+            statement.setDate(2, date);
+            statement.setTime(3, hour);
             statement.setInt(4,day);
             statement.setInt(5,teams);
-            statement.setBoolean(6,state);
+            statement.setInt(6,state);
             statement.setString(7, name2);
 
 
@@ -93,6 +93,7 @@ public class LeagueDAO implements LeagueDAOInt {
         }
     }
 
+
     /**
      * Metodo que se encarga de insertar en la base de datos los datos de una liga.
      * @param name nombre de la liga
@@ -104,12 +105,12 @@ public class LeagueDAO implements LeagueDAOInt {
 
             System.out.println("Conexion ok");
             //Generacion de un statement SQL que elimina datos de la tabla league_teams dependiendo del nombre de la liga.
-            String sqlDeleteRelationships = "DELETE FROM league_teams WHERE LEAGUET_NAME =?";
+            String sqlDeleteRelationships = "DELETE FROM equipo_liga WHERE nombre_liga =?";
             PreparedStatement stDelRelationship = conn.prepareStatement(sqlDeleteRelationships);
             stDelRelationship.setString(1,name);
             stDelRelationship.executeUpdate();
             //Generacion de un statement sql para eliminar datos de la tabla league dependeindeo del nombre de la liga.
-            String sql = "DELETE FROM ligas WHERE LEAGUE_NAME=?";
+            String sql = "DELETE FROM liga WHERE nombre=?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, name);
 
@@ -127,7 +128,7 @@ public class LeagueDAO implements LeagueDAOInt {
             System.out.println("Conexion ok");
 
             // Generamos statement SQL para seleccionar los datos de la tabla jugadores por el DNI
-            String sql = "SELECT * FROM ligas WHERE nombre_liga = ?";
+            String sql = "SELECT * FROM liga WHERE nombre = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, name);
 
@@ -136,15 +137,16 @@ public class LeagueDAO implements LeagueDAOInt {
             // Si el jugador existe, obtenemos la información y lo retornamos
             if (rs.next()) {
 
-                String leagueName = rs.getString("nombre_liga");
-                int dayLeague = rs.getInt("fecha_liga");
-                int hourLeague = rs.getInt("hora_liga");
-                int matchdayLeague = rs.getInt("jornada_liga");
-                int numero = rs.getInt("numero_equipos_liga");
+                String leagueName = rs.getString("nombre");
+                Date dayLeague = rs.getDate("fecha");
+                Time hourLeague = rs.getTime("hora");
+                int matchdayLeague = rs.getInt("jornada");
+                int numero = rs.getInt("num_equipos");
+                int estado = rs.getInt("estado");
 
 
 
-                return new League(leagueName,dayLeague,hourLeague,matchdayLeague,numero);
+                return new League(leagueName,dayLeague,hourLeague,matchdayLeague,numero,estado);
             }
 
             // Si no existe un jugador con ese DNI, retornamos null
@@ -166,12 +168,13 @@ public class LeagueDAO implements LeagueDAOInt {
             while (rs.next()) {
 
                 String nombre = rs.getString("nombre");
-                String fecha = rs.getString("fecha");
-                String hora = rs.getString("hora");
+                Date fecha = rs.getDate("fecha");
+                Time hora = rs.getTime("hora");
                 int jornada = rs.getInt("jornada");
                 int numEquipos = rs.getInt("num_equipos");
+                int estado = rs.getInt("estado");
 
-                League liga = new League(nombre, fecha, hora, jornada, numEquipos);
+                League liga = new League(nombre, fecha, hora, jornada, numEquipos,estado);
                 ligas.add(liga);
             }
         }

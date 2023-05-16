@@ -2,16 +2,24 @@ package Persistance.dao;
 
 import Business.Entities.Team;
 import Persistance.TeamsDAOInt;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * The type Sql connector LEAGUE.
  */
 public class TeamsDAO implements TeamsDAOInt {
 
-    private static String dbURL = "jdbc:mariadb://localhost:3306/leage_manager";
+    private static String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
     private static String username = "dreamteam";
     private static String password = "dreamteam";
     private static Connection conn;
@@ -26,13 +34,13 @@ public class TeamsDAO implements TeamsDAOInt {
      * @param losses
      * @param points
      */
-    public void InsertDataTeams(String name, int nplayers, int wins, int ties, int losses, int points) {
+    public void insertDataTeams(String name, int nplayers, int wins, int ties, int losses, int points) {
         //Connectamos a la base de datos y controlamos excepciones.
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
             System.out.println("Conexion ok");
             //Generacion de un statement sql para inertar datos en la tabla league
-            String sql = "INSERT INTO teams (TEAM_NAME,TEAM_NPLAYERS,TEAM_WINS,TEAM_TIES,TEAM_LOSSES,TEAM_POINTS) VALUES (?, ? ,? ,? ,? ,?)";
+            String sql = "INSERT INTO equipo (nombre,num_jugadores,num_jugadores,num_empates,num_derrotas,puntos_acumulados) VALUES (?, ? ,? ,? ,? ,?)";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, name);
@@ -62,13 +70,13 @@ public class TeamsDAO implements TeamsDAOInt {
      * @param points parametro sobre el nombre de puntos que se quiere actualizar
      * @param name2 nombre en el que se quiere cambiar los parametros o parametro anterior
      */
-    public void UpdateDataTeams(String name1,int nplayers, int wins, int ties, int losses, int points, String name2){
+    public void updateDataTeams(String name1,int nplayers, int wins, int ties, int losses, int points, String name2){
         //Connectamos a la base de datos y controlamos excepciones.
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
             System.out.println("Conexion ok");
             //Generacion de un statement sql para actualizar la tabla liga.
-            String sql = "UPDATE teams SET TEAM_NAME = ?,TEAM_NPLAYERS = ?,TEAM_WINS = ?,TEAM_TIES = ?,TEAM_LOSSES = ?,TEAM_POINTS = ? WHERE TEAM_NAME= ?";
+            String sql = "UPDATE equipo SET nombre = ?,num_jugadores = ?,num_victorias = ?,num_empates = ?,num_derrotas = ?,puntos_acumulados = ? WHERE nombre= ?";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, name1);
@@ -94,25 +102,25 @@ public class TeamsDAO implements TeamsDAOInt {
      * @param name nombre de la liga
      */
 
-    public void DeleteDataTeams(String name){
+    public void deleteDataTeams(String name){
         //Connectamos a la base de datos y controlamos excepciones.
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
             System.out.println("Conexion ok");
             //Generacion de un statement SQL que elimina datos de la tabla team_user dependiendo del nombre del team.
-            String sqlDeleteRelationships = "DELETE FROM teams_user WHERE TU_TEAM = ?";
+            String sqlDeleteRelationships = "DELETE FROM jugador_equipo_liga WHERE nombre_equipo = ?";
             PreparedStatement stDelRelationship = conn.prepareStatement(sqlDeleteRelationships);
             stDelRelationship.setString(1,name);
             stDelRelationship.executeUpdate();
 
             //Generacion de un statement SQL que elimina datos de la tabla league_teams dependiendo del nombre del team.
-            String sqlDeleteRelationships2 = "DELETE FROM league_teams WHERE LTEAMS_NAME = ?";
+            String sqlDeleteRelationships2 = "DELETE FROM equipo_liga WHERE nombre_equipo = ?";
             PreparedStatement stDelRelationship2 = conn.prepareStatement(sqlDeleteRelationships2);
             stDelRelationship2.setString(1,name);
             stDelRelationship2.executeUpdate();
 
             //Generacion de un statement sql para eliminar datos de la tabla teams dependeindeo del nombre del team.
-            String sql = "DELETE FROM teams WHERE TEAM_NAME=?";
+            String sql = "DELETE FROM equipo WHERE nombre =?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, name);
 
@@ -150,8 +158,11 @@ public class TeamsDAO implements TeamsDAOInt {
         return equipos;
     }
 
+    @Override
+
+
     public Team selectTeam(String nombreEquipo) throws SQLException {
-        String query = "SELECT * FROM equipo WHERE nombre_equipo = ?";
+        String query = "SELECT * FROM equipo WHERE nombre = ?";
         Team equipo = null;
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, nombreEquipo);
@@ -169,17 +180,25 @@ public class TeamsDAO implements TeamsDAOInt {
         }
         return equipo;
     }
+    public String readJsonFile(String fileName) {
+        StringBuilder jsonString = new StringBuilder();
 
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonString.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        return jsonString.toString();
+    }
 
+        public void jsonToDatabase(String jsonFileName) {
+            //Llamamos al metodo que abre y lee el archivo json
+            String jsonString = readJsonFile(jsonFileName);
 
-
-    public class JsonToDatabase {
-        private static final String JDBC_URL = "jdbc:mysql://localhost:3306/league_manager_data";
-        private static final String DB_USER = "dreamteam";
-        private static final String DB_PASSWORD = "dreamteam";
-
-        public static void jsonToDatabase(String jsonString) {
 
             // crea un objeto Gson para parsear el String JSON
             Gson gson = new Gson();
@@ -193,7 +212,7 @@ public class TeamsDAO implements TeamsDAOInt {
             // extrae el array de jugadores de el JSON
             JsonArray playersArray = jsonObject.getAsJsonArray("players");
 
-            try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD)) {
+            try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
                 // introduce la informacion del elquipo en la tabla equipo
                 PreparedStatement equipoStmt = conn.prepareStatement(
@@ -227,14 +246,13 @@ public class TeamsDAO implements TeamsDAOInt {
 
                     // introduce el jugador en la tabla 'jugador_equipo_liga' para su posterior tratamiento y relacion
                     PreparedStatement jugadorEquipoLigaStmt = conn.prepareStatement(
-                            "INSERT INTO jugador_equipo_liga (dni_jugador, nombre_equipo, nombre_liga) VALUES (?, ?, ?)");
+                            "INSERT INTO jugador_equipo (dni_jugador, nombre_equipo) VALUES (?, ?)");
                     jugadorEquipoLigaStmt.setString(1, dni);
                     jugadorEquipoLigaStmt.setString(2, teamName);
-                    jugadorEquipoLigaStmt.setString(3, "");
                     jugadorEquipoLigaStmt.executeUpdate();
                 }
 
-                // close all statements and connection
+                // cierra la conexion
                 equipoStmt.close();
                 jugadorStmt.close();
                 conn.close();
@@ -243,7 +261,7 @@ public class TeamsDAO implements TeamsDAOInt {
                 e.printStackTrace();
             }
         }
-    }
+
 
 
 

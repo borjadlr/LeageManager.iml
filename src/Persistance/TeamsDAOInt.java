@@ -18,6 +18,7 @@ public interface TeamsDAOInt {
 
     void updateDataTeams(String name1, int nplayers, int wins, int ties, int losses, int points, String name2) throws SQLException;
 
+    void jsonToDatabase(String jsonString);
 
     void deleteDataTeams(String name) throws SQLException;
 
