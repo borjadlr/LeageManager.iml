@@ -39,12 +39,12 @@ public class MainFrameGUI extends JFrame{
 
         centerPanel.add(mainPanelGUI, FIRST_UI);
         centerPanel.add(userLoginGUI, LOGIN_VIEW);
-        centerPanel.add(menuUserGUI, MENU_USER_VIEW);
-        centerPanel.add(menuAdminGUI, MENU_ADMIN_VIEW);
-        centerPanel.add(changePasswordGUI,CHANGE_PASSWORD_VIEW);
-        centerPanel.add(currentLeagueGUI, CURRENT_LEAGUE_VIEW);
-        centerPanel.add(newLeaguesGUI, MENU_NEW_LEAGUE);
-        centerPanel.add(registrationGUI, REGISTRATION_VIEW);
+        //centerPanel.add(menuUserGUI, MENU_USER_VIEW);
+        //centerPanel.add(menuAdminGUI, MENU_ADMIN_VIEW);
+        //centerPanel.add(changePasswordGUI,CHANGE_PASSWORD_VIEW);
+        //centerPanel.add(currentLeagueGUI, CURRENT_LEAGUE_VIEW);
+        //centerPanel.add(newLeaguesGUI, MENU_NEW_LEAGUE);
+        //centerPanel.add(registrationGUI, REGISTRATION_VIEW);
 
         cardLayout.show(centerPanel, LOGIN_VIEW);
 
