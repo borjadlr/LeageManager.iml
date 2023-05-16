@@ -13,8 +13,8 @@ import java.util.List;
 public class TeamsLeagueUserDAO implements TeamsLeagueUserDAOInt {
     private Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/league_manager_data";
-        String username = "tu_usuario";
-        String password = "tu_contraseña";
+        String username = "dreamteam";
+        String password = "dreamteam";
         return DriverManager.getConnection(url, username, password);
     }
 
