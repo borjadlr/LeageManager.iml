@@ -1,13 +1,25 @@
+import Business.Entities.Team;
+import Business.Entities.User;
+import Business.Managers.*;
+import Persistance.dao.TeamsDAO;
 import Persistance.dao.UserDAO;
-import Presentation.Controllers.MainPanelController;
+import Presentation.Controllers.*;
 import Presentation.Views.*;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        //Managers
+        //Entities
 
+        //Dao
+        UserDAO userDAO = new UserDAO();
+        TeamsDAO teamsDAO = new TeamsDAO();
+
+
+
+        //Managers
+        User user = new User();
         //Vistas
         LoginGUI loginGUI = new LoginGUI();
         MenuUserGUI menuUserGUI = new MenuUserGUI();
@@ -21,6 +33,9 @@ public class Main {
 
         //Controllers
         MainPanelController mainPanelController = new MainPanelController(mainFrame);
+        LoginController loginController = new LoginController(mainFrame, loginGUI, userDAO);
+        loginGUI.actionListener(loginController);
+        loginGUI.focusListener(loginController);
 
         //Buttons
         mainPanelGUI.registerListener(mainPanelController);

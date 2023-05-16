@@ -5,10 +5,7 @@ import Presentation.Controllers.LoginController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import static java.awt.Font.PLAIN;
 
@@ -87,12 +84,14 @@ public class LoginGUI extends JPanel {
         this.add(panel);
     }
 
-    public void LoginListener(LoginController controller) {
-        email.addFocusListener(controller);
+    public void actionListener(ActionListener actionListener){
+        login.addActionListener(actionListener);
+    }
+    public void focusListener(FocusListener focusListener) {
+        email.addFocusListener(focusListener);
         email.setName("Email");
-        password.addFocusListener(controller);
+        password.addFocusListener(focusListener);
         password.setName("Password");
-        login.addActionListener(controller);
     }
 
     public String getUsernameInfo() {
