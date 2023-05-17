@@ -1,75 +1,83 @@
 package Business.Entities;
 
-import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 public class League {
 
     private String name;
     private Date date;
-    private Time hour;
     private int day;
     private int number_teams;
 
+    private List<Team> teams;
+    
+    private List<Match> matches;
+    private boolean state;
 
-
-
-    private int state;
-
-    public League(String name, Date date, Time hour, int day, int number_teams, int state) {
+    public League(String name, Date date, int day, int number_teams, List<Team> teams, List<Match> matches, boolean state) {
         this.name = name;
         this.date = date;
-        this.hour = hour;
         this.day = day;
         this.number_teams = number_teams;
+        this.teams = teams;
+        this.matches = matches;
         this.state = state;
-    }
-
-    public Time getHour() {
-        return hour;
-    }
-
-    public void setHour(Time hour) {
-        this.hour = hour;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Date getDate() {
         return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public int getDay() {
         return day;
     }
 
-    public void setDay(int day) {
-        this.day = day;
-    }
-
     public int getNumber_teams() {
         return number_teams;
+    }
+
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public List<Match> getMatches() {
+        return matches;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public void setNumber_teams(int number_teams) {
         this.number_teams = number_teams;
     }
 
-    public int getState() {
-        return state;
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
     }
 
-    public void setState(int state) {
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
+    }
+
+    public void setState(boolean state) {
         this.state = state;
     }
 }

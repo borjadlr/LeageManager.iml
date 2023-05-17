@@ -1,4 +1,3 @@
-/*
 
 package Business.Managers;
 
@@ -231,5 +230,3 @@ public class UserManager {
 
 
 }
-
-*/

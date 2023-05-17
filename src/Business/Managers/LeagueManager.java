@@ -28,15 +28,16 @@ public class LeagueManager {
         int i = 0;
         
         while (i < leagues.size()){
-            if (!leagues.get(i).getName().equals(league.getName())){
+            if (!leagues.get(i).getName().equals(league.getName())) {
                 throw new LeagueAlreadyExistsException();
-            } else if (!comprovaData(league.getDate())) {
-                throw new DateExpiredException();
-            } else if (!comprovaRepeatedTeams(league)){
-                throw new RepeatedTeamException();
-            } else {
-                //metodo borja
             }
+            if (!comprovaData(league.getDate())) {
+                throw new DateExpiredException();
+            }
+            if (!comprovaRepeatedTeams(league)){
+                throw new RepeatedTeamException();
+            }
+            //metodo borja
             i++;
         }
     }
@@ -49,12 +50,12 @@ public class LeagueManager {
     public boolean comprovaRepeatedTeams(League league) throws SQLException {
         List<Team> leagueTeams = league.getTeams();
         List<Team> allTeams = teamManager.getAllTeams();
-        int flag = 0, i = 0, j = 0;
+        int leaguesWithSameName = 0, i = 0, j = 0;
 
         while (allTeams.size() > j)  {
             if (leagueTeams.get(i).getName().equals(allTeams.get(j).getName())) {
-                flag++;
-                if (flag == 2){
+                leaguesWithSameName++;
+                if (leaguesWithSameName == 2){
                     return false;
                 }
             } else if (leagueTeams.size() == i){

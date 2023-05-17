@@ -1,40 +1,37 @@
 package Business.Entities;
 
 public class Match {
-    private String equipoLocal;
-    private String equipoVisitante;
-    private String resultado;
 
-    // Constructor
-    public Match(String equipoLocal, String equipoVisitante, String resultado) {
-        this.equipoLocal = equipoLocal;
-        this.equipoVisitante = equipoVisitante;
-        this.resultado = resultado;
+    private Team team1;
+    private Team team2;
+
+    private boolean status;
+
+    public Match(Team team1, Team team2, boolean status) {
+        this.team1 = team1;
+        this.team2 = team2;
+        this.status = status;
     }
 
-    // Getters y setters
-    public String getEquipoLocal() {
-        return equipoLocal;
+    public Team getTeam1() {
+        return team1;
     }
 
-    public void setEquipoLocal(String equipoLocal) {
-        this.equipoLocal = equipoLocal;
+    public Team getTeam2() {
+        return team2;
     }
 
-    public String getEquipoVisitante() {
-        return equipoVisitante;
+    
+
+    public void setTeam1(Team team1) {
+        this.team1 = team1;
     }
 
-    public void setEquipoVisitante(String equipoVisitante) {
-        this.equipoVisitante = equipoVisitante;
+    public void setTeam2(Team team2) {
+        this.team2 = team2;
     }
 
-    public String getResultado() {
-        return resultado;
-    }
-
-    public void setResultado(String resultado) {
-        this.resultado = resultado;
+    public boolean isStatus() {
+        return status;
     }
 }
-

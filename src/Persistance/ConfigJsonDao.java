@@ -8,23 +8,23 @@ import Business.Entities.Config;
 
 
 
-public class ConfigJsonDao {
+/*public class ConfigJsonDao<Gson> {
     private static final String route = "files/config.json";
     private static final Path path = Path.of(route);
 
     /**
      * Constructor de la clase
      */
-    public ConfigJsonDao() {
+    /*public ConfigJsonDao() {
     }
 
     /**
      * Metodo que obtiene la configuracion de la base de datos
      */
-    public Config readConfig(){
+    /*public Config readConfig(){
         Config config = new Config();
         try{
-            Gson gson=new Gson();
+            Gson gson = new Gson();
 
             String text= Files.readString(path);
             config=gson.fromJson(text, Config.class);
@@ -36,4 +36,4 @@ public class ConfigJsonDao {
     }
 
 
-}
+}*/
