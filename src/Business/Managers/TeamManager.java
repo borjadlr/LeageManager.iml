@@ -21,7 +21,7 @@ public class TeamManager {
     private List<User> userList;
 
 
-    public TeamManager(TeamsDAOInt teamDAO, Team team, List<Team> teamsList, List<User> userList) {
+    public TeamManager(TeamsDAOInt teamDAO, Team team) {
         this.teamsDAO = teamDAO;
         this.team = team;
         this.teamsList = new ArrayList<>();

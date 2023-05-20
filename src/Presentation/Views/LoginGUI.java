@@ -102,11 +102,8 @@ public class LoginGUI extends JPanel {
         return password.getText();
     }
 
-    public void userNotExistMessage() {
-        JOptionPane.showMessageDialog(null, THIS_USERNAME_DOES_NOT_EXIST);
+    public void exceptionMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
     }
 
-    public void passwordIsWrong() {
-        JOptionPane.showMessageDialog(null, INCORRECT_PASSWORD_FOR_THIS_USERNAME);
-    }
 }

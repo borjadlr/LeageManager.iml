@@ -6,7 +6,6 @@ import Exceptions.*;
 import Persistance.UserDAOInt;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -28,7 +27,7 @@ public class UserManager {
     }
 
 
-    public void signIn(String input, String password) throws DNIDontExistException, IncorrectPassword4UserException {
+    public void signIn(String input, String password) throws DNIOrMailDontExistException, IncorrectPassword4UserException {
         int i = 0;
         List<User> users = userDAO.SelectDataUser();
 
@@ -39,7 +38,6 @@ public class UserManager {
         while (i < users.size()) {
             if (users.get(i).getDni().equals(input) || users.get(i).getEmail().equals(input)) {
                 if (users.get(i).getPassword().equals(password)) {
-                    //userLocal = createUser(input, password, users.get(i).getEmail(),);
                     return;
                 } else {
                     throw new IncorrectPassword4UserException();
@@ -48,11 +46,11 @@ public class UserManager {
                 i++;
             }
         }
-        throw new DNIDontExistException();
+        throw new DNIOrMailDontExistException();
     }
 
 
-    public void signUp(User user, String password) throws InvalidPasswordException, EmailAlreadyExistsException, ExistingDNIException, DNIDontExistException, InvalidEmailException, SamePasswordException, DNIException, SQLException {
+    public void signUp(User user, String password) throws InvalidPasswordException, EmailAlreadyExistsException, ExistingDNIException, DNIOrMailDontExistException, InvalidEmailException, SamePasswordException, DNIException, SQLException {
         List<User> users = userDAO.SelectDataUser();
         int i = 0;
 
@@ -203,7 +201,7 @@ public class UserManager {
     }
 
 
-    public void deleteUser(String dni, String password) throws DNIDontExistException, IncorrectPassword4UserException {
+    public void deleteUser(String dni, String password) throws DNIOrMailDontExistException, IncorrectPassword4UserException {
         List<User> users = userDAO.SelectDataUser();
         int i = 0;
 
@@ -218,7 +216,7 @@ public class UserManager {
                 }
             } else i++;
         }
-        throw new DNIDontExistException();
+        throw new DNIOrMailDontExistException();
     }
 
     public void logOut() {

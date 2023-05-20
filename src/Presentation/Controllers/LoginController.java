@@ -15,41 +15,45 @@ import java.awt.event.FocusListener;
 
 public class LoginController implements ActionListener, FocusListener {
 
-    private String defaultEmailText = "dni/email: ";
-    private String defaultPasswordText = "Password: ";
+    private final String defaultEmailText = "dni/email: ";
+    private final String defaultPasswordText = "Password: ";
 
     private final MainFrameGUI mainView;
     private final LoginGUI view;
     //private final UserManager userManager;
-    private UserDAOInt userDAOInt;
+    private final UserManager userManager;
 
 
     private static final String BACK_LOGIN = "Back Login";
 
-    public LoginController(MainFrameGUI mainView, LoginGUI view, UserDAOInt userDAOInt) {
+    public LoginController(MainFrameGUI mainView, LoginGUI view, UserManager userManager) {
         this.mainView = mainView;
         this.view = view;
         //this.userManager = userManager;
-        this.userDAOInt = userDAOInt;
+        this.userManager = userManager;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
             case "LOGIN_BUTTON":
-                String username = view.getUsernameInfo();
-                String password = view.getPasswordInfo();
-                userDAOInt.InsertDataUser("233443434G", username, password, 22, "123456789");
+                try {
+                    String username = view.getUsernameInfo();
+                    String password = view.getPasswordInfo();
+                    userManager.signIn(username, password);
+
+                } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
+                    view.exceptionMessage(ex.getMessage());
+                }
                 break;
         }
     }
 
     @Override
     public void focusGained(FocusEvent e) {
-        if (e.getSource() instanceof JTextField) {
-            JTextField textField = (JTextField) e.getSource();
+        if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
-                case "Email":
+                case "Email or DNI":
                     if (textField.getText().equals(defaultEmailText)) {
                         textField.setText("");
                     }
@@ -65,10 +69,9 @@ public class LoginController implements ActionListener, FocusListener {
 
     @Override
     public void focusLost(FocusEvent e) {
-        if (e.getSource() instanceof JTextField) {
-            JTextField textField = (JTextField) e.getSource();
+        if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
-                case "Email":
+                case "Email or DNI":
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultEmailText);
                     }

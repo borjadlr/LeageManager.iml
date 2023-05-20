@@ -40,7 +40,7 @@ public class Main {
         //Controllers
         MainPanelController mainPanelController = new MainPanelController(mainFrame);
         RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
-        LoginController loginController = new LoginController(mainFrame, loginGUI, userDAO, userManager);
+        LoginController loginController = new LoginController(mainFrame, loginGUI, userManager);
         loginGUI.actionListener(loginController);
         loginGUI.focusListener(loginController);
 
