@@ -1,28 +1,26 @@
 package Presentation.Controllers;
 
-import Business.Entities.User;
 import Business.Managers.UserManager;
-import Exceptions.*;
 import Presentation.Views.*;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.sql.SQLException;
+
 
 public class RegistrationController implements FocusListener, ActionListener {
 
-    private final RegistrationGUI view;
     private final UserManager userManager;
-    private final MainFrameGUI mainFrameGUI;
+    private MainFrameGUI mainFrameGUI;
 
-    private final String defaultDniText = "Dni: ";
-    private final String defaultTeamText = "Team: ";
-    private final String defaultDorsalText = "Dorsal: ";
-    private final String defaultNameText = "Name: ";
-    private final String defaultPhoneNumberText = "Phone Number: ";
+    private RegistrationGUI view;
+
+    private String defaultDniText = "Dni: ";
+    private String defaultTeamText = "Team:";
+    private String defaultDorsalText = "Dorsal: ";
+    private String defaultNameText = "Name: ";
+    private String defaultPhoneNumberText = "Phone Number: ";
 
     public RegistrationController(MainFrameGUI mainFrameGUI, RegistrationGUI view, UserManager userManager) {
         this.mainFrameGUI = mainFrameGUI;
@@ -33,21 +31,19 @@ public class RegistrationController implements FocusListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
-            if ("OK_BUTTON".equals(e.getActionCommand())) {
-                String dni = view.getDniText();
-                int dorsal = view.getDorsalText();
-                String phoneNumber = view.getPhoneNumberText();
-                String email = view.getEmailText();
-                User user = userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber);
+            switch (e.getActionCommand()) {
+                case "OK_BUTTON":
+                    String dni = view.getDniText();
+                    int dorsal = Integer.parseInt(view.getDorsalText());
+                    String phoneNumber = String.valueOf(view.getPhoneNumberText());
+                    //String teamName = view.getNameTeamText();
+                    String email = view.getEmailText();
+                    // String name = view.getNameText();
 
-                try {
-                    userManager.signUp(user, user.getPassword());
-                } catch (InvalidPasswordException | ExistingDNIException | DNIDontExistException |
-                         InvalidEmailException | EmailAlreadyExistsException | SamePasswordException |
-                         DNIException | SQLException ex) {
-                    view.exceptionMessage(ex.getMessage());
-                }
-                mainFrameGUI.showMenuUser();
+                        userManager.createUser(dni, userManager.generatePassword(), email, dorsal, phoneNumber); //Els hi falta parametres .
+                        mainFrameGUI.showMenuUser();
+
+                    break;
             }
 
         }
@@ -55,7 +51,8 @@ public class RegistrationController implements FocusListener, ActionListener {
 
     @Override
     public void focusGained(FocusEvent e) {
-        if (e.getSource() instanceof JTextField textField) {
+        if (e.getSource() instanceof JTextField) {
+            JTextField textField = (JTextField) e.getSource();
             switch (textField.getName()) {
                 case "DNI":
                     if (textField.getText().equals(defaultDniText)) {
@@ -88,7 +85,8 @@ public class RegistrationController implements FocusListener, ActionListener {
 
     @Override
     public void focusLost(FocusEvent e) {
-        if (e.getSource() instanceof JTextField textField) {
+        if (e.getSource() instanceof JTextField) {
+            JTextField textField = (JTextField) e.getSource();
             switch (textField.getName()) {
                 case "DNI":
                     if (textField.getText().isEmpty()) {
