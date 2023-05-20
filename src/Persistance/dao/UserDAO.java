@@ -170,27 +170,45 @@ public class UserDAO implements UserDAOInt {
 
     }
 
-    public void DeleteDataUserEmail(String email){
-        //Connectamos a la base de datos y controlamos excepciones.
+    /**
+     * Elimina un usuario y todas sus relaciones en todas las tablas donde se guarda información del usuario.
+     *
+     * @param email El correo electrónico del usuario que será eliminado.
+     */
+    public void DeleteDataUserEmail(String email) {
+        // Conectamos a la base de datos y controlamos excepciones.
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
-            System.out.println("Successful connection...");
-            //Generamos un statement sql para eliminar dependiendo del username
-            String sql = "DELETE FROM jugador WHERE email = ?";
+            System.out.println("Conexión ok...");
 
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, email);
+            // Primero, obtenemos el DNI del jugador usando el correo electrónico
+            String sqlFetch = "SELECT dni FROM jugador WHERE email = ?";
+            PreparedStatement statementFetch = conn.prepareStatement(sqlFetch);
+            statementFetch.setString(1, email);
+            ResultSet result = statementFetch.executeQuery();
+            if (result.next()) {
+                String dni = result.getString("dni");
 
-            int rowsDeleted = statement.executeUpdate();
-            if (rowsDeleted > 0) {
-                System.out.println("A user was deleted successfully!");
+                // Segundo, eliminamos las filas correspondientes en la tabla jugador_equipo
+                String sqlDeleteEquipo = "DELETE FROM jugador_equipo WHERE dni_jugador = ?";
+                PreparedStatement statementDeleteEquipo = conn.prepareStatement(sqlDeleteEquipo);
+                statementDeleteEquipo.setString(1, dni);
+                statementDeleteEquipo.executeUpdate();
+
+                // Finalmente, eliminamos la fila de la tabla jugador
+                String sqlDeleteJugador = "DELETE FROM jugador WHERE dni = ?";
+                PreparedStatement statementDeleteJugador = conn.prepareStatement(sqlDeleteJugador);
+                statementDeleteJugador.setString(1, dni);
+                int rowsDeleted = statementDeleteJugador.executeUpdate();
+                if (rowsDeleted > 0) {
+                    System.out.println("¡Un usuario ha sido eliminado con éxito!");
+                }
             }
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
     }
+
 
 
 
