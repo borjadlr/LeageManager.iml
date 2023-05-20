@@ -30,7 +30,7 @@ public class TopPanelController implements ActionListener {
             userManager.logOut();
             mainFrameGUI.showMainPanel();
         } else if (e.getSource() == view.getDeleteAccountMenuItem()) {
-            userManager.deleteUser();
+
         }
     }
 }
