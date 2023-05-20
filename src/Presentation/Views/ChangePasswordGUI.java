@@ -10,11 +10,11 @@ import java.awt.event.ActionListener;
 
 public class ChangePasswordGUI extends JPanel {
 
-    private JPasswordField actualPassword;
-    private JPasswordField newPassword;
-    private JPasswordField repeatNewPassword;
+    private final JPasswordField actualPassword;
+    private final JPasswordField newPassword;
+    private final JPasswordField repeatNewPassword;
 
-    private JButton ok;
+    private final JButton ok;
     private Color backgroundColor;
 
     public Color getBackgroundColor() {
@@ -93,6 +93,26 @@ public class ChangePasswordGUI extends JPanel {
         newPassword.setName("NewPassword");
         repeatNewPassword.addFocusListener(controller);
         repeatNewPassword.setName("RepeatNewPassword");
+    }
+
+    public String getActualPassword() {
+        return actualPassword.getText();
+    }
+
+    public String getNewPassword() {
+        return newPassword.getText();
+    }
+
+    public String getRepeatNewPassword() {
+        return repeatNewPassword.getText();
+    }
+
+    public void exceptionMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+    }
+
+    public void passwordSuccess() {
+        JOptionPane.showMessageDialog(null, "The password have been successfully changed!");
     }
 
     public void actionListenerPassword(ActionListener actionListener){

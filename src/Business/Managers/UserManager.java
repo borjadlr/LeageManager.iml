@@ -7,6 +7,7 @@ import Persistance.UserDAOInt;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class UserManager {
@@ -63,7 +64,7 @@ public class UserManager {
                         throw new ExistingDNIException();
                     } else if (!comprovaCaractersPassword(user)) {
                         throw new InvalidPasswordException();
-                    } else if (!comprovaCaractersMail(user)) {
+                    } else if (comprovaCaractersMail(user)) {
                         throw new InvalidEmailException();
                     } else if (comprovaDNI(user.getDni())) {
                         throw new DNIException();
@@ -81,7 +82,7 @@ public class UserManager {
         } catch (NullPointerException npe) {
             if (!comprovaCaractersPassword(user)) {
                 throw new InvalidPasswordException();
-            } else if (!comprovaCaractersMail(user)) {
+            } else if (comprovaCaractersMail(user)) {
                 throw new InvalidEmailException();
             } else if (comprovaDNI(user.getDni())) {
                 throw new DNIException();
@@ -162,7 +163,7 @@ public class UserManager {
                 arrobaCounter++;
         }
 
-        return dotCounter >= MIN_DOT && arrobaCounter >= MIN_ARROBA;
+        return dotCounter < MIN_DOT || arrobaCounter < MIN_ARROBA;
     }
 
     public boolean comprovaDNI(String dni) throws SQLException {
@@ -229,15 +230,22 @@ public class UserManager {
         return userLocal.getDni();
     }
 
-    public boolean canviContrasenya(User user, String pastPassword, String newPassword){
-        user.setPassword(newPassword);
-        if (comprovaCaractersPassword(user)){
+    public boolean comparePassword(String password1, String password2) {
+        return Objects.equals(password1, password2);
+    }
 
-            //metode borja updatePassword
-            return true;
+    public void canviContrasenya(String pastPassword, String newPassword, String repeatedPassword) throws InvalidPasswordException, SamePasswordException {
+        userLocal.setPassword(newPassword);
+        if (comprovaCaractersPassword(userLocal) && comparePassword(repeatedPassword, newPassword)){
+            userDAO.updatePassword(userLocal.getEmail(), newPassword);
+        } else if (!comprovaCaractersPassword(userLocal)){
+            userLocal.setPassword(pastPassword);
+            throw new InvalidPasswordException();
+        } else {
+            userLocal.setPassword(pastPassword);
+            throw new SamePasswordException();
         }
-        user.setPassword(pastPassword);
-        return false;
+
     }
 
 

@@ -1,5 +1,9 @@
 package Presentation.Controllers;
 
+import Business.Managers.UserManager;
+import Exceptions.InvalidPasswordException;
+import Exceptions.SamePasswordException;
+import Presentation.Views.ChangePasswordGUI;
 import Presentation.Views.MainFrameGUI;
 
 import javax.swing.*;
@@ -10,22 +14,34 @@ import java.awt.event.FocusListener;
 
 public class ChangePasswordController implements FocusListener, ActionListener {
 
-    private MainFrameGUI mainFrameGUI;
+    private final MainFrameGUI mainFrameGUI;
+    private final String defaultCurrentPassword = "Actual Password: ";
+    private final String defaultNewPassword = "New Password: ";
+    private final String defaultRepeatNewPassword = "Repeat New Password: ";
 
-    private String defaultCurrentPassword = "Actual Password: ";
-    private String defaultNewPassword = "New Password: ";
-    private String defaultRepeatNewPassword = "Repeat New Password: ";
+    private final ChangePasswordGUI view;
+    private final UserManager userManager;
 
-    public ChangePasswordController(MainFrameGUI mainFrameGUI) {
+    public ChangePasswordController(MainFrameGUI mainFrameGUI, ChangePasswordGUI view, UserManager userManager) {
         this.mainFrameGUI = mainFrameGUI;
+        this.view = view;
+        this.userManager = userManager;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
             switch (e.getActionCommand()) {
+
                 case "OK":
-                    mainFrameGUI.showMenuUser();
+                    try {
+                        userManager.canviContrasenya(view.getActualPassword(), view.getNewPassword(), view.getRepeatNewPassword());
+                        view.passwordSuccess();
+                        mainFrameGUI.showMenuUser();
+                    } catch (InvalidPasswordException | SamePasswordException ex) {
+                        view.exceptionMessage(ex.getMessage());
+                    }
+
                     break;
             }
         }
@@ -33,8 +49,7 @@ public class ChangePasswordController implements FocusListener, ActionListener {
 
     @Override
     public void focusGained(FocusEvent e) {
-        if (e.getSource() instanceof JPasswordField) {
-            JPasswordField textField = (JPasswordField) e.getSource();
+        if (e.getSource() instanceof JPasswordField textField) {
             switch (textField.getName()) {
                 case "ActualPassword":
                     if (textField.getText().equals(defaultCurrentPassword)) {
@@ -60,8 +75,7 @@ public class ChangePasswordController implements FocusListener, ActionListener {
 
     @Override
     public void focusLost(FocusEvent e) {
-        if (e.getSource() instanceof JPasswordField) {
-            JPasswordField textField = (JPasswordField) e.getSource();
+        if (e.getSource() instanceof JPasswordField textField) {
             switch (textField.getName()) {
                 case "ActualPassword":
                     if (textField.getText().isEmpty()) {
