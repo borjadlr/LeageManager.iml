@@ -89,7 +89,7 @@ public class LoginGUI extends JPanel {
     }
     public void focusListener(FocusListener focusListener) {
         email.addFocusListener(focusListener);
-        email.setName("Email");
+        email.setName("Email or DNI");
         password.addFocusListener(focusListener);
         password.setName("Password");
     }
