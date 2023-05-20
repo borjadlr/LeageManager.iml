@@ -6,7 +6,7 @@ import java.awt.*;
 import static javax.swing.JOptionPane.showMessageDialog;
 public class MainFrameGUI extends JFrame{
     public final String LOGIN_VIEW = "LOGIN_VIEW";
-    public final String MENU_USER_VIEW = "MENU_USER_VIEW";
+    public final String  MENU_USER_VIEW = "MENU_USER_VIEW";
     public final String MENU_ADMIN_VIEW = "MENU_ADMIN_VIEW";
     public final String MAIN_PANEL = "MAIN_PANEL";
     public final String FIRST_UI = "FIRST_UI";
