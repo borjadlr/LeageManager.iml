@@ -37,7 +37,8 @@ public class Main {
         RegistrationGUI registrationGUI = new RegistrationGUI();
         TopPanelGUI topPanelGUI = new TopPanelGUI();
         DeleteGUI deleteGUI = new DeleteGUI();
-        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, currentLeagueGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI);
+        ShowLeague showLeague = new ShowLeague();
+        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, currentLeagueGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, showLeague);
 
         //Controllers
         MainPanelController mainPanelController = new MainPanelController(mainFrame);

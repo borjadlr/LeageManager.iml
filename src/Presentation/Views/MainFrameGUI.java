@@ -14,6 +14,9 @@ public class MainFrameGUI extends JFrame{
     public final String CHANGE_PASSWORD_VIEW = "CHANGE_PASSWORD_VIEW";
     public final String CURRENT_LEAGUE_VIEW = "CURRENT_LEAGUE_VIEW";
     public final String REGISTRATION_VIEW = "REGISTRATION_VIEW";
+    public final String DELETE_VIEW = "DELETE_VIEW";
+    public final String SHOW_LEAGUE = "SHOW_LEAGUE";
+
 
     private JPanel topPanel;
     private JPanel centerPanel;
@@ -23,7 +26,7 @@ public class MainFrameGUI extends JFrame{
 
 
 
-    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, CurrentLeaguesGUI currentLeagueGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI){
+    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, CurrentLeaguesGUI currentLeagueGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ShowLeague showLeague){
 
         super("Main Frame");
 
@@ -45,8 +48,10 @@ public class MainFrameGUI extends JFrame{
         //centerPanel.add(currentLeagueGUI, CURRENT_LEAGUE_VIEW);
         //centerPanel.add(newLeaguesGUI, MENU_NEW_LEAGUE);
         centerPanel.add(registrationGUI, REGISTRATION_VIEW);
+        centerPanel.add(deleteGUI, DELETE_VIEW);
+        centerPanel.add(showLeague, SHOW_LEAGUE);
 
-        cardLayout.show(centerPanel, FIRST_UI);
+        cardLayout.show(centerPanel, DELETE_VIEW);
 
         bottomPanel = new BottomPanelGUI();
         add(bottomPanel, BorderLayout.SOUTH);
@@ -77,8 +82,7 @@ public class MainFrameGUI extends JFrame{
     public void showMenuUser() {
         cardLayout.show(centerPanel, MENU_USER_VIEW);
     }
-
-
+    public void showLeague(){ cardLayout.show(centerPanel, SHOW_LEAGUE);}
     public void showMenuAdmin(){
         cardLayout.show(centerPanel, MENU_ADMIN_VIEW);
     }
