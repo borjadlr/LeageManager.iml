@@ -1,11 +1,19 @@
 
 package Business.Managers;
 
+import Business.Entities.League;
+import Business.Entities.Team;
 import Business.Entities.User;
 import Exceptions.*;
+import Persistance.TeamsLeagueDAOInt;
 import Persistance.UserDAOInt;
+import Persistance.UserTeamsDAOInt;
+import Persistance.dao.TeamsLeagueDAO;
+import Persistance.dao.UserDAO;
+import Persistance.dao.UserTeamsDAO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -15,32 +23,37 @@ public class UserManager {
     private final LeagueManager leagueManager;
 
     private final TeamManager teamManager;
+
+    private final UserTeamsDAOInt userTeamsDAOInt;
+
+    private final TeamsLeagueDAOInt teamsLeagueDAOInt;
     private User userLocal;
 
     private final AdminManager adminManager;
 
-    public UserManager(UserDAOInt userDAO, LeagueManager leagueManager, TeamManager teamManager, User user, AdminManager adminManager) {
+    public UserManager(UserDAOInt userDAO, LeagueManager leagueManager, TeamManager teamManager, UserTeamsDAOInt userTeamsDAOInt, TeamsLeagueDAOInt teamsLeagueDAOInt, User user, AdminManager adminManager) {
         this.userDAO = userDAO;
         this.leagueManager = leagueManager;
         this.teamManager = teamManager;
+        this.userTeamsDAOInt = userTeamsDAOInt;
+        this.teamsLeagueDAOInt = teamsLeagueDAOInt;
         this.userLocal = user;
         this.adminManager = adminManager;
     }
 
 
-    public void signIn(String input, String password) throws DNIOrMailDontExistException, IncorrectPassword4UserException {
+    public boolean signIn(String input, String password) throws DNIOrMailDontExistException, IncorrectPassword4UserException {
         int i = 0;
         List<User> users = userDAO.SelectDataUser();
-
-        if (adminManager.isAdmin(input)){
-            return;
-        }
 
         while (i < users.size()) {
             if (users.get(i).getDni().equals(input) || users.get(i).getEmail().equals(input)) {
                 if (users.get(i).getPassword().equals(password)) {
+                    if (adminManager.isAdmin(input)){
+                        return true;
+                    }
                     userLocal = users.get(i);
-                    return;
+                    return false;
                 } else {
                     throw new IncorrectPassword4UserException();
                 }
@@ -252,6 +265,12 @@ public class UserManager {
         }
 
     }
+
+    /*public List<League> getLeagues() {
+        ArrayList<League> leagues = new ArrayList<>();
+
+
+    }*/
 
 
 }

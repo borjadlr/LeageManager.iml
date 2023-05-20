@@ -1,13 +1,14 @@
 package Persistance.dao;
 
 import Business.Entities.User;
+import Persistance.UserTeamsDAOInt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserTeamsDAO {
+public class UserTeamsDAO implements UserTeamsDAOInt {
 
     private static String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
     private static String username = "dreamteam";
@@ -16,7 +17,7 @@ public class UserTeamsDAO {
     private static User user;
 
     // Constructor que recibe la conexión a la base de datos
-    public UserTeamsDAO(Connection conn) {
+    public UserTeamsDAO() {
         this.conn = conn;
     }
 

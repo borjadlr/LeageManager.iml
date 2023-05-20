@@ -1,15 +1,20 @@
 package Business.Managers;
 
 import Business.Entities.Admin;
-import Business.Entities.User;
 import Persistance.UserDAOInt;
 
 public class AdminManager {
 
     private final UserDAOInt userDAO;
 
-    public AdminManager(UserDAOInt userDAO) {
+    private final LeagueManager leagueManager;
+
+    private final TeamManager teamManager;
+
+    public AdminManager(UserDAOInt userDAO, LeagueManager leagueManager, TeamManager teamManager) {
         this.userDAO = userDAO;
+        this.leagueManager = leagueManager;
+        this.teamManager = teamManager;
     }
 
     public boolean isAdmin (String name){
