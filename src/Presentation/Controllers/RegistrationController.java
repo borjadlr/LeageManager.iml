@@ -1,7 +1,8 @@
 package Presentation.Controllers;
 
+import Business.Entities.User;
 import Business.Managers.UserManager;
-import Exceptions.DNIException;
+import Exceptions.*;
 import Presentation.Views.*;
 
 import javax.swing.*;
@@ -15,13 +16,13 @@ public class RegistrationController implements FocusListener, ActionListener {
 
     private final RegistrationGUI view;
     private final UserManager userManager;
-    private MainFrameGUI mainFrameGUI;
+    private final MainFrameGUI mainFrameGUI;
 
-    private String defaultDniText = "Dni: ";
-    private String defaultTeamText = "Team:";
-    private String defaultDorsalText = "Dorsal: ";
-    private String defaultNameText = "Name: ";
-    private String defaultPhoneNumberText = "Phone Number: ";
+    private final String defaultDniText = "Dni: ";
+    private final String defaultTeamText = "Team:";
+    private final String defaultDorsalText = "Dorsal: ";
+    private final String defaultNameText = "Name: ";
+    private final String defaultPhoneNumberText = "Phone Number: ";
 
     public RegistrationController(MainFrameGUI mainFrameGUI, RegistrationGUI view, UserManager userManager) {
         this.mainFrameGUI = mainFrameGUI;
@@ -32,19 +33,21 @@ public class RegistrationController implements FocusListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
-            switch (e.getActionCommand()) {
-                case "OK_BUTTON":
-                    String dni = view.getDniText();
-                    String dorsal = view.getDorsalText();
-                    int phoneNumber = view.getPhoneNumberText();
-                    String teamName = view.getNameTeamText();
-                    String email = view.getEmailText();
-                    String name = view.getNameText();
+            if ("OK_BUTTON".equals(e.getActionCommand())) {
+                String dni = view.getDniText();
+                int dorsal = view.getDorsalText();
+                String phoneNumber = view.getPhoneNumberText();
+                String email = view.getEmailText();
+                User user = userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber);
 
-                        userManager.createUser(dni, userManager.generatePassword(), email); //Els hi falta parametres .
-                        mainFrameGUI.showMenuUser();
-
-                    break;
+                try {
+                    userManager.signUp(user, user.getPassword());
+                } catch (InvalidPasswordException | ExistingDNIException | DNIDontExistException |
+                         InvalidEmailException | EmailAlreadyExistsException | SamePasswordException |
+                         DNIException | SQLException ex) {
+                    view.exceptionMessage(ex.getMessage());
+                }
+                mainFrameGUI.showMenuUser();
             }
 
         }
@@ -52,8 +55,7 @@ public class RegistrationController implements FocusListener, ActionListener {
 
     @Override
     public void focusGained(FocusEvent e) {
-        if (e.getSource() instanceof JTextField) {
-            JTextField textField = (JTextField) e.getSource();
+        if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
                 case "DNI":
                     if (textField.getText().equals(defaultDniText)) {
@@ -86,8 +88,7 @@ public class RegistrationController implements FocusListener, ActionListener {
 
     @Override
     public void focusLost(FocusEvent e) {
-        if (e.getSource() instanceof JTextField) {
-            JTextField textField = (JTextField) e.getSource();
+        if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
                 case "DNI":
                     if (textField.getText().isEmpty()) {

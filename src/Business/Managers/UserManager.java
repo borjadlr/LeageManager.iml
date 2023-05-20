@@ -39,7 +39,7 @@ public class UserManager {
         while (i < users.size()) {
             if (users.get(i).getDni().equals(input) || users.get(i).getEmail().equals(input)) {
                 if (users.get(i).getPassword().equals(password)) {
-                    userLocal = createUser(input, password, users.get(i).getEmail());
+                    //userLocal = createUser(input, password, users.get(i).getEmail(),);
                     return;
                 } else {
                     throw new IncorrectPassword4UserException();
@@ -181,10 +181,12 @@ public class UserManager {
         return dni.charAt(8) == verificationLetter;
     }
 
-    public User createUser(String dni, String password, String email) {
+    public User createUser(String dni, String password, String email, int number, String phone) {
         userLocal.setDni(dni);
         userLocal.setPassword(password);
         userLocal.setEmail(email);
+        userLocal.setNumber(number);
+        userLocal.setPhone(phone);
         return userLocal;
     }
 

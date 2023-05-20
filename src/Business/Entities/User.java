@@ -10,7 +10,7 @@ public class User {
     private int number;
     private String phone;
 
-    public User(String name, String email, String password,int number, String phone) {
+    public User(String dni, String email, String password,int number, String phone) {
         this.dni = dni;
         this.email = email;
         this.password = password;

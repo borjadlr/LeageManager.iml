@@ -10,12 +10,11 @@ import static java.awt.Font.PLAIN;
 
 public class RegistrationGUI extends JPanel {
 
-    private JTextField name;
-    private JTextField dni;
-    private JTextField team;
-    private JTextField number;
-    private JTextField dorsal;
-    private JTextField email;
+    private final JTextField dni;
+    private final JTextField number;
+    private final JTextField dorsal;
+
+    private final JTextField email;
 
     private static final int MAX_SPACE_BUTTONS = 15;
 
@@ -27,22 +26,8 @@ public class RegistrationGUI extends JPanel {
 
     private static final String DNI_ALREADY_EXIST = "This DNI already exist";
 
+    private final Color backgroundColor;
 
-    private String phoneNumberText;
-    private String dorsalText;
-    private String emailText;
-    private String nameText;
-    private String dniText;
-    private String teamText;
-
-    private JMenuItem logout;
-    private JMenuItem deleteAccount;
-
-    private Color backgroundColor;
-
-    public Color getBackgroundColor() {
-        return backgroundColor;
-    }
 
     public RegistrationGUI() {
 
@@ -68,14 +53,6 @@ public class RegistrationGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(MAX_SPACE_TITTLE));
 
-        String defaultNameText = "Name: ";
-        name = new JTextField(defaultNameText);
-        name.setFont(new Font("Inter", PLAIN, 20));
-        name.setBackground(Color.decode("#D9D9D9"));
-        name.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS_BORDER));
-        panel.add(name);
-
-        panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
 
         String defaultPhoneNumberText = "Phone Number: ";
         number = new JTextField(defaultPhoneNumberText);
@@ -95,21 +72,22 @@ public class RegistrationGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
 
-        String defaultTeamText = "Team :";
-        team = new JTextField(defaultTeamText);
-        team.setFont(new Font("Inter", PLAIN, 20));
-        team.setBackground(Color.decode("#D9D9D9"));
-        team.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS_BORDER));
-        panel.add(team);
-
-        panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
-
         String defaultDniText = "Dni: ";
         dni = new JTextField(defaultDniText);
         dni.setFont(new Font("Inter", PLAIN, 20));
         dni.setBackground(Color.decode("#D9D9D9"));
         dni.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS_BORDER));
         panel.add(dni);
+
+
+        panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
+
+        String defaultEmailText = "Email: ";
+        email = new JTextField(defaultEmailText);
+        email.setFont(new Font("Inter", PLAIN, 20));
+        email.setBackground(Color.decode("#D9D9D9"));
+        email.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS_BORDER));
+        panel.add(email);
 
         panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
 
@@ -124,33 +102,23 @@ public class RegistrationGUI extends JPanel {
         this.add(panel);
     }
 
+    public void exceptionMessage (String message){
+        JOptionPane.showMessageDialog(null, message);
+    }
+
     public String getDniText() {
         return dni.getText();
     }
 
-    public String getDorsalText() {
-        return dorsal.getText();
+    public int getDorsalText() {
+        return Integer.parseInt(dorsal.getText());
     }
     public String getEmailText(){
         return email.getText();
     }
-    public String getNameTeamText(){
-        return team.getText();
-    }
 
-    public int getPhoneNumberText(){
-        return Integer.parseInt(number.getText());
-    }
-
-    public String getNameText(){
-        return name.getText();
-    }
-
-    public void dniAlreadyExist() {
-        JOptionPane.showMessageDialog(null, DNI_ALREADY_EXIST);
-    }
-
-    public void passwordIsWrong() {
+    public String getPhoneNumberText(){
+        return number.getText();
     }
 }
 
