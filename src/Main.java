@@ -24,7 +24,7 @@ public class Main {
         AdminManager adminManaguer = new AdminManager(userDAO);
         TeamManager teamManager = new TeamManager(teamsDAO, team);
         LeagueManager leagueManager = new LeagueManager(teamManager);
-        UserManager userManager = new UserManager(userDAO, leagueManager, teamManager, user, adminManaguer);
+        UserManager userManager = new UserManager(userDAO, user, adminManaguer);
 
         //Vistas
         LoginGUI loginGUI = new LoginGUI();

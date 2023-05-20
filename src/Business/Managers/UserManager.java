@@ -12,17 +12,12 @@ import java.util.Random;
 
 public class UserManager {
     private final UserDAOInt userDAO;
-    private final LeagueManager leagueManager;
-
-    private final TeamManager teamManager;
     private User userLocal;
 
     private final AdminManager adminManager;
 
-    public UserManager(UserDAOInt userDAO, LeagueManager leagueManager, TeamManager teamManager, User user, AdminManager adminManager) {
+    public UserManager(UserDAOInt userDAO, User user, AdminManager adminManager) {
         this.userDAO = userDAO;
-        this.leagueManager = leagueManager;
-        this.teamManager = teamManager;
         this.userLocal = user;
         this.adminManager = adminManager;
     }
