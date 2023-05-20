@@ -41,10 +41,9 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(userLoginGUI, LOGIN_VIEW);
         centerPanel.add(menuUserGUI, MENU_USER_VIEW);
         //centerPanel.add(menuAdminGUI, MENU_ADMIN_VIEW);
-        //centerPanel.add(changePasswordGUI,CHANGE_PASSWORD_VIEW);
+        centerPanel.add(changePasswordGUI,CHANGE_PASSWORD_VIEW);
         //centerPanel.add(currentLeagueGUI, CURRENT_LEAGUE_VIEW);
         //centerPanel.add(newLeaguesGUI, MENU_NEW_LEAGUE);
-
         centerPanel.add(registrationGUI, REGISTRATION_VIEW);
 
         cardLayout.show(centerPanel, FIRST_UI);
@@ -57,6 +56,8 @@ public class MainFrameGUI extends JFrame{
     }
 
     public void showLogin() {
+        //topPanel.setVisible(false);
+        bottomPanel.setVisible(false);
         cardLayout.show(centerPanel,LOGIN_VIEW);
     }
 
@@ -72,6 +73,9 @@ public class MainFrameGUI extends JFrame{
         cardLayout.show(centerPanel, CHANGE_PASSWORD_VIEW);
     }
 
+    public void showMenuUser() {
+        cardLayout.show(centerPanel, MENU_USER_VIEW);
+    }
 
 
     public void showMenuAdmin(){
@@ -99,9 +103,5 @@ public class MainFrameGUI extends JFrame{
             return true;
         }
         return false;
-    }
-
-    public void showMenuUser() {
-        cardLayout.show(centerPanel, MENU_USER_VIEW);
     }
 }
