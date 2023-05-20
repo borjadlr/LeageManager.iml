@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {
 
         //Entities
+        Team team = new Team();
 
         //Dao
         UserDAO userDAO = new UserDAO();
@@ -20,6 +21,11 @@ public class Main {
 
         //Managers
         User user = new User();
+        AdminManager adminManaguer = new AdminManager(userDAO);
+        TeamManager teamManager = new TeamManager(teamsDAO, team);
+        LeagueManager leagueManager = new LeagueManager(teamManager);
+        UserManager userManager = new UserManager(userDAO, leagueManager, teamManager, user, adminManaguer);
+
         //Vistas
         LoginGUI loginGUI = new LoginGUI();
         MenuUserGUI menuUserGUI = new MenuUserGUI();
@@ -28,17 +34,20 @@ public class Main {
         ChangePasswordGUI changePasswordGUI = new ChangePasswordGUI();
         CurrentLeaguesGUI currentLeagueGUI = new CurrentLeaguesGUI();
         NewLeagueGUI newLeaguesGUI = new NewLeagueGUI();
-        RegistrationGUI newRegistration = new RegistrationGUI();
-        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, currentLeagueGUI, newLeaguesGUI, newRegistration, mainPanelGUI);
+        RegistrationGUI registrationGUI = new RegistrationGUI();
+        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, currentLeagueGUI, newLeaguesGUI, registrationGUI, mainPanelGUI);
 
         //Controllers
         MainPanelController mainPanelController = new MainPanelController(mainFrame);
-        LoginController loginController = new LoginController(mainFrame, loginGUI, userDAO);
+        RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
+        LoginController loginController = new LoginController(mainFrame, loginGUI, userDAO, userManager);
         loginGUI.actionListener(loginController);
         loginGUI.focusListener(loginController);
 
         //Buttons
         mainPanelGUI.registerListener(mainPanelController);
+        registrationGUI.foscusListener(registrationController);
+        registrationGUI.registerRegistration(registrationController);
 
         //UserDAO userDAO = new UserDAO();
 
