@@ -2,10 +2,8 @@ package Presentation.Controllers;
 
 import Business.Managers.UserManager;
 import Exceptions.*;
-import Exceptions.DNIException;
 import Presentation.Views.LoginGUI;
 import Presentation.Views.MainFrameGUI;
-import Persistance.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +18,6 @@ public class LoginController implements ActionListener, FocusListener {
 
     private final MainFrameGUI mainFrameGUI;
     private final LoginGUI view;
-
     private final UserManager userManager;
 
     public LoginController(MainFrameGUI mainView, LoginGUI view, UserManager userManager) {

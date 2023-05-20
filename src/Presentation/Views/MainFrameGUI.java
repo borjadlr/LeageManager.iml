@@ -16,6 +16,9 @@ public class MainFrameGUI extends JFrame{
     public final String REGISTRATION_VIEW = "REGISTRATION_VIEW";
     public final String DELETE_VIEW = "DELETE_VIEW";
     public final String SHOW_LEAGUE = "SHOW_LEAGUE";
+    public final String SIMULATION_VIEW = "SIMULATION_VIEW";
+    public final String STATISTICS_VIEW = "STATISTICS_VIEW";
+    public final String TEAM_LIST_VIEW = "TEAM_LIST_VIEW";
 
 
     private JPanel topPanel;
@@ -26,7 +29,7 @@ public class MainFrameGUI extends JFrame{
 
 
 
-    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, CurrentLeaguesGUI currentLeagueGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ShowLeague showLeague){
+    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ShowLeague showLeague, StatisticsGUI statisticsGUI, SimulationGameGUI simulationGameGUI, TeamsListGUI teamsListGUI){
 
         super("Main Frame");
 
@@ -43,15 +46,17 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(mainPanelGUI, FIRST_UI);
         centerPanel.add(userLoginGUI, LOGIN_VIEW);
         centerPanel.add(menuUserGUI, MENU_USER_VIEW);
-        //centerPanel.add(menuAdminGUI, MENU_ADMIN_VIEW);
+        centerPanel.add(menuAdminGUI, MENU_ADMIN_VIEW);
         centerPanel.add(changePasswordGUI,CHANGE_PASSWORD_VIEW);
-        //centerPanel.add(currentLeagueGUI, CURRENT_LEAGUE_VIEW);
-        //centerPanel.add(newLeaguesGUI, MENU_NEW_LEAGUE);
+        centerPanel.add(newLeaguesGUI, MENU_NEW_LEAGUE);
         centerPanel.add(registrationGUI, REGISTRATION_VIEW);
         centerPanel.add(deleteGUI, DELETE_VIEW);
         centerPanel.add(showLeague, SHOW_LEAGUE);
+        centerPanel.add(simulationGameGUI, SIMULATION_VIEW);
+        centerPanel.add(statisticsGUI, STATISTICS_VIEW);
+        centerPanel.add(teamsListGUI, TEAM_LIST_VIEW);
 
-        cardLayout.show(centerPanel, DELETE_VIEW);
+        cardLayout.show(centerPanel, MENU_ADMIN_VIEW);
 
         bottomPanel = new BottomPanelGUI();
         add(bottomPanel, BorderLayout.SOUTH);
@@ -85,6 +90,10 @@ public class MainFrameGUI extends JFrame{
     public void showLeague(){ cardLayout.show(centerPanel, SHOW_LEAGUE);}
     public void showMenuAdmin(){
         cardLayout.show(centerPanel, MENU_ADMIN_VIEW);
+    }
+
+    public void showTeamList(){
+        cardLayout.show(centerPanel, TEAM_LIST_VIEW);
     }
 
 

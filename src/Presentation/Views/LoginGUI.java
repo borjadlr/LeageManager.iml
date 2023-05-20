@@ -78,14 +78,15 @@ public class LoginGUI extends JPanel {
         // add panel to this
         this.add(panel);
     }
-    public void actionListener(ActionListener actionListener){
-        login.addActionListener(actionListener);
-    }
+
     public void focusListener(FocusListener focusListener) {
         email.addFocusListener(focusListener);
         email.setName("Email or DNI");
         password.addFocusListener(focusListener);
         password.setName("Password");
+    }
+    public void actionListener(ActionListener actionListener){
+        login.addActionListener(actionListener);
     }
 
     public String getUsernameInfo() {
