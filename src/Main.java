@@ -41,6 +41,7 @@ public class Main {
         MainPanelController mainPanelController = new MainPanelController(mainFrame);
         RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
         LoginController loginController = new LoginController(mainFrame, loginGUI, userManager);
+        ChangePasswordController changePasswordController = new ChangePasswordController(mainFrame);
         loginGUI.actionListener(loginController);
         loginGUI.focusListener(loginController);
 
@@ -48,6 +49,8 @@ public class Main {
         mainPanelGUI.registerListener(mainPanelController);
         registrationGUI.foscusListener(registrationController);
         registrationGUI.registerRegistration(registrationController);
+        changePasswordGUI.registerChangePassword(changePasswordController);
+        changePasswordGUI.actionListenerPassword(changePasswordController);
 
         //UserDAO userDAO = new UserDAO();
 

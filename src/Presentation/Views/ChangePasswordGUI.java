@@ -1,94 +1,101 @@
 package Presentation.Views;
 
+import Presentation.Controllers.ChangePasswordController;
+
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ChangePasswordGUI extends JFrame implements ActionListener {
+public class ChangePasswordGUI extends JPanel {
 
-    private JLabel actualPassword;
-    private JLabel newPassword;
-    private JLabel repeatedPassword;
-    private JTextField txtContraseñaActual;
-    private JTextField txtNuevaContraseña;
-    private JTextField txtRepetirContraseña;
-    private JButton btnCambiar;
-    private JButton btnCancelar;
+    private JPasswordField actualPassword;
+    private JPasswordField newPassword;
+    private JPasswordField repeatNewPassword;
+
+    private JButton ok;
+    private Color backgroundColor;
+
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
 
     public ChangePasswordGUI() {
 
-        // Crear componentes
-        actualPassword = new JLabel("Contraseña Actual:");
-        newPassword = new JLabel("Nueva Contraseña:");
-        repeatedPassword = new JLabel("Repetir Nueva Contraseña:");
+        this.backgroundColor = Color.white;
+        this.setLayout(new GridBagLayout());
+        this.setBackground(backgroundColor);
+        this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
-        txtContraseñaActual = new JPasswordField(20);
-        txtNuevaContraseña = new JPasswordField(20);
-        txtRepetirContraseña = new JPasswordField(20);
+        //General panel
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 50, 100, 50));
+        panel.setBackground(backgroundColor);
+        panel.setOpaque(true);
 
-        btnCambiar = new JButton("Change Password");
-        btnCancelar = new JButton("Back");
+        //Title
+        JLabel title = new JLabel("Change Password");
+        title.setForeground(Color.BLACK);
+        title.setBorder(BorderFactory.createEmptyBorder(4, 0, 10, 0));
+        title.setFont(new Font("Apple Casual", Font.PLAIN, 60));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(title, BorderLayout.NORTH);
 
-        // Añadir listeners
-        btnCambiar.addActionListener(this);
-        btnCancelar.addActionListener(this);
+        panel.add(Box.createVerticalStrut(60));
 
-        // Crear paneles
-        JPanel pnlContraseñaActual = new JPanel(new FlowLayout());
-        pnlContraseñaActual.add(actualPassword);
-        pnlContraseñaActual.add(txtContraseñaActual);
+        String defaultActualPasswordText = "Actual Password: ";
+        actualPassword = new JPasswordField(defaultActualPasswordText);
+        actualPassword.setEchoChar((char)  0);
+        actualPassword.setFont(new Font("Inter", Font.PLAIN, 20));
+        actualPassword.setBackground(Color.decode("#D9D9D9"));
+        actualPassword.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        panel.add(actualPassword);
 
-        JPanel pnlNuevaContraseña = new JPanel(new FlowLayout());
-        pnlNuevaContraseña.add(newPassword);
-        pnlNuevaContraseña.add(txtNuevaContraseña);
+        panel.add(Box.createVerticalStrut(15));
 
-        JPanel pnlRepetirContraseña = new JPanel(new FlowLayout());
-        pnlRepetirContraseña.add(repeatedPassword);
-        pnlRepetirContraseña.add(txtRepetirContraseña);
+        String defaultNewPasswordText = "New Password: ";
+        newPassword = new JPasswordField(defaultNewPasswordText);
+        newPassword.setEchoChar((char)  0);
+        newPassword.setFont(new Font("Inter", Font.PLAIN, 20));
+        newPassword.setBackground(Color.decode("#D9D9D9"));
+        newPassword.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        panel.add(newPassword);
 
-        JPanel pnlBotones = new JPanel(new FlowLayout());
-        pnlBotones.add(btnCambiar);
-        pnlBotones.add(btnCancelar);
+        panel.add(Box.createVerticalStrut(15));
 
-        // Añadir paneles al JFrame
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
-        contentPane.add(pnlContraseñaActual);
-        contentPane.add(pnlNuevaContraseña);
-        contentPane.add(pnlRepetirContraseña);
-        contentPane.add(pnlBotones);
+        String defaultRepeatNewPasswordText = "Repeat New Password: ";
+        repeatNewPassword = new JPasswordField(defaultRepeatNewPasswordText);
+        repeatNewPassword.setEchoChar((char)  0);
+        repeatNewPassword.setFont(new Font("Inter", Font.PLAIN, 20));
+        repeatNewPassword.setBackground(Color.decode("#D9D9D9"));
+        repeatNewPassword.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        panel.add(repeatNewPassword);
 
-        // Ajustar tamaño y hacer visible
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
-        pack();
+        panel.add(Box.createVerticalStrut(20));
+
+        ok = new JButton("    OK    ");
+        ok.setActionCommand("OK");
+        ok.setPreferredSize(new Dimension(150, 40));
+        ok.setAlignmentX(Component.CENTER_ALIGNMENT);
+        ok.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        panel.add(ok);
+
+
+        this.add(panel);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnCambiar) {
-            // Obtener valores de los campos de texto
-            String contraseñaActual = txtContraseñaActual.getText();
-            String nuevaContraseña = txtNuevaContraseña.getText();
-            String repetirContraseña = txtRepetirContraseña.getText();
+    public void registerChangePassword(ChangePasswordController controller) {
+        actualPassword.addFocusListener(controller);
+        actualPassword.setName("ActualPassword");
+        newPassword.addFocusListener(controller);
+        newPassword.setName("NewPassword");
+        repeatNewPassword.addFocusListener(controller);
+        repeatNewPassword.setName("RepeatNewPassword");
+    }
 
-            // Comprobar si las contraseñas coinciden
-            if (nuevaContraseña.equals(repetirContraseña)) {
-                // Aquí se podría implementar la lógica para cambiar la contraseña en la base de datos o en el sistema
-                JOptionPane.showMessageDialog(this, "Contraseña cambiada correctamente.");
-
-                // Limpiar campos de texto
-                txtContraseñaActual.setText("");
-                txtNuevaContraseña.setText("");
-                txtRepetirContraseña.setText("");
-            } else {
-                JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.");
-            }
-        } else if (e.getSource() == btnCancelar) {
-            dispose(); // Cerrar ventana
-        }
+    public void actionListenerPassword(ActionListener actionListener){
+        ok.addActionListener(actionListener);
     }
 }
-
