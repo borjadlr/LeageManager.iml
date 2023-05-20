@@ -13,6 +13,7 @@ public interface UserDAOInt {
     void actualizarJugador(User jugador) throws SQLException;
     void DeleteDataUser(String dni);
     void DeleteDataUserEmail(String email);
+    boolean updatePassword(String email, String newPassword);
     LinkedList<User> SelectDataUser();
     List<User> getAllUsers() throws SQLException;
     List<String> obtenerDNIs() throws SQLException;
