@@ -121,4 +121,8 @@ public class RegistrationGUI extends JPanel {
     public String getPhoneNumberText() {
         return phoneNumber.getText();
     }
+
+    public void exceptionMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+    }
 }

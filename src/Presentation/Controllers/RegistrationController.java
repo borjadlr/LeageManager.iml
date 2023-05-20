@@ -1,12 +1,15 @@
 package Presentation.Controllers;
 
+import Business.Entities.User;
 import Business.Managers.UserManager;
+import Exceptions.*;
 import Presentation.Views.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.SQLException;
 
 
 public class RegistrationController implements FocusListener, ActionListener {
@@ -38,12 +41,19 @@ public class RegistrationController implements FocusListener, ActionListener {
                     String phoneNumber = String.valueOf(view.getPhoneNumberText());
                     String email = view.getEmailText();
 
-                    userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber); //Els hi falta parametres .
-                    mainFrameGUI.showMenuUser();
+                    User user = userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber);
+
+                    try {
+                        userManager.signUp(user, user.getPassword());
+                        mainFrameGUI.showMenuUser();
+                    } catch (InvalidPasswordException | ExistingDNIException | DNIDontExistException |
+                             InvalidEmailException | EmailAlreadyExistsException | SamePasswordException |
+                             DNIException | SQLException ex) {
+                        view.exceptionMessage(ex.getMessage());
+                    }
 
                     break;
             }
-
         }
     }
 
