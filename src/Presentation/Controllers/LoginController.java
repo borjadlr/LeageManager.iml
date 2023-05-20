@@ -20,7 +20,6 @@ public class LoginController implements ActionListener, FocusListener {
 
     private final MainFrameGUI mainFrameGUI;
     private final LoginGUI view;
-
     private final UserManager userManager;
 
     public LoginController(MainFrameGUI mainView, LoginGUI view, UserManager userManager) {
