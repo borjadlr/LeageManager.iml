@@ -39,6 +39,7 @@ public class UserManager {
         while (i < users.size()) {
             if (users.get(i).getDni().equals(input) || users.get(i).getEmail().equals(input)) {
                 if (users.get(i).getPassword().equals(password)) {
+                    userLocal = users.get(i);
                     return;
                 } else {
                     throw new IncorrectPassword4UserException();

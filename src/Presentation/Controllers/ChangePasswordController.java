@@ -35,13 +35,17 @@ public class ChangePasswordController implements FocusListener, ActionListener {
 
                 case "OK":
                     try {
-                        userManager.canviContrasenya(view.getActualPassword(), view.getNewPassword(), view.getRepeatNewPassword());
+
+                        String actualPassword = view.getActualPassword();
+                        String newPassword = view.getNewPassword();
+                        String repeatedPassword = view.getRepeatNewPassword();
+
+                        userManager.canviContrasenya(actualPassword, newPassword, repeatedPassword);
                         view.passwordSuccess();
                         mainFrameGUI.showMenuUser();
                     } catch (InvalidPasswordException | SamePasswordException ex) {
                         view.exceptionMessage(ex.getMessage());
                     }
-
                     break;
             }
         }
