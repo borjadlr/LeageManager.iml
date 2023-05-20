@@ -11,11 +11,12 @@ import static java.awt.Font.PLAIN;
 
 public class RegistrationGUI extends JPanel {
 
-    private JTextField name;
-    private JTextField dni;
-    private JTextField team;
-    private JTextField dorsal;
-    private JButton ok;
+    private final JTextField dni;
+    private final JTextField email;
+
+    private final JTextField phoneNumber;
+    private final JTextField dorsal;
+    private final JButton ok;
     private Color backgroundColor;
 
     public static final String OK_BUTTON = "OK_BUTTON";
@@ -43,45 +44,21 @@ public class RegistrationGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(90));
 
-        String defaultNameText = "Name: ";
-        name = new JTextField(defaultNameText);
-        name.setFont(new Font("Inter", PLAIN, 20));
-        name.setBackground(Color.decode("#D9D9D9"));
-        name.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        panel.add(name);
+        String defaultPhoneText = "Phone number:";
+        phoneNumber = new JTextField(defaultPhoneText);
+        phoneNumber.setFont(new Font("Inter", PLAIN, 20));
+        phoneNumber.setBackground(Color.decode("#D9D9D9"));
+        phoneNumber.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        panel.add(phoneNumber);
 
         panel.add(Box.createVerticalStrut(15));
 
-        String defaultPhoneNumberText = "Phone Number: ";
-        NumberFormatter formatter = new NumberFormatter();
-        formatter.setValueClass(Integer.class);
-        formatter.setMinimum(0);
-        formatter.setMaximum(Integer.MAX_VALUE);
-        formatter.setAllowsInvalid(false);
-        JFormattedTextField field = new JFormattedTextField(formatter);
-        field.setText(defaultPhoneNumberText);
-        field.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        field.setBackground(Color.decode("#D9D9D9"));
-        field.setFont(new Font("Inner", PLAIN, 20));
-        panel.add(field);
-
-        panel.add(Box.createVerticalStrut(15));
-
-        String defaultDorsalText = "Dorsal: ";
-        dorsal = new JTextField(defaultDorsalText);
-        dorsal.setFont(new Font("Inter", PLAIN, 20));
-        dorsal.setBackground(Color.decode("#D9D9D9"));
-        dorsal.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        panel.add(dorsal);
-
-        panel.add(Box.createVerticalStrut(15));
-
-        String defaultTeamText = "Team:";
-        team = new JTextField(defaultTeamText);
-        team.setFont(new Font("Inter", PLAIN, 20));
-        team.setBackground(Color.decode("#D9D9D9"));
-        team.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        panel.add(team);
+        String defaultEmailText = "Email:";
+        email = new JTextField(defaultEmailText);
+        email.setFont(new Font("Inter", PLAIN, 20));
+        email.setBackground(Color.decode("#D9D9D9"));
+        email.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        panel.add(email);
 
         panel.add(Box.createVerticalStrut(15));
 
@@ -91,6 +68,15 @@ public class RegistrationGUI extends JPanel {
         dni.setBackground(Color.decode("#D9D9D9"));
         dni.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(dni);
+
+        panel.add(Box.createVerticalStrut(15));
+
+        String defaultDorsalText = "Dorsal: ";
+        dorsal = new JTextField(defaultDorsalText);
+        dorsal.setFont(new Font("Inter", PLAIN, 20));
+        dorsal.setBackground(Color.decode("#D9D9D9"));
+        dorsal.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        panel.add(dorsal);
 
         panel.add(Box.createVerticalStrut(15));
 
@@ -112,53 +98,27 @@ public class RegistrationGUI extends JPanel {
     public void foscusListener(FocusListener focusListener) {
         dni.addFocusListener(focusListener);
         dni.setName("DNI");
-        team.addFocusListener(focusListener);
-        team.setName("Team");
+        email.addFocusListener(focusListener);
+        email.setName("Email");
         dorsal.addFocusListener(focusListener);
         dorsal.setName("Dorsal");
-        name.addFocusListener(focusListener);
-        name.setName("Name");
-    }
-
-    public String getNameText() {
-        return name.getText();
+        phoneNumber.addFocusListener(focusListener);
+        phoneNumber.setName("Phone");
     }
 
     public String getDniText() {
         return dni.getText();
     }
 
-    public String getTeamText() {
-        return team.getText();
+    public String getEmailText() {
+        return email.getText();
     }
 
     public String getDorsalText() {
         return dorsal.getText();
     }
 
-    public void setNameText(String text) {
-        name.setText(text);
-    }
-
-    public void setDniText(String text) {
-        dni.setText(text);
-    }
-
-    public void setTeamText(String text) {
-        team.setText(text);
-    }
-
-    public void setDorsalText(String text) {
-        dorsal.setText(text);
-    }
-
-
-
-    public String getEmailText() {
-        return "HOLA";
-    }
-
-    public int getPhoneNumberText() {
-        return 643634634;
+    public String getPhoneNumberText() {
+        return phoneNumber.getText();
     }
 }
