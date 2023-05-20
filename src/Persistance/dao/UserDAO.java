@@ -149,6 +149,28 @@ public class UserDAO implements UserDAOInt {
 
     }
 
+    public void DeleteDataUserEmail(String email){
+        //Connectamos a la base de datos y controlamos excepciones.
+        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+
+            System.out.println("Successful connection...");
+            //Generamos un statement sql para eliminar dependiendo del username
+            String sql = "DELETE FROM jugador WHERE email = ?";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, email);
+
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("A user was deleted successfully!");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
 
 
 
