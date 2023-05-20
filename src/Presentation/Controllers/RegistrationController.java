@@ -34,11 +34,9 @@ public class RegistrationController implements FocusListener, ActionListener {
             switch (e.getActionCommand()) {
                 case "OK_BUTTON":
                     String dni = view.getDniText();
-                    int dorsal = view.getDorsalText();
+                    int dorsal = Integer.parseInt(view.getDorsalText());
                     String phoneNumber = String.valueOf(view.getPhoneNumberText());
-                    //String teamName = view.getNameTeamText();
                     String email = view.getEmailText();
-                    // String name = view.getNameText();
 
                     userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber); //Els hi falta parametres .
                     mainFrameGUI.showMenuUser();
