@@ -209,7 +209,7 @@ public class UserManager {
 
         while (i < users.size()) {
             if (users.get(i).getDni().equals(dni)) {
-                if (users.get(i).getPassword().equals(password)) {
+                if (users.get(i).getPassword().equals(password) && isConnected(users.get(i))) {
                     userDAO.DeleteDataUser(dni);
                     logOut();
                     return;
@@ -219,6 +219,10 @@ public class UserManager {
             } else i++;
         }
         throw new DNIOrMailDontExistException();
+    }
+
+    public boolean isConnected(User user) {
+        return user.getDni().equals(userLocal.getDni());
     }
 
     public void logOut() {
