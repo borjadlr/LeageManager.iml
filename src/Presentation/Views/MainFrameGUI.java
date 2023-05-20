@@ -102,6 +102,6 @@ public class MainFrameGUI extends JFrame{
     }
 
     public void showMenuUser() {
-
+        cardLayout.show(centerPanel, MENU_USER_VIEW);
     }
 }
