@@ -29,16 +29,15 @@ public class LeagueManager {
         while (i < leagues.size()){
             if (!leagues.get(i).getName().equals(league.getName())) {
                 throw new LeagueAlreadyExistsException();
-            }
-            if (!comprovaData(league.getDate())) {
+            } else if (!comprovaData(league.getDate())) {
                 throw new DateExpiredException();
-            }
-            if (!comprovaRepeatedTeams(league)){
+            } else if (!comprovaRepeatedTeams(league)){
                 throw new RepeatedTeamException();
+            } else {
+                i++;
             }
-            //metodo borja
-            i++;
         }
+        //leagueDAO.insertDataLeague();
     }
 
     public boolean comprovaData(Date date){
@@ -126,7 +125,7 @@ public class LeagueManager {
                         throw new MatchIsPlayingException();
                     }
                     league.getMatches().remove(match);
-
+                    //metodo borja
                 }
             }
         }
@@ -143,6 +142,7 @@ public class LeagueManager {
                 } else {
                     if (match.getTeam1() == team || match.getTeam2() == team) {
                         league.getMatches().remove(match);
+                        //metodo borja
                     }
                 }
 
