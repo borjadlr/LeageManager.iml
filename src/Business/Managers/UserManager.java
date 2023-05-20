@@ -56,30 +56,42 @@ public class UserManager {
         List<User> users = userDAO.SelectDataUser();
         int i = 0;
 
-        if (user.getPassword().equals(password)) {
-            while (i < users.size()) {
-                if (users.get(i).getEmail().equals(user.getEmail())) {
-                    throw new EmailAlreadyExistsException();
-                } else if (users.get(i).getDni().equals(user.getDni())) {
-                    throw new ExistingDNIException();
-                } else if (!comprovaCaractersPassword(user)) {
-                    throw new InvalidPasswordException();
-                } else if (!comprovaCaractersMail(user)) {
-                    throw new InvalidEmailException();
-                } else if (comprovaDNI(user.getDni())) {
-                    throw new DNIException();
-                } else {
-                    i++;
+        try {
+            if (user.getPassword().equals(password)) {
+                while (i < users.size()) {
+                    if (users.get(i).getEmail().equals(user.getEmail())) {
+                        throw new EmailAlreadyExistsException();
+                    } else if (users.get(i).getDni().equals(user.getDni())) {
+                        throw new ExistingDNIException();
+                    } else if (!comprovaCaractersPassword(user)) {
+                        throw new InvalidPasswordException();
+                    } else if (!comprovaCaractersMail(user)) {
+                        throw new InvalidEmailException();
+                    } else if (comprovaDNI(user.getDni())) {
+                        throw new DNIException();
+                    } else {
+                        i++;
+                    }
+
                 }
+                userLocal = user;
+                userDAO.InsertDataUser2(user);
 
+            } else {
+                throw new SamePasswordException();
             }
-            userLocal = user;
-            userDAO.InsertDataUser2(user);
-
-        } else {
-            throw new SamePasswordException();
+        } catch (NullPointerException npe) {
+            if (!comprovaCaractersPassword(user)) {
+                throw new InvalidPasswordException();
+            } else if (!comprovaCaractersMail(user)) {
+                throw new InvalidEmailException();
+            } else if (comprovaDNI(user.getDni())) {
+                throw new DNIException();
+            } else {
+                userLocal = user;
+                userDAO.InsertDataUser2(user);
+            }
         }
-
     }
 
     public static String generatePassword() {

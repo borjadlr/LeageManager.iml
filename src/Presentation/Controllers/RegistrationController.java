@@ -36,20 +36,22 @@ public class RegistrationController implements FocusListener, ActionListener {
         if (e.getSource() instanceof JButton) {
             switch (e.getActionCommand()) {
                 case "OK_BUTTON":
-                    String dni = view.getDniText();
-                    int dorsal = Integer.parseInt(view.getDorsalText());
-                    String phoneNumber = String.valueOf(view.getPhoneNumberText());
-                    String email = view.getEmailText();
-
-                    User user = userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber);
-
                     try {
+                        String dni = view.getDniText();
+                        int dorsal = Integer.parseInt(view.getDorsalText());
+                        String phoneNumber = String.valueOf(view.getPhoneNumberText());
+                        String email = view.getEmailText();
+
+                        User user = userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber);
+
                         userManager.signUp(user, user.getPassword());
                         mainFrameGUI.showMenuUser();
                     } catch (InvalidPasswordException | ExistingDNIException | DNIDontExistException |
                              InvalidEmailException | EmailAlreadyExistsException | SamePasswordException |
                              DNIException | SQLException ex) {
                         view.exceptionMessage(ex.getMessage());
+                    } catch (NumberFormatException nfe) {
+                        view.numberFormatMessage();
                     }
 
                     break;

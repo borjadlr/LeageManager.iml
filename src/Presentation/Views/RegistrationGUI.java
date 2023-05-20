@@ -125,4 +125,8 @@ public class RegistrationGUI extends JPanel {
     public void exceptionMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
     }
+
+    public void numberFormatMessage(){
+        JOptionPane.showMessageDialog(null, "This is not even a number!");
+    }
 }
