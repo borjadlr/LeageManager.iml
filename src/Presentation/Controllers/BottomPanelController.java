@@ -23,8 +23,10 @@ public class BottomPanelController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if ("CHANGE_CURRENT_PASSWORD".equals(e.getActionCommand())) {
-            mainView.showChangePassword();
-        }
+       switch (e.getActionCommand()){
+           case "CHANGE_CURRENT_PASSWORD":
+               mainView.showChangePassword();
+               break;
+       }
     }
 }
