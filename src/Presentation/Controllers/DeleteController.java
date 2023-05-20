@@ -34,7 +34,7 @@ public class DeleteController implements ActionListener, FocusListener {
                 try {
                     String username = view.getUsernameInfo();
                     String password = view.getPasswordInfo();
-                    userManager.signIn(username, password);
+                    userManager.deleteUser(username, password);
                     mainFrameGUI.showMainPanel();
 
                 } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
