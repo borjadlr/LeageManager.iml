@@ -11,18 +11,12 @@ import static java.awt.Font.PLAIN;
 
 public class LoginGUI extends JPanel {
 
-    private JTextField email;
-    private JTextField password;
-    private JButton login;
-
-    public Color getBackgroundColor() {
-        return backgroundColor;
-    }
+    private final JTextField email;
+    private final JTextField password;
+    private final JButton login;
 
     private Color backgroundColor;
     public static final String LOGIN_BUTTON = "LOGIN_BUTTON";
-    public static final String THIS_USERNAME_DOES_NOT_EXIST = "This username does not exist";
-    public static final String INCORRECT_PASSWORD_FOR_THIS_USERNAME = "Incorrect password for this username";
 
     public LoginGUI() {
         this.backgroundColor = Color.white;
@@ -83,7 +77,6 @@ public class LoginGUI extends JPanel {
         // add panel to this
         this.add(panel);
     }
-
     public void actionListener(ActionListener actionListener){
         login.addActionListener(actionListener);
     }
