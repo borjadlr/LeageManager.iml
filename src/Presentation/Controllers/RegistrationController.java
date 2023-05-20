@@ -19,7 +19,7 @@ public class RegistrationController implements FocusListener, ActionListener {
     private final MainFrameGUI mainFrameGUI;
 
     private final String defaultDniText = "Dni: ";
-    private final String defaultTeamText = "Team:";
+    private final String defaultTeamText = "Team: ";
     private final String defaultDorsalText = "Dorsal: ";
     private final String defaultNameText = "Name: ";
     private final String defaultPhoneNumberText = "Phone Number: ";
