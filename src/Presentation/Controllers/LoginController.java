@@ -37,7 +37,7 @@ public class LoginController implements ActionListener, FocusListener {
                     String username = view.getUsernameInfo();
                     String password = view.getPasswordInfo();
                     userManager.signIn(username, password);
-                    mainFrameGUI.showMenuUser();
+                    mainFrameGUI.showChangePassword();
 
                 } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
                     view.exceptionMessage(ex.getMessage());

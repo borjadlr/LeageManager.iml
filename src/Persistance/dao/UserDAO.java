@@ -16,6 +16,15 @@ public class UserDAO implements UserDAOInt {
     private static Connection conn;
     private static User user;
 
+    public UserDAO() {
+        try {
+            // Establecer la conexión aquí
+            conn = DriverManager.getConnection(dbURL, username, password);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
     /**
      * Metodo que se emplea para insertar en la base de datos los datos de un usuario.
@@ -110,16 +119,28 @@ public class UserDAO implements UserDAOInt {
     }
 
 
-    public void actualizarJugador(User jugador) throws SQLException {
-        String sql = "UPDATE jugador SET email = ?, contrasena = ?, dorsal = ?, telefono = ? WHERE dni = ?";
-        PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, jugador.getEmail());
-        statement.setString(2, jugador.getPassword());
-        statement.setInt(3, jugador.getNumber());
-        statement.setString(4, jugador.getPhone());
-        statement.setString(5, jugador.getDni());
-        statement.executeUpdate();
+    public void actualizarJugador(User jugador) {
+        try {
+            System.out.println("Successful connection...");
+
+            String sql = "UPDATE jugador SET email = ?, contrasena = ?, dorsal = ?, telefono = ? WHERE dni = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, jugador.getEmail());
+            statement.setString(2, jugador.getPassword());
+            statement.setInt(3, jugador.getNumber());
+            statement.setString(4, jugador.getPhone());
+            statement.setString(5, jugador.getDni());
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("An existing user was updated successfully!");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
+
+
 
     /**
      * Metodo que se emplea para eliminar los datos de un usuario.
