@@ -43,7 +43,7 @@ public class Main {
         RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
         LoginController loginController = new LoginController(mainFrame, loginGUI, userManager);
         ChangePasswordController changePasswordController = new ChangePasswordController(mainFrame, changePasswordGUI, userManager);
-        TopPanelController topPanelController =  new TopPanelController(topPanelGUI);
+        TopPanelController topPanelController =  new TopPanelController(topPanelGUI, mainFrame, userManager);
 
         //Buttons
         loginGUI.actionListener(loginController);

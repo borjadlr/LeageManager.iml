@@ -6,12 +6,12 @@ import java.awt.event.ActionListener;
 
 public class MenuAdminGUI extends JPanel{
 
-    private JButton createNewTeam;
+    private final JButton createNewTeam;
     private JButton deleteTeam;
     private JButton newLeague;
     private JButton deleteLeague;
     private JButton viewLeagues;
-    private JButton back;
+    private final JButton back;
 
     private Color backgroundColor;
 

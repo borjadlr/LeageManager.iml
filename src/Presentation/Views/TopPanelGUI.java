@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 public class TopPanelGUI extends JPanel {
 
     private JButton dropdownButton;
-    private JMenuItem logout;
-    private JMenuItem deleteAccount;
+    private final JMenuItem logout;
+    private final JMenuItem deleteAccount;
     private TopPanelController controller;
     private static final String DROPDOWN_BUTTON = "DROPDOWN_BUTTON";
 
@@ -66,7 +66,6 @@ public class TopPanelGUI extends JPanel {
         dropdownButton.setComponentPopupMenu(dropdownMenu);
 
         // Create a controller and add action listener to dropdown button
-        controller = new TopPanelController(this);
         dropdownButton.addActionListener(controller);
     }
 
