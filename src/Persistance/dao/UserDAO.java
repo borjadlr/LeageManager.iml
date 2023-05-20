@@ -295,6 +295,25 @@ public class UserDAO implements UserDAOInt {
     }
 
 
+    public boolean updatePassword(String email, String newPassword) {
+        String updateQuery = "UPDATE jugador SET contrasena = ? WHERE email = ?";
+
+        try (PreparedStatement preparedStatement = conn.prepareStatement(updateQuery)) {
+
+            preparedStatement.setString(1, newPassword);
+            preparedStatement.setString(2, email);
+
+            int affectedRows = preparedStatement.executeUpdate();
+
+            return affectedRows > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+
 
 
 
