@@ -208,8 +208,8 @@ public class UserManager {
         int i = 0;
 
         while (i < users.size()) {
-            if (users.get(i).getDni().equals(dni)) {
-                if (users.get(i).getPassword().equals(password) && isConnected(users.get(i))) {
+            if ((users.get(i).getDni().equals(dni) || users.get(i).getEmail().equals(dni)) && isConnected(users.get(i))) {
+                if (users.get(i).getPassword().equals(password)) {
                     userDAO.DeleteDataUser(dni);
                     logOut();
                     return;
