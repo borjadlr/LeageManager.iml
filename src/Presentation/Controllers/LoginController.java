@@ -23,9 +23,6 @@ public class LoginController implements ActionListener, FocusListener {
 
     private final UserManager userManager;
 
-
-    private static final String BACK_LOGIN = "Back Login";
-
     public LoginController(MainFrameGUI mainView, LoginGUI view, UserManager userManager) {
         this.mainFrameGUI = mainView;
         this.view = view;
