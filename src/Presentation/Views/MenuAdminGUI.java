@@ -2,9 +2,10 @@ package Presentation.Views;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuAdminGUI extends JPanel{
+public class MenuAdminGUI extends JPanel implements ActionListener{
 
     private final JButton createNewTeam;
     private JButton deleteTeam;
@@ -94,5 +95,11 @@ public class MenuAdminGUI extends JPanel{
     public void registerListener(ActionListener listener) {
         createNewTeam.addActionListener(listener);
         back.addActionListener(listener);
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }

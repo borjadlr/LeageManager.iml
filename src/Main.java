@@ -6,6 +6,8 @@ import Persistance.dao.UserDAO;
 import Presentation.Controllers.*;
 import Presentation.Views.*;
 
+import java.awt.event.FocusListener;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -16,8 +18,6 @@ public class Main {
         //Dao
         UserDAO userDAO = new UserDAO();
         TeamsDAO teamsDAO = new TeamsDAO();
-
-
 
         //Managers
         User user = new User();
@@ -51,7 +51,7 @@ public class Main {
 
         //Buttons
         loginGUI.actionListener(loginController);
-        loginGUI.focusListener(loginController);
+        //loginGUI.focusListener(loginController);
         mainPanelGUI.registerListener(mainPanelController);
         registrationGUI.foscusListener(registrationController);
         registrationGUI.registerRegistration(registrationController);

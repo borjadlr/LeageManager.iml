@@ -7,15 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/mysql-connector-java-8.0.23.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="gson-2.8.8" level="project" />
+    <orderEntry type="library" name="gson-2.8.81" level="project" />
     <orderEntry type="library" name="gson-2.8.8" level="project" />
     <orderEntry type="library" name="mariadb-java-client-3.1.2" level="project" />
   </component>

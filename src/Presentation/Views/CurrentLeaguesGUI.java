@@ -4,43 +4,39 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class CurrentLeaguesGUI extends JFrame{
+public class CurrentLeaguesGUI extends JPanel{
 
-        JTable tabla;
-        DefaultTableModel modelo;
+        JTable table;
+        DefaultTableModel model;
+        Color backgroundColor;
+        String[] colums;
 
         public CurrentLeaguesGUI() {
-            super("Tabla de Equipos");
 
-            // Crear modelo de tabla
-            String[] columnas = {"Equipo", "Puntos", "Partidos Ganados", "Partidos Perdidos", "Partidos Empatados", "Rondas"};
-            modelo = new DefaultTableModel(columnas, 0);
+            this.backgroundColor = Color.WHITE;
+            this.setLayout(new GridBagLayout());
+            this.setBackground(backgroundColor);
+            //this.setOpaque(false);
+            this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
-            // Añadir datos a la tabla
-            Object[] equipo1 = {"Equipo 1", 10, 3, 1, 0, 4};
-            Object[] equipo2 = {"Equipo 2", 5, 1, 3, 1, 4};
-            Object[] equipo3 = {"Equipo 3", 7, 2, 2, 1, 4};
-            Object[] equipo4 = {"Equipo 4", 2, 0, 4, 2, 4};
-            modelo.addRow(equipo1);
-            modelo.addRow(equipo2);
-            modelo.addRow(equipo3);
-            modelo.addRow(equipo4);
+            // Crear datos de la tabla
+            colums = new String[]{"Equipo", "Puntos", "Ganados", "Perdidos", "Empatados", "Rondas"};
 
-            // Crear tabla y añadir modelo
-            tabla = new JTable(modelo);
+            //TODO: AQUI PASARIAMOS UNA LISTA DE TEAM Y PONDRIAMOS LOS DATOS DE CADA TEAM EN VEZ DEL OBJECT
+            Object[][] datos = {
+                    {"Equipo 1", 15, 5, 2, 1, 8},
+                    {"Equipo 2", 12, 4, 3, 0, 7},
+                    {"Equipo 3", 8, 2, 4, 2, 8},
+                    {"Equipo 4", 7, 2, 5, 1, 8},
+                    {"Equipo 5", 6, 1, 4, 3, 8},
+            };
 
-            // Crear scroll pane y añadir tabla
+            DefaultTableModel model = new DefaultTableModel(datos, colums);
+            JTable tabla = new JTable(model);
             JScrollPane scrollPane = new JScrollPane(tabla);
 
-            // Añadir scroll pane al JFrame
-
-            Container contentPane = getContentPane();
-            contentPane.add(scrollPane);
-
-            // Ajustar tamaño y hacer visible
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setLocationRelativeTo(null);
-            setVisible(true);
-            pack();
+            // Añadir scroll pane al panel
+            setLayout(new BorderLayout());
+            add(scrollPane, BorderLayout.CENTER);
         }
 }
