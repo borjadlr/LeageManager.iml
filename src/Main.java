@@ -1,8 +1,12 @@
 import Business.Entities.Team;
 import Business.Entities.User;
 import Business.Managers.*;
+import Persistance.TeamsLeagueDAOInt;
+import Persistance.UserTeamsDAOInt;
 import Persistance.dao.TeamsDAO;
+import Persistance.dao.TeamsLeagueDAO;
 import Persistance.dao.UserDAO;
+import Persistance.dao.UserTeamsDAO;
 import Presentation.Controllers.*;
 import Presentation.Views.*;
 
@@ -18,13 +22,14 @@ public class Main {
         //Dao
         UserDAO userDAO = new UserDAO();
         TeamsDAO teamsDAO = new TeamsDAO();
-
+        UserTeamsDAO userTeamsDAO = new UserTeamsDAO();
+        TeamsLeagueDAO teamsLeagueDAO = new TeamsLeagueDAO();
         //Managers
         User user = new User();
-        AdminManager adminManaguer = new AdminManager(userDAO);
         TeamManager teamManager = new TeamManager(teamsDAO, team);
         LeagueManager leagueManager = new LeagueManager(teamManager);
-        UserManager userManager = new UserManager(userDAO, leagueManager, teamManager, user, adminManaguer);
+        AdminManager adminManaguer = new AdminManager(userDAO, leagueManager, teamManager);
+        UserManager userManager = new UserManager(userDAO, leagueManager, teamManager, userTeamsDAO, teamsLeagueDAO, user, adminManaguer);
 
         //Vistas
         LoginGUI loginGUI = new LoginGUI();
