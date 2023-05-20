@@ -33,30 +33,33 @@ public class Main {
 
         //Vistas
         LoginGUI loginGUI = new LoginGUI();
+        StatisticsGUI statisticsGUI = new StatisticsGUI();
+        SimulationGameGUI simulationGameGUI = new SimulationGameGUI();
         MenuUserGUI menuUserGUI = new MenuUserGUI();
         MainPanelGUI mainPanelGUI = new MainPanelGUI();
         MenuAdminGUI menuAdminGUI = new MenuAdminGUI();
         ChangePasswordGUI changePasswordGUI = new ChangePasswordGUI();
-        CurrentLeaguesGUI currentLeagueGUI = new CurrentLeaguesGUI();
         NewLeagueGUI newLeaguesGUI = new NewLeagueGUI();
         RegistrationGUI registrationGUI = new RegistrationGUI();
         TopPanelGUI topPanelGUI = new TopPanelGUI();
         DeleteGUI deleteGUI = new DeleteGUI();
         ShowLeague showLeague = new ShowLeague();
-        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, currentLeagueGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, showLeague);
+        TeamsListGUI teamsListGUI = new TeamsListGUI();
+        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, showLeague, statisticsGUI,simulationGameGUI, teamsListGUI);
 
         //Controllers
         MainPanelController mainPanelController = new MainPanelController(mainFrame);
         RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
         LoginController loginController = new LoginController(mainFrame, loginGUI, userManager);
         ChangePasswordController changePasswordController = new ChangePasswordController(mainFrame, changePasswordGUI, userManager);
-
+        MenuAdminController menuAdminController = new MenuAdminController(mainFrame);
         //TopPanelController topPanelController =  new TopPanelController(topPanelGUI, mainFrame, userManager);
         DeleteController deleteController = new DeleteController(mainFrame, deleteGUI, userManager);
+        NewLeagueController newLeagueController = new NewLeagueController(mainFrame);
 
         //Buttons
         loginGUI.actionListener(loginController);
-        //loginGUI.focusListener(loginController);
+        loginGUI.focusListener(loginController);
         mainPanelGUI.registerListener(mainPanelController);
         registrationGUI.foscusListener(registrationController);
         registrationGUI.registerRegistration(registrationController);
@@ -64,6 +67,10 @@ public class Main {
         changePasswordGUI.actionListenerPassword(changePasswordController);
         deleteGUI.actionListener(deleteController);
         deleteGUI.focusListener(deleteController);
+        menuAdminGUI.menuAdminListener(menuAdminController);
+        newLeaguesGUI.newLeagueFocusListener(newLeagueController);
+        newLeaguesGUI.registerListener(newLeagueController);
+
 
 
         //UserDAO userDAO = new UserDAO();

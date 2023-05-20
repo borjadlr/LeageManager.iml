@@ -2,10 +2,8 @@ package Presentation.Controllers;
 
 import Business.Managers.UserManager;
 import Exceptions.*;
-import Exceptions.DNIException;
 import Presentation.Views.LoginGUI;
 import Presentation.Views.MainFrameGUI;
-import Persistance.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
