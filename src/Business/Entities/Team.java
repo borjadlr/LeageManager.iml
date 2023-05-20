@@ -17,6 +17,11 @@ public class Team {
         this.points = points;
     }
 
+    public Team(){
+
+    }
+
+
     public String getName() {
         return name;
     }

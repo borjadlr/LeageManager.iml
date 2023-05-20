@@ -39,14 +39,15 @@ public class MainFrameGUI extends JFrame{
 
         centerPanel.add(mainPanelGUI, FIRST_UI);
         centerPanel.add(userLoginGUI, LOGIN_VIEW);
-        //centerPanel.add(menuUserGUI, MENU_USER_VIEW);
+        centerPanel.add(menuUserGUI, MENU_USER_VIEW);
         //centerPanel.add(menuAdminGUI, MENU_ADMIN_VIEW);
         //centerPanel.add(changePasswordGUI,CHANGE_PASSWORD_VIEW);
         //centerPanel.add(currentLeagueGUI, CURRENT_LEAGUE_VIEW);
         //centerPanel.add(newLeaguesGUI, MENU_NEW_LEAGUE);
-        //centerPanel.add(registrationGUI, REGISTRATION_VIEW);
 
-        cardLayout.show(centerPanel, LOGIN_VIEW);
+        centerPanel.add(registrationGUI, REGISTRATION_VIEW);
+
+        cardLayout.show(centerPanel, FIRST_UI);
 
         bottomPanel = new BottomPanelGUI();
         add(bottomPanel, BorderLayout.SOUTH);
@@ -59,27 +60,30 @@ public class MainFrameGUI extends JFrame{
         cardLayout.show(centerPanel,LOGIN_VIEW);
     }
 
+    public void showRegister() {
+        cardLayout.show(centerPanel, REGISTRATION_VIEW);
+    }
+
     public  void showMainPanel(){
         cardLayout.show(centerPanel, MAIN_PANEL);
-    }
-    public void showMenuUser(){
-        cardLayout.show(centerPanel, MENU_USER_VIEW);
-    }
-    public void showMenuAdmin(){
-        cardLayout.show(centerPanel, MENU_ADMIN_VIEW);
     }
 
     public void showChangePassword(){
         cardLayout.show(centerPanel, CHANGE_PASSWORD_VIEW);
     }
 
+
+
+    public void showMenuAdmin(){
+        cardLayout.show(centerPanel, MENU_ADMIN_VIEW);
+    }
+
+
+
     public void showCurrentLeagues(){
         cardLayout.show(centerPanel, CURRENT_LEAGUE_VIEW);
     }
 
-    public void showRegistration(){
-        cardLayout.show(centerPanel, REGISTRATION_VIEW);
-    }
 
     public void showMenuNewLeague(){
         cardLayout.show(centerPanel, MENU_NEW_LEAGUE);
@@ -97,4 +101,7 @@ public class MainFrameGUI extends JFrame{
         return false;
     }
 
+    public void showMenuUser() {
+
+    }
 }
