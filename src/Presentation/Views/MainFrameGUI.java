@@ -34,7 +34,7 @@ public class MainFrameGUI extends JFrame{
         centerPanel.setLayout(cardLayout);
         add(centerPanel, BorderLayout.CENTER);
 
-        topPanel = new TopPanelGUI(cardLayout, centerPanel);
+        topPanel = new TopPanelGUI();
         add(topPanel, BorderLayout.NORTH);
 
         centerPanel.add(mainPanelGUI, FIRST_UI);
@@ -63,6 +63,7 @@ public class MainFrameGUI extends JFrame{
 
     public void showRegister() {
         cardLayout.show(centerPanel, REGISTRATION_VIEW);
+        bottomPanel.setVisible(false);
     }
 
     public  void showMainPanel(){

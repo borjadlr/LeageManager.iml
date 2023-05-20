@@ -35,6 +35,7 @@ public class Main {
         CurrentLeaguesGUI currentLeagueGUI = new CurrentLeaguesGUI();
         NewLeagueGUI newLeaguesGUI = new NewLeagueGUI();
         RegistrationGUI registrationGUI = new RegistrationGUI();
+        TopPanelGUI topPanelGUI = new TopPanelGUI();
         MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, currentLeagueGUI, newLeaguesGUI, registrationGUI, mainPanelGUI);
 
         //Controllers
@@ -42,15 +43,18 @@ public class Main {
         RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
         LoginController loginController = new LoginController(mainFrame, loginGUI, userManager);
         ChangePasswordController changePasswordController = new ChangePasswordController(mainFrame, changePasswordGUI, userManager);
-        loginGUI.actionListener(loginController);
-        loginGUI.focusListener(loginController);
+        TopPanelController topPanelController =  new TopPanelController(topPanelGUI);
 
         //Buttons
+        loginGUI.actionListener(loginController);
+        loginGUI.focusListener(loginController);
         mainPanelGUI.registerListener(mainPanelController);
         registrationGUI.foscusListener(registrationController);
         registrationGUI.registerRegistration(registrationController);
         changePasswordGUI.registerChangePassword(changePasswordController);
         changePasswordGUI.actionListenerPassword(changePasswordController);
+        topPanelGUI.dropdownButton(topPanelController);
+
 
         //UserDAO userDAO = new UserDAO();
 

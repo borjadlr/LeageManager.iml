@@ -1,11 +1,11 @@
 package Presentation.Views;
 
+import Presentation.Controllers.TopPanelController;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
-
-import Presentation.Controllers.TopPanelController;
 
 public class TopPanelGUI extends JPanel {
 
@@ -13,8 +13,9 @@ public class TopPanelGUI extends JPanel {
     private JMenuItem logout;
     private JMenuItem deleteAccount;
     private TopPanelController controller;
+    private static final String DROPDOWN_BUTTON = "DROPDOWN_BUTTON";
 
-    public TopPanelGUI(CardLayout cardLayout, JPanel centerPanel) {
+    public TopPanelGUI() {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(0, 50));
         setBackground(Color.WHITE);
@@ -44,6 +45,7 @@ public class TopPanelGUI extends JPanel {
         dropdownButton.setBackground(Color.decode("#D9D9D9"));
         dropdownButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         upSection.add(dropdownButton, BorderLayout.EAST);
+        dropdownButton.setActionCommand(DROPDOWN_BUTTON);
         dropdownButton.setVisible(true);
 
         // Add a dropdown menu to the dropdown button
@@ -60,23 +62,23 @@ public class TopPanelGUI extends JPanel {
         dropdownMenu.add(logout);
         dropdownMenu.add(deleteAccount);
 
-        // Create a controller and add action listener to dropdown button);
+        // Set the popup menu for the dropdown button
+        dropdownButton.setComponentPopupMenu(dropdownMenu);
+
+        // Create a controller and add action listener to dropdown button
+        controller = new TopPanelController(this);
+        dropdownButton.addActionListener(controller);
     }
 
     public void dropdownButton(ActionListener actionListener){
-        dropdownButton.addActionListener(actionListener);
+
     }
 
     public JMenuItem getLogoutMenuItem() {
         return logout;
     }
-    
+
     public JMenuItem getDeleteAccountMenuItem(){
         return deleteAccount;
     }
-
-    public JButton getDropdownButton() {
-        return dropdownButton;
-    }
-
 }
