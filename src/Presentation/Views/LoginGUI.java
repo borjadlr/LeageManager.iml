@@ -100,4 +100,8 @@ public class LoginGUI extends JPanel {
         JOptionPane.showMessageDialog(null, message);
     }
 
+    public void noUsersMessage() {
+        JOptionPane.showMessageDialog(null, "There are no users, so you cannot log in.");
+    }
+
 }

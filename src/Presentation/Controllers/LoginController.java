@@ -41,6 +41,8 @@ public class LoginController implements ActionListener, FocusListener {
 
                 } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
                     view.exceptionMessage(ex.getMessage());
+                } catch (NullPointerException npe) {
+                    view.noUsersMessage();
                 }
                 break;
         }

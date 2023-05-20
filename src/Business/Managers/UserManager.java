@@ -46,22 +46,28 @@ public class UserManager {
         int i = 0;
         List<User> users = userDAO.SelectDataUser();
 
-        while (i < users.size()) {
-            if (users.get(i).getDni().equals(input) || users.get(i).getEmail().equals(input)) {
-                if (users.get(i).getPassword().equals(password)) {
-                    if (adminManager.isAdmin(input)){
-                        return true;
+        try {
+            while (i < users.size()) {
+                if (users.get(i).getDni().equals(input) || users.get(i).getEmail().equals(input)) {
+                    if (users.get(i).getPassword().equals(password)) {
+                        if (adminManager.isAdmin(input)){
+                            return true;
+                        }
+                        userLocal = users.get(i);
+                        return false;
+                    } else {
+                        throw new IncorrectPassword4UserException();
                     }
-                    userLocal = users.get(i);
-                    return false;
                 } else {
-                    throw new IncorrectPassword4UserException();
+                    i++;
                 }
-            } else {
-                i++;
             }
+            throw new DNIOrMailDontExistException();
+        } catch (NullPointerException npe){
+            throw new NullPointerException();
         }
-        throw new DNIOrMailDontExistException();
+
+
     }
 
 
