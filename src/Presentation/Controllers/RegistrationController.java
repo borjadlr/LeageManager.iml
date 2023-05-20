@@ -40,8 +40,8 @@ public class RegistrationController implements FocusListener, ActionListener {
                     String email = view.getEmailText();
                     // String name = view.getNameText();
 
-                        userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber); //Els hi falta parametres .
-                        mainFrameGUI.showMenuUser();
+                    userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber); //Els hi falta parametres .
+                    mainFrameGUI.showMenuUser();
 
                     break;
             }
