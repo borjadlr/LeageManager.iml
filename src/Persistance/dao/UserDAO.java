@@ -197,11 +197,11 @@ public class UserDAO implements UserDAOInt {
             while (rs.next())
             {
 
-                dni = rs.getString("DNI");
-                emails = rs.getString("USER_EMAIL");
-                pass = rs.getString("USER_PASSWORD");
-                phone = rs.getString("USER_PHONE");
-                number = rs.getInt("USER_NUMBER");
+                dni = rs.getString("dni");
+                emails = rs.getString("email");
+                pass = rs.getString("contrasena");
+                phone = rs.getString("telefono");
+                number = rs.getInt("dorsal");
 
                 User newUser = new User(dni, emails, pass, number, phone);
                 users.add(newUser);
@@ -282,9 +282,9 @@ public class UserDAO implements UserDAOInt {
 
                 String dni = rs.getString("dni");
                 String email = rs.getString("email");
-                String password = rs.getString("password");
+                String password = rs.getString("contrasena");
                 int dorsal = rs.getInt("dorsal");
-                String phone = rs.getString("phone");
+                String phone = rs.getString("telefono");
 
                 User user = new User(dni, email, password, dorsal, phone);
                 users.add(user);
