@@ -97,42 +97,39 @@ public class TeamsDAO implements TeamsDAOInt {
         }
     }
 
-    /**
-     * Metodo que se encarga de insertar en la base de datos los datos de una liga.
-     * @param name nombre de la liga
-     */
 
-    public void deleteDataTeams(String name){
-        //Connectamos a la base de datos y controlamos excepciones.
+
+    public void deleteDataTeams(String teamName) {
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+            System.out.println("Conexión exitosa");
 
-            System.out.println("Conexion ok");
-            //Generacion de un statement SQL que elimina datos de la tabla team_user dependiendo del nombre del team.
-            String sqlDeleteRelationships = "DELETE FROM jugador_equipo_liga WHERE nombre_equipo = ?";
-            PreparedStatement stDelRelationship = conn.prepareStatement(sqlDeleteRelationships);
-            stDelRelationship.setString(1,name);
-            stDelRelationship.executeUpdate();
+            // Eliminar la relación del equipo con la liga
+            String deleteEquipoLigaQuery = "DELETE FROM equipo_liga WHERE nombre_equipo = ?";
+            PreparedStatement deleteEquipoLigaStmt = conn.prepareStatement(deleteEquipoLigaQuery);
+            deleteEquipoLigaStmt.setString(1, teamName);
+            deleteEquipoLigaStmt.executeUpdate();
+            deleteEquipoLigaStmt.close();
 
-            //Generacion de un statement SQL que elimina datos de la tabla league_teams dependiendo del nombre del team.
-            String sqlDeleteRelationships2 = "DELETE FROM equipo_liga WHERE nombre_equipo = ?";
-            PreparedStatement stDelRelationship2 = conn.prepareStatement(sqlDeleteRelationships2);
-            stDelRelationship2.setString(1,name);
-            stDelRelationship2.executeUpdate();
+            // Eliminar la relación del equipo con los jugadores
+            String deleteJugadorEquipoQuery = "DELETE FROM jugador_equipo WHERE nombre_equipo = ?";
+            PreparedStatement deleteJugadorEquipoStmt = conn.prepareStatement(deleteJugadorEquipoQuery);
+            deleteJugadorEquipoStmt.setString(1, teamName);
+            deleteJugadorEquipoStmt.executeUpdate();
+            deleteJugadorEquipoStmt.close();
 
-            //Generacion de un statement sql para eliminar datos de la tabla teams dependeindeo del nombre del team.
-            String sql = "DELETE FROM equipo WHERE nombre =?";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, name);
+            // Eliminar el equipo
+            String deleteEquipoQuery = "DELETE FROM equipo WHERE nombre = ?";
+            PreparedStatement deleteEquipoStmt = conn.prepareStatement(deleteEquipoQuery);
+            deleteEquipoStmt.setString(1, teamName);
+            deleteEquipoStmt.executeUpdate();
+            deleteEquipoStmt.close();
 
-            int rowsDeleted = statement.executeUpdate();
-            if (rowsDeleted > 0) {
-                System.out.println("A team was deleted successfully!");
-            }
-
+            System.out.println("Eliminación exitosa del equipo y sus relaciones.");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
+
 
     public List<Team> getAllTeams() throws SQLException {
         List<Team> equipos = new ArrayList<>();

@@ -6,13 +6,18 @@ import java.util.List;
 public class League {
 
     private String name;
+
     private Date date;
+
+
     private int day;
+
     private int number_teams;
 
     private List<Team> teams;
     
     private List<Match> matches;
+
     private boolean state;
 
     public League(String name, Date date, int day, int number_teams, List<Team> teams, List<Match> matches, boolean state) {

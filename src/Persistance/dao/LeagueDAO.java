@@ -1,6 +1,8 @@
 package Persistance.dao;
 
 import Business.Entities.League;
+import Business.Entities.Match;
+import Business.Entities.Team;
 import Persistance.LeagueDAOInt;
 
 import java.sql.*;
@@ -139,14 +141,19 @@ public abstract class LeagueDAO implements LeagueDAOInt {
 
                 String leagueName = rs.getString("nombre");
                 Date dayLeague = rs.getDate("fecha");
-                Time hourLeague = rs.getTime("hora");
                 int matchdayLeague = rs.getInt("jornada");
                 int numero = rs.getInt("num_equipos");
-                int estado = rs.getInt("estado");
+                boolean estado = rs.getBoolean("estado");
+
+                TeamsLeagueDAO teamsLeagueDAO = new TeamsLeagueDAO();
+                // Obtener una list con los equipos
+                List<String> teams = new ArrayList<>();
+                teams = teamsLeagueDAO.obtenerEquiposPorLiga(name);
+                // Obtener una list con los partidos de cada equipo
+                List<Match> matches = new ArrayList<>();
 
 
-
-                return new League(leagueName,dayLeague,hourLeague,matchdayLeague,numero,estado);
+                //return new League(leagueName,dayLeague,matchdayLeague,numero,teams,matches,estado);
             }
 
             // Si no existe un jugador con ese DNI, retornamos null
@@ -156,7 +163,9 @@ public abstract class LeagueDAO implements LeagueDAOInt {
             throwables.printStackTrace();
             return null;
         }
+
     }
+
 
     public List<League> getAllLeagues() throws SQLException {
         List<League> ligas = new ArrayList<>();
@@ -169,12 +178,17 @@ public abstract class LeagueDAO implements LeagueDAOInt {
 
                 String nombre = rs.getString("nombre");
                 Date fecha = rs.getDate("fecha");
-                Time hora = rs.getTime("hora");
                 int jornada = rs.getInt("jornada");
                 int numEquipos = rs.getInt("num_equipos");
-                int estado = rs.getInt("estado");
+                boolean estado = rs.getBoolean("estado");
 
-                League liga = new League(nombre, fecha, hora, jornada, numEquipos,estado);
+                // Obtener una list con los equipos
+                List<Team> teams = new ArrayList<>();
+
+                // Obtener una list con los partidos de cada equipo
+                List<Match> matches = new ArrayList<>();
+
+                League liga = new League(nombre, fecha, jornada, numEquipos,teams,matches,estado);
                 ligas.add(liga);
             }
         }

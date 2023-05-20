@@ -20,7 +20,7 @@ public interface TeamsDAOInt {
 
     void jsonToDatabase(String jsonString);
 
-    void deleteDataTeams(String name) throws SQLException;
+    void deleteDataTeams(String name);
 
     Team selectTeam(String name) throws SQLException;
 

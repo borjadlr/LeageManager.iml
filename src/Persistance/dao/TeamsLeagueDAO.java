@@ -77,10 +77,12 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
                 String nombreEquipo = resultSet.getString("nombre_equipo");
                 equipos.add(nombreEquipo);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return equipos;
     }
+
 }

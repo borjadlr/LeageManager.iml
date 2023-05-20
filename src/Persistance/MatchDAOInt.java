@@ -1,10 +1,11 @@
 package Persistance;
 
-import Business.Entities.Match;
+import java.util.List;
 
 public interface MatchDAOInt {
-    void createPartido(Match partido);
-    Match readPartido(String equipoLocal, String equipoVisitante);
-    void updatePartido(Match partido, String nuevoResultado);
-    void deletePartido(Match partido);
+    void insertMatch(String equipoLocal, String equipoVisitante, int resultadoLocal, int resultadoVisitante, int jornada, boolean partidoFinalizado, String nombreLiga);
+    List<String> getAllMatches();
+    List<String> getMatchesByLeague(String nombreLiga);
+    void updateMatch(int matchId, String equipoLocal, String equipoVisitante, int resultadoLocal, int resultadoVisitante, int jornada, boolean partidoFinalizado, String nombreLiga);
+    void deleteMatch(int matchId);
 }
