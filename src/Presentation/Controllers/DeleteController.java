@@ -30,7 +30,7 @@ public class DeleteController implements ActionListener, FocusListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
-            case "LOGIN_BUTTON":
+            case "DELETE_BUTTON":
                 try {
                     String username = view.getUsernameInfo();
                     String password = view.getPasswordInfo();

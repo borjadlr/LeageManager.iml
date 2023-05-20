@@ -36,14 +36,17 @@ public class Main {
         NewLeagueGUI newLeaguesGUI = new NewLeagueGUI();
         RegistrationGUI registrationGUI = new RegistrationGUI();
         TopPanelGUI topPanelGUI = new TopPanelGUI();
-        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, currentLeagueGUI, newLeaguesGUI, registrationGUI, mainPanelGUI);
+        DeleteGUI deleteGUI = new DeleteGUI();
+        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, currentLeagueGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI);
 
         //Controllers
         MainPanelController mainPanelController = new MainPanelController(mainFrame);
         RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
         LoginController loginController = new LoginController(mainFrame, loginGUI, userManager);
         ChangePasswordController changePasswordController = new ChangePasswordController(mainFrame, changePasswordGUI, userManager);
-        TopPanelController topPanelController =  new TopPanelController(topPanelGUI, mainFrame, userManager);
+
+        //TopPanelController topPanelController =  new TopPanelController(topPanelGUI, mainFrame, userManager);
+        DeleteController deleteController = new DeleteController(mainFrame, deleteGUI, userManager);
 
         //Buttons
         loginGUI.actionListener(loginController);
@@ -53,7 +56,8 @@ public class Main {
         registrationGUI.registerRegistration(registrationController);
         changePasswordGUI.registerChangePassword(changePasswordController);
         changePasswordGUI.actionListenerPassword(changePasswordController);
-        topPanelGUI.dropdownButton(topPanelController);
+        deleteGUI.actionListener(deleteController);
+        deleteGUI.focusListener(deleteController);
 
 
         //UserDAO userDAO = new UserDAO();

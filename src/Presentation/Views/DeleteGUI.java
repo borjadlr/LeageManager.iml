@@ -11,10 +11,10 @@ public class DeleteGUI extends JPanel {
 
     private final JTextField email;
     private final JTextField password;
-    private final JButton login;
+    private final JButton delete;
 
     private Color backgroundColor;
-    public static final String LOGIN_BUTTON = "LOGIN_BUTTON";
+    public static final String DELETE_BUTTON = "DELETE_BUTTON";
 
     public DeleteGUI() {
         this.backgroundColor = Color.white;
@@ -30,7 +30,7 @@ public class DeleteGUI extends JPanel {
         panel.setOpaque(true);
 
         //Title
-        JLabel title = new JLabel("LeagueManager Login");
+        JLabel title = new JLabel("Delete Account");
         title.setFont(new Font("Apple Casual", PLAIN, 60));
         title.setForeground(Color.BLACK);
         title.setBorder(BorderFactory.createEmptyBorder(4, 0, 10, 0));
@@ -63,21 +63,17 @@ public class DeleteGUI extends JPanel {
         panel.add(Box.createVerticalStrut(15));
 
 
-        login = new JButton("Login");
-        login.setActionCommand(LOGIN_BUTTON);
-        login.setPreferredSize(new Dimension(150, 40));
-        login.setAlignmentX(Component.CENTER_ALIGNMENT);
-        login.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        panel.add(login);
-
-        // register focus listener for login controller
+        delete = new JButton("Delete");
+        delete.setActionCommand(DELETE_BUTTON);
+        delete.setPreferredSize(new Dimension(150, 40));
+        delete.setAlignmentX(Component.CENTER_ALIGNMENT);
+        delete.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        panel.add(delete);
 
         // add panel to this
         this.add(panel);
     }
-    public void actionListener(ActionListener actionListener){
-        login.addActionListener(actionListener);
-    }
+
     public void focusListener(FocusListener focusListener) {
         email.addFocusListener(focusListener);
         email.setName("Email or DNI");
@@ -85,6 +81,9 @@ public class DeleteGUI extends JPanel {
         password.setName("Password");
     }
 
+    public void actionListener(ActionListener actionListener){
+        delete.addActionListener(actionListener);
+    }
     public String getUsernameInfo() {
         return email.getText();
     }
@@ -92,7 +91,6 @@ public class DeleteGUI extends JPanel {
     public String getPasswordInfo() {
         return password.getText();
     }
-
     public void exceptionMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
     }
