@@ -12,15 +12,15 @@ import java.awt.event.FocusListener;
 public class RegistrationController implements FocusListener, ActionListener {
 
     private final UserManager userManager;
-    private MainFrameGUI mainFrameGUI;
+    private final MainFrameGUI mainFrameGUI;
 
-    private RegistrationGUI view;
+    private final RegistrationGUI view;
 
-    private String defaultDniText = "Dni: ";
-    private String defaultTeamText = "Team:";
-    private String defaultDorsalText = "Dorsal: ";
-    private String defaultNameText = "Name: ";
-    private String defaultPhoneNumberText = "Phone Number: ";
+    private final String defaultDniText = "Dni: ";
+    private final String defaultTeamText = "Team:";
+    private final String defaultDorsalText = "Dorsal: ";
+    private final String defaultNameText = "Name: ";
+    private final String defaultPhoneNumberText = "Phone Number: ";
 
     public RegistrationController(MainFrameGUI mainFrameGUI, RegistrationGUI view, UserManager userManager) {
         this.mainFrameGUI = mainFrameGUI;
@@ -34,13 +34,13 @@ public class RegistrationController implements FocusListener, ActionListener {
             switch (e.getActionCommand()) {
                 case "OK_BUTTON":
                     String dni = view.getDniText();
-                    int dorsal = Integer.parseInt(view.getDorsalText());
+                    int dorsal = view.getDorsalText();
                     String phoneNumber = String.valueOf(view.getPhoneNumberText());
                     //String teamName = view.getNameTeamText();
                     String email = view.getEmailText();
                     // String name = view.getNameText();
 
-                        userManager.createUser(dni, userManager.generatePassword(), email, dorsal, phoneNumber); //Els hi falta parametres .
+                        userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber); //Els hi falta parametres .
                         mainFrameGUI.showMenuUser();
 
                     break;
@@ -51,8 +51,7 @@ public class RegistrationController implements FocusListener, ActionListener {
 
     @Override
     public void focusGained(FocusEvent e) {
-        if (e.getSource() instanceof JTextField) {
-            JTextField textField = (JTextField) e.getSource();
+        if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
                 case "DNI":
                     if (textField.getText().equals(defaultDniText)) {
@@ -85,8 +84,7 @@ public class RegistrationController implements FocusListener, ActionListener {
 
     @Override
     public void focusLost(FocusEvent e) {
-        if (e.getSource() instanceof JTextField) {
-            JTextField textField = (JTextField) e.getSource();
+        if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
                 case "DNI":
                     if (textField.getText().isEmpty()) {
