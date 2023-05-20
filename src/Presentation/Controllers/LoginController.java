@@ -18,7 +18,7 @@ public class LoginController implements ActionListener, FocusListener {
     private final String defaultEmailText = "dni/email: ";
     private final String defaultPasswordText = "Password: ";
 
-    private final MainFrameGUI mainView;
+    private final MainFrameGUI mainFrameGUI;
     private final LoginGUI view;
 
     private final UserManager userManager;
@@ -27,9 +27,8 @@ public class LoginController implements ActionListener, FocusListener {
     private static final String BACK_LOGIN = "Back Login";
 
     public LoginController(MainFrameGUI mainView, LoginGUI view, UserManager userManager) {
-        this.mainView = mainView;
+        this.mainFrameGUI = mainView;
         this.view = view;
-        //this.userManager = userManager;
         this.userManager = userManager;
     }
 
@@ -41,7 +40,7 @@ public class LoginController implements ActionListener, FocusListener {
                     String username = view.getUsernameInfo();
                     String password = view.getPasswordInfo();
                     userManager.signIn(username, password);
-                    mainView.showMenuUser();
+                    mainFrameGUI.showMenuUser();
 
                 } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
                     view.exceptionMessage(ex.getMessage());
