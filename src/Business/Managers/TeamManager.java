@@ -67,7 +67,10 @@ public class TeamManager {
     }
 
     public List<Team> getAllTeams() throws SQLException {
-        return teamsDAO.getAllTeams();
+        List<Team> teams = teamsDAO.getAllTeams();
+        //List<Team> teamsUser =
+
+        return ;
     }
 
 }

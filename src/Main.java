@@ -1,16 +1,12 @@
 import Business.Entities.Team;
 import Business.Entities.User;
 import Business.Managers.*;
-import Persistance.TeamsLeagueDAOInt;
-import Persistance.UserTeamsDAOInt;
 import Persistance.dao.TeamsDAO;
 import Persistance.dao.TeamsLeagueDAO;
 import Persistance.dao.UserDAO;
 import Persistance.dao.UserTeamsDAO;
 import Presentation.Controllers.*;
 import Presentation.Views.*;
-
-import java.awt.event.FocusListener;
 
 public class Main {
 
@@ -55,7 +51,7 @@ public class Main {
         MenuAdminController menuAdminController = new MenuAdminController(mainFrame);
         //TopPanelController topPanelController =  new TopPanelController(topPanelGUI, mainFrame, userManager);
         DeleteController deleteController = new DeleteController(mainFrame, deleteGUI, userManager);
-        NewLeagueController newLeagueController = new NewLeagueController(mainFrame);
+        NewLeagueController newLeagueController = new NewLeagueController(mainFrame, leagueManager);
 
         //Buttons
         loginGUI.actionListener(loginController);

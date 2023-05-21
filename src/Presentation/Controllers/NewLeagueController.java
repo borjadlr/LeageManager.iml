@@ -1,5 +1,6 @@
 package Presentation.Controllers;
 
+import Business.Managers.LeagueManager;
 import Presentation.Views.MainFrameGUI;
 
 import javax.swing.*;
@@ -10,14 +11,17 @@ import java.awt.event.FocusListener;
 
 public class NewLeagueController implements ActionListener, FocusListener {
 
-    private MainFrameGUI mainFrame;
-    private  String defaultDateText = "Date: ";
-    private  String defaultLegueText = "League name: ";
+    private final MainFrameGUI mainFrame;
+    private final String defaultDateText = "Date: ";
+    private final String defaultLegueText = "League name: ";
 
-    private  String defaultNumeroEquips = "Número equips: ";
-    private  String defaultHora = "Hour: ";
-    public NewLeagueController(MainFrameGUI mainFrame) {
+    private final LeagueManager leagueManager;
+
+    private final String defaultNumeroEquips = "Número equips: ";
+    private final String defaultHora = "Hour: ";
+    public NewLeagueController(MainFrameGUI mainFrame, LeagueManager leagueManager) {
         this.mainFrame = mainFrame;
+        this.leagueManager = leagueManager;
     }
 
     @Override
@@ -25,6 +29,7 @@ public class NewLeagueController implements ActionListener, FocusListener {
         if (e.getSource() instanceof JButton) {
             switch (e.getActionCommand()) {
                 case "OK_BUTTON":
+                    leagueManager.introduceLeague();
                     mainFrame.showTeamList();
                     break;
             }
@@ -33,8 +38,7 @@ public class NewLeagueController implements ActionListener, FocusListener {
 
     @Override
     public void focusGained(FocusEvent e) {
-        if (e.getSource() instanceof JTextField) {
-            JTextField textField = (JTextField) e.getSource();
+        if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
                 case "Date":
                     if (textField.getText().equals(defaultDateText)) {
@@ -61,8 +65,7 @@ public class NewLeagueController implements ActionListener, FocusListener {
     }
 
     public void focusLost(FocusEvent e) {
-        if (e.getSource() instanceof JTextField) {
-            JTextField textField = (JTextField) e.getSource();
+        if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
                 case "Date":
                     if (textField.getText().isEmpty()) {

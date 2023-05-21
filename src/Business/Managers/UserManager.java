@@ -1,6 +1,7 @@
 
 package Business.Managers;
 
+import Business.Entities.Admin;
 import Business.Entities.League;
 import Business.Entities.Team;
 import Business.Entities.User;
@@ -272,11 +273,46 @@ public class UserManager {
 
     }
 
-    /*public List<League> getLeagues() {
-        ArrayList<League> leagues = new ArrayList<>();
+    public List<League> getLeagues() throws SQLException {
+        List<League> leagues = leagueManager.listLeagues();
 
+        List<League> leaguesUserActive = new ArrayList<>();
+        int i = 0;
 
-    }*/
+        if (userLocal instanceof Admin) {
+            return leagues;
+        } else {
+            List<League> leaguesUser = getUserLeagues();
+            while (leagues.size() > i){
+                if (leagueManager.isLeagueActive(leagues.get(i))){
+                    leaguesUserActive.add(leagues.get(i));
+                    i++;
+                }
+            }
+            return leaguesUserActive;
+        }
+
+    }
+
+    public List<League> getUserLeagues() throws SQLException {
+        List<League> leagues = leagueManager.listLeagues();
+        List<League> leaguesUser = new ArrayList<>();
+        List<String> leaguesNames = userDAO.getLeaguesOfPlayer(userLocal.getDni());
+        int i = 0, j = 0;
+
+        while (leagues.size() > i){
+            while (leaguesNames.size() > j) {
+                if (leagues.get(i).getName().equals(leaguesNames.get(j))){
+                    leaguesUser.add(leagues.get(i));
+                    break;
+                }
+                j++;
+            }
+            j = 0;
+            i++;
+        }
+        return leaguesUser;
+    }
 
 
 }

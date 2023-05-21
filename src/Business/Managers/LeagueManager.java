@@ -150,4 +150,30 @@ public class LeagueManager {
         }
     }
 
+    public boolean isLeagueActive(League league) {
+        return league.isState();
+    }
+
+    public boolean isLeagueExisting(List<League> leagues, List<League> leaguesUser) throws IncorrectLeagueNameException {
+        int i = 0, j = 0;
+        boolean nameFound = false;
+
+        while (leagues.size() > i){
+            while (leaguesUser.size() > j) {
+                if (leagues.get(i).getName().equals(leaguesUser.get(j).getName())){
+                    nameFound = true;
+                    break;
+                } else {
+                    j++;
+                }
+            }
+            if (!nameFound){
+                return false;
+            }
+            j = 0;
+            i++;
+        }
+        return true;
+    }
+
 }
