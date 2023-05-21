@@ -61,6 +61,49 @@ public class TeamsDAO implements TeamsDAOInt {
     }
 
     /**
+     * Este método inserta un nuevo equipo en la base de datos.
+     *
+     * @param team  La instancia de Team que contiene los detalles del equipo que se va a insertar.
+     *
+     *
+     * @throws SQLException Si hay un error al ejecutar la sentencia SQL para insertar el equipo.
+     */
+    public void insertDataTeamsByTeam(Team team) {
+        // Conexión con la base de datos y control de excepciones.
+        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+
+            // Imprime un mensaje para confirmar la conexión exitosa.
+            System.out.println("Conexion ok");
+
+            // Generación de un statement SQL para insertar datos en la tabla equipo.
+            String sql = "INSERT INTO equipo (nombre, num_jugadores, num_victorias, num_empates, num_derrotas, puntos_acumulados) VALUES (?, ?, ?, ?, ?, ?)";
+
+            // Preparación del statement SQL.
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            // Configuración de los parámetros del statement con los valores del objeto Team.
+            statement.setString(1, team.getName());
+            statement.setInt(2, team.getNPlayers());
+            statement.setInt(3, team.getWins());
+            statement.setInt(4, team.getTies());
+            statement.setInt(5, team.getLosses());
+            statement.setInt(6, team.getPoints());
+
+            // Ejecución del statement y recogida del número de filas insertadas.
+            int rowsInserted = statement.executeUpdate();
+
+            // Imprime un mensaje si el equipo fue insertado exitosamente.
+            if (rowsInserted > 0) {
+                System.out.println("A new team was inserted successfully!");
+            }
+
+        } catch (SQLException ex) {
+            // Imprime el stack trace de la excepción en caso de error.
+            ex.printStackTrace();
+        }
+    }
+
+    /**
      * Metodo para actualizar la informacion de un esquipo
      * @param name1 nombre que al que se quiere actualizar
      * @param nplayers parametro sobre el nombre de jugadores que se quiere actualizar
@@ -131,31 +174,7 @@ public class TeamsDAO implements TeamsDAOInt {
     }
 
 
-    public List<Team> getAllTeams() throws SQLException {
-        List<Team> equipos = new ArrayList<>();
-        String sql = "SELECT * FROM equipo";
 
-        try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            while (rs.next()) {
-
-                String nombre = rs.getString("nombre");
-                int numJugadores = rs.getInt("num_jugadores");
-                int numVictorias = rs.getInt("num_victorias");
-                int numDerrotas = rs.getInt("num_derrotas");
-                int numEmpates = rs.getInt("num_empates");
-                int puntosAcumulados = rs.getInt("puntos_acumulados");
-
-                Team equipo = new Team( nombre, numJugadores, numVictorias, numDerrotas, numEmpates, puntosAcumulados);
-                equipos.add(equipo);
-            }
-        }
-
-        return equipos;
-    }
-
-    @Override
 
 
     public Team selectTeam(String nombreEquipo) throws SQLException {
@@ -258,6 +277,40 @@ public class TeamsDAO implements TeamsDAOInt {
                 e.printStackTrace();
             }
         }
+
+    /**
+     * Método para obtener la lista de todos los equipos en la base de datos.
+     *
+     * @return List de objetos Team que representan a los equipos en la base de datos.
+     */
+    public List<Team> getAllTeams() {
+        List<Team> teams = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+
+            String sql = "SELECT * FROM equipo";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            ResultSet result = statement.executeQuery();
+
+            while (result.next()){
+                String name = result.getString("nombre");
+                int nPlayers = result.getInt("num_jugadores");
+                int wins = result.getInt("num_victorias");
+                int losses = result.getInt("num_derrotas");
+                int ties = result.getInt("num_empates");
+                int points = result.getInt("puntos_acumulados");
+
+                teams.add(new Team(name, nPlayers, wins, ties, losses, points));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return teams;
+    }
 
 
 

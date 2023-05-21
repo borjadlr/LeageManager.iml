@@ -24,6 +24,10 @@ public interface TeamsDAOInt {
 
     Team selectTeam(String name) throws SQLException;
 
-    List<Team> getAllTeams() throws SQLException;
+    List<Team> getAllTeams();
+
+    void insertDataTeamsByTeam(Team team);
+
+
 
 }
