@@ -1,6 +1,7 @@
 package Presentation.Views;
 
 import Business.Entities.Team;
+import Presentation.Controllers.ShowTeamController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public class TeamsListGUI extends JPanel {
     private JTable table;
-    private DefaultTableModel tableModel;
+    private final DefaultTableModel tableModel;
 
     public TeamsListGUI() {
         setLayout(new BorderLayout());
