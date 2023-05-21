@@ -20,6 +20,7 @@ public class Main {
         TeamsDAO teamsDAO = new TeamsDAO();
         UserTeamsDAO userTeamsDAO = new UserTeamsDAO();
         TeamsLeagueDAO teamsLeagueDAO = new TeamsLeagueDAO();
+
         //Managers
         User user = new User();
         TeamManager teamManager = new TeamManager(teamsDAO, teamsLeagueDAO, userTeamsDAO, team);

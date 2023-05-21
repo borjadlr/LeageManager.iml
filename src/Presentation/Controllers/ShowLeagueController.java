@@ -11,9 +11,9 @@ import java.lang.ref.PhantomReference;
 import java.util.List;
 
 public class ShowLeagueController extends MouseInputAdapter {
-    private ShowLeague showLeagues;
-    private MainFrameGUI mainFrame;
-    private TeamListGUI teamListGUI;
+    private final ShowLeague showLeagues;
+    private final MainFrameGUI mainFrame;
+    private final TeamListGUI teamListGUI;
 
     private List<League> leagues;
 
