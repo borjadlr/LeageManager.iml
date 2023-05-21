@@ -94,6 +94,22 @@ public class NewLeagueGUI extends JPanel {
         this.add(panel);
     }
 
+    public JTextField getLeagueName() {
+        return leagueName;
+    }
+
+    public JTextField getHora() {
+        return hora;
+    }
+
+    public JTextField getData() {
+        return data;
+    }
+
+    public JTextField getNumeroEquipos() {
+        return numeroEquipos;
+    }
+
     public void registerListener(ActionListener actionListener){
         ok.addActionListener(actionListener);
 
