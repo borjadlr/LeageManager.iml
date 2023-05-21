@@ -300,6 +300,10 @@ public class UserManager {
         List<String> leaguesNames = userDAO.getLeaguesOfPlayer(userLocal.getDni());
         int i = 0, j = 0;
 
+        if (userLocal instanceof Admin){
+            return leagueManager.listLeagues();
+        }
+
         while (leagues.size() > i){
             while (leaguesNames.size() > j) {
                 if (leagues.get(i).getName().equals(leaguesNames.get(j))){
