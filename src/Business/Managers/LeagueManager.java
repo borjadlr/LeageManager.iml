@@ -7,6 +7,7 @@ import Exceptions.*;
 import Persistance.LeagueDAOInt;
 
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -37,7 +38,16 @@ public class LeagueManager {
                 i++;
             }
         }
-        leagueDAO.insertDataLeague(league.getName(), league.getDate(), league.getTime(), league.getDay(), league.getNumber_teams(), league.isState());
+        leagueDAO.insertDataLeague(league.getName(),
+                                    league.getDate(),
+                                    league.getTime(),
+                                    league.getDay(),
+                                    league.getNumber_teams(),
+                                    league.isState());
+    }
+
+    public League setLeague (String name, Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams, List<Match> matches) {
+        return new League(name, date, hour, day, teamNumber, teams, matches, state);
     }
 
     public boolean comprovaData(Date date){
