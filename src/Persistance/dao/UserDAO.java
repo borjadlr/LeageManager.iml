@@ -352,6 +352,47 @@ public class UserDAO implements UserDAOInt {
         }
     }
 
+    /**
+     * Método para obtener las ligas en las que un jugador está registrado.
+     *
+     * @param dni El DNI del jugador.
+     * @return Lista de nombres de ligas en las que participa el jugador.
+     */
+    public List<String> getLeaguesOfPlayer(String dni) {
+        // Creamos una lista para guardar los nombres de las ligas
+        List<String> leagueNames = new ArrayList<>();
+
+        // Nos conectamos a la base de datos y controlamos las excepciones
+        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+
+            System.out.println("Successful connection...");
+
+            // Generamos una consulta SQL para obtener los nombres de las ligas en las que participa el jugador
+            String sql = "SELECT l.nombre " +
+                    "FROM liga l " +
+                    "INNER JOIN equipo_liga el ON l.nombre = el.nombre_liga " +
+                    "INNER JOIN jugador_equipo je ON el.nombre_equipo = je.nombre_equipo " +
+                    "WHERE je.dni_jugador = ?";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, dni);
+
+            // Ejecutamos la consulta y procesamos el ResultSet
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    leagueNames.add(rs.getString("nombre"));
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        // Devolvemos los nombres de las ligas
+        return leagueNames;
+    }
+
+
 
 
 

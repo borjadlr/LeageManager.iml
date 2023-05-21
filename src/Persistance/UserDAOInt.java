@@ -17,5 +17,6 @@ public interface UserDAOInt {
     LinkedList<User> SelectDataUser();
     List<User> getAllUsers() throws SQLException;
     List<String> obtenerDNIs() throws SQLException;
+    List<String> getLeaguesOfPlayer(String dni);
 
 }
