@@ -1,5 +1,8 @@
 package Persistance;
 
+import Business.Entities.User;
+
+import java.util.LinkedList;
 import java.util.List;
 
 public interface UserTeamsDAOInt {
@@ -7,6 +10,6 @@ public interface UserTeamsDAOInt {
     void readUserTeam(String dniJugador, String nombreEquipo);
     void updateUserTeam(String dniJugador, String nombreEquipo, String nuevoEquipo);
     void deleteUserTeam(String dniJugador, String nombreEquipo);
-    List<String> getPlayersDNI(String teamName);
+    LinkedList<User> getTeamPlayers(String teamName);
 
 }
