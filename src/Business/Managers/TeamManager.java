@@ -35,7 +35,14 @@ public class TeamManager {
 
     }
 
-
+    public List<Team> returnTeams(List<String> teamsNames) throws SQLException {
+        List<Team> teams = new ArrayList<>();
+        int i = 0;
+        while (teamsNames.size() > i){
+            teams.add(teamsDAO.selectTeam(teamsNames.get(i)));
+        }
+        return teams;
+    }
 
 
     private void createTeam(String teamName, int NPlayers) throws InvalidPlayerNumberException, TeamAlreadyExistsException, SQLException {
