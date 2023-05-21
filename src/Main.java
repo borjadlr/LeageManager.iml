@@ -41,7 +41,7 @@ public class Main {
         TopPanelGUI topPanelGUI = new TopPanelGUI();
         DeleteGUI deleteGUI = new DeleteGUI();
         ShowLeague showLeague = new ShowLeague();
-        TeamsListGUI teamsListGUI = new TeamsListGUI();
+        TeamListGUI teamsListGUI = new TeamListGUI();
         MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, showLeague, statisticsGUI,simulationGameGUI, teamsListGUI);
 
         //Controllers
@@ -53,7 +53,7 @@ public class Main {
         //TopPanelController topPanelController =  new TopPanelController(topPanelGUI, mainFrame, userManager);
         DeleteController deleteController = new DeleteController(mainFrame, deleteGUI, userManager);
         NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI);
-        ShowLeagueController showLeagueController = new ShowLeagueController(showLeague, mainFrame, ,teamsListGUI);
+        ShowLeagueController showLeagueController = new ShowLeagueController(showLeague, mainFrame, userManager,teamsListGUI);
 
         //Buttons
         loginGUI.actionListener(loginController);
