@@ -1,35 +1,47 @@
 package Presentation.Controllers;
 
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import Business.Entities.League;
+import Presentation.Views.MainFrameGUI;
+import Presentation.Views.ShowLeague;
+import Presentation.Views.TeamListGUI;
 
-public class ShowLeagueController implements ListSelectionListener {
-    private JTable table;
-    private DefaultTableModel tableModel;
+import javax.swing.event.MouseInputAdapter;
+import java.awt.event.MouseEvent;
+import java.lang.ref.PhantomReference;
+import java.util.List;
 
-    public ShowLeagueController() {
+public class ShowLeagueController extends MouseInputAdapter {
+    private ShowLeague showLeagues;
+    private MainFrameGUI mainFrame;
+    private TeamListGUI teamListGUI;
 
+    private List<League> leagues;
+
+
+    public ShowLeagueController(ShowLeague showLeagues, MainFrameGUI mainFrame, List<League> leagues, TeamListGUI teamListGUI) {
+        this.showLeagues = showLeagues;
+        this.mainFrame = mainFrame;
+        this.leagues = leagues;
+        this.teamListGUI = teamListGUI;
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        JTable table = (JTable) e.getSource();
-        if (!e.getValueIsAdjusting()) {
-            int selectedRow = table.getSelectedRow();
+    public void mouseClicked(MouseEvent e) {
+        int i;
+
+        if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
+            int selectedRow = showLeagues.getTable().rowAtPoint(e.getPoint());
             if (selectedRow != -1) {
-                // Handle row selection here
-                String leagueName = table.getValueAt(selectedRow, 0).toString();
-                String teamCount = table.getValueAt(selectedRow, 1).toString();
-                String status = table.getValueAt(selectedRow, 2).toString();
-                System.out.println("Selected League: " + leagueName);
-                System.out.println("Number of Teams: " + teamCount);
-                System.out.println("Status: " + status);
+                String leagueName = showLeagues.getTable().getValueAt(selectedRow, 0).toString();
+                for(i = 0; i < leagues.size(); i++){
+                    if (leagueName.equals(leagues.get(i).getName())) {
+                        teamListGUI.setTitle(leagues.get(i).getName());
+                        mainFrame.showTeamList(); //passar la i, el nom de la lliga.
+
+                    }
+                }
+
             }
         }
     }
 }
-

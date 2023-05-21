@@ -21,11 +21,9 @@ public class MainFrameGUI extends JFrame{
     public final String TEAM_LIST_VIEW = "TEAM_LIST_VIEW";
 
 
-    private JPanel topPanel;
-    private JPanel centerPanel;
-    private JPanel bottomPanel;
-
-    private CardLayout cardLayout;
+    private final JPanel centerPanel;
+    private final JPanel bottomPanel;
+    private final CardLayout cardLayout;
 
 
 
@@ -40,7 +38,7 @@ public class MainFrameGUI extends JFrame{
         centerPanel.setLayout(cardLayout);
         add(centerPanel, BorderLayout.CENTER);
 
-        topPanel = new TopPanelGUI();
+        JPanel topPanel = new TopPanelGUI();
         add(topPanel, BorderLayout.NORTH);
 
         centerPanel.add(mainPanelGUI, FIRST_UI);
@@ -56,7 +54,7 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(statisticsGUI, STATISTICS_VIEW);
         centerPanel.add(teamsListGUI, TEAM_LIST_VIEW);
 
-        cardLayout.show(centerPanel, MENU_ADMIN_VIEW);
+        cardLayout.show(centerPanel, FIRST_UI);
 
         bottomPanel = new BottomPanelGUI();
         add(bottomPanel, BorderLayout.SOUTH);
@@ -95,8 +93,6 @@ public class MainFrameGUI extends JFrame{
     public void showTeamList(){
         cardLayout.show(centerPanel, TEAM_LIST_VIEW);
     }
-
-
 
     public void showCurrentLeagues(){
         cardLayout.show(centerPanel, CURRENT_LEAGUE_VIEW);

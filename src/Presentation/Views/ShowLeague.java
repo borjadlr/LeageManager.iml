@@ -1,19 +1,18 @@
 package Presentation.Views;
-
 import Business.Entities.League;
 import Presentation.Controllers.ShowLeagueController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public class ShowLeague extends JPanel {
     private JTable table;
     private DefaultTableModel tableModel;
+    private ShowLeagueController controller;
 
     public ShowLeague() {
         setLayout(new BorderLayout());
@@ -27,7 +26,12 @@ public class ShowLeague extends JPanel {
 
         // Create the table with column names
         String[] columnNames = {"League Name", "Number of Participating Teams", "Current Status"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Disable cell editing for all cells
+            }
+        };
         table = new JTable(tableModel);
         table.setBackground(Color.WHITE);
 
@@ -36,10 +40,6 @@ public class ShowLeague extends JPanel {
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         table.setDefaultRenderer(Object.class, renderer);
 
-        // Add selection listener to the table
-        ListSelectionListener selectionListener = new ShowLeagueController();
-        table.getSelectionModel().addListSelectionListener(selectionListener);
-
         // Add the table to a scroll pane
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(new EmptyBorder(50, 50, 50, 50));
@@ -47,7 +47,16 @@ public class ShowLeague extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    public void addLeagues(ArrayList<League> leagues) {
+    public JTable getTable() {
+        return table;
+    }
+
+    public void setController(ShowLeagueController controller) {
+        this.controller = controller;
+        table.addMouseListener(controller);
+    }
+
+    public void addLeagues(List<League> leagues) {
         tableModel.setRowCount(0);
 
         // Add league data to the table
