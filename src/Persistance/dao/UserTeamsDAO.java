@@ -3,10 +3,9 @@ package Persistance.dao;
 import Business.Entities.User;
 import Persistance.UserTeamsDAOInt;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserTeamsDAO implements UserTeamsDAOInt {
 
@@ -94,4 +93,42 @@ public class UserTeamsDAO implements UserTeamsDAOInt {
             e.printStackTrace();
         }
     }
+    /**
+     * Método para obtener los DNIs de todos los jugadores en un equipo.
+     *
+     * @param teamName El nombre del equipo.
+     * @return Lista de DNIs de los jugadores en el equipo.
+     */
+    public List<String> getPlayersDNI(String teamName) {
+        // Creamos una lista para guardar los DNIs de los jugadores
+        List<String> playerDNIs = new ArrayList<>();
+
+        // Nos conectamos a la base de datos y controlamos las excepciones
+        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+
+            System.out.println("Successful connection...");
+
+            // Generamos una consulta SQL para obtener los DNIs de los jugadores en el equipo
+            String sql = "SELECT dni_jugador " +
+                    "FROM jugador_equipo " +
+                    "WHERE nombre_equipo = ?";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, teamName);
+
+            // Ejecutamos la consulta y procesamos el ResultSet
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    playerDNIs.add(rs.getString("dni_jugador"));
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        // Devolvemos los DNIs de los jugadores
+        return playerDNIs;
+    }
+
 }
