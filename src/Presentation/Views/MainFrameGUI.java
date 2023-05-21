@@ -27,7 +27,7 @@ public class MainFrameGUI extends JFrame{
 
 
 
-    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ShowLeague showLeague, StatisticsGUI statisticsGUI, SimulationGameGUI simulationGameGUI, TeamsListGUI teamsListGUI){
+    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ShowLeague showLeague, StatisticsGUI statisticsGUI, SimulationGameGUI simulationGameGUI, TeamListGUI teamsListGUI){
 
         super("Main Frame");
 
