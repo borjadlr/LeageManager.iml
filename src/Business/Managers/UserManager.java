@@ -302,20 +302,21 @@ public class UserManager {
 
         if (userLocal instanceof Admin){
             return leagueManager.listLeagues();
+        } else {
+            while (leagues.size() > i){
+                while (leaguesNames.size() > j) {
+                    if (leagues.get(i).getName().equals(leaguesNames.get(j))){
+                        leaguesUser.add(leagues.get(i));
+                        break;
+                    }
+                    j++;
+                }
+                j = 0;
+                i++;
+            }
+            return leaguesUser;
         }
 
-        while (leagues.size() > i){
-            while (leaguesNames.size() > j) {
-                if (leagues.get(i).getName().equals(leaguesNames.get(j))){
-                    leaguesUser.add(leagues.get(i));
-                    break;
-                }
-                j++;
-            }
-            j = 0;
-            i++;
-        }
-        return leaguesUser;
     }
 
 

@@ -10,8 +10,8 @@ import java.awt.*;
 import java.util.List;
 
 public class ShowLeague extends JPanel {
-    private JTable table;
-    private DefaultTableModel tableModel;
+    private final JTable table;
+    private final DefaultTableModel tableModel;
     private ShowLeagueController controller;
 
     public ShowLeague() {
@@ -64,5 +64,9 @@ public class ShowLeague extends JPanel {
             Object[] rowData = {league.getName(), league.getNumber_teams(), league.isState()};
             tableModel.addRow(rowData);
         }
+    }
+
+    public void parseMessage() {
+        JOptionPane.showMessageDialog(null, "Call 666445481 if this error occurs.");
     }
 }
