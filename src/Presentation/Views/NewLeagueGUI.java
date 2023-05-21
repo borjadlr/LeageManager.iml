@@ -112,8 +112,16 @@ public class NewLeagueGUI extends JPanel {
 
     public void registerListener(ActionListener actionListener){
         ok.addActionListener(actionListener);
-
     }
+
+    public void exceptionMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+    }
+
+    public void parseMessage() {
+        JOptionPane.showMessageDialog(null, "Call 666445481 if this error occurs.");
+    }
+
 
     public void newLeagueFocusListener(FocusListener focusListener) {
         leagueName.addFocusListener(focusListener);

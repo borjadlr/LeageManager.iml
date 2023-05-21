@@ -1,5 +1,10 @@
 package Presentation.Controllers;
 
+import Business.Managers.LeagueManager;
+import Business.Managers.TeamManager;
+import Exceptions.DateExpiredException;
+import Exceptions.LeagueAlreadyExistsException;
+import Exceptions.RepeatedTeamException;
 import Presentation.Views.MainFrameGUI;
 import Presentation.Views.NewLeagueGUI;
 
@@ -8,16 +13,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static java.lang.Integer.parseInt;
 
 public class NewLeagueController implements ActionListener, FocusListener {
 
-    private MainFrameGUI mainFrame;
-    private NewLeagueGUI view;
-    private  String defaultDateText = "Date: ";
-    private  String defaultLegueText = "League name: ";
+    private final MainFrameGUI mainFrame;
+    private final NewLeagueGUI view;
+    private final String defaultDateText = "Date: ";
+    private final String defaultLegueText = "League name: ";
 
-    private  String defaultNumeroEquips = "Número equips: ";
-    private  String defaultHora = "Hour: ";
+    private final String defaultNumeroEquips = "Número equips: ";
+    private final String defaultHora = "Hour: ";
+
+    private LeagueManager leagueManager;
+
+    private TeamManager teamManager;
     public NewLeagueController(MainFrameGUI mainFrame, NewLeagueGUI view) {
         this.mainFrame = mainFrame;
         this.view = view;
@@ -28,12 +44,21 @@ public class NewLeagueController implements ActionListener, FocusListener {
         if (e.getSource() instanceof JButton) {
             switch (e.getActionCommand()) {
                 case "OK_BUTTON":
-                    String leagueName = view.getLeagueName();
-                    String data = view.getData();
-                    String hora = view.getHora();
-                    String numeroEquipos = view.getNumeroEquipos();
-                    mainFrame.showTeamList();
-                    break;
+
+                    try {
+                        String leagueName = view.getLeagueName();
+                        Date data = new SimpleDateFormat("dd/MM/yyyy").parse(view.getData());
+                        Time hora = leagueManager.stringToTime(view.getHora());
+                        String numeroEquipos = view.getNumeroEquipos();
+                        leagueManager.introduceLeague(leagueManager.setLeague(leagueName, data, hora, 1, parseInt(numeroEquipos), true, teamManager.getTeamsOfLeague(leagueName)));
+                        mainFrame.showTeamList();
+                        break;
+                    } catch (ParseException | SQLException ex) {
+                        view.parseMessage();
+                    } catch (LeagueAlreadyExistsException | RepeatedTeamException | DateExpiredException ex) {
+                        view.exceptionMessage(ex.getMessage());
+                    }
+
             }
         }
     }

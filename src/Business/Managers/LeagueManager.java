@@ -8,6 +8,7 @@ import Persistance.LeagueDAOInt;
 
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -46,8 +47,22 @@ public class LeagueManager {
                                     league.isState());
     }
 
-    public League setLeague (String name, Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams, List<Match> matches) {
-        return new League(name, date, hour, day, teamNumber, teams, matches, state);
+    public League setLeague (String name, Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
+        List<Match> matches = new ArrayList<>();
+        League league = new League(name, date, hour, day, teamNumber, teams, matches, state);
+        league.setMatches(generateRRCalendar(league));
+        return league;
+    }
+
+    public Time stringToTime(String timeString) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+            Date date = format.parse(timeString);
+            return new Time(date.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public boolean comprovaData(Date date){
