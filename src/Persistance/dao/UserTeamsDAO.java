@@ -5,6 +5,7 @@ import Persistance.UserTeamsDAOInt;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class UserTeamsDAO implements UserTeamsDAOInt {
@@ -94,24 +95,24 @@ public class UserTeamsDAO implements UserTeamsDAOInt {
         }
     }
     /**
-     * Método para obtener los DNIs de todos los jugadores en un equipo.
+     * Método para obtener la lista de todos los jugadores en un equipo.
      *
      * @param teamName El nombre del equipo.
-     * @return Lista de DNIs de los jugadores en el equipo.
+     * @return LinkedList de objetos User que representan a los jugadores en el equipo.
      */
-    public List<String> getPlayersDNI(String teamName) {
-        // Creamos una lista para guardar los DNIs de los jugadores
-        List<String> playerDNIs = new ArrayList<>();
+    public LinkedList<User> getTeamPlayers(String teamName) {
+        // Creamos una LinkedList para guardar los objetos User de los jugadores
+        LinkedList<User> players = new LinkedList<>();
 
         // Nos conectamos a la base de datos y controlamos las excepciones
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
             System.out.println("Successful connection...");
 
-            // Generamos una consulta SQL para obtener los DNIs de los jugadores en el equipo
-            String sql = "SELECT dni_jugador " +
-                    "FROM jugador_equipo " +
-                    "WHERE nombre_equipo = ?";
+            // Generamos una consulta SQL para obtener los detalles de los jugadores en el equipo
+            String sql = "SELECT j.* " +
+                    "FROM jugador j INNER JOIN jugador_equipo je ON j.dni = je.dni_jugador " +
+                    "WHERE je.nombre_equipo = ?";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, teamName);
@@ -119,7 +120,15 @@ public class UserTeamsDAO implements UserTeamsDAOInt {
             // Ejecutamos la consulta y procesamos el ResultSet
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
-                    playerDNIs.add(rs.getString("dni_jugador"));
+                    User user = new User();
+                    user.setDni(rs.getString("dni"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPassword(rs.getString("contrasena"));
+                    user.setNumber(rs.getInt("dorsal"));
+                    user.setPhone(rs.getString("telefono"));
+
+                    // Añadimos el objeto User a la LinkedList
+                    players.add(user);
                 }
             }
 
@@ -127,8 +136,10 @@ public class UserTeamsDAO implements UserTeamsDAOInt {
             ex.printStackTrace();
         }
 
-        // Devolvemos los DNIs de los jugadores
-        return playerDNIs;
+        // Devolvemos la LinkedList de objetos User
+        return players;
     }
+
+
 
 }
