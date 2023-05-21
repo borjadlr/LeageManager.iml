@@ -31,7 +31,7 @@ public abstract class LeagueDAO implements LeagueDAOInt {
      */
 
 
-    public void insertDataLeague(String name, Date date, Time hour, int day, int teams, int state) {
+    public void insertDataLeague(String name, Date date, Time hour, int day, int teams, boolean state) {
         //Connectamos a la base de datos y controlamos excepciones.
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
@@ -45,7 +45,7 @@ public abstract class LeagueDAO implements LeagueDAOInt {
             statement.setTime(3, hour);
             statement.setInt(4,day);
             statement.setInt(5,teams);
-            statement.setInt(6,state);
+            statement.setBoolean(6,state);
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -68,7 +68,7 @@ public abstract class LeagueDAO implements LeagueDAOInt {
      * @param name2 nombre de la liga que se quiere actualizar
      */
 
-    public void UpdateDataLeague(String name1,Date date, Time hour, int day, int teams, int state, String name2){
+    public void UpdateDataLeague(String name1,Date date, Time hour, int day, int teams, boolean state, String name2){
         //Connectamos a la base de datos y controlamos excepciones.
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
@@ -82,7 +82,7 @@ public abstract class LeagueDAO implements LeagueDAOInt {
             statement.setTime(3, hour);
             statement.setInt(4,day);
             statement.setInt(5,teams);
-            statement.setInt(6,state);
+            statement.setBoolean(6,state);
             statement.setString(7, name2);
 
 
@@ -178,6 +178,7 @@ public abstract class LeagueDAO implements LeagueDAOInt {
 
                 String nombre = rs.getString("nombre");
                 Date fecha = rs.getDate("fecha");
+                Time time = rs.getTime("time");
                 int jornada = rs.getInt("jornada");
                 int numEquipos = rs.getInt("num_equipos");
                 boolean estado = rs.getBoolean("estado");
@@ -188,7 +189,7 @@ public abstract class LeagueDAO implements LeagueDAOInt {
                 // Obtener una list con los partidos de cada equipo
                 List<Match> matches = new ArrayList<>();
 
-                League liga = new League(nombre, fecha, jornada, numEquipos,teams,matches,estado);
+                League liga = new League(nombre, fecha, time,  jornada, numEquipos,teams,matches,estado);
                 ligas.add(liga);
             }
         }

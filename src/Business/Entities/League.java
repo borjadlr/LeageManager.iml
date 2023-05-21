@@ -1,5 +1,6 @@
 package Business.Entities;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class League {
 
     private Date date;
 
-
+    private Time time;
     private int day;
 
     private int number_teams;
@@ -20,10 +21,11 @@ public class League {
 
     private boolean state;
 
-    public League(String name, Date date, int day, int number_teams, List<Team> teams, List<Match> matches, boolean state) {
+    public League(String name, Date date, Time time,  int day, int number_teams, List<Team> teams, List<Match> matches, boolean state) {
         this.name = name;
         this.date = date;
         this.day = day;
+        this.time = time;
         this.number_teams = number_teams;
         this.teams = teams;
         this.matches = matches;
@@ -36,6 +38,10 @@ public class League {
 
     public Date getDate() {
         return date;
+    }
+
+    public Time getTime() {
+        return time;
     }
 
     public int getDay() {
@@ -76,6 +82,10 @@ public class League {
 
     public void setTeams(List<Team> teams) {
         this.teams = teams;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     public void setMatches(List<Match> matches) {

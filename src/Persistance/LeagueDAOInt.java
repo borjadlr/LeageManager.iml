@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface LeagueDAOInt {
 
-    void insertDataLeague(String name, Date date, Time hour, int day, int teams, int state);
+    void insertDataLeague(String name, Date date, Time hour, int day, int teams, boolean state);
 
     void UpdateDataLeague(String name1, Date date, Time hour, int day, int teams, int state, String name2);
 

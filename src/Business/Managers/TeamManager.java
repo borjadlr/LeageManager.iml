@@ -1,13 +1,13 @@
 package Business.Managers;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import Business.Entities.Team;
 import Business.Entities.User;
 import Exceptions.IncorrectTeamNameException;
 import Exceptions.InvalidPlayerNumberException;
 import Exceptions.TeamAlreadyExistsException;
 import Persistance.TeamsDAOInt;
+import Persistance.TeamsLeagueDAOInt;
+import Persistance.UserTeamsDAOInt;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,13 +16,19 @@ import java.util.List;
 public class TeamManager {
 
     private final TeamsDAOInt teamsDAO;
+
+    private final TeamsLeagueDAOInt teamsLeagueDAOInt;
+
+    private final UserTeamsDAOInt userTeamsDAOInt;
     private Team team;
     private List<Team> teamsList;
     private List<User> userList;
 
 
-    public TeamManager(TeamsDAOInt teamDAO, Team team) {
+    public TeamManager(TeamsDAOInt teamDAO, TeamsLeagueDAOInt teamsLeagueDAOInt, UserTeamsDAOInt userTeamsDAOInt, Team team) {
         this.teamsDAO = teamDAO;
+        this.teamsLeagueDAOInt = teamsLeagueDAOInt;
+        this.userTeamsDAOInt = userTeamsDAOInt;
         this.team = team;
         this.teamsList = new ArrayList<>();
         this.userList = new ArrayList<>();
@@ -67,10 +73,26 @@ public class TeamManager {
     }
 
     public List<Team> getAllTeams() throws SQLException {
-        List<Team> teams = teamsDAO.getAllTeams();
-        //List<Team> teamsUser =
-
-        return ;
+        return teamsDAO.getAllTeams();
     }
+
+    public List<Team> getTeamsOfLeague(String leagueName) throws SQLException {
+        List<String> teamNames = teamsLeagueDAOInt.obtenerEquiposPorLiga(leagueName);
+        List<Team> teams = new ArrayList<>();
+        int i = 0;
+
+        while (teamNames.size() > i){
+            teams.add(teamsDAO.selectTeam(teamNames.get(i)));
+            i++;
+        }
+
+        return teams;
+    }
+
+    public List<User> getPlayersOfTeam(String teamName) throws SQLException {
+        return userTeamsDAOInt.getTeamPlayers(teamName);
+    }
+
+
 
 }

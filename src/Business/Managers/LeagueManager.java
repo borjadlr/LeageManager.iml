@@ -37,7 +37,7 @@ public class LeagueManager {
                 i++;
             }
         }
-        //leagueDAO.insertDataLeague();
+        leagueDAO.insertDataLeague(league.getName(), league.getDate(), league.getTime(), league.getDay(), league.getNumber_teams(), league.isState());
     }
 
     public boolean comprovaData(Date date){
