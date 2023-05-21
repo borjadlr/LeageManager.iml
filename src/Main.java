@@ -51,7 +51,7 @@ public class Main {
         MenuAdminController menuAdminController = new MenuAdminController(mainFrame);
         //TopPanelController topPanelController =  new TopPanelController(topPanelGUI, mainFrame, userManager);
         DeleteController deleteController = new DeleteController(mainFrame, deleteGUI, userManager);
-        NewLeagueController newLeagueController = new NewLeagueController(mainFrame, leagueManager);
+        NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI);
 
         //Buttons
         loginGUI.actionListener(loginController);
@@ -66,8 +66,6 @@ public class Main {
         menuAdminGUI.menuAdminListener(menuAdminController);
         newLeaguesGUI.newLeagueFocusListener(newLeagueController);
         newLeaguesGUI.registerListener(newLeagueController);
-
-
 
         //UserDAO userDAO = new UserDAO();
 

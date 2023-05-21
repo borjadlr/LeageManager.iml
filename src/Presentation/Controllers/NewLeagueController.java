@@ -1,7 +1,7 @@
 package Presentation.Controllers;
 
-import Business.Managers.LeagueManager;
 import Presentation.Views.MainFrameGUI;
+import Presentation.Views.NewLeagueGUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,17 +11,16 @@ import java.awt.event.FocusListener;
 
 public class NewLeagueController implements ActionListener, FocusListener {
 
-    private final MainFrameGUI mainFrame;
-    private final String defaultDateText = "Date: ";
-    private final String defaultLegueText = "League name: ";
+    private MainFrameGUI mainFrame;
+    private NewLeagueGUI view;
+    private  String defaultDateText = "Date: ";
+    private  String defaultLegueText = "League name: ";
 
-    private final LeagueManager leagueManager;
-
-    private final String defaultNumeroEquips = "Número equips: ";
-    private final String defaultHora = "Hour: ";
-    public NewLeagueController(MainFrameGUI mainFrame, LeagueManager leagueManager) {
+    private  String defaultNumeroEquips = "Número equips: ";
+    private  String defaultHora = "Hour: ";
+    public NewLeagueController(MainFrameGUI mainFrame, NewLeagueGUI view) {
         this.mainFrame = mainFrame;
-        this.leagueManager = leagueManager;
+        this.view = view;
     }
 
     @Override
@@ -29,7 +28,10 @@ public class NewLeagueController implements ActionListener, FocusListener {
         if (e.getSource() instanceof JButton) {
             switch (e.getActionCommand()) {
                 case "OK_BUTTON":
-                    leagueManager.introduceLeague();
+                    String leagueName = view.getLeagueName();
+                    String data = view.getData();
+                    String hora = view.getHora();
+                    String numeroEquipos = view.getNumeroEquipos();
                     mainFrame.showTeamList();
                     break;
             }
@@ -38,7 +40,8 @@ public class NewLeagueController implements ActionListener, FocusListener {
 
     @Override
     public void focusGained(FocusEvent e) {
-        if (e.getSource() instanceof JTextField textField) {
+        if (e.getSource() instanceof JTextField) {
+            JTextField textField = (JTextField) e.getSource();
             switch (textField.getName()) {
                 case "Date":
                     if (textField.getText().equals(defaultDateText)) {
@@ -65,7 +68,8 @@ public class NewLeagueController implements ActionListener, FocusListener {
     }
 
     public void focusLost(FocusEvent e) {
-        if (e.getSource() instanceof JTextField textField) {
+        if (e.getSource() instanceof JTextField) {
+            JTextField textField = (JTextField) e.getSource();
             switch (textField.getName()) {
                 case "Date":
                     if (textField.getText().isEmpty()) {
