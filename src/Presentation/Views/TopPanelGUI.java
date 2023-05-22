@@ -1,7 +1,5 @@
 package Presentation.Views;
 
-import Presentation.Controllers.TopPanelController;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -10,10 +8,14 @@ import java.awt.event.ActionListener;
 public class TopPanelGUI extends JPanel {
 
     private JButton dropdownButton;
+    private JButton atras;
+    private JPopupMenu dropdownMenu;
     private final JMenuItem logout;
     private final JMenuItem deleteAccount;
-    private TopPanelController controller;
     private static final String DROPDOWN_BUTTON = "DROPDOWN_BUTTON";
+    private static final String LOGOUT_BUTTON = "LOGOUT_BUTTON";
+    private static final String DELETE_ACCOUNT_BUTTON = "DELETE_ACCOUNT_BUTTON";
+    private static final String BACK_BUTTON = "BACK_BUTTON";
 
     public TopPanelGUI() {
         setLayout(new BorderLayout());
@@ -27,11 +29,12 @@ public class TopPanelGUI extends JPanel {
         upSection.setBackground(Color.WHITE);
 
         // Add a back button to the top-left corner of the top panel
-        JButton atras = new JButton("◀");
+        atras = new JButton("◀");
         atras.setFont(new Font("Inter", Font.PLAIN, 20));
         atras.setBackground(Color.WHITE);
         atras.setSize(new Dimension(30, 5));
         atras.setBorder(BorderFactory.createEmptyBorder());
+        atras.setActionCommand(BACK_BUTTON);
         Border emptyBorder = BorderFactory.createEmptyBorder();
         upSection.setBorder(emptyBorder);
         upSection.add(atras, BorderLayout.WEST);
@@ -49,35 +52,34 @@ public class TopPanelGUI extends JPanel {
         dropdownButton.setVisible(true);
 
         // Add a dropdown menu to the dropdown button
-        JPopupMenu dropdownMenu = new JPopupMenu();
+        dropdownMenu = new JPopupMenu();
         dropdownMenu.setBackground(Color.black);
         logout = new JMenuItem("Log out");
         logout.setBackground(Color.decode("#D9D9D9"));
         logout.setPreferredSize(new Dimension(90, 30));
         logout.setBorder(BorderFactory.createLineBorder(Color.black));
+        logout.setActionCommand(LOGOUT_BUTTON);
         deleteAccount = new JMenuItem("Delete Account");
         deleteAccount.setBackground(Color.decode("#D9D9D9"));
         deleteAccount.setBorder(BorderFactory.createLineBorder(Color.black));
         deleteAccount.setPreferredSize(new Dimension(90, 30));
+        deleteAccount.setActionCommand(DELETE_ACCOUNT_BUTTON);
         dropdownMenu.add(logout);
         dropdownMenu.add(deleteAccount);
 
-        // Set the popup menu for the dropdown button
         dropdownButton.setComponentPopupMenu(dropdownMenu);
 
-        // Create a controller and add action listener to dropdown button
-        dropdownButton.addActionListener(controller);
     }
 
-    public void dropdownButton(ActionListener actionListener){
-
+    public void showDropdownMenu() {
+        JPopupMenu popupMenu = (JPopupMenu) dropdownButton.getComponentPopupMenu();
+        popupMenu.show(dropdownButton, 0, dropdownButton.getHeight());
     }
 
-    public JMenuItem getLogoutMenuItem() {
-        return logout;
-    }
-
-    public JMenuItem getDeleteAccountMenuItem(){
-        return deleteAccount;
+    public void actionListener(ActionListener actionListener){
+        dropdownButton.addActionListener(actionListener);
+        logout.addActionListener(actionListener);
+        deleteAccount.addActionListener(actionListener);
+        atras.addActionListener(actionListener);
     }
 }

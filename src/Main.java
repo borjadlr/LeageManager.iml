@@ -39,10 +39,11 @@ public class Main {
         NewLeagueGUI newLeaguesGUI = new NewLeagueGUI();
         RegistrationGUI registrationGUI = new RegistrationGUI();
         TopPanelGUI topPanelGUI = new TopPanelGUI();
+        BottomPanelGUI bottomPanelGUI = new BottomPanelGUI();
         DeleteGUI deleteGUI = new DeleteGUI();
         ShowLeague showLeague = new ShowLeague();
         TeamListGUI teamsListGUI = new TeamListGUI();
-        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, showLeague, statisticsGUI,simulationGameGUI, teamsListGUI);
+        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, showLeague, statisticsGUI,simulationGameGUI, teamsListGUI, topPanelGUI, bottomPanelGUI);
 
         //Controllers
         MainPanelController mainPanelController = new MainPanelController(mainFrame);
@@ -50,10 +51,11 @@ public class Main {
         LoginController loginController = new LoginController(mainFrame, loginGUI, userManager);
         ChangePasswordController changePasswordController = new ChangePasswordController(mainFrame, changePasswordGUI, userManager);
         MenuAdminController menuAdminController = new MenuAdminController(mainFrame);
-        //TopPanelController topPanelController =  new TopPanelController(topPanelGUI, mainFrame, userManager);
+        TopPanelController topPanelController =  new TopPanelController(mainFrame, topPanelGUI);
         DeleteController deleteController = new DeleteController(mainFrame, deleteGUI, userManager);
         NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI);
         ShowLeagueController showLeagueController = new ShowLeagueController(showLeague, mainFrame, userManager,teamsListGUI);
+        BottomPanelController bottomPanelController = new BottomPanelController(mainFrame);
 
         //Buttons
         loginGUI.actionListener(loginController);
@@ -69,6 +71,8 @@ public class Main {
         newLeaguesGUI.newLeagueFocusListener(newLeagueController);
         newLeaguesGUI.registerListener(newLeagueController);
         showLeague.setController(showLeagueController);
+        bottomPanelGUI.changePasswordListener(bottomPanelController);
+        topPanelGUI.actionListener(topPanelController);
 
         //UserDAO userDAO = new UserDAO();
 

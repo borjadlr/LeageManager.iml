@@ -1,36 +1,50 @@
 package Presentation.Controllers;
 
-import Business.Managers.UserManager;
 import Presentation.Views.MainFrameGUI;
 import Presentation.Views.TopPanelGUI;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 public class TopPanelController implements ActionListener {
-
-    private final TopPanelGUI view;
-
-    private final MainFrameGUI mainFrameGUI;
-    private final UserManager userManager;
-
-    public TopPanelController(TopPanelGUI view, MainFrameGUI mainFrameGUI, UserManager userManager) {
+    public MainFrameGUI mainFrame;
+    public TopPanelGUI view;
+    public TopPanelController(MainFrameGUI mainFrame, TopPanelGUI view){
+        this.mainFrame = mainFrame;
         this.view = view;
-        this.mainFrameGUI = mainFrameGUI;
-        this.userManager = userManager;
-
-        // Add action listeners to the menu items
-        view.getLogoutMenuItem().addActionListener(this);
-        view.getDeleteAccountMenuItem().addActionListener(this);
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == view.getLogoutMenuItem()) {
-            userManager.logOut();
-            mainFrameGUI.showMainPanel();
-        } else if (e.getSource() == view.getDeleteAccountMenuItem()) {
+        String command = e.getActionCommand();
 
+        if (command.equals("DROPDOWN_BUTTON")) {
+            view.showDropdownMenu();
+        } else if (command.equals("LOGOUT_BUTTON")) {
+            logout();
+            mainFrame.showMainPanel();
+        } else if (command.equals("DELETE_ACCOUNT_BUTTON")) {
+            deleteAccount();
+            mainFrame.showMainPanel();
+        }else if(command.equals("BACK_BUTTON")){
+            mainFrame.showTeamList();
+        }
+    }
+
+    private void logout() {
+        // Lógica para realizar el logout
+        // Por ejemplo, cerrar la sesión del usuario actual
+        JOptionPane.showMessageDialog(null, "Logout button clicked!");
+    }
+
+    private void deleteAccount() {
+
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete your account?",
+                "Delete Account", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+
+            JOptionPane.showMessageDialog(null, "Account deleted!");
         }
     }
 }
