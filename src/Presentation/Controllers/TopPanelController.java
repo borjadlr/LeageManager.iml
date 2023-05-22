@@ -26,7 +26,6 @@ public class TopPanelController implements ActionListener {
             mainFrame.showMainPanel();
         } else if (command.equals("DELETE_ACCOUNT_BUTTON")) {
             deleteAccount();
-            mainFrame.showMainPanel();
         }else if(command.equals("BACK_BUTTON")){
             mainFrame.showTeamList();
         }
@@ -43,8 +42,7 @@ public class TopPanelController implements ActionListener {
         int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete your account?",
                 "Delete Account", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-
-            JOptionPane.showMessageDialog(null, "Account deleted!");
+            mainFrame.deleteAccount();
         }
     }
 }

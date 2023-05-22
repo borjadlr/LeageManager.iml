@@ -94,6 +94,9 @@ public class MainFrameGUI extends JFrame{
     public void showTeamList(){
         cardLayout.show(centerPanel, TEAM_LIST_VIEW);
     }
+    public void deleteAccount(){
+        cardLayout.show(centerPanel, DELETE_VIEW);
+    }
 
     public void showCurrentLeagues(){
         cardLayout.show(centerPanel, CURRENT_LEAGUE_VIEW);
