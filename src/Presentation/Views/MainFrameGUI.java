@@ -54,7 +54,7 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(statisticsGUI, STATISTICS_VIEW);
         centerPanel.add(teamsListGUI, TEAM_LIST_VIEW);
 
-        cardLayout.show(centerPanel, FIRST_UI);
+        cardLayout.show(centerPanel, SHOW_LEAGUE);
 
         bottomPanel = new BottomPanelGUI();
         add(bottomPanel, BorderLayout.SOUTH);
