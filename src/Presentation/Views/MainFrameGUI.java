@@ -33,7 +33,7 @@ public class MainFrameGUI extends JFrame{
 
 
 
-    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ShowLeague showLeague, StatisticsGUI statisticsGUI, SimulationGameGUI simulationGameGUI, TeamListGUI teamsListGUI, TopPanelGUI topPanelGUI, BottomPanelGUI bottomPanelGUI){
+    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ShowLeague showLeague, StatisticsGUI statisticsGUI, SimulationGameGUI simulationGameGUI, TeamListGUI teamsListGUI, TopPanelGUI topPanelGUI, BottomPanelGUI bottomPanelGUI, FileSearchGUI fileSearchGUI){
 
         super("Main Frame");
 
@@ -62,6 +62,7 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(simulationGameGUI, SIMULATION_VIEW);
         centerPanel.add(statisticsGUI, STATISTICS_VIEW);
         centerPanel.add(teamsListGUI, TEAM_LIST_VIEW);
+        centerPanel.add(fileSearchGUI, FILE_SEARCH_VIEW);
         
         //FIRST UI
         auxiliar--;
@@ -109,7 +110,6 @@ public class MainFrameGUI extends JFrame{
         cardLayout.show(centerPanel, MENU_NEW_LEAGUE);
         auxiliar++;
         updateRecorregut(MENU_NEW_LEAGUE, true, true);
-
     }
 
     public void showMenuUser() {
@@ -126,6 +126,14 @@ public class MainFrameGUI extends JFrame{
         cardLayout.show(centerPanel, CHANGE_PASSWORD_VIEW);
         auxiliar++;
         updateRecorregut(CHANGE_PASSWORD_VIEW, true, false);
+    }
+
+    public void showFileSearch(){
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(true);
+        cardLayout.show(centerPanel, FILE_SEARCH_VIEW);
+        auxiliar++;
+        updateRecorregut(FILE_SEARCH_VIEW, true, true);
     }
 
     public void showTeamsView() {

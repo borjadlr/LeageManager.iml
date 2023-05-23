@@ -43,7 +43,8 @@ public class Main {
         DeleteGUI deleteGUI = new DeleteGUI();
         ShowLeague showLeague = new ShowLeague();
         TeamListGUI teamsListGUI = new TeamListGUI();
-        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, showLeague, statisticsGUI,simulationGameGUI, teamsListGUI, topPanelGUI, bottomPanelGUI);
+        FileSearchGUI fileSearchGUI = new FileSearchGUI();
+        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, showLeague, statisticsGUI,simulationGameGUI, teamsListGUI, topPanelGUI, bottomPanelGUI, fileSearchGUI);
 
         //Controllers
         MainPanelController mainPanelController = new MainPanelController(mainFrame);
@@ -56,7 +57,7 @@ public class Main {
         NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI);
         ShowLeagueController showLeagueController = new ShowLeagueController(showLeague, mainFrame, userManager,teamsListGUI);
         BottomPanelController bottomPanelController = new BottomPanelController(mainFrame);
-
+        FileSearchController fileSearchController = new FileSearchController(mainFrame, fileSearchGUI);
         //Buttons
         loginGUI.actionListener(loginController);
         loginGUI.focusListener(loginController);
@@ -73,6 +74,7 @@ public class Main {
         showLeague.setController(showLeagueController);
         bottomPanelGUI.changePasswordListener(bottomPanelController);
         topPanelGUI.actionListener(topPanelController);
+        fileSearchGUI.actionListener(fileSearchController);
 
         //UserDAO userDAO = new UserDAO();
 
