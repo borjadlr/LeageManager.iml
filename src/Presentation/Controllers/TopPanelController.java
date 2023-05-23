@@ -14,7 +14,6 @@ public class TopPanelController implements ActionListener {
         this.view = view;
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
@@ -27,7 +26,7 @@ public class TopPanelController implements ActionListener {
         } else if (command.equals("DELETE_ACCOUNT_BUTTON")) {
             deleteAccount();
         }else if(command.equals("BACK_BUTTON")){
-            mainFrame.showTeamList();
+            mainFrame.showGoBack();
         }
     }
 

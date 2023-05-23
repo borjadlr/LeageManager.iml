@@ -2,9 +2,13 @@ package Presentation.Views;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 public class MainFrameGUI extends JFrame{
+    private static ArrayList<String> recorregutVistas = new ArrayList<>();
+    private static List<List<Boolean>> booleanPacks = new ArrayList<>();
     public final String LOGIN_VIEW = "LOGIN_VIEW";
     public final String  MENU_USER_VIEW = "MENU_USER_VIEW";
     public final String MENU_ADMIN_VIEW = "MENU_ADMIN_VIEW";
@@ -19,11 +23,12 @@ public class MainFrameGUI extends JFrame{
     public final String SIMULATION_VIEW = "SIMULATION_VIEW";
     public final String STATISTICS_VIEW = "STATISTICS_VIEW";
     public final String TEAM_LIST_VIEW = "TEAM_LIST_VIEW";
-
-
-    private final JPanel topPanel;
-    private final JPanel centerPanel;
-    private final JPanel bottomPanel;
+    private final String FILE_SEARCH_VIEW = "FINAL_SEARCH_VIEW";
+    private final String SHOW_TEAMS_VIEW = "SHOW_TEAMS_VIEW";
+    private int auxiliar = 0;
+    private  JPanel topPanel;
+    private  JPanel centerPanel;
+    private  JPanel bottomPanel;
     private final CardLayout cardLayout;
 
 
@@ -42,6 +47,9 @@ public class MainFrameGUI extends JFrame{
         topPanel = topPanelGUI;
         add(topPanel, BorderLayout.NORTH);
 
+        bottomPanel = bottomPanelGUI;
+        add(bottomPanel, BorderLayout.SOUTH);
+
         centerPanel.add(mainPanelGUI, FIRST_UI);
         centerPanel.add(userLoginGUI, LOGIN_VIEW);
         centerPanel.add(menuUserGUI, MENU_USER_VIEW);
@@ -54,38 +62,97 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(simulationGameGUI, SIMULATION_VIEW);
         centerPanel.add(statisticsGUI, STATISTICS_VIEW);
         centerPanel.add(teamsListGUI, TEAM_LIST_VIEW);
-
-        cardLayout.show(centerPanel, FIRST_UI);
-
-        bottomPanel = bottomPanelGUI;
-        add(bottomPanel, BorderLayout.SOUTH);
+        
+        //FIRST UI
+        auxiliar--;
+        showMainPanel();
 
         setSize(1000,1200);
         setVisible(true);
     }
 
-    public void showLogin() {
-        //topPanel.setVisible(false);
+    public void showMainPanel() {
         bottomPanel.setVisible(false);
-        cardLayout.show(centerPanel,LOGIN_VIEW);
+        topPanel.setVisible(false);
+        cardLayout.show(centerPanel, FIRST_UI);
+        auxiliar++;
+        updateRecorregut(FIRST_UI, false, false);
+    }
+
+    public void showGoBack() {
+        recorregutVistas.remove(auxiliar);
+        auxiliar--;
+        cardLayout.show(centerPanel, recorregutVistas.get(auxiliar));
+        topPanel.setVisible(booleanPacks.get(auxiliar).get(0));
+        bottomPanel.setVisible(booleanPacks.get(auxiliar).get(1));
+    }
+
+    public void showLogin() {
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(false);
+        cardLayout.show(centerPanel, LOGIN_VIEW);
+        auxiliar++;
+        updateRecorregut(LOGIN_VIEW, true, false);
     }
 
     public void showRegister() {
-        cardLayout.show(centerPanel, REGISTRATION_VIEW);
+        topPanel.setVisible(true);
         bottomPanel.setVisible(false);
+        cardLayout.show(centerPanel, REGISTRATION_VIEW);
+        auxiliar++;
+        updateRecorregut(REGISTRATION_VIEW, true, false);
     }
 
-    public  void showMainPanel(){
-        cardLayout.show(centerPanel, MAIN_PANEL);
-    }
+    public void showNewLeague() {
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(true);
+        cardLayout.show(centerPanel, MENU_NEW_LEAGUE);
+        auxiliar++;
+        updateRecorregut(MENU_NEW_LEAGUE, true, true);
 
-    public void showChangePassword(){
-        cardLayout.show(centerPanel, CHANGE_PASSWORD_VIEW);
     }
 
     public void showMenuUser() {
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(true);
         cardLayout.show(centerPanel, MENU_USER_VIEW);
+        auxiliar++;
+        updateRecorregut(MENU_USER_VIEW, true, true);
     }
+
+    public void showChangePassword() {
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(false);
+        cardLayout.show(centerPanel, CHANGE_PASSWORD_VIEW);
+        auxiliar++;
+        updateRecorregut(CHANGE_PASSWORD_VIEW, true, false);
+    }
+
+    public void showTeamsView() {
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(true);
+        cardLayout.show(centerPanel, SHOW_TEAMS_VIEW);
+        auxiliar++;
+        updateRecorregut(SHOW_TEAMS_VIEW, true, true);
+    }
+
+    public void fileSearchView() {
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(true);
+        cardLayout.show(centerPanel, FILE_SEARCH_VIEW);
+        auxiliar++;
+        updateRecorregut(FILE_SEARCH_VIEW, true, true);
+    }
+
+    public void updateRecorregut(String vista, boolean top, boolean bottom) {
+        recorregutVistas.add(auxiliar, vista);
+        List<Boolean> pack = new ArrayList<>();
+        pack.add(top);
+        pack.add(bottom);
+        booleanPacks.add(auxiliar, pack);
+    }
+
+
     public void showLeague(){ cardLayout.show(centerPanel, SHOW_LEAGUE);}
     public void showMenuAdmin(){
         cardLayout.show(centerPanel, MENU_ADMIN_VIEW);
