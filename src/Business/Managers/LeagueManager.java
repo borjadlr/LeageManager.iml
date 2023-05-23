@@ -1,3 +1,4 @@
+
 package Business.Managers;
 
 import Business.Entities.League;
@@ -5,14 +6,13 @@ import Business.Entities.Match;
 import Business.Entities.Team;
 import Exceptions.*;
 import Persistance.LeagueDAOInt;
+import Persistance.TeamsDAOInt;
+import Persistance.dao.TeamsDAO;
 
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class LeagueManager {
 
@@ -20,9 +20,13 @@ public class LeagueManager {
     
     private LeagueDAOInt leagueDAO;
 
+    private TeamsDAOInt teamsDAO;
+
     public LeagueManager(TeamManager teamManager) {
         this.teamManager = teamManager;
     }
+
+
 
     public void introduceLeague(League league) throws LeagueAlreadyExistsException, DateExpiredException, RepeatedTeamException, SQLException {
         List<League> leagues = leagueDAO.getAllLeagues(); //metodo borja nuevo
@@ -50,7 +54,8 @@ public class LeagueManager {
     public League setLeague (String name, Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
         List<Match> matches = new ArrayList<>();
         League league = new League(name, date, hour, day, teamNumber, teams, matches, state);
-        league.setMatches(generateRRCalendar(league));
+        //league.setMatches(generateRRCalendar(league));
+
         return league;
     }
 
@@ -109,6 +114,40 @@ public class LeagueManager {
         return leagueDAO.getAllLeagues();
     }
 
+/*
+    public LinkedList<Match> generarCalendario(List<Team> equipos) {
+        LinkedList<Match> calendario = new LinkedList<>();
+        equipos = teamsDAO.getTeamsInLeague("LijeName");
+        int numEquipos = equipos.size();
+        int numJornadas = numEquipos - 1; // Cantidad de jornadas necesarias para que todos los equipos se enfrenten
+
+        for (int i = 0; i < numJornadas * 2; i++) {
+            for (int j = 0; j < numEquipos / 2; j++) {
+                int equipoLocal = j;
+                int equipoVisitante = (numEquipos - 1) - j;
+
+                if (i % 2 == 0) {
+                    Match partido = new Match(equipos.get(equipoVisitante).getName(), equipos.get(equipoLocal).getName(), 0, 0, i / 2 + 1, false);
+                    calendario.add(partido);
+                } else {
+                    Match partido = new Match(equipos.get(equipoLocal).getName(), equipos.get(equipoVisitante).getName(), 0, 0, i / 2 + 1, false);
+                    calendario.add(partido);
+                }
+            }
+
+            // Rotación de los equipos excepto el primero
+            Team ultimoEquipo = equipos.get(numEquipos - 1);
+            for (int k = numEquipos - 1; k > 1; k--) {
+                equipos.set(k, equipos.get(k - 1));
+            }
+            equipos.set(1, ultimoEquipo);
+        }
+
+        return calendario;
+    }
+
+ */
+/*
     public List<Match> generateRRCalendar(League league) {
         List<Team> teams = league.getTeams();
         int numTeams = league.getNumber_teams();
@@ -137,7 +176,7 @@ public class LeagueManager {
 
         return matches;
     }
-
+*/
     public void deleteLeagueMatches (League leagueName) throws SQLException, MatchIsPlayingException {
 
         List<League> leagues = leagueDAO.getAllLeagues();
@@ -155,7 +194,7 @@ public class LeagueManager {
             }
         }
     }
-
+/*
     public void deleteTeamMatches (Team team) throws SQLException, MatchIsPlayingException {
 
         List<League> leagues = leagueDAO.getAllLeagues();
@@ -174,7 +213,7 @@ public class LeagueManager {
             }
         }
     }
-
+*/
     public boolean isLeagueActive(League league) {
         return league.isState();
     }
