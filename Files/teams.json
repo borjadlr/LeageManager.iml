@@ -1,20 +1,156 @@
 {
-  "team_name": "Los Gambas",
-  "players": [
+  "teams": [
     {
-      "name": "Benji Pepe",
-      "email": "b.price@shutetsu.edu",
-      "number": 1,
-      "dni": "82909129N",
-      "phone": "+81 90-5144-9519"
+      "team_name": "Zorros",
+      "players": [
+        {
+          "name": "Lionel Messi",
+          "email": "lionel.messi@example.com",
+          "number": 10,
+          "dni": "12345678A",
+          "phone": "+1234567890"
+        },
+        {
+          "name": "Cristiano Ronaldo",
+          "email": "cristiano.ronaldo@example.com",
+          "number": 7,
+          "dni": "98765432B",
+          "phone": "+0987654321"
+        }
+      ]
     },
     {
-      "name": "Oliver Atom",
-      "email": "oliver.atom@nankatsu.school",
-      "number": 10,
-      "dni": "18135169Z",
-      "phone": "+81 80-3390-5871"
-
+      "team_name": "Tigres",
+      "players": [
+        {
+          "name": "Neymar Jr",
+          "email": "neymar.jr@example.com",
+          "number": 10,
+          "dni": "24681357C",
+          "phone": "+1357924680"
+        },
+        {
+          "name": "Luis Suárez",
+          "email": "luis.suarez@example.com",
+          "number": 9,
+          "dni": "75316048D",
+          "phone": "+8642097531"
+        }
+      ]
+    },
+    {
+      "team_name": "Leones",
+      "players": [
+        {
+          "name": "Robert Lewandowski",
+          "email": "robert.lewandowski@example.com",
+          "number": 9,
+          "dni": "36985214E",
+          "phone": "+1478523690"
+        },
+        {
+          "name": "Harry Kane",
+          "email": "harry.kane@example.com",
+          "number": 10,
+          "dni": "95135748F",
+          "phone": "+2587413690"
+        }
+      ]
+    },
+    {
+      "team_name": "Águilas",
+      "players": [
+        {
+          "name": "Kylian Mbappé",
+          "email": "kylian.mbappe@example.com",
+          "number": 7,
+          "dni": "12345678G",
+          "phone": "+3692581470"
+        },
+        {
+          "name": "Gareth Bale",
+          "email": "gareth.bale@example.com",
+          "number": 11,
+          "dni": "98765432H",
+          "phone": "+9876543210"
+        }
+      ]
+    },
+    {
+      "team_name": "Pumas",
+      "players": [
+        {
+          "name": "Eden Hazard",
+          "email": "eden.hazard@example.com",
+          "number": 10,
+          "dni": "11111111I",
+          "phone": "+1234567891"
+        },
+        {
+          "name": "Antoine Griezmann",
+          "email": "antoine.griezmann@example.com",
+          "number": 7,
+          "dni": "22222222J",
+          "phone": "+2345678912"
+        }
+      ]
+    },
+    {
+      "team_name": "Coyotes",
+      "players": [
+        {
+          "name": "Karim Benzema",
+          "email": "karim.benzema@example.com",
+          "number": 9,
+          "dni": "33333333K",
+          "phone": "+3456789123"
+        },
+        {
+          "name": "Sergio Ramos",
+          "email": "sergio.ramos@example.com",
+          "number": 4,
+          "dni": "44444444L",
+          "phone": "+4567891234"
+        }
+      ]
+    },
+    {
+      "team_name": "Halcones",
+      "players": [
+        {
+          "name": "Luka Modric",
+          "email": "luka.modric@example.com",
+          "number": 10,
+          "dni": "55555555M",
+          "phone": "+5678912345"
+        },
+        {
+          "name": "Raheem Sterling",
+          "email": "raheem.sterling@example.com",
+          "number": 7,
+          "dni": "66666666N",
+          "phone": "+6789123456"
+        }
+      ]
+    },
+    {
+      "team_name": "Jabalíes",
+      "players": [
+        {
+          "name": "Alisson Becker",
+          "email": "alisson.becker@example.com",
+          "number": 1,
+          "dni": "77777777O",
+          "phone": "+7891234567"
+        },
+        {
+          "name": "Virgil van Dijk",
+          "email": "virgil.vandijk@example.com",
+          "number": 4,
+          "dni": "88888888P",
+          "phone": "+8912345678"
+        }
+      ]
     }
   ]
 }

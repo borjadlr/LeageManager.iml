@@ -423,6 +423,32 @@ public class MatchDAO implements MatchDAOInt {
         return calendario;
     }
 
+    public void sumaGol(String nombreEquipo, int jornada) {
+        // Conexión a la base de datos y control de excepciones
+        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+            System.out.println("Successful connection...");
+
+            // Sentencia SQL para actualizar el resultado del equipo en la tabla "partido"
+            String sql = "UPDATE partido SET resultado_local = resultado_local + 1 WHERE (equipo_local = ? OR equipo_visitante = ?) AND jornada = ?";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, nombreEquipo);
+            statement.setString(2, nombreEquipo);
+            statement.setInt(3, jornada);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("A goal has been added to the team: " + nombreEquipo + " in matchday: " + jornada);
+            } else {
+                System.out.println("No team found with the name: " + nombreEquipo + " or matchday: " + jornada);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+
 
 
 
