@@ -210,6 +210,15 @@ public class UserManager {
         return dni.charAt(8) == verificationLetter;
     }
 
+    public boolean comprovaNumber(User user) throws InvalidPlayerNumberException {
+        boolean valid = true;
+        if (user.getNumber() <= 0) {
+            throw new InvalidPlayerNumberException();
+        } else {
+            return valid;
+        }
+    }
+
     public User createUser(String dni, String password, String email, int number, String phone) {
         userLocal.setDni(dni);
         userLocal.setPassword(password);

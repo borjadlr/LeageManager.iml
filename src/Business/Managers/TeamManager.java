@@ -22,6 +22,8 @@ public class TeamManager {
     private final UserTeamsDAOInt userTeamsDAOInt;
     private Team team;
     private List<Team> teamsList;
+    private UserManager userManager;
+
     private List<User> userList;
 
 
@@ -31,7 +33,6 @@ public class TeamManager {
         this.userTeamsDAOInt = userTeamsDAOInt;
         this.team = team;
         this.teamsList = new ArrayList<>();
-        this.userList = new ArrayList<>();
 
     }
 
@@ -45,25 +46,8 @@ public class TeamManager {
     }
 
 
-    private void createTeam(String teamName, int NPlayers) throws InvalidPlayerNumberException, TeamAlreadyExistsException, SQLException {
-
-        for (Team team : teamsList) {
-            if (team.getName().equals(teamName)) {
-                throw new TeamAlreadyExistsException();
-            }
-        }
-
-        for (User user : userList) {
-            if (user.getNumber() <= 0) {
-                throw new InvalidPlayerNumberException();
-            }
-        }
-
-        Team team = new Team(teamName, NPlayers, 0, 0, 0, 0);
-        teamsList.add(team);
-
-        teamsDAO.insertDataTeams(teamName, NPlayers, 0, 0, 0, 0);
-
+    private void createTeam(String teamName) throws SQLException {
+        teamsDAO.jsonToDatabase(teamName);
     }
 
     public void deleteTeam(String teamName) throws IncorrectTeamNameException, SQLException {
