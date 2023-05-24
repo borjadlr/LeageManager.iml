@@ -57,7 +57,7 @@ public class Main {
         NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI);
         ShowLeagueController showLeagueController = new ShowLeagueController(showLeague, mainFrame, userManager,teamsListGUI);
         BottomPanelController bottomPanelController = new BottomPanelController(mainFrame);
-        NewTeamController newTeamController = new NewTeamController(mainFrame, newTeamGUI);
+        NewTeamController newTeamController = new NewTeamController(mainFrame, newTeamGUI, teamManager);
 
         //Buttons
         loginGUI.actionListener(loginController);

@@ -1,5 +1,6 @@
 package Presentation.Controllers;
 
+import Business.Managers.TeamManager;
 import Presentation.Views.MainFrameGUI;
 import Presentation.Views.NewTeamGUI;
 
@@ -8,16 +9,20 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.SQLException;
 
 public class NewTeamController implements ActionListener {
     private JTextField filePathField;
     private MainFrameGUI mainFrame;
     private NewTeamGUI view;
 
+    private TeamManager teamManager;
 
-    public NewTeamController(MainFrameGUI mainFrame, NewTeamGUI view){
+
+    public NewTeamController(MainFrameGUI mainFrame, NewTeamGUI view, TeamManager teamManager){
         this.view = view;
         this.mainFrame = mainFrame;
+        this.teamManager = teamManager;
     }
 
     @Override
@@ -26,7 +31,11 @@ public class NewTeamController implements ActionListener {
             switch (e.getActionCommand()){
                 case "SEARCH_BUTTON":
                     //mainFrame.showNewTeam();
-                    searchFile();
+                    try {
+                        searchFile();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     //Crida logica
                     break;
             }
@@ -34,7 +43,7 @@ public class NewTeamController implements ActionListener {
     }
 
 
-    private void searchFile() {
+    private void searchFile() throws SQLException {
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Files", "json");
         fileChooser.setFileFilter(filter);
@@ -43,7 +52,7 @@ public class NewTeamController implements ActionListener {
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String filePath = ((File) selectedFile).getAbsolutePath();
-            System.out.println(filePath);
+            teamManager.createTeam(filePath);
         }
     }
 }
