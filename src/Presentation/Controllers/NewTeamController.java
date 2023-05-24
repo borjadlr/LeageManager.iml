@@ -53,6 +53,7 @@ public class NewTeamController implements ActionListener {
             File selectedFile = fileChooser.getSelectedFile();
             String filePath = ((File) selectedFile).getAbsolutePath();
             teamManager.createTeam(filePath);
+            JOptionPane.showMessageDialog(null, "New teams have been added correctly");
         }
     }
 }
