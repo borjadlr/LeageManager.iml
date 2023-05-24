@@ -51,11 +51,8 @@ public class UserManager {
             while (i < users.size()) {
                 if (users.get(i).getDni().equals(input) || users.get(i).getEmail().equals(input)) {
                     if (users.get(i).getPassword().equals(password)) {
-                        if (adminManager.isAdmin(input)){
-                            return true;
-                        }
                         userLocal = users.get(i);
-                        return false;
+                        return adminManager.isAdmin(input);
                     } else {
                         throw new IncorrectPassword4UserException();
                     }
