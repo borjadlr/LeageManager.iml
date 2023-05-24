@@ -3,18 +3,11 @@ package Presentation.Views;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import static java.awt.Font.PLAIN;
 
 public class MainPanelGUI extends JPanel {
 
-    private JTextField dni;
-    private JTextField password;
-    private JButton login, register;
+    private final JButton login;
+    private final JButton register;
     private static final String TITLE = "LeagueManager";
 
     private static final int MAX_SPACE_BUTTONS = 15;
@@ -24,7 +17,7 @@ public class MainPanelGUI extends JPanel {
     public Color getBackgroundColor() {
         return backgroundColor;
     }
-    private Color backgroundColor;
+    private final Color backgroundColor;
     public static final String LOGIN_BUTTON = "LOGIN_BUTTON";
     public static final String REGISTER_BUTTON = "REGISTER_BUTTON";
 

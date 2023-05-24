@@ -18,11 +18,11 @@ public class MenuAdminController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
             switch (e.getActionCommand()) {
-                case "CREATE_ACCOUNT":
+                case "CREATE_NEW_ACCOUNT":
                     mainFrameGUI.showLogin();
                     break;
-                case "DELETE_TEAM":
-                    mainFrameGUI.showRegister();
+                case "CREATE_NEW_TEAM":
+                    mainFrameGUI.showNewTeam();
                     break;
                 case "NEW_LEAGUE":
                     mainFrameGUI.showMenuNewLeague();

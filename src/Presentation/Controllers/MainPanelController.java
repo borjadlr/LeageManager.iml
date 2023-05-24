@@ -20,6 +20,7 @@ public class MainPanelController implements ActionListener {
                     mainFrame.showLogin();
                     break;
                 case "REGISTER_BUTTON":
+                    System.out.println("hola");
                     mainFrame.showRegister();
                     break;
 

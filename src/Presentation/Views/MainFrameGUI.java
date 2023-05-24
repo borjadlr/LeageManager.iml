@@ -23,7 +23,7 @@ public class MainFrameGUI extends JFrame{
     public final String SIMULATION_VIEW = "SIMULATION_VIEW";
     public final String STATISTICS_VIEW = "STATISTICS_VIEW";
     public final String TEAM_LIST_VIEW = "TEAM_LIST_VIEW";
-    private final String FILE_SEARCH_VIEW = "FINAL_SEARCH_VIEW";
+    private final String CREATE_NEW_TEAM = "CREATE_NEW_TEAM";
     private final String SHOW_TEAMS_VIEW = "SHOW_TEAMS_VIEW";
     private int auxiliar = 0;
     private  JPanel topPanel;
@@ -33,7 +33,7 @@ public class MainFrameGUI extends JFrame{
 
 
 
-    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ShowLeague showLeague, StatisticsGUI statisticsGUI, SimulationGameGUI simulationGameGUI, TeamListGUI teamsListGUI, TopPanelGUI topPanelGUI, BottomPanelGUI bottomPanelGUI, FileSearchGUI fileSearchGUI){
+    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ShowLeague showLeague, StatisticsGUI statisticsGUI, SimulationGameGUI simulationGameGUI, TeamListGUI teamsListGUI, TopPanelGUI topPanelGUI, BottomPanelGUI bottomPanelGUI, NewTeamGUI newTeamGUI){
 
         super("Main Frame");
 
@@ -62,7 +62,7 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(simulationGameGUI, SIMULATION_VIEW);
         centerPanel.add(statisticsGUI, STATISTICS_VIEW);
         centerPanel.add(teamsListGUI, TEAM_LIST_VIEW);
-        centerPanel.add(fileSearchGUI, FILE_SEARCH_VIEW);
+        centerPanel.add(newTeamGUI, CREATE_NEW_TEAM);
         
         //FIRST UI
         auxiliar--;
@@ -128,14 +128,6 @@ public class MainFrameGUI extends JFrame{
         updateRecorregut(CHANGE_PASSWORD_VIEW, true, false);
     }
 
-    public void showFileSearch(){
-        topPanel.setVisible(true);
-        bottomPanel.setVisible(true);
-        cardLayout.show(centerPanel, FILE_SEARCH_VIEW);
-        auxiliar++;
-        updateRecorregut(FILE_SEARCH_VIEW, true, true);
-    }
-
     public void showTeamsView() {
         topPanel.setVisible(true);
         bottomPanel.setVisible(true);
@@ -144,12 +136,12 @@ public class MainFrameGUI extends JFrame{
         updateRecorregut(SHOW_TEAMS_VIEW, true, true);
     }
 
-    public void fileSearchView() {
+    public void showNewTeam() {
         topPanel.setVisible(true);
         bottomPanel.setVisible(true);
-        cardLayout.show(centerPanel, FILE_SEARCH_VIEW);
+        cardLayout.show(centerPanel, CREATE_NEW_TEAM);
         auxiliar++;
-        updateRecorregut(FILE_SEARCH_VIEW, true, true);
+        updateRecorregut(CREATE_NEW_TEAM, true, true);
     }
 
     public void updateRecorregut(String vista, boolean top, boolean bottom) {
@@ -172,7 +164,6 @@ public class MainFrameGUI extends JFrame{
     public void deleteAccount(){
         cardLayout.show(centerPanel, DELETE_VIEW);
     }
-
     public void showCurrentLeagues(){
         cardLayout.show(centerPanel, CURRENT_LEAGUE_VIEW);
     }

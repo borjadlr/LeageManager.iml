@@ -5,16 +5,14 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class MenuAdminGUI extends JPanel {
+    private final JButton createNewTeam;
+    private final JButton deleteTeam;
+    private final JButton newLeague;
+    private final JButton deleteLeague;
+    private final JButton viewLeagues;
 
-    private JButton createNewTeam;
-    private JButton deleteTeam;
-    private JButton newLeague;
-    private JButton deleteLeague;
-    private JButton viewLeagues;
-
-    private Color backgroundColor;
-
-    public static final String CREATE_NEW_TEAM = "CREATE_ACCOUNT";
+    public static final String CREATE_NEW_TEAM = "CREATE_NEW_TEAM";
+    public static final String CREATE_NEW_ACCOUNT = "CREATE_NEW_ACCOUNT";
     public static final String DELETE_TEAM = "DELETE_TEAM";
     public static final String NEW_LEAGUE = "NEW_LEAGUE";
     public static final String DELETE_LEAGUE = "DELETE_LEAGUE";
@@ -23,7 +21,7 @@ public class MenuAdminGUI extends JPanel {
 
     public MenuAdminGUI() {
 
-        backgroundColor = Color.WHITE;
+        Color backgroundColor = Color.WHITE;
         setLayout(new GridBagLayout());
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
@@ -57,13 +55,13 @@ public class MenuAdminGUI extends JPanel {
         //Create account
         createNewTeam = new JButton("Create account");
         createNewTeam.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        createNewTeam.setActionCommand(CREATE_NEW_TEAM);
+        createNewTeam.setActionCommand(CREATE_NEW_ACCOUNT);
         createNewTeam.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //Delete team
-        deleteTeam = new JButton("Delete Team");
+        deleteTeam = new JButton("Create Team");
         deleteTeam.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        deleteTeam.setActionCommand(DELETE_TEAM);
+        deleteTeam.setActionCommand(CREATE_NEW_TEAM);
         deleteTeam.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //Create new league

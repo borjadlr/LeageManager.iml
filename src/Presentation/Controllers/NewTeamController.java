@@ -1,7 +1,7 @@
 package Presentation.Controllers;
 
-import Presentation.Views.FileSearchGUI;
 import Presentation.Views.MainFrameGUI;
+import Presentation.Views.NewTeamGUI;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -9,13 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class FileSearchController implements ActionListener {
+public class NewTeamController implements ActionListener {
     private JTextField filePathField;
     private MainFrameGUI mainFrame;
-    private FileSearchGUI view;
+    private NewTeamGUI view;
 
 
-    public FileSearchController(MainFrameGUI mainFrame, FileSearchGUI view){
+    public NewTeamController(MainFrameGUI mainFrame, NewTeamGUI view){
         this.view = view;
         this.mainFrame = mainFrame;
     }
@@ -25,7 +25,7 @@ public class FileSearchController implements ActionListener {
         if (e.getSource() instanceof JButton){
             switch (e.getActionCommand()){
                 case "SEARCH_BUTTON":
-                    mainFrame.fileSearchView();
+                    //mainFrame.showNewTeam();
                     searchFile();
                     //Crida logica
                     break;
@@ -43,7 +43,7 @@ public class FileSearchController implements ActionListener {
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String filePath = ((File) selectedFile).getAbsolutePath();
-            filePathField.setText(filePath);
+            System.out.println(filePath);
         }
     }
 }

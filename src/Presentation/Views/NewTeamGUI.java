@@ -4,13 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class FileSearchGUI extends JPanel {
-
+public class NewTeamGUI extends JPanel {
     private JTextField filePathField;
     private JButton searchButton;
     private static final String SEARCH_BUTTON = "SEARCH_BUTTON";
 
-    public FileSearchGUI() {
+    public NewTeamGUI() {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
