@@ -1,20 +1,32 @@
 package Persistance.dao;
 
+import Business.Entities.Match;
+import Business.Entities.Team;
 import Persistance.MatchDAOInt;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Implementación de la interfaz MatchDAOInt para realizar operaciones sobre la tabla "partido".
  */
-public abstract class MatchDAO implements MatchDAOInt {
+
+public class MatchDAO implements MatchDAOInt {
     private static String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
     private static String username = "dreamteam";
     private static String password = "dreamteam";
     private static Connection conn;
 
+    public MatchDAO() {
+        try {
+            // Establecer la conexión aquí
+            conn = DriverManager.getConnection(dbURL, username, password);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
     /**
      * Método para insertar un partido en la base de datos.
      * @param equipoLocal El nombre del equipo local.
@@ -25,8 +37,10 @@ public abstract class MatchDAO implements MatchDAOInt {
      * @param partidoFinalizado Indica si el partido ha finalizado.
      * @param nombreLiga El nombre de la liga a la que pertenece el partido.
      */
-    public void insertMatch(String equipoLocal, String equipoVisitante, int resultadoLocal, int resultadoVisitante, int jornada, boolean partidoFinalizado, String nombreLiga, Timestamp fechaInicio) {
-        String query = "INSERT INTO partido (equipo_local, equipo_visitante, resultado_local, resultado_visitante, jornada, partido_finalizado, nombre_liga, fecha_inicio) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+
+    public void insertMatch(String equipoLocal, String equipoVisitante, int resultadoLocal, int resultadoVisitante, int jornada, boolean partidoFinalizado, String nombreLiga) {
+        String query = "INSERT INTO partido (equipo_local, equipo_visitante, resultado_local, resultado_visitante, jornada, partido_finalizado, nombre_liga, fecha_inicio) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, equipoLocal);
@@ -36,11 +50,26 @@ public abstract class MatchDAO implements MatchDAOInt {
             statement.setInt(5, jornada);
             statement.setBoolean(6, partidoFinalizado);
             statement.setString(7, nombreLiga);
-            statement.setTimestamp(8, fechaInicio);
             statement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void insertMatchBeta(Match partido) throws SQLException {
+        String query = "INSERT INTO partido (equipo_local, equipo_visitante, resultado_local, resultado_visitante, jornada, partido_finalizado, nombre_liga) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, partido.getLocal());
+            statement.setString(2, partido.getVisitante());
+            statement.setInt(3, partido.getGolesLocal());
+            statement.setInt(4, partido.getGolesVisitante());
+            statement.setInt(5, partido.getJornada());
+            statement.setBoolean(6, partido.isStatus());
+            statement.setString(7, partido.getNombreLiga());
+            statement.executeUpdate();
         }
     }
 
@@ -200,26 +229,6 @@ public abstract class MatchDAO implements MatchDAOInt {
     }
 
     /**
-     * Método para eliminar los partidos por el nombre del equipo local.
-     * @param localTeamName El nombre del equipo local.
-     */
-    public void deleteMatchesByLocalTeam(String localTeamName) {
-        // Preparar la consulta SQL
-        String query = "DELETE FROM partido WHERE equipo_local = ?";
-
-        // Ejecutar la consulta
-        try (PreparedStatement statement = conn.prepareStatement(query)) {
-            // Establecer los parámetros de la consulta
-            statement.setString(1, localTeamName);
-
-            // Ejecutar la consulta de actualización
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Método para obtener los ID de los partidos en una liga específica.
      * @param leagueName El nombre de la liga.
      * @return Una lista de IDs de partidos en la liga especificada.
@@ -261,11 +270,12 @@ public abstract class MatchDAO implements MatchDAOInt {
      *
      * Si el jugador no está asignado a ningún equipo o no hay partido en la jornada especificada para el equipo,
      * no mostrará ningún detalle del partido.
-     *
-     * @param dni el identificador único del jugador
+     *  @param dni el identificador único del jugador
      * @param jornada la jornada de la liga
+     * @return
      */
-    public void getMatchDetails(String dni, int jornada) {
+    public Match getMatchDetails(String dni, int jornada) {
+        Match match = null;
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
             // Obtener el equipo del jugador
             String sql = "SELECT nombre_equipo FROM jugador_equipo WHERE dni_jugador = ?";
@@ -273,15 +283,16 @@ public abstract class MatchDAO implements MatchDAOInt {
             pstmt.setString(1, dni);
             ResultSet rs = pstmt.executeQuery();
 
+
             if (rs.next()) {
                 String teamName = rs.getString("nombre_equipo");
-
+                match = null;
                 // Obtener el partido del equipo en la jornada específica
                 sql = "SELECT * FROM partido WHERE jornada = ? AND (equipo_local = ? OR equipo_visitante = ?)";
                 pstmt = conn.prepareStatement(sql);  // Creamos una nueva instancia de PreparedStatement
                 pstmt.setInt(1, jornada);
-               // pstmt.setString(2, teamName);
-               // pstmt.setString(3, teamName);
+                // pstmt.setString(2, teamName);
+                // pstmt.setString(3, teamName);
 
                 rs = pstmt.executeQuery();
 
@@ -299,7 +310,122 @@ public abstract class MatchDAO implements MatchDAOInt {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return match;
     }
+    /**
+     * Elimina los partidos en función del nombre del equipo introducido.
+     *
+     * @param teamName nombre del equipo cuyos partidos se eliminarán
+     * @throws SQLException si ocurre algún error al interactuar con la base de datos
+     */
+    public void deleteMatchesByTeamName(String teamName) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+            // Preparamos la consulta SQL para eliminar los partidos del equipo en la tabla "partido"
+            PreparedStatement deleteStmt = conn.prepareStatement(
+                    "DELETE FROM partido WHERE equipo_local = ? OR equipo_visitante = ?");
+            deleteStmt.setString(1, teamName);
+            deleteStmt.setString(2, teamName);
+            deleteStmt.executeUpdate();
+            deleteStmt.close();
+        }
+    }
+
+    public void getMatchIdsByDayAndTime() {
+        String url = "jdbc:mysql://localhost/league_manager_data";
+        String username = "tu_usuario";
+        String password = "tu_contraseña";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            String sql = "SELECT id FROM partido ORDER BY jornada, hora ASC";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int matchId = resultSet.getInt("id");
+                System.out.println("ID del partido: " + matchId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Crea un calendario de una liga con partidos de ida y vuelta a partir de una lista de equipos.
+     * @param equipos la lista de equipos de la liga
+     * @return una lista enlazada con el orden de los partidos
+     */
+    public LinkedList<Match> crearCalendarioIdaVuelta(LinkedList<Team> equipos, String nombreLiga) {
+        LinkedList<Match> calendario = new LinkedList<>();
+        int numEquipos = equipos.size();
+        int numJornadas = 2 * (numEquipos - 1);
+        int mitadEquipos = numEquipos / 2;
+
+        LinkedList<Team> equiposCopia = new LinkedList<>(equipos);
+
+        // Si el número de equipos es impar, se omite un equipo en cada jornada
+        boolean omitirEquipo = numEquipos % 2 != 0;
+
+        String url = "jdbc:mysql://localhost/league_manager_data";
+        String username = "dreamteam";
+        String password = "dreamteam";
+
+        try(Connection conn = DriverManager.getConnection(url, username, password)) {
+            // Conexión a la base de datos
+
+
+            for (int jornada = 0; jornada < numJornadas; jornada++) {
+                System.out.println("Jornada " + (jornada + 1) + ":");
+
+                for (int i = 0; i < mitadEquipos; i++) {
+                    Team equipoLocal = equiposCopia.get(i);
+                    Team equipoVisitante = equiposCopia.get(numEquipos - 1 - i);
+
+                    // Verificar si el equipo local es igual al equipo visitante
+                    if (equipoLocal.getName().equals(equipoVisitante.getName())) {
+                        continue; // Saltar a la siguiente iteración si es el mismo equipo
+                    }
+
+                    // Crear partido de ida
+                    if (jornada % 2 == 0) {
+                        Match partidoIda = new Match(equipoLocal.getName(), equipoVisitante.getName(), 0, 0, (jornada / 2) + 1, false, nombreLiga);
+                        calendario.add(partidoIda);
+                        System.out.println("Partido de ida: " + partidoIda.getLocal() + " vs " + partidoIda.getVisitante());
+
+                        // Guardar el partido de ida en la base de datos
+                        insertMatchBeta(partidoIda);
+                    }
+                    // Crear partido de vuelta
+                    else {
+                        Match partidoVuelta = new Match(equipoVisitante.getName(), equipoLocal.getName(), 0, 0, numEquipos + (jornada / 2) + 1, false, nombreLiga);
+                        calendario.add(partidoVuelta);
+                        System.out.println("Partido de vuelta: " + partidoVuelta.getLocal() + " vs " + partidoVuelta.getVisitante());
+
+                        // Guardar el partido de vuelta en la base de datos
+                        insertMatchBeta(partidoVuelta);
+                    }
+                }
+
+                // Rotar los equipos en sentido horario, omitiendo un equipo si es necesario
+                if (omitirEquipo) {
+                    equiposCopia.add(1, equiposCopia.removeLast());
+                } else {
+                    equiposCopia.addFirst(equiposCopia.removeLast());
+                }
+            }
+
+            // Cerrar la conexión a la base de datos
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return calendario;
+    }
+
+
+
+
 
 
 
