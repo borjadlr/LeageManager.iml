@@ -28,6 +28,8 @@ public interface TeamsDAOInt {
 
     void insertDataTeamsByTeam(Team team);
 
+    List<Team> getTeamsInLeague(String leagueName);
+
 
 
 }
