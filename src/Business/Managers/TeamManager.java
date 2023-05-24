@@ -46,7 +46,7 @@ public class TeamManager {
     }
 
 
-    private void createTeam(String teamName) throws SQLException {
+    public void createTeam(String teamName) throws SQLException {
         teamsDAO.jsonToDatabase(teamName);
     }
 
