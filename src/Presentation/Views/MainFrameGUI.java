@@ -188,7 +188,11 @@ public class MainFrameGUI extends JFrame{
     }
 
     public void showMenuNewLeague(){
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(true);
         cardLayout.show(centerPanel, MENU_NEW_LEAGUE);
+        auxiliar++;
+        updateRecorregut(MENU_NEW_LEAGUE, true, true);
     }
 
     public void showMessageToUser(String message) {
