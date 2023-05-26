@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeamListController extends MouseInputAdapter {
-    private TeamListGUI teamListGUI;
+    private final TeamListGUI teamListGUI;
     private MainFrameGUI mainFrame;
-    private List<Team> teams;
-    private List<Team> selectedTeams;
+    private final List<Team> teams;
+    private final List<Team> selectedTeams;
 
     public TeamListController(TeamListGUI teamListGUI, MainFrameGUI mainFrame, List<Team> teams) {
         this.teamListGUI = teamListGUI;

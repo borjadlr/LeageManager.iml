@@ -13,7 +13,7 @@ public class ShowLeagueController extends MouseInputAdapter {
     private final ShowLeague view;
     private final MainFrameGUI mainFrame;
     private final TeamListGUI teamListGUI;
-    private UserManager userManager;
+    private final UserManager userManager;
 
 
     public ShowLeagueController(ShowLeague showLeagues, MainFrameGUI mainFrame, UserManager leagues, TeamListGUI teamListGUI) {
