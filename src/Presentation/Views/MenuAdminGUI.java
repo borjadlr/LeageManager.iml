@@ -113,6 +113,11 @@ public class MenuAdminGUI extends JPanel {
         viewLeagues.addActionListener(actionListener);
     }
 
+    public void exceptionMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+    }
+
+
 
 
 }

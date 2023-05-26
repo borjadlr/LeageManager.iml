@@ -4,6 +4,7 @@ import Business.Managers.UserManager;
 import Exceptions.*;
 import Presentation.Views.LoginGUI;
 import Presentation.Views.MainFrameGUI;
+import Presentation.Views.TopPanelGUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,11 +20,13 @@ public class LoginController implements ActionListener, FocusListener {
     private final MainFrameGUI mainFrameGUI;
     private final LoginGUI view;
     private final UserManager userManager;
+    private final TopPanelGUI topPanelGUI;
 
-    public LoginController(MainFrameGUI mainView, LoginGUI view, UserManager userManager) {
+    public LoginController(MainFrameGUI mainView, LoginGUI view, UserManager userManager, TopPanelGUI topPanelGUI) {
         this.mainFrameGUI = mainView;
         this.view = view;
         this.userManager = userManager;
+        this.topPanelGUI = topPanelGUI;
     }
 
     @Override
@@ -33,13 +36,14 @@ public class LoginController implements ActionListener, FocusListener {
                 try {
                     String username = view.getUsernameInfo();
                     String password = view.getPasswordInfo();
-                    if (userManager.signIn(username, password)) {
+                    if(userManager.signIn(username, password)){
                         mainFrameGUI.showMenuAdmin();
-                    } else {
+                        topPanelGUI.hideShowDeleteAccount(false);
+                        topPanelGUI.hideShowDropDownButton(true);
+                    }else {
                         mainFrameGUI.showMenuUser();
+                        topPanelGUI.hideShowDropDownButton(true);
                     }
-
-
                 } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
                     view.exceptionMessage(ex.getMessage());
                 } catch (NullPointerException npe) {

@@ -19,7 +19,7 @@ public class MainFrameGUI extends JFrame{
     public final String CURRENT_LEAGUE_VIEW = "CURRENT_LEAGUE_VIEW";
     public final String REGISTRATION_VIEW = "REGISTRATION_VIEW";
     public final String DELETE_VIEW = "DELETE_VIEW";
-    public final String SHOW_LEAGUE = "SHOW_LEAGUE";
+    public final String LEAGUE_LIST = "LEAGUE_LIST";
     public final String SIMULATION_VIEW = "SIMULATION_VIEW";
     public final String STATISTICS_VIEW = "STATISTICS_VIEW";
     public final String TEAM_LIST_VIEW = "TEAM_LIST_VIEW";
@@ -30,6 +30,7 @@ public class MainFrameGUI extends JFrame{
     private  JPanel centerPanel;
     private  JPanel bottomPanel;
     private final CardLayout cardLayout;
+
 
 
 
@@ -58,7 +59,7 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(newLeaguesGUI, MENU_NEW_LEAGUE);
         centerPanel.add(registrationGUI, REGISTRATION_VIEW);
         centerPanel.add(deleteGUI, DELETE_VIEW);
-        centerPanel.add(showLeague, SHOW_LEAGUE);
+        centerPanel.add(showLeague, LEAGUE_LIST);
         centerPanel.add(simulationGameGUI, SIMULATION_VIEW);
         centerPanel.add(statisticsGUI, STATISTICS_VIEW);
         centerPanel.add(teamsListGUI, TEAM_LIST_VIEW);
@@ -70,6 +71,7 @@ public class MainFrameGUI extends JFrame{
 
         setSize(1000,1200);
         setVisible(true);
+
     }
 
     public void showMainPanel() {
@@ -94,6 +96,7 @@ public class MainFrameGUI extends JFrame{
         cardLayout.show(centerPanel, LOGIN_VIEW);
         auxiliar++;
         updateRecorregut(LOGIN_VIEW, true, false);
+        //
     }
 
     public void showRegister() {
@@ -151,23 +154,38 @@ public class MainFrameGUI extends JFrame{
         pack.add(bottom);
         booleanPacks.add(auxiliar, pack);
     }
-
-
-    public void showLeague(){ cardLayout.show(centerPanel, SHOW_LEAGUE);}
+    public void showLeague(){
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(true);
+        cardLayout.show(centerPanel, LEAGUE_LIST);
+        auxiliar++;
+        updateRecorregut(LEAGUE_LIST, true, true);
+    }
     public void showMenuAdmin(){
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(false);
         cardLayout.show(centerPanel, MENU_ADMIN_VIEW);
+        auxiliar++;
+        updateRecorregut(MENU_ADMIN_VIEW, true, false);
     }
 
     public void showTeamList(){
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(true);
         cardLayout.show(centerPanel, TEAM_LIST_VIEW);
+        auxiliar++;
+        updateRecorregut(TEAM_LIST_VIEW, true, true);
     }
     public void deleteAccount(){
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(true);
         cardLayout.show(centerPanel, DELETE_VIEW);
+        auxiliar++;
+        updateRecorregut(DELETE_VIEW, true, true);
     }
     public void showCurrentLeagues(){
         cardLayout.show(centerPanel, CURRENT_LEAGUE_VIEW);
     }
-
 
     public void showMenuNewLeague(){
         cardLayout.show(centerPanel, MENU_NEW_LEAGUE);

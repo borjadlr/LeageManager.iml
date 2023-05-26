@@ -22,7 +22,6 @@ public class TopPanelController implements ActionListener {
             view.showDropdownMenu();
         } else if (command.equals("LOGOUT_BUTTON")) {
             logout();
-            mainFrame.showMainPanel();
         } else if (command.equals("DELETE_ACCOUNT_BUTTON")) {
             deleteAccount();
         }else if(command.equals("BACK_BUTTON")){
@@ -31,9 +30,11 @@ public class TopPanelController implements ActionListener {
     }
 
     private void logout() {
-        // Lógica para realizar el logout
-        // Por ejemplo, cerrar la sesión del usuario actual
-        JOptionPane.showMessageDialog(null, "Logout button clicked!");
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?",
+                "Logout", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            mainFrame.showMainPanel();
+        }
     }
 
     private void deleteAccount() {

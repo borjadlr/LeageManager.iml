@@ -44,7 +44,7 @@ public class RegistrationGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(90));
 
-        String defaultPhoneText = "Phone number:";
+        String defaultPhoneText = "Phone number: ";
         phoneNumber = new JTextField(defaultPhoneText);
         phoneNumber.setFont(new Font("Inter", PLAIN, 20));
         phoneNumber.setBackground(Color.decode("#D9D9D9"));
@@ -53,7 +53,7 @@ public class RegistrationGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(15));
 
-        String defaultEmailText = "Email:";
+        String defaultEmailText = "Email: ";
         email = new JTextField(defaultEmailText);
         email.setFont(new Font("Inter", PLAIN, 20));
         email.setBackground(Color.decode("#D9D9D9"));

@@ -12,7 +12,6 @@ public class DeleteGUI extends JPanel {
     private final JTextField email;
     private final JTextField password;
     private final JButton delete;
-
     private Color backgroundColor;
     public static final String DELETE_BUTTON = "DELETE_BUTTON";
 
@@ -80,14 +79,12 @@ public class DeleteGUI extends JPanel {
         password.addFocusListener(focusListener);
         password.setName("Password");
     }
-
     public void actionListener(ActionListener actionListener){
         delete.addActionListener(actionListener);
     }
     public String getUsernameInfo() {
         return email.getText();
     }
-
     public String getPasswordInfo() {
         return password.getText();
     }

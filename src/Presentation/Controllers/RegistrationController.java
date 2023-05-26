@@ -20,10 +20,9 @@ public class RegistrationController implements FocusListener, ActionListener {
     private final RegistrationGUI view;
 
     private final String defaultDniText = "Dni: ";
-    private final String defaultTeamText = "Team:";
     private final String defaultDorsalText = "Dorsal: ";
-    private final String defaultNameText = "Name: ";
-    private final String defaultPhoneNumberText = "Phone Number: ";
+    private final String defaultEmailText = "Email: ";
+    private final String defaultPhoneNumberText = "Phone number: ";
 
     public RegistrationController(MainFrameGUI mainFrameGUI, RegistrationGUI view, UserManager userManager) {
         this.mainFrameGUI = mainFrameGUI;
@@ -53,12 +52,10 @@ public class RegistrationController implements FocusListener, ActionListener {
                     } catch (NumberFormatException nfe) {
                         view.numberFormatMessage();
                     }
-
                     break;
             }
         }
     }
-
     @Override
     public void focusGained(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {
@@ -68,18 +65,13 @@ public class RegistrationController implements FocusListener, ActionListener {
                         textField.setText("");
                     }
                     break;
-                case "Team":
-                    if (textField.getText().equals(defaultTeamText)) {
-                        textField.setText("");
-                    }
-                    break;
                 case "Dorsal":
                     if (textField.getText().equals(defaultDorsalText)) {
                         textField.setText("");
                     }
                     break;
-                case "Name":
-                    if (textField.getText().equals(defaultNameText)) {
+                case "Email":
+                    if (textField.getText().equals(defaultEmailText)) {
                         textField.setText("");
                     }
                     break;
@@ -101,19 +93,14 @@ public class RegistrationController implements FocusListener, ActionListener {
                         textField.setText(defaultDniText);
                     }
                     break;
-                case "Team":
-                    if (textField.getText().isEmpty()) {
-                        textField.setText(defaultTeamText);
-                    }
-                    break;
                 case "Dorsal":
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultDorsalText);
                     }
                     break;
-                case "Name":
+                case "Email":
                     if (textField.getText().isEmpty()) {
-                        textField.setText(defaultNameText);
+                        textField.setText(defaultEmailText);
                     }
                     break;
                 case "Phone":

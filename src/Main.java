@@ -1,3 +1,4 @@
+import Business.Entities.League;
 import Business.Entities.Team;
 import Business.Entities.User;
 import Business.Managers.*;
@@ -14,6 +15,7 @@ public class Main {
 
         //Entities
         Team team = new Team();
+        League league = new League();
 
         //Dao
         UserDAO userDAO = new UserDAO();
@@ -47,17 +49,18 @@ public class Main {
         MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, showLeague, statisticsGUI,simulationGameGUI, teamsListGUI, topPanelGUI, bottomPanelGUI, newTeamGUI);
 
         //Controllers
-        MainPanelController mainPanelController = new MainPanelController(mainFrame);
+        MainPanelController mainPanelController = new MainPanelController(mainFrame, topPanelGUI);
         RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
-        LoginController loginController = new LoginController(mainFrame, loginGUI, userManager);
+        LoginController loginController = new LoginController(mainFrame, loginGUI, userManager, topPanelGUI);
         ChangePasswordController changePasswordController = new ChangePasswordController(mainFrame, changePasswordGUI, userManager);
-        MenuAdminController menuAdminController = new MenuAdminController(mainFrame);
+        MenuAdminController menuAdminController = new MenuAdminController(mainFrame, leagueManager, showLeague, menuAdminGUI);
         TopPanelController topPanelController =  new TopPanelController(mainFrame, topPanelGUI);
         DeleteController deleteController = new DeleteController(mainFrame, deleteGUI, userManager);
         NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI);
-        ShowLeagueController showLeagueController = new ShowLeagueController(showLeague, mainFrame, userManager,teamsListGUI);
+        ShowLeagueController showLeagueController = new ShowLeagueController(showLeague, mainFrame,teamsListGUI, leagueManager, league);
         BottomPanelController bottomPanelController = new BottomPanelController(mainFrame);
         NewTeamController newTeamController = new NewTeamController(mainFrame, newTeamGUI, teamManager);
+        MenuUserController menuUserController = new MenuUserController(mainFrame, menuUserGUI);
 
         //Buttons
         loginGUI.actionListener(loginController);
@@ -76,6 +79,7 @@ public class Main {
         bottomPanelGUI.changePasswordListener(bottomPanelController);
         topPanelGUI.actionListener(topPanelController);
         newTeamGUI.actionListener(newTeamController);
+        menuUserGUI.registerListener(menuUserController);
 
         //UserDAO userDAO = new UserDAO();
 

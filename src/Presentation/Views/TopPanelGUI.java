@@ -56,19 +56,27 @@ public class TopPanelGUI extends JPanel {
         dropdownMenu.setBackground(Color.black);
         logout = new JMenuItem("Log out");
         logout.setBackground(Color.decode("#D9D9D9"));
-        logout.setPreferredSize(new Dimension(90, 30));
+        logout.setPreferredSize(new Dimension(100, 30));
         logout.setBorder(BorderFactory.createLineBorder(Color.black));
         logout.setActionCommand(LOGOUT_BUTTON);
         deleteAccount = new JMenuItem("Delete Account");
         deleteAccount.setBackground(Color.decode("#D9D9D9"));
         deleteAccount.setBorder(BorderFactory.createLineBorder(Color.black));
-        deleteAccount.setPreferredSize(new Dimension(90, 30));
+        deleteAccount.setPreferredSize(new Dimension(100, 30));
         deleteAccount.setActionCommand(DELETE_ACCOUNT_BUTTON);
         dropdownMenu.add(logout);
         dropdownMenu.add(deleteAccount);
 
         dropdownButton.setComponentPopupMenu(dropdownMenu);
 
+    }
+
+    public void hideShowDropDownButton(boolean t){
+        dropdownButton.setVisible(t);
+    }
+
+    public void hideShowDeleteAccount(boolean t){
+        deleteAccount.setVisible(t);
     }
 
     public void showDropdownMenu() {
