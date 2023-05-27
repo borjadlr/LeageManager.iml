@@ -8,6 +8,7 @@ import Exceptions.*;
 import Persistance.LeagueDAOInt;
 import Persistance.MatchDAOInt;
 import Persistance.TeamsDAOInt;
+import Persistance.TeamsLeagueDAOInt;
 
 import java.sql.SQLException;
 import java.sql.Time;
@@ -23,11 +24,14 @@ public class LeagueManager {
 
     private final MatchDAOInt matchDAO;
 
+    private final TeamsLeagueDAOInt teamsLeagueDAOInt;
+
     private TeamsDAOInt teamsDAO;
 
-    public LeagueManager(TeamManager teamManager, LeagueDAOInt leagueDAO, TeamsDAOInt teamsDAO, MatchDAOInt matchDAO) {
+    public LeagueManager(TeamManager teamManager, LeagueDAOInt leagueDAO, TeamsDAOInt teamsDAO, MatchDAOInt matchDAO, TeamsLeagueDAOInt teamsLeagueDAO) {
         this.teamManager = teamManager;
         this.leagueDAO = leagueDAO;
+        this.teamsLeagueDAOInt = teamsLeagueDAO;
         this.matchDAO = matchDAO;
         this.teamsDAO = teamsDAO;
     }
@@ -67,6 +71,16 @@ public class LeagueManager {
                 league.getDay(),
                 league.getNumber_teams(),
                 league.isState());
+    }
+
+    public void introduceTeamsLeague(List<Team> teams, String leagueName){
+        int i = 0;
+
+        for (Team team : teams) {
+            teamsLeagueDAOInt.insertarEquipoLiga(teams.get(i).getName(), leagueName);
+            i++;
+        }
+
     }
 
     public boolean comprovaNumTeams(int numTeams) throws SQLException {
