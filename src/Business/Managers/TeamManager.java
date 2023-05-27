@@ -64,6 +64,9 @@ public class TeamManager {
     }
 
     public List<Team> getAllTeams() throws SQLException {
+        if (teamsDAO.getAllTeams().size() == 0) {
+            throw new NullPointerException();
+        }
         return teamsDAO.getAllTeams();
     }
 
