@@ -51,6 +51,7 @@ public class NewLeagueController implements ActionListener, FocusListener {
                         String numeroEquipos = view.getNumeroEquipos();
                         leagueManager.introduceLeague(leagueManager.setLeague(leagueName, data, hora, 1, parseInt(numeroEquipos), true, teamManager.getTeamsOfLeague(leagueName)));
                         mainFrame.showTeamList();
+
                         break;
 
                     } catch (LeagueAlreadyExistsException | RepeatedTeamException | DateExpiredException | SQLException | ParseException ex) {
