@@ -30,7 +30,7 @@ public class LeagueManager {
 
 
 
-    public void introduceLeague(League league) throws LeagueAlreadyExistsException, DateExpiredException, RepeatedTeamException, SQLException {
+    public void introduceLeague(League league) throws LeagueAlreadyExistsException, DateExpiredException, RepeatedTeamException, SQLException, WrongTeamNumberException {
         try {
             List<League> leagues = leagueDAO.getAllLeagues();
             int i = 0;
@@ -41,6 +41,8 @@ public class LeagueManager {
                     throw new DateExpiredException();
                 } else if (!comprovaRepeatedTeams(league)){
                     throw new RepeatedTeamException();
+                } else if (!comprovaNumTeams(league.getNumber_teams())) {
+                    throw new WrongTeamNumberException();
                 } else {
                     i++;
                 }
@@ -51,6 +53,8 @@ public class LeagueManager {
             } else if (!comprovaRepeatedTeams(league)){
                 throw new RepeatedTeamException();
             }
+        } catch (WrongTeamNumberException e) {
+            throw new RuntimeException(e);
         }
 
         leagueDAO.insertDataLeague(league.getName(),
@@ -60,6 +64,13 @@ public class LeagueManager {
                 league.getNumber_teams(),
                 league.isState());
 
+    }
+
+    public boolean comprovaNumTeams(int numTeams) throws SQLException {
+        List<Team> allTeams = teamManager.getAllTeams();
+        if (allTeams.size() > numTeams){
+            return false;
+        } else return numTeams != 0;
     }
 
     public League setLeague (String name, Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
