@@ -6,6 +6,7 @@ import Business.Entities.Match;
 import Business.Entities.Team;
 import Exceptions.*;
 import Persistance.LeagueDAOInt;
+import Persistance.MatchDAOInt;
 import Persistance.TeamsDAOInt;
 
 import java.sql.SQLException;
@@ -20,11 +21,14 @@ public class LeagueManager {
     
     private final LeagueDAOInt leagueDAO;
 
+    private final MatchDAOInt matchDAO;
+
     private TeamsDAOInt teamsDAO;
 
-    public LeagueManager(TeamManager teamManager, LeagueDAOInt leagueDAO, TeamsDAOInt teamsDAO) {
+    public LeagueManager(TeamManager teamManager, LeagueDAOInt leagueDAO, TeamsDAOInt teamsDAO, MatchDAOInt matchDAO) {
         this.teamManager = teamManager;
         this.leagueDAO = leagueDAO;
+        this.matchDAO = matchDAO;
         this.teamsDAO = teamsDAO;
     }
 
@@ -63,7 +67,6 @@ public class LeagueManager {
                 league.getDay(),
                 league.getNumber_teams(),
                 league.isState());
-
     }
 
     public boolean comprovaNumTeams(int numTeams) throws SQLException {
@@ -156,69 +159,6 @@ public class LeagueManager {
         return leagueDAO.getAllLeagues();
     }
 
-/*
-    public LinkedList<Match> generarCalendario(List<Team> equipos) {
-        LinkedList<Match> calendario = new LinkedList<>();
-        equipos = teamsDAO.getTeamsInLeague("LijeName");
-        int numEquipos = equipos.size();
-        int numJornadas = numEquipos - 1; // Cantidad de jornadas necesarias para que todos los equipos se enfrenten
-
-        for (int i = 0; i < numJornadas * 2; i++) {
-            for (int j = 0; j < numEquipos / 2; j++) {
-                int equipoLocal = j;
-                int equipoVisitante = (numEquipos - 1) - j;
-
-                if (i % 2 == 0) {
-                    Match partido = new Match(equipos.get(equipoVisitante).getName(), equipos.get(equipoLocal).getName(), 0, 0, i / 2 + 1, false);
-                    calendario.add(partido);
-                } else {
-                    Match partido = new Match(equipos.get(equipoLocal).getName(), equipos.get(equipoVisitante).getName(), 0, 0, i / 2 + 1, false);
-                    calendario.add(partido);
-                }
-            }
-
-            // Rotación de los equipos excepto el primero
-            Team ultimoEquipo = equipos.get(numEquipos - 1);
-            for (int k = numEquipos - 1; k > 1; k--) {
-                equipos.set(k, equipos.get(k - 1));
-            }
-            equipos.set(1, ultimoEquipo);
-        }
-
-        return calendario;
-    }
-
- */
-/*
-    public List<Match> generateRRCalendar(League league) {
-        List<Team> teams = league.getTeams();
-        int numTeams = league.getNumber_teams();
-        int numRounds = numTeams - 1;
-        int halfSize = numTeams / 2;
-
-        List<Team> teamsList = new ArrayList<>(teams);
-        teamsList.remove(0);
-
-        int teamsSize = teamsList.size();
-
-        List<Match> matches = new ArrayList<>();
-
-        for (int round = 0; round < numRounds; round++) {
-            for (int idx = 0; idx < halfSize; idx++) {
-                Team team1 = teamsList.get(idx);
-                Team team2 = teamsList.get(teamsSize - idx - 1);
-
-                matches.add(new Match(team1, team2, false));
-                matches.add(new Match(team2, team1, false));
-            }
-
-            // Rotate teams in the list
-            Collections.rotate(teamsList, 1);
-        }
-
-        return matches;
-    }
-*/
     public void deleteLeagueMatches (String leagueName) throws SQLException, MatchIsPlayingException {
 
         List<League> leagues = leagueDAO.getAllLeagues();
@@ -251,26 +191,6 @@ public class LeagueManager {
         }
         return matches;
     }
-/*
-    public void deleteTeamMatches (Team team) throws SQLException, MatchIsPlayingException {
-
-        List<League> leagues = leagueDAO.getAllLeagues();
-        for (League league : leagues) {
-            for (Match match : league.getMatches()) {
-                if (match.isStatus()) {
-                    // Parar la ejecución si el partido está en marcha.
-                    throw new MatchIsPlayingException();
-                } else {
-                    if (match.getTeam1() == team || match.getTeam2() == team) {
-                        league.getMatches().remove(match);
-                        //metodo borja
-                    }
-                }
-
-            }
-        }
-    }
-*/
     public boolean isLeagueActive(League league) {
         return league.isState();
     }
