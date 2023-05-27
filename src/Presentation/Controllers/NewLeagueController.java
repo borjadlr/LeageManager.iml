@@ -30,12 +30,12 @@ public class NewLeagueController implements ActionListener, FocusListener {
 
     private final String defaultNumeroEquips = "Número equips: ";
     private final String defaultHora = "Hour: ";
-
-    private LeagueManager leagueManager;
-
-    private TeamManager teamManager;
-    public NewLeagueController(MainFrameGUI mainFrame, NewLeagueGUI view) {
+    private final LeagueManager leagueManager;
+    private final TeamManager teamManager;
+    public NewLeagueController(MainFrameGUI mainFrame, NewLeagueGUI view, LeagueManager leagueManager, TeamManager teamManager) {
         this.mainFrame = mainFrame;
+        this.leagueManager = leagueManager;
+        this.teamManager = teamManager;
         this.view = view;
     }
 
