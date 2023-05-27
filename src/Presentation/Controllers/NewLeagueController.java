@@ -1,5 +1,6 @@
 package Presentation.Controllers;
 
+import Business.Entities.Team;
 import Business.Managers.LeagueManager;
 import Business.Managers.TeamManager;
 import Exceptions.DateExpiredException;
@@ -8,6 +9,7 @@ import Exceptions.RepeatedTeamException;
 import Exceptions.WrongTeamNumberException;
 import Presentation.Views.MainFrameGUI;
 import Presentation.Views.NewLeagueGUI;
+import Presentation.Views.TeamListCreateLeague;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +19,9 @@ import java.awt.event.FocusListener;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
@@ -32,11 +36,13 @@ public class NewLeagueController implements ActionListener, FocusListener {
     private final String defaultHora = "Hour: ";
     private final LeagueManager leagueManager;
     private final TeamManager teamManager;
-    public NewLeagueController(MainFrameGUI mainFrame, NewLeagueGUI view, LeagueManager leagueManager, TeamManager teamManager) {
+    private final TeamListCreateLeague teamListCreateLeague;
+    public NewLeagueController(MainFrameGUI mainFrame, NewLeagueGUI view, LeagueManager leagueManager, TeamManager teamManager, TeamListCreateLeague teamListCreateLeague) {
         this.mainFrame = mainFrame;
         this.leagueManager = leagueManager;
         this.teamManager = teamManager;
         this.view = view;
+        this.teamListCreateLeague = teamListCreateLeague;
     }
 
     @Override
@@ -46,13 +52,18 @@ public class NewLeagueController implements ActionListener, FocusListener {
                 case "OK_BUTTON":
 
                     try {
-                        String date = leagueManager.correctData(view.getData());
+                        List<Team> teams = teamManager.getAllTeams();;
                         String leagueName = view.getLeagueName();
-                        Date data = leagueManager.stringToDate(date);
+                        Date data = leagueManager.stringToDate(view.getData());
                         Time hora = leagueManager.stringToTime(view.getHora());
                         String numeroEquipos = view.getNumeroEquipos();
                         leagueManager.introduceLeague(leagueManager.setLeague(leagueName, data, hora, 1, parseInt(numeroEquipos), true, teamManager.getTeamsOfLeague(leagueName)));
-                        mainFrame.showTeamList();
+                        try {
+                            teamListCreateLeague.addTeams(teams);
+                            mainFrame.showTeamsNewLeague();
+                        } catch (NullPointerException ex) {
+                            view.exceptionMessage(ex.getMessage());
+                        }
                         view.clearTextFields();
                         break;
 

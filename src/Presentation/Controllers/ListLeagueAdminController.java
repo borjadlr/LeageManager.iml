@@ -1,10 +1,13 @@
 package Presentation.Controllers;
 
 import Business.Entities.League;
+import Business.Entities.Team;
 import Business.Managers.LeagueManager;
+import Business.Managers.TeamManager;
 import Exceptions.IncorrectLeagueNameException;
 import Exceptions.MatchIsPlayingException;
 import Presentation.Views.ListLeagueAdminGUI;
+import Presentation.Views.ListTeamAdminGUI;
 import Presentation.Views.MainFrameGUI;
 import Presentation.Views.ListTeamUserGUI;
 
@@ -21,20 +24,24 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
     private final ListLeagueAdminGUI view;
     private final LeagueManager leagueManager;
     private final List<League> selectedLeagues;
-    private final ListTeamUserGUI listTeamUserGUI;
+    private final ListTeamAdminGUI listTeamAdminGUI;
+    private final TeamManager teamManager;
     private final MainFrameGUI mainFrame;
     private int i;
 
-    public ListLeagueAdminController(ListLeagueAdminGUI view, LeagueManager leagueManager, ListTeamUserGUI listTeamUserGUI, MainFrameGUI mainFrame) {
+    public ListLeagueAdminController(ListLeagueAdminGUI view, LeagueManager leagueManager, ListTeamAdminGUI listTeamAdminGUI, MainFrameGUI mainFrame, TeamManager teamManager) {
         this.view = view;
         this.leagueManager = leagueManager;
         this.selectedLeagues = new ArrayList<>();
-        this.listTeamUserGUI = listTeamUserGUI;
+        this.listTeamAdminGUI = listTeamAdminGUI;
         this.mainFrame = mainFrame;
+        this.teamManager = teamManager;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        List<Team> teams;
+
         int selectedRow = view.getTable().rowAtPoint(e.getPoint());
         int selectedColumn = view.getTable().columnAtPoint(e.getPoint());
 
@@ -47,7 +54,9 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                     for (i = 0; i < leagues.size(); i++) {
                         if (leagueName.equals(leagues.get(i).getName())) {
                             System.out.println(leagues.get(i).getName());
-                            listTeamUserGUI.setTitle(leagueName);
+                            teams = teamManager.getAllTeams();
+                            listTeamAdminGUI.addTeams(teams);
+                            listTeamAdminGUI.setTitle(leagueName);
                             mainFrame.showTeamList();
                         }
                     }
@@ -83,34 +92,34 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
 
         if (command.equals("Delete")) {
             if (selectedLeagues.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please select at least one league to delete.",
-                        "No League Selected", JOptionPane.WARNING_MESSAGE);
+                view.showWarningAtLeastOneLeague();
             } else {
-                int confirmDialog = JOptionPane.showConfirmDialog(null,
-                        "Are you sure you want to delete the selected leagues?",
-                        "Confirm Deletion", JOptionPane.YES_NO_OPTION);
-
+                int confirmDialog = view.showAreYouSureDelete();
                 if (confirmDialog == JOptionPane.YES_OPTION) {
                     for (League league : selectedLeagues) {
                         try {
-                            leagueManager.deleteLeague(String.valueOf(league));
+                            leagueManager.deleteLeague(league.getName());
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                             // Manejar la excepción según sea necesario
-                        } catch (IncorrectLeagueNameException | MatchIsPlayingException ex) {
-                            view.exceptionMessage(ex.getMessage());
+                        } catch (IncorrectLeagueNameException ex) {
+                            throw new RuntimeException(ex);
+                        } catch (MatchIsPlayingException ex) {
+                            throw new RuntimeException(ex);
                         }
                     }
-                    //refreshTable();
+                    try {
+                        refreshTable();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     selectedLeagues.clear();
                 }
             }
         }
     }
-/*
     public void refreshTable() throws SQLException {
         view.addLeagues(leagueManager.listLeagues());
     }
 
- */
 }

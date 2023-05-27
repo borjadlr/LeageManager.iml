@@ -1,10 +1,7 @@
 package Presentation.Controllers;
 import Business.Entities.League;
 import Business.Managers.LeagueManager;
-import Presentation.Views.MainFrameGUI;
-import Presentation.Views.MenuAdminGUI;
-import Presentation.Views.ListLeagueUserGUI;
-import Presentation.Views.StatisticsGUI;
+import Presentation.Views.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,14 +15,16 @@ public class MenuAdminController implements ActionListener{
     private final MainFrameGUI mainFrameGUI;
     private final LeagueManager leagueManager;
     private final ListLeagueUserGUI listLeagueUserGUI;
+    private final ListLeagueAdminGUI listLeagueAdminGUI;
     private final StatisticsGUI statisticsGUI;
 
-    public MenuAdminController(MainFrameGUI mainFrame, LeagueManager leagueManager, ListLeagueUserGUI listLeagueUserGUI, MenuAdminGUI view, StatisticsGUI statisticsGUI) {
+    public MenuAdminController(MainFrameGUI mainFrame, LeagueManager leagueManager, ListLeagueUserGUI listLeagueUserGUI, MenuAdminGUI view, ListLeagueAdminGUI listLeagueAdminGUI, StatisticsGUI statisticsGUI) {
         this.leagueManager = leagueManager;
         this.mainFrameGUI = mainFrame;
         this.listLeagueUserGUI = listLeagueUserGUI;
         this.view = view;
         this.statisticsGUI = statisticsGUI;
+        this.listLeagueAdminGUI = listLeagueAdminGUI;
     }
 
     @Override
@@ -57,7 +56,7 @@ public class MenuAdminController implements ActionListener{
                 case "VIEW_LEAGUES":
                     try {
                         leagues = leagueManager.listLeagues();
-                        listLeagueUserGUI.addLeagues(leagues);
+                        listLeagueAdminGUI.addLeagues(leagues);
                         mainFrameGUI.showLeague();
                     } catch (SQLException | NullPointerException ex) {
                         view.exceptionMessage(ex.getMessage());
@@ -65,6 +64,7 @@ public class MenuAdminController implements ActionListener{
                     break;
 
                 case "VIEW_STATISTICS":
+                    System.out.println("perro");
                     mainFrameGUI.showStatistics();
                     break;
             }

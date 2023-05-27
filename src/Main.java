@@ -11,8 +11,6 @@ import Presentation.Views.*;
 
 public class Main {
 
-
-
     public static void main(String[] args) {
 
         //Entities
@@ -43,29 +41,38 @@ public class Main {
         MenuAdminGUI menuAdminGUI = new MenuAdminGUI();
         ChangePasswordGUI changePasswordGUI = new ChangePasswordGUI();
         NewLeagueGUI newLeaguesGUI = new NewLeagueGUI();
-        SimulationLeagueGUI simulationLeagueGUI= new SimulationLeagueGUI();
         RegistrationGUI registrationGUI = new RegistrationGUI();
         TopPanelGUI topPanelGUI = new TopPanelGUI();
         BottomPanelGUI bottomPanelGUI = new BottomPanelGUI();
         DeleteGUI deleteGUI = new DeleteGUI();
         ListLeagueUserGUI listLeagueUserGUI = new ListLeagueUserGUI();
-        ListTeamUserGUI teamsListGUI = new ListTeamUserGUI();
+        ListTeamUserGUI listTeamUserGUI = new ListTeamUserGUI();
         NewTeamGUI newTeamGUI = new NewTeamGUI();
-        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, listLeagueUserGUI, statisticsGUI,simulationGameGUI, teamsListGUI, topPanelGUI, bottomPanelGUI, newTeamGUI, simulationLeagueGUI);
+        ListLeagueAdminGUI listLeagueAdminGUI = new ListLeagueAdminGUI();
+        ListTeamAdminGUI listTeamAdminGUI = new ListTeamAdminGUI();
+        TeamListCreateLeague teamListCreateLeague = new TeamListCreateLeague();
+        SimulationLeagueGUI simulationLeagueGUI = new SimulationLeagueGUI();
+        ListPlayerGUI listPlayerGUI = new ListPlayerGUI();
+
+        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, listLeagueUserGUI, statisticsGUI,simulationGameGUI, listTeamUserGUI, topPanelGUI, bottomPanelGUI, newTeamGUI, listLeagueAdminGUI, teamListCreateLeague);
 
         //Controllers
         MainPanelController mainPanelController = new MainPanelController(mainFrame, topPanelGUI);
         RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
         LoginController loginController = new LoginController(mainFrame, loginGUI, userManager, topPanelGUI);
         ChangePasswordController changePasswordController = new ChangePasswordController(mainFrame, changePasswordGUI, userManager);
-        MenuAdminController menuAdminController = new MenuAdminController(mainFrame, leagueManager, listLeagueUserGUI, menuAdminGUI, statisticsGUI);
+        MenuAdminController menuAdminController = new MenuAdminController(mainFrame, leagueManager, listLeagueUserGUI, menuAdminGUI, listLeagueAdminGUI, statisticsGUI);
         TopPanelController topPanelController =  new TopPanelController(mainFrame, topPanelGUI);
         DeleteController deleteController = new DeleteController(mainFrame, deleteGUI, userManager);
-        NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI, leagueManager, teamManager);
-        ListLeagueUserController listLeagueUserController = new ListLeagueUserController(listLeagueUserGUI, mainFrame,teamsListGUI, leagueManager, league);
+        NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI, leagueManager, teamManager, teamListCreateLeague);
+        ListLeagueUserController listLeagueUserController = new ListLeagueUserController(listLeagueUserGUI, mainFrame, listTeamUserGUI, leagueManager, league);
         BottomPanelController bottomPanelController = new BottomPanelController(mainFrame);
         NewTeamController newTeamController = new NewTeamController(mainFrame, newTeamGUI, teamManager);
-        MenuUserController menuUserController = new MenuUserController (mainFrame,  menuUserGUI,  statisticsGUI,  userManager,  simulationLeagueGUI);
+        MenuUserController menuUserController = new MenuUserController(mainFrame, menuUserGUI, statisticsGUI, userManager, simulationLeagueGUI);
+        ListLeagueAdminController listLeagueAdminController = new ListLeagueAdminController(listLeagueAdminGUI, leagueManager, listTeamAdminGUI, mainFrame, teamManager);
+        ListTeamUserController listTeamUserController = new ListTeamUserController(listTeamUserGUI, mainFrame, teamManager);
+        ListPlayerController listPlayerController = new ListPlayerController();
+        //TeamListCreateLeagueController teamListCreateLeagueController = new TeamListCreateLeagueController(teamListCreateLeague, mainFrame);
 
         //Buttons
         loginGUI.actionListener(loginController);
@@ -85,6 +92,9 @@ public class Main {
         topPanelGUI.actionListener(topPanelController);
         newTeamGUI.actionListener(newTeamController);
         menuUserGUI.registerListener(menuUserController);
+        listLeagueAdminGUI.setController(listLeagueAdminController);
+        listTeamUserGUI.setController(listTeamUserController);
+        //teamListCreateLeague.setController(teamListCreateLeagueController);
 
         //UserDAO userDAO = new UserDAO();
 

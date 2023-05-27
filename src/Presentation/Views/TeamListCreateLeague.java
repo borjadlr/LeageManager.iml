@@ -1,23 +1,22 @@
 package Presentation.Views;
 
 import Business.Entities.Team;
-import Presentation.Controllers.ListTeamUserController;
+//import Presentation.Controllers.TeamListCreateLeagueController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.List;
 
-public class ListTeamAdminGUI extends JPanel {
+public class TeamListCreateLeague extends JPanel {
     private final JTable table;
     private final DefaultTableModel tableModel;
     private final JLabel titleLabel;
     private final JButton delete;
 
-    public ListTeamAdminGUI() {
+    public TeamListCreateLeague() {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE); // Set the background color of the panel to white
 
@@ -72,10 +71,6 @@ public class ListTeamAdminGUI extends JPanel {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    public void setTitle(String title) {
-        titleLabel.setText(title);
-    }
-
     public void addTeams(List<Team> teams) {
         tableModel.setRowCount(0);
         // Add team data to the table
@@ -85,14 +80,19 @@ public class ListTeamAdminGUI extends JPanel {
         }
     }
 
-    public void setController(ListTeamUserController controller) {
+   /* public void setController(TeamListCreateLeagueController controller) {
         table.addMouseListener(controller);
-        delete.addActionListener((ActionListener) controller);
+        delete.addActionListener(controller);
     }
 
+
+    */
+
+    public void setTitle(String title) {
+        titleLabel.setText(title);
+    }
 
     public JTable getTable() {
         return table;
     }
 }
-
