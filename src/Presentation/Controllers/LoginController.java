@@ -34,20 +34,19 @@ public class LoginController implements ActionListener, FocusListener {
         switch (e.getActionCommand()){
             case "LOGIN_BUTTON":
                 try {
-                    String username;
-                    String password;
-                    do {
-                        username = view.getUsernameInfo();
-                        password = view.getPasswordInfo();
-                        if(userManager.signIn(username, password)){
+
+                    String username = view.getUsernameInfo();
+                    String password = view.getPasswordInfo();
+                    if (areFieldsCompleted(username, password)) {
+                        if (userManager.signIn(username, password)){
                             mainFrameGUI.showMenuAdmin();
                             topPanelGUI.hideShowDeleteAccount(false);
                             topPanelGUI.hideShowDropDownButton(true);
-                        }else {
+                        } else {
                             mainFrameGUI.showMenuUser();
                             topPanelGUI.hideShowDropDownButton(true);
                         }
-                    } while (!areFieldsCompleted(username, password));
+                    } else view.fieldsNotCompleted();
 
                 } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
                     view.exceptionMessage(ex.getMessage());

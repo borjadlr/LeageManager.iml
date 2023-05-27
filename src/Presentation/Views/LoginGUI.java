@@ -107,4 +107,8 @@ public class LoginGUI extends JPanel {
         JOptionPane.showMessageDialog(null, "There are no users, so you cannot log in.");
     }
 
+    public void fieldsNotCompleted() {
+        JOptionPane.showMessageDialog(null, "Fields are not completed, please, fulfill them all.");
+    }
+
 }
