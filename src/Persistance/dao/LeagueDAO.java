@@ -180,7 +180,7 @@ public class LeagueDAO implements LeagueDAOInt {
             while (rs.next()) {
                 String nombre = rs.getString("nombre");
                 java.sql.Date fecha = rs.getDate("fecha");
-                Time time = rs.getTime("time");
+                Time time = rs.getTime("hora");
                 int jornada = rs.getInt("jornada");
                 int numEquipos = rs.getInt("num_equipos");
                 boolean estado = rs.getBoolean("estado");
