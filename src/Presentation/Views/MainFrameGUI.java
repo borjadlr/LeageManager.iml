@@ -81,6 +81,7 @@ public class MainFrameGUI extends JFrame{
         cardLayout.show(centerPanel, FIRST_UI);
         auxiliar++;
         updateRecorregut(FIRST_UI, false, false);
+        //hola
     }
 
     public void showSimulationLeagueView(){

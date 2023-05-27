@@ -57,7 +57,7 @@ public class Main {
 
         MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, listLeagueUserGUI, statisticsGUI,simulationGameGUI, listTeamUserGUI, topPanelGUI, bottomPanelGUI, newTeamGUI, listLeagueAdminGUI, teamListCreateLeague, simulationLeagueGUI);
 
-        //Controllers
+        //Controllersasdf
         MainPanelController mainPanelController = new MainPanelController(mainFrame, topPanelGUI);
         RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
         LoginController loginController = new LoginController(mainFrame, loginGUI, userManager, topPanelGUI);
