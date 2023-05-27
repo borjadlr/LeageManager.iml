@@ -171,8 +171,27 @@ public class LeagueManager {
                         throw new MatchIsPlayingException();
                     }
                     league.getMatches().remove(match);
-                    //metodo borja
+                    //matchDAO.deleteMatch(match.getNombreLiga());
                 }
+            }
+        }
+    }
+
+    public void deleteTeamMatches (Team team) throws SQLException, MatchIsPlayingException {
+
+        List<League> leagues = leagueDAO.getAllLeagues();
+        for (League league : leagues) {
+            for (Match match : league.getMatches()) {
+                if (match.isStatus()) {
+                    // Parar la ejecución si el partido está en marcha.
+                    throw new MatchIsPlayingException();
+                } else {
+                    if ((match.getLocal()) == team.getName() || (match.getVisitante()) == team.getName()) {
+                        league.getMatches().remove(match);
+                        matchDAO.deleteMatchesByTeamName(team.getName());
+                    }
+                }
+
             }
         }
     }
