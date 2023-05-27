@@ -30,9 +30,7 @@ public class TopPanelController implements ActionListener {
     }
 
     private void logout() {
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?",
-                "Logout", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
+        if (view.messageAreYouSure() == JOptionPane.YES_OPTION) {
             mainFrame.showMainPanel();
         }
     }
