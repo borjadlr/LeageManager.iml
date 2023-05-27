@@ -54,7 +54,7 @@ public class LeagueManager {
         }
 
         leagueDAO.insertDataLeague(league.getName(),
-                (java.sql.Date) league.getDate(),
+                turnToSql(league.getDate()),
                 league.getTime(),
                 league.getDay(),
                 league.getNumber_teams(),
@@ -65,6 +65,10 @@ public class LeagueManager {
     public League setLeague (String name, Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
         List<Match> matches = new ArrayList<>();
         return new League(name, date, hour, day, teamNumber, teams, matches, state);
+    }
+
+    public java.sql.Date turnToSql(Date date){
+        return new java.sql.Date.(date.getTime());
     }
 
     public Time stringToTime(String timeString) {
