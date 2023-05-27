@@ -93,17 +93,17 @@ public class LeagueManager {
         int leaguesWithSameName = 0, i = 0, j = 0;
 
         while (allTeams.size() > j)  {
-            if (leagueTeams.get(i).getName().equals(allTeams.get(j).getName())) {
-                leaguesWithSameName++;
-                if (leaguesWithSameName == 2){
-                    return false;
+            i = 0;
+            while (leagueTeams.size() > i) {
+                if (leagueTeams.get(i).getName().equals(allTeams.get(j).getName())) {
+                    leaguesWithSameName++;
+                    if (leaguesWithSameName == 2){
+                        return false;
+                    }
                 }
-            } else if (leagueTeams.size() == i){
-                i = 0;
-                j++;
-            } else {
                 i++;
             }
+            j++;
         }
 
         return true;
