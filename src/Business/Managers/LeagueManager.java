@@ -44,14 +44,14 @@ public class LeagueManager {
             }
         }
         leagueDAO.insertDataLeague(league.getName(),
-                                    league.getDate(),
+                                    (java.sql.Date) league.getDate(),
                                     league.getTime(),
                                     league.getDay(),
                                     league.getNumber_teams(),
                                     league.isState());
     }
 
-    public League setLeague (String name, Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
+    public League setLeague (String name, java.sql.Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
         List<Match> matches = new ArrayList<>();
         League league = new League(name, date, hour, day, teamNumber, teams, matches, state);
         //league.setMatches(generateRRCalendar(league));
