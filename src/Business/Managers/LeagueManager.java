@@ -52,9 +52,9 @@ public class LeagueManager {
                 throw new DateExpiredException();
             } else if (!comprovaRepeatedTeams(league)){
                 throw new RepeatedTeamException();
+            } else if (!comprovaNumTeams(league.getNumber_teams())) {
+                throw new WrongTeamNumberException();
             }
-        } catch (WrongTeamNumberException e) {
-            throw new RuntimeException(e);
         }
 
         leagueDAO.insertDataLeague(league.getName(),
