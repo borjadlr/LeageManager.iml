@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 import Business.Entities.Match;
+import Business.Entities.Team;
 import Persistance.MatchDAOInt;
 
 public class MatchManager {
@@ -14,6 +15,8 @@ public class MatchManager {
     public MatchManager() {
         partidosSimulados = new ArrayList<>();
     }
+
+
 
     public void simularPartidos(LinkedList<Match> matches) {
         for (Match match : matches) {

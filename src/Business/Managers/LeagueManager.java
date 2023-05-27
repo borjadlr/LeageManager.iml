@@ -73,14 +73,22 @@ public class LeagueManager {
                 league.isState());
     }
 
-    public void introduceTeamsLeague(List<Team> teams, String leagueName){
+    public void introduceTeamsLeague(List<Team> teams, String leagueName) throws SQLException {
         int i = 0;
 
         for (Team team : teams) {
             teamsLeagueDAOInt.insertarEquipoLiga(teams.get(i).getName(), leagueName);
             i++;
         }
+        generateCalendar(teams, leagueName);
+        League league = getLeagueByName(leagueName);
+        league.setTeams(teams);
+    }
 
+    public void generateCalendar(List<Team> teams, String leagueName) throws SQLException {
+        List<Match> matches = matchDAO.crearCalendarioIdaVuelta(teams, leagueName);
+        League league = getLeagueByName(leagueName);
+        league.setMatches(matches);
     }
 
     public boolean comprovaNumTeams(int numTeams) throws SQLException {
@@ -248,6 +256,22 @@ public class LeagueManager {
             i++;
         }
         return true;
+    }
+
+    public League getLeagueByName(String leagueName) throws SQLException {
+        League league = new League();
+        List<League> leagues = leagueDAO.getAllLeagues();
+        int i = 0;
+
+        while (leagues.size() > i){
+            if (leagues.get(i).getName().equals(leagueName)){
+                return leagues.get(i);
+            }
+            i++;
+        }
+
+        return league;
+
     }
 
 }

@@ -80,7 +80,11 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
             } else {
                 int confirmDialog = view.showAreYouSure();
                 if (confirmDialog == JOptionPane.YES_OPTION) {
-                    leagueManager.introduceTeamsLeague(selectedTeams, newLeagueController.getName());
+                    try {
+                        leagueManager.introduceTeamsLeague(selectedTeams, newLeagueController.getName());
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     try {
                         refreshTable();
                     } catch (SQLException ex) {
