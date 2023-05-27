@@ -23,12 +23,13 @@ public class Main {
         TeamsDAO teamsDAO = new TeamsDAO();
         UserTeamsDAO userTeamsDAO = new UserTeamsDAO();
         TeamsLeagueDAO teamsLeagueDAO = new TeamsLeagueDAO();
+        MatchDAO matchDAO = new MatchDAO();
         LeagueDAO leagueDAO = new LeagueDAO();
 
         //Managers
         User user = new User();
         TeamManager teamManager = new TeamManager(teamsDAO, teamsLeagueDAO, userTeamsDAO, team);
-        LeagueManager leagueManager = new LeagueManager(teamManager, leagueDAO, teamsDAO);
+        LeagueManager leagueManager = new LeagueManager(teamManager, leagueDAO, teamsDAO, matchDAO);
         AdminManager adminManaguer = new AdminManager(userDAO, leagueManager, teamManager);
         UserManager userManager = new UserManager(userDAO, leagueManager, teamManager, userTeamsDAO, teamsLeagueDAO, user, adminManaguer);
 

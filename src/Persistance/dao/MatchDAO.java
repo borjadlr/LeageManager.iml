@@ -13,9 +13,9 @@ import java.util.List;
  * Implementación de la interfaz MatchDAOInt para realizar operaciones sobre la tabla "partido".
  */
 public class MatchDAO implements MatchDAOInt {
-    private static String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
-    private static String username = "dreamteam";
-    private static String password = "dreamteam";
+    private static final String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
+    private static final String username = "dreamteam";
+    private static final String password = "dreamteam";
     private static Connection conn;
 
     public MatchDAO() {
@@ -373,7 +373,7 @@ public class MatchDAO implements MatchDAOInt {
      * @param nombreLiga  el nombre de la liga
      * @return una lista enlazada con el orden de los partidos
      */
-    public LinkedList<Match> crearCalendarioIdaVuelta(LinkedList<Team> equipos, String nombreLiga) {
+    public LinkedList<Match> crearCalendarioIdaVuelta(List<Team> equipos, String nombreLiga) {
         LinkedList<Match> calendario = new LinkedList<>();
         int numEquipos = equipos.size();
         int numJornadas = 2 * (numEquipos - 1);
@@ -405,7 +405,7 @@ public class MatchDAO implements MatchDAOInt {
 
                     // Crear partido de ida
                     if (jornada % 2 == 0) {
-                        Match partidoIda = new Match(equipoLocal.getName(), equipoVisitante.getName(), 0, 0, (jornada / 2) + 1, false, nombreLiga);
+                        Match partidoIda = new Match(equipoLocal.getName(), equipoVisitante.getName(), 0, 0, (jornada / 2) + 1, false);
                         calendario.add(partidoIda);
                         System.out.println("Partido de ida: " + partidoIda.getLocal() + " vs " + partidoIda.getVisitante());
 
@@ -414,7 +414,7 @@ public class MatchDAO implements MatchDAOInt {
                     }
                     // Crear partido de vuelta
                     else {
-                        Match partidoVuelta = new Match(equipoVisitante.getName(), equipoLocal.getName(), 0, 0, numEquipos + (jornada / 2) + 1, false, nombreLiga);
+                        Match partidoVuelta = new Match(equipoVisitante.getName(), equipoLocal.getName(), 0, 0, numEquipos + (jornada / 2) + 1, false);
                         calendario.add(partidoVuelta);
                         System.out.println("Partido de vuelta: " + partidoVuelta.getLocal() + " vs " + partidoVuelta.getVisitante());
 

@@ -1,7 +1,5 @@
 package Business.Entities;
 
-import java.util.Date;
-
 public class Match {
 
     private String local;
@@ -13,7 +11,7 @@ public class Match {
     private boolean status;
     private String nombreLiga;
 
-    public Match(String local, String visitante, int golesLocal, int golesVisitante, int jornada, boolean status, String nombreLiga) {
+    public Match(String local, String visitante, int golesLocal, int golesVisitante, int jornada, boolean status) {
         this.local = local;
         this.visitante = visitante;
         this.golesLocal = golesLocal;
