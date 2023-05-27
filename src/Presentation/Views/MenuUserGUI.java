@@ -9,10 +9,12 @@ public class MenuUserGUI extends JPanel {
     private JButton createPlayer;
     private JButton viewAvaiableLeagues;
     private Color backgroundColor;
+    private JButton viewStatistics;
 
     private static final String WATCH_MATCHES = "WATCH_MATCHES";
     private static final String CREATE_PLAYER = "CREATE_PLAYER";
     private static final String VIEW_AVAIABLE_LEAGUES = "VIEW_AVAIABLE_LEAGUES";
+    private static final String VIEW_STATISTICS = "VIEW_STATISTICS";
     //public static final String BACK_BUTTON = "BACK_BUTTON";
 
     public MenuUserGUI() {
@@ -78,6 +80,16 @@ public class MenuUserGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(15));
 
+        //Button of statistics
+        viewStatistics = new JButton("View Statistics");
+        viewStatistics.setActionCommand(VIEW_STATISTICS);
+        viewStatistics.setPreferredSize(new Dimension(150, 30));
+        viewStatistics.setAlignmentX(Component.CENTER_ALIGNMENT);
+        viewStatistics.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        panel.add(viewStatistics);
+
+        panel.add(Box.createVerticalStrut(15));
+
         this.add(panel);
 
     }
@@ -86,6 +98,7 @@ public class MenuUserGUI extends JPanel {
         watchMatches.addActionListener(listener);
         createPlayer.addActionListener(listener);
         viewAvaiableLeagues.addActionListener(listener);
+        viewStatistics.addActionListener(listener);
     }
 
 }

@@ -4,6 +4,7 @@ import Business.Managers.LeagueManager;
 import Presentation.Views.MainFrameGUI;
 import Presentation.Views.MenuAdminGUI;
 import Presentation.Views.ListLeagueUserGUI;
+import Presentation.Views.StatisticsGUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,12 +18,14 @@ public class MenuAdminController implements ActionListener{
     private final MainFrameGUI mainFrameGUI;
     private final LeagueManager leagueManager;
     private final ListLeagueUserGUI listLeagueUserGUI;
+    private final StatisticsGUI statisticsGUI;
 
-    public MenuAdminController(MainFrameGUI mainFrame, LeagueManager leagueManager, ListLeagueUserGUI listLeagueUserGUI, MenuAdminGUI view) {
+    public MenuAdminController(MainFrameGUI mainFrame, LeagueManager leagueManager, ListLeagueUserGUI listLeagueUserGUI, MenuAdminGUI view, StatisticsGUI statisticsGUI) {
         this.leagueManager = leagueManager;
         this.mainFrameGUI = mainFrame;
         this.listLeagueUserGUI = listLeagueUserGUI;
         this.view = view;
+        this.statisticsGUI = statisticsGUI;
     }
 
     @Override
@@ -59,6 +62,10 @@ public class MenuAdminController implements ActionListener{
                     } catch (SQLException | NullPointerException ex) {
                         view.exceptionMessage(ex.getMessage());
                     }
+                    break;
+
+                case "VIEW_STATISTICS":
+                    mainFrameGUI.showStatistics();
                     break;
             }
         }

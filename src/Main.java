@@ -55,14 +55,14 @@ public class Main {
         RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
         LoginController loginController = new LoginController(mainFrame, loginGUI, userManager, topPanelGUI);
         ChangePasswordController changePasswordController = new ChangePasswordController(mainFrame, changePasswordGUI, userManager);
-        MenuAdminController menuAdminController = new MenuAdminController(mainFrame, leagueManager, listLeagueUserGUI, menuAdminGUI);
+        MenuAdminController menuAdminController = new MenuAdminController(mainFrame, leagueManager, listLeagueUserGUI, menuAdminGUI, statisticsGUI);
         TopPanelController topPanelController =  new TopPanelController(mainFrame, topPanelGUI);
         DeleteController deleteController = new DeleteController(mainFrame, deleteGUI, userManager);
         NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI, leagueManager, teamManager);
         ListLeagueUserController listLeagueUserController = new ListLeagueUserController(listLeagueUserGUI, mainFrame,teamsListGUI, leagueManager, league);
         BottomPanelController bottomPanelController = new BottomPanelController(mainFrame);
         NewTeamController newTeamController = new NewTeamController(mainFrame, newTeamGUI, teamManager);
-        MenuUserController menuUserController = new MenuUserController(mainFrame, menuUserGUI);
+        MenuUserController menuUserController = new MenuUserController(mainFrame, menuUserGUI, statisticsGUI);
 
         //Buttons
         loginGUI.actionListener(loginController);

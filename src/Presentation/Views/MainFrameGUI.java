@@ -187,6 +187,14 @@ public class MainFrameGUI extends JFrame{
         updateRecorregut(MENU_NEW_LEAGUE, true, true);
     }
 
+    public void showStatistics(){
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(true);
+        cardLayout.show(centerPanel, STATISTICS_VIEW);
+        auxiliar++;
+        updateRecorregut(STATISTICS_VIEW, true, true);
+    }
+
     public void showMessageToUser(String message) {
         showMessageDialog(null, message);
     }

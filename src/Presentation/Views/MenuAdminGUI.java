@@ -10,13 +10,16 @@ public class MenuAdminGUI extends JPanel {
     private final JButton newLeague;
     private final JButton deleteLeague;
     private final JButton viewLeagues;
+    private final JButton viewStatistics;
 
-    public static final String CREATE_NEW_TEAM = "CREATE_NEW_TEAM";
-    public static final String CREATE_NEW_ACCOUNT = "CREATE_NEW_ACCOUNT";
-    public static final String DELETE_TEAM = "DELETE_TEAM";
-    public static final String NEW_LEAGUE = "NEW_LEAGUE";
-    public static final String DELETE_LEAGUE = "DELETE_LEAGUE";
-    public static final String VIEW_LEAGUES = "VIEW_LEAGUES";
+    private static final String CREATE_NEW_TEAM = "CREATE_NEW_TEAM";
+    private static final String CREATE_NEW_ACCOUNT = "CREATE_NEW_ACCOUNT";
+    private static final String DELETE_TEAM = "DELETE_TEAM";
+    private static final String NEW_LEAGUE = "NEW_LEAGUE";
+    private static final String DELETE_LEAGUE = "DELETE_LEAGUE";
+    private static final String VIEW_LEAGUES = "VIEW_LEAGUES";
+    private static final String VIEW_STATISTICS = "VIEW_SATATISTICS";
+
     private static final int MAX_SPACE_BUTTONS = 5;
 
     public MenuAdminGUI() {
@@ -82,6 +85,11 @@ public class MenuAdminGUI extends JPanel {
         viewLeagues.setActionCommand(VIEW_LEAGUES);
         viewLeagues.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        //Button of statistics
+        viewStatistics = new JButton("View Statistics");
+        viewStatistics.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        viewStatistics.setActionCommand(VIEW_STATISTICS);
+        viewStatistics.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Set the maximum size of each button to be the same
         Dimension buttonSize = new Dimension(250, 120); // set the size of the buttons
@@ -90,6 +98,9 @@ public class MenuAdminGUI extends JPanel {
         newLeague.setMaximumSize(buttonSize);
         deleteLeague.setMaximumSize(buttonSize);
         viewLeagues.setMaximumSize(buttonSize);
+
+
+
 
         // Add the buttons to the panel in the same order as before
         panel.add(createNewTeam);
@@ -101,6 +112,9 @@ public class MenuAdminGUI extends JPanel {
         panel.add(deleteLeague);
         panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
         panel.add(viewLeagues);
+        panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
+        panel.add(viewStatistics);
+
 
         this.add(panel);
     }
@@ -111,6 +125,7 @@ public class MenuAdminGUI extends JPanel {
         newLeague.addActionListener(actionListener);
         deleteLeague.addActionListener(actionListener);
         viewLeagues.addActionListener(actionListener);
+        viewStatistics.addActionListener(actionListener);
     }
 
     public void exceptionMessage(String message) {
