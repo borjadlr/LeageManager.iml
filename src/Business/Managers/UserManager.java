@@ -1,10 +1,7 @@
 
 package Business.Managers;
 
-import Business.Entities.Admin;
-import Business.Entities.League;
-import Business.Entities.Team;
-import Business.Entities.User;
+import Business.Entities.*;
 import Exceptions.*;
 import Persistance.TeamsLeagueDAOInt;
 import Persistance.UserDAOInt;
@@ -301,6 +298,20 @@ public class UserManager {
             return leaguesUserActive;
         }
 
+    }
+
+    public List<Match> getSelectedMatches() throws SQLException {
+        List<League> leagues = getLeagues();
+        List<Match> matches = new ArrayList<>();
+        int i = 0, j = 0;
+        for (League league : leagues) {
+            while (leagues.get(i).getMatches().size() >= j) {
+                matches.add(leagues.get(i).getMatches().get(j));
+                j++;
+            }
+            i++;
+        }
+        return matches;
     }
 
     public List<League> getUserLeagues() throws SQLException {
