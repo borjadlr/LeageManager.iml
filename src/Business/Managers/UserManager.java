@@ -69,7 +69,7 @@ public class UserManager {
     }
 
 
-    public void signUp(User user, String password) throws InvalidPasswordException, EmailAlreadyExistsException, ExistingDNIException, DNIOrMailDontExistException, InvalidEmailException, SamePasswordException, DNIException, SQLException {
+    public void signUp(User user, String password) throws InvalidPasswordException, EmailAlreadyExistsException, ExistingDNIException, DNIOrMailDontExistException, InvalidEmailException, SamePasswordException, DNIException, SQLException, InvalidPlayerNumberException {
         List<User> users = userDAO.SelectDataUser();
         int i = 0;
 
@@ -86,7 +86,9 @@ public class UserManager {
                         throw new InvalidEmailException();
                     } else if (comprovaDNI(user.getDni())) {
                         throw new DNIException();
-                    } else {
+                    } else if (!comprovaNumber(user.getNumber())) {
+                        throw new InvalidPlayerNumberException();
+                    }else {
                         i++;
                     }
 
@@ -104,6 +106,8 @@ public class UserManager {
                 throw new InvalidEmailException();
             } else if (comprovaDNI(user.getDni())) {
                 throw new DNIException();
+            }else if (!comprovaNumber(user.getNumber())) {
+                throw new InvalidPlayerNumberException();
             } else {
                 userLocal = user;
                 userDAO.InsertDataUser2(user);
@@ -210,13 +214,12 @@ public class UserManager {
         return dni.charAt(8) == verificationLetter;
     }
 
-    public boolean comprovaNumber(User user) throws InvalidPlayerNumberException {
+    public boolean comprovaNumber(int number) {
         boolean valid = true;
-        if (user.getNumber() <= 0) {
-            throw new InvalidPlayerNumberException();
-        } else {
-            return valid;
+        if (number <= 0) {
+            valid = false;
         }
+        return valid;
     }
 
     public User createUser(String dni, String password, String email, int number, String phone) {

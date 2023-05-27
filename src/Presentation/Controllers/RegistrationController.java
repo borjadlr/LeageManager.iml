@@ -47,7 +47,7 @@ public class RegistrationController implements FocusListener, ActionListener {
                         mainFrameGUI.showMenuUser();
                     } catch (InvalidPasswordException | ExistingDNIException | DNIOrMailDontExistException |
                              InvalidEmailException | EmailAlreadyExistsException | SamePasswordException |
-                             DNIException | SQLException ex) {
+                             DNIException | InvalidPlayerNumberException | SQLException ex ) {
                         view.exceptionMessage(ex.getMessage());
                     } catch (NumberFormatException nfe) {
                         view.numberFormatMessage();
