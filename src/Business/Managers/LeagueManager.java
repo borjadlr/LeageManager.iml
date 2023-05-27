@@ -73,6 +73,17 @@ public class LeagueManager {
         } else return numTeams != 0;
     }
 
+    public String correctData(String data) throws DateExpiredException {
+        char caracter = data.charAt(4);
+        if (data.length() != 10){
+            throw new DateExpiredException();
+        } else if (caracter != '-' || data.charAt(7) != '-') {
+            data.replace(caracter, '-');
+        }
+
+        return data;
+    }
+
     public League setLeague (String name, Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
         List<Match> matches = new ArrayList<>();
         return new League(name, date, hour, day, teamNumber, teams, matches, state);
