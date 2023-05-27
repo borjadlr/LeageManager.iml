@@ -84,6 +84,12 @@ public class TopPanelGUI extends JPanel {
         popupMenu.show(dropdownButton, 0, dropdownButton.getHeight());
     }
 
+    public int messageAreYouSure(){
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?",
+                "Logout", JOptionPane.YES_NO_OPTION);
+        return confirm;
+    }
+
     public void actionListener(ActionListener actionListener){
         dropdownButton.addActionListener(actionListener);
         logout.addActionListener(actionListener);
