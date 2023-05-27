@@ -35,7 +35,7 @@ public class LeagueManager {
             List<League> leagues = leagueDAO.getAllLeagues();
             int i = 0;
             while (i < leagues.size()){
-                if (!leagues.get(i).getName().equals(league.getName())) {
+                if (leagues.get(i).getName().equals(league.getName())) {
                     throw new LeagueAlreadyExistsException();
                 } else if (!comprovaData(league.getDate())) {
                     throw new DateExpiredException();
