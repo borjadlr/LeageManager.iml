@@ -11,16 +11,16 @@ import static java.awt.Font.PLAIN;
 
 public class NewLeagueGUI extends JPanel {
 
-    private JTextField leagueName;
-    private JTextField hora;
-    private JTextField data;
-    private JTextField numeroEquipos;
+    private final JTextField leagueName;
+    private final JTextField hora;
+    private final JTextField data;
+    private final JTextField numeroEquipos;
     private JButton ok;
     public Color getBackgroundColor() {
         return backgroundColor;
     }
 
-    private Color backgroundColor;
+    private final Color backgroundColor;
 
     public static final String OK_BUTTON = "OK_BUTTON";
     public NewLeagueGUI() {
