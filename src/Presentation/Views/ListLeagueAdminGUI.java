@@ -79,6 +79,11 @@ public class ListLeagueAdminGUI extends JPanel {
         deleteButton.addActionListener(controller);
     }
 
+    public void noLeaguesMessage() {
+        JOptionPane.showMessageDialog(null, "There are no leagues, so you cannot list them. Create one before!");
+    }
+
+
     /*public void addLeagues(List<League> leagues) {
         tableModel.setRowCount(0);
 

@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListLeagueAdminController extends MouseAdapter implements ActionListener {
-    private ListLeagueAdminGUI view;
-    private LeagueManager leagueManager;
-    private List<League> selectedLeagues;
-    private ListTeamUserGUI listTeamUserGUI;
-    private MainFrameGUI mainFrame;
+    private final ListLeagueAdminGUI view;
+    private final LeagueManager leagueManager;
+    private final List<League> selectedLeagues;
+    private final ListTeamUserGUI listTeamUserGUI;
+    private final MainFrameGUI mainFrame;
     private int i;
 
     public ListLeagueAdminController(ListLeagueAdminGUI view, LeagueManager leagueManager, ListTeamUserGUI listTeamUserGUI, MainFrameGUI mainFrame) {
@@ -52,9 +52,11 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
-                    // Manejar la excepción según sea necesario
+
+                } catch (NullPointerException npe) {
+                    view.noLeaguesMessage();
                 }
-            } else if (selectedColumn == 3 && cellValue instanceof Boolean) {
+            } else if (cellValue instanceof Boolean) {
                 Boolean isChecked = (Boolean) view.getTable().getValueAt(selectedRow, selectedColumn);
                 try {
                     League selectedLeague = leagueManager.listLeagues().get(selectedRow);
