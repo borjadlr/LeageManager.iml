@@ -20,11 +20,12 @@ public class MainFrameGUI extends JFrame{
     public final String REGISTRATION_VIEW = "REGISTRATION_VIEW";
     public final String DELETE_VIEW = "DELETE_VIEW";
     public final String LEAGUE_LIST = "LEAGUE_LIST";
-    public final String SIMULATION_VIEW = "SIMULATION_VIEW";
+    public final String SIMULATION_GAME_VIEW = "SIMULATION_GAME_VIEW";
     public final String STATISTICS_VIEW = "STATISTICS_VIEW";
     public final String TEAM_LIST_VIEW = "TEAM_LIST_VIEW";
     private final String CREATE_NEW_TEAM = "CREATE_NEW_TEAM";
     private final String SHOW_TEAMS_VIEW = "SHOW_TEAMS_VIEW";
+    private final String SIMULATION_LEAGUE_VIEW = "SIMULATION_LEAGUE_VIEW";
     private final String TEAM_LIST_CREATE_LEAGUE = "TEAM_LIST_CREATE_LEAGUE";
     private int auxiliar = 0;
     private final JPanel topPanel;
@@ -32,7 +33,7 @@ public class MainFrameGUI extends JFrame{
     private final JPanel bottomPanel;
     private final CardLayout cardLayout;
 
-    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ListLeagueUserGUI listLeagueUserGUI, StatisticsGUI statisticsGUI, SimulationGameGUI simulationGameGUI, ListTeamUserGUI teamsListGUI, TopPanelGUI topPanelGUI, BottomPanelGUI bottomPanelGUI, NewTeamGUI newTeamGUI, ListLeagueAdminGUI listLeagueAdminGUI, TeamListCreateLeague teamListCreateLeague){
+    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ListLeagueUserGUI listLeagueUserGUI, StatisticsGUI statisticsGUI, SimulationGameGUI simulationGameGUI, ListTeamUserGUI teamsListGUI, TopPanelGUI topPanelGUI, BottomPanelGUI bottomPanelGUI, NewTeamGUI newTeamGUI, ListLeagueAdminGUI listLeagueAdminGUI, TeamListCreateLeague teamListCreateLeague, SimulationLeagueGUI simulationLeagueGUI){
 
         super("Main Frame");
 
@@ -58,7 +59,8 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(registrationGUI, REGISTRATION_VIEW);
         centerPanel.add(deleteGUI, DELETE_VIEW);
         centerPanel.add(listLeagueAdminGUI, LEAGUE_LIST);
-        centerPanel.add(simulationGameGUI, SIMULATION_VIEW);
+        centerPanel.add(simulationGameGUI, SIMULATION_GAME_VIEW);
+        centerPanel.add(simulationLeagueGUI, SIMULATION_LEAGUE_VIEW);
         centerPanel.add(statisticsGUI, STATISTICS_VIEW);
         centerPanel.add(teamsListGUI, TEAM_LIST_VIEW);
         centerPanel.add(newTeamGUI, CREATE_NEW_TEAM);
@@ -79,6 +81,22 @@ public class MainFrameGUI extends JFrame{
         cardLayout.show(centerPanel, FIRST_UI);
         auxiliar++;
         updateRecorregut(FIRST_UI, false, false);
+    }
+
+    public void showSimulationLeagueView(){
+        bottomPanel.setVisible(true);
+        topPanel.setVisible(true);
+        cardLayout.show(centerPanel, SIMULATION_LEAGUE_VIEW);
+        auxiliar++;
+        updateRecorregut(SIMULATION_LEAGUE_VIEW, true, true);
+    }
+
+    public void showSimulationGameView() {
+        bottomPanel.setVisible(true);
+        topPanel.setVisible(true);
+        cardLayout.show(centerPanel, SIMULATION_GAME_VIEW);
+        auxiliar++;
+        updateRecorregut(SIMULATION_GAME_VIEW, true, true);
     }
 
     public void showGoBack() {

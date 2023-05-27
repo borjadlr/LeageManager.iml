@@ -45,7 +45,7 @@ public class MenuUserController implements ActionListener {
 
                         try {
                             simulationLeagueGUI.addMatch(userManager.getSelectedMatches());
-                            mainFrameGUI.showCurrentLeague();
+                            mainFrameGUI.showSimulationLeagueView();
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
                         }

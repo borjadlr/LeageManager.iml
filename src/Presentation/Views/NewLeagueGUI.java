@@ -38,7 +38,7 @@ public class NewLeagueGUI extends JPanel {
         panel.setOpaque(true);
 
         // Title
-        JLabel title = new JLabel("LaegueManager Registration");
+        JLabel title = new JLabel("New League Creation");
         title.setForeground(Color.BLACK);
         title.setBorder(BorderFactory.createEmptyBorder(4, 0, 10, 0));
         title.setFont(new Font("Apple Casual", PLAIN, 60));
