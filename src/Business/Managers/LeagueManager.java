@@ -30,7 +30,7 @@ public class LeagueManager {
 
 
 
-    public void introduceLeague(League league) throws LeagueAlreadyExistsException, DateExpiredException, RepeatedTeamException, SQLException {
+    public void introduceLeague(League league) throws LeagueAlreadyExistsException, DateExpiredException, WrongTeamNumberException, RepeatedTeamException, SQLException {
         try {
             List<League> leagues = leagueDAO.getAllLeagues();
             int i = 0;
@@ -41,6 +41,8 @@ public class LeagueManager {
                     throw new DateExpiredException();
                 } else if (!comprovaRepeatedTeams(league)){
                     throw new RepeatedTeamException();
+                } else if (!comprovaNumTeams(league.getNumber_teams())) {
+                    throw new WrongTeamNumberException();
                 } else {
                     i++;
                 }
@@ -50,11 +52,13 @@ public class LeagueManager {
                 throw new DateExpiredException();
             } else if (!comprovaRepeatedTeams(league)){
                 throw new RepeatedTeamException();
+            } else if (!comprovaNumTeams(league.getNumber_teams())) {
+                throw new WrongTeamNumberException();
             }
         }
 
         leagueDAO.insertDataLeague(league.getName(),
-                (java.sql.Date) league.getDate(),
+                turnToSql(league.getDate()),
                 league.getTime(),
                 league.getDay(),
                 league.getNumber_teams(),
@@ -62,9 +66,20 @@ public class LeagueManager {
 
     }
 
+    public boolean comprovaNumTeams(int numTeams) throws SQLException {
+        List<Team> allTeams = teamManager.getAllTeams();
+        if (allTeams.size() > numTeams){
+            return false;
+        } else return numTeams != 0;
+    }
+
     public League setLeague (String name, Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
         List<Match> matches = new ArrayList<>();
         return new League(name, date, hour, day, teamNumber, teams, matches, state);
+    }
+
+    public java.sql.Date turnToSql(Date date){
+        return new java.sql.Date(date.getTime());
     }
 
     public Time stringToTime(String timeString) {
@@ -93,17 +108,17 @@ public class LeagueManager {
         int leaguesWithSameName = 0, i = 0, j = 0;
 
         while (allTeams.size() > j)  {
-            if (leagueTeams.get(i).getName().equals(allTeams.get(j).getName())) {
-                leaguesWithSameName++;
-                if (leaguesWithSameName == 2){
-                    return false;
+            i = 0;
+            while (leagueTeams.size() > i) {
+                if (leagueTeams.get(i).getName().equals(allTeams.get(j).getName())) {
+                    leaguesWithSameName++;
+                    if (leaguesWithSameName == 2){
+                        return false;
+                    }
                 }
-            } else if (leagueTeams.size() == i){
-                i = 0;
-                j++;
-            } else {
                 i++;
             }
+            j++;
         }
 
         return true;

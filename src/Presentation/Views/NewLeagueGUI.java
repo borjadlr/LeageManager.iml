@@ -133,4 +133,11 @@ public class NewLeagueGUI extends JPanel {
         hora.addFocusListener(focusListener);
         hora.setName("Hora");
     }
+
+    public void clearTextFields() {
+        leagueName.setText("");
+        hora.setText("");
+        data.setText("");
+        numeroEquipos.setText("");
+    }
 }

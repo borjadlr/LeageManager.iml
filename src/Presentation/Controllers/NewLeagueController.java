@@ -5,6 +5,7 @@ import Business.Managers.TeamManager;
 import Exceptions.DateExpiredException;
 import Exceptions.LeagueAlreadyExistsException;
 import Exceptions.RepeatedTeamException;
+import Exceptions.WrongTeamNumberException;
 import Presentation.Views.MainFrameGUI;
 import Presentation.Views.NewLeagueGUI;
 
@@ -51,10 +52,13 @@ public class NewLeagueController implements ActionListener, FocusListener {
                         String numeroEquipos = view.getNumeroEquipos();
                         leagueManager.introduceLeague(leagueManager.setLeague(leagueName, data, hora, 1, parseInt(numeroEquipos), true, teamManager.getTeamsOfLeague(leagueName)));
                         mainFrame.showTeamList();
+                        view.clearTextFields();
                         break;
 
-                    } catch (LeagueAlreadyExistsException | RepeatedTeamException | DateExpiredException | SQLException | ParseException ex) {
+                    } catch (LeagueAlreadyExistsException | RepeatedTeamException | DateExpiredException | WrongTeamNumberException ex) {
                         view.exceptionMessage(ex.getMessage());
+                    } catch (SQLException | ParseException ex) {
+                        throw new RuntimeException(ex);
                     }
 
             }
