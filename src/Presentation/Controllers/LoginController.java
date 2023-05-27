@@ -34,16 +34,21 @@ public class LoginController implements ActionListener, FocusListener {
         switch (e.getActionCommand()){
             case "LOGIN_BUTTON":
                 try {
-                    String username = view.getUsernameInfo();
-                    String password = view.getPasswordInfo();
-                    if(userManager.signIn(username, password)){
-                        mainFrameGUI.showMenuAdmin();
-                        topPanelGUI.hideShowDeleteAccount(false);
-                        topPanelGUI.hideShowDropDownButton(true);
-                    }else {
-                        mainFrameGUI.showMenuUser();
-                        topPanelGUI.hideShowDropDownButton(true);
-                    }
+                    String username;
+                    String password;
+                    do {
+                        username = view.getUsernameInfo();
+                        password = view.getPasswordInfo();
+                        if(userManager.signIn(username, password)){
+                            mainFrameGUI.showMenuAdmin();
+                            topPanelGUI.hideShowDeleteAccount(false);
+                            topPanelGUI.hideShowDropDownButton(true);
+                        }else {
+                            mainFrameGUI.showMenuUser();
+                            topPanelGUI.hideShowDropDownButton(true);
+                        }
+                    } while (!areFieldsCompleted(username, password));
+
                 } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
                     view.exceptionMessage(ex.getMessage());
                 } catch (NullPointerException npe) {
@@ -87,6 +92,10 @@ public class LoginController implements ActionListener, FocusListener {
                     break;
             }
         }
+    }
+
+    public boolean areFieldsCompleted(String username, String password){
+        return username != "" && password != "";
     }
 }
 
