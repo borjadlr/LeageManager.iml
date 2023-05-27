@@ -11,6 +11,8 @@ import Persistance.dao.TeamsDAO;
 
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -64,10 +66,7 @@ public class LeagueManager {
 
     public League setLeague (String name, java.sql.Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
         List<Match> matches = new ArrayList<>();
-        League league = new League(name, date, hour, day, teamNumber, teams, matches, state);
-        //league.setMatches(generateRRCalendar(league));
-
-        return league;
+        return new League(name, date, hour, day, teamNumber, teams, matches, state);
     }
 
     public Time stringToTime(String timeString) {
@@ -79,6 +78,10 @@ public class LeagueManager {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public Date stringToDate(String dataString) throws ParseException {
+        return new SimpleDateFormat("dd/MM/yyyy").parse(dataString);
     }
 
     public boolean comprovaData(Date date){

@@ -47,14 +47,14 @@ public class NewLeagueController implements ActionListener, FocusListener {
 
                     try {
                         String leagueName = view.getLeagueName();
-                        Date data = null;
+                        Date data = (Date) leagueManager.stringToDate(view.getData());
                         Time hora = leagueManager.stringToTime(view.getHora());
                         String numeroEquipos = view.getNumeroEquipos();
                         leagueManager.introduceLeague(leagueManager.setLeague(leagueName, data, hora, 1, parseInt(numeroEquipos), true, teamManager.getTeamsOfLeague(leagueName)));
                         mainFrame.showTeamList();
                         break;
 
-                    } catch (LeagueAlreadyExistsException | RepeatedTeamException | DateExpiredException | SQLException ex) {
+                    } catch (LeagueAlreadyExistsException | RepeatedTeamException | DateExpiredException | SQLException | ParseException ex) {
                         view.exceptionMessage(ex.getMessage());
                     }
 
