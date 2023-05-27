@@ -121,7 +121,10 @@ public class LeagueManager {
         }
     }
 
-    public List<League> listLeagues() throws SQLException {
+    public List<League> listLeagues() throws SQLException, NullPointerException {
+        if (leagueDAO.getAllLeagues().size() == 0) {
+            throw new NullPointerException();
+        }
         return leagueDAO.getAllLeagues();
     }
 
