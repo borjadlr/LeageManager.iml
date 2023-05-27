@@ -1,44 +1,55 @@
-/*package Presentation.Controllers;
+package Presentation.Controllers;
 
+import Business.Entities.League;
 import Business.Entities.Team;
-import Presentation.Views.MainFrameGUI;
-import Presentation.Views.TeamListCreateLeague;
+import Business.Managers.LeagueManager;
+import Business.Managers.TeamManager;
+import Exceptions.IncorrectLeagueNameException;
+import Exceptions.IncorrectTeamNameException;
+import Exceptions.MatchIsPlayingException;
+import Presentation.Views.*;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeamListCreateLeagueController extends MouseInputAdapter implements ActionListener {
-    private final TeamListCreateLeague teamListCreateLeague;
-    private final MainFrameGUI mainFrameGUI;
+public class TeamListCreateLeagueController extends MouseAdapter implements ActionListener {
+    private final TeamListCreateLeague view;
+    private final TeamManager teamManager;
     private final List<Team> selectedTeams;
+    private final ListTeamAdminGUI listTeamAdminGUI;
+    private final MainFrameGUI mainFrame;
+    private int i;
 
-    int i;
-
-    public TeamListCreateLeagueController(TeamListCreateLeague teamListCreateLeague, MainFrameGUI mainFrameGUI) {
-        this.teamListCreateLeague = teamListCreateLeague;
-        this.mainFrameGUI = mainFrameGUI;
+    public TeamListCreateLeagueController(TeamListCreateLeague view, TeamManager teamManager, ListTeamAdminGUI listTeamAdminGUI, MainFrameGUI mainFrame) {
+        this.view = view;
         this.selectedTeams = new ArrayList<>();
+        this.listTeamAdminGUI = listTeamAdminGUI;
+        this.mainFrame = mainFrame;
+        this.teamManager = teamManager;
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
         List<Team> teams;
 
+        int selectedRow = view.getTable().rowAtPoint(e.getPoint());
+        int selectedColumn = view.getTable().columnAtPoint(e.getPoint());
+
         if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
-            int selectedRow = teamListCreateLeague.getTable().rowAtPoint(e.getPoint());
-            int selectedColumn = teamListCreateLeague.getTable().columnAtPoint(e.getPoint());
+            Object cellValue = view.getTable().getValueAt(selectedRow, selectedColumn);
+            String leagueName = cellValue.toString();
 
-            if (selectedRow != -1 && e.getButton() == MouseEvent.BUTTON1) {
-                Object cellValue = teamListCreateLeague.getTable().getValueAt(selectedRow, selectedColumn);
-                String teamName = cellValue.toString();
+            if (cellValue instanceof Boolean) {
+                Boolean isChecked = (Boolean) view.getTable().getValueAt(selectedRow, selectedColumn);
+                try {
+                    Team selectedTeam = teamManager.getAllTeams().get(selectedRow);
 
-                if (selectedColumn == 1 && cellValue instanceof Boolean) {
-                    boolean isChecked = (Boolean) cellValue;
-                    Team selectedTeam = teamListCreateLeague.get(selectedRow);
                     if (isChecked) {
                         if (!selectedTeams.contains(selectedTeam)) {
                             selectedTeams.add(selectedTeam);
@@ -46,38 +57,47 @@ public class TeamListCreateLeagueController extends MouseInputAdapter implements
                     } else {
                         selectedTeams.remove(selectedTeam);
                     }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    // Manejar la excepción según sea necesario
                 }
             }
         }
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        if (command.equals("Add leagues")) {
-            if (selectedTeams.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please select at least one team to delete.",
-                        "No Teams Selected", JOptionPane.WARNING_MESSAGE);
-            } else {
-                int confirmDialog = JOptionPane.showConfirmDialog(null,
-                        "Are you sure you want to delete the selected teams?",
-                        "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+        int i = 0;
 
+        if (command.equals("Add Teams")) {
+            if (selectedTeams.isEmpty()) {
+                view.showWarningAtLeastOneTeam();
+            } else {
+                int confirmDialog = view.showAreYouSure();
                 if (confirmDialog == JOptionPane.YES_OPTION) {
                     for (Team team : selectedTeams) {
-                        teams.remove(team);
+                        try {
+                            teamManager.deleteTeam(selectedTeams.get(i).getName());
+                            i++;
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        } catch (IncorrectTeamNameException ex) {
+                            view.exceptionMessage(ex.getMessage());
+                        }
                     }
-                    refreshTable();
+                    try {
+                        refreshTable();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     selectedTeams.clear();
                 }
             }
         }
     }
-    public void refreshTable() {
-        teamListCreateLeague.addTeams(teams);
+    public void refreshTable() throws SQLException {
+        view.addTeams(teamManager.getAllTeams());
     }
+
 }
-
- */
-
-
-

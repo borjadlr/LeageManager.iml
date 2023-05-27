@@ -85,7 +85,6 @@ public class TeamListCreateLeague extends JPanel {
         delete.addActionListener(controller);
     }
 
-
     */
 
     public void setTitle(String title) {
@@ -95,4 +94,20 @@ public class TeamListCreateLeague extends JPanel {
     public JTable getTable() {
         return table;
     }
+
+    public void showWarningAtLeastOneTeam(){
+        JOptionPane.showMessageDialog(null, "Please select at least one team to add.",
+                "No Team Selected", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public int showAreYouSure(){
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?",
+                "delete", JOptionPane.YES_NO_OPTION);
+        return confirm;
+    }
+
+    public void exceptionMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+    }
+
 }
