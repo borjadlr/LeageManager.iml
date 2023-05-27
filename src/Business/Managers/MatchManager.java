@@ -14,6 +14,7 @@ public class MatchManager {
             thread.start();
         }
     }
+
     public void simularPartido(Match matches) {
         Random random = new Random();
         // Simulación de goles

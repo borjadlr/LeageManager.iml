@@ -11,6 +11,8 @@ import Presentation.Views.*;
 
 public class Main {
 
+
+
     public static void main(String[] args) {
 
         //Entities
@@ -41,6 +43,7 @@ public class Main {
         MenuAdminGUI menuAdminGUI = new MenuAdminGUI();
         ChangePasswordGUI changePasswordGUI = new ChangePasswordGUI();
         NewLeagueGUI newLeaguesGUI = new NewLeagueGUI();
+        SimulationLeagueGUI simulationLeagueGUI= new SimulationLeagueGUI();
         RegistrationGUI registrationGUI = new RegistrationGUI();
         TopPanelGUI topPanelGUI = new TopPanelGUI();
         BottomPanelGUI bottomPanelGUI = new BottomPanelGUI();
@@ -48,7 +51,7 @@ public class Main {
         ListLeagueUserGUI listLeagueUserGUI = new ListLeagueUserGUI();
         ListTeamUserGUI teamsListGUI = new ListTeamUserGUI();
         NewTeamGUI newTeamGUI = new NewTeamGUI();
-        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, listLeagueUserGUI, statisticsGUI,simulationGameGUI, teamsListGUI, topPanelGUI, bottomPanelGUI, newTeamGUI);
+        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, listLeagueUserGUI, statisticsGUI,simulationGameGUI, teamsListGUI, topPanelGUI, bottomPanelGUI, newTeamGUI, simulationLeagueGUI);
 
         //Controllers
         MainPanelController mainPanelController = new MainPanelController(mainFrame, topPanelGUI);
@@ -62,7 +65,7 @@ public class Main {
         ListLeagueUserController listLeagueUserController = new ListLeagueUserController(listLeagueUserGUI, mainFrame,teamsListGUI, leagueManager, league);
         BottomPanelController bottomPanelController = new BottomPanelController(mainFrame);
         NewTeamController newTeamController = new NewTeamController(mainFrame, newTeamGUI, teamManager);
-        MenuUserController menuUserController = new MenuUserController(mainFrame, menuUserGUI, statisticsGUI);
+        MenuUserController menuUserController = new MenuUserController (mainFrame,  menuUserGUI,  statisticsGUI,  userManager,  simulationLeagueGUI);
 
         //Buttons
         loginGUI.actionListener(loginController);
