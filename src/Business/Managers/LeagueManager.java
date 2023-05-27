@@ -68,7 +68,7 @@ public class LeagueManager {
     }
 
     public java.sql.Date turnToSql(Date date){
-        return new java.sql.Date.(date.getTime());
+        return new java.sql.Date(date.getTime());
     }
 
     public Time stringToTime(String timeString) {
