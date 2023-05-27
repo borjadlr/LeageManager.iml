@@ -56,8 +56,8 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                             System.out.println(leagues.get(i).getName());
                             teams = teamManager.getAllTeams();
                             listTeamAdminGUI.addTeams(teams);
-                            listTeamAdminGUI.setTitle(leagueName);
-                            mainFrame.showTeamList();
+                            listTeamAdminGUI.setTitle("leagueName");
+                            mainFrame.showTeamListAdminView();
                         }
                     }
                 } catch (SQLException ex) {
@@ -101,11 +101,8 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                             leagueManager.deleteLeague(league.getName());
                         } catch (SQLException ex) {
                             ex.printStackTrace();
-                            // Manejar la excepción según sea necesario
-                        } catch (IncorrectLeagueNameException ex) {
-                            throw new RuntimeException(ex);
-                        } catch (MatchIsPlayingException ex) {
-                            throw new RuntimeException(ex);
+                        } catch (IncorrectLeagueNameException | MatchIsPlayingException ex) {
+                            view.exceptionMessage("ERROR");
                         }
                     }
                     try {

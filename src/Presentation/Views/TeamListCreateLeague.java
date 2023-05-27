@@ -1,6 +1,7 @@
 package Presentation.Views;
 
 import Business.Entities.Team;
+import Presentation.Controllers.TeamListCreateLeagueController;
 //import Presentation.Controllers.TeamListCreateLeagueController;
 
 import javax.swing.*;
@@ -80,12 +81,11 @@ public class TeamListCreateLeague extends JPanel {
         }
     }
 
-   /* public void setController(TeamListCreateLeagueController controller) {
+   public void setController(TeamListCreateLeagueController controller) {
         table.addMouseListener(controller);
         delete.addActionListener(controller);
     }
 
-    */
 
     public void setTitle(String title) {
         titleLabel.setText(title);

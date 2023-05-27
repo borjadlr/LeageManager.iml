@@ -122,4 +122,8 @@ public class NewLeagueController implements ActionListener, FocusListener {
             }
         }
     }
+
+    public String getName(){
+        return view.getLeagueName();
+    }
 }

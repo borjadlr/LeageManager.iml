@@ -87,8 +87,8 @@
         }
 
         public int showAreYouSureDelete(){
-            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?",
-                    "Logout", JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?",
+                    "Delete", JOptionPane.YES_NO_OPTION);
             return confirm;
         }
 
@@ -102,6 +102,10 @@
                 Object[] rowData = {league.getName(), league.getNumber_teams(), league.isState(), false};
                 tableModel.addRow(rowData);
             }
+        }
+
+        public void exceptionMessage(String message) {
+            JOptionPane.showMessageDialog(null, message);
         }
 
 

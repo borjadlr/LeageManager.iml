@@ -20,18 +20,22 @@ import java.util.List;
 
 public class TeamListCreateLeagueController extends MouseAdapter implements ActionListener {
     private final TeamListCreateLeague view;
+    private final NewLeagueController newLeagueController;
     private final TeamManager teamManager;
     private final List<Team> selectedTeams;
     private final ListTeamAdminGUI listTeamAdminGUI;
+    private final LeagueManager leagueManager;
     private final MainFrameGUI mainFrame;
     private int i;
 
-    public TeamListCreateLeagueController(TeamListCreateLeague view, TeamManager teamManager, ListTeamAdminGUI listTeamAdminGUI, MainFrameGUI mainFrame) {
+    public TeamListCreateLeagueController(TeamListCreateLeague view, TeamManager teamManager, ListTeamAdminGUI listTeamAdminGUI, MainFrameGUI mainFrame, LeagueManager leagueManager, NewLeagueController newLeagueController) {
         this.view = view;
         this.selectedTeams = new ArrayList<>();
         this.listTeamAdminGUI = listTeamAdminGUI;
         this.mainFrame = mainFrame;
         this.teamManager = teamManager;
+        this.leagueManager = leagueManager;
+        this.newLeagueController = newLeagueController;
     }
 
     @Override
@@ -76,16 +80,7 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
             } else {
                 int confirmDialog = view.showAreYouSure();
                 if (confirmDialog == JOptionPane.YES_OPTION) {
-                    for (Team team : selectedTeams) {
-                        try {
-                            teamManager.deleteTeam(selectedTeams.get(i).getName());
-                            i++;
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
-                        } catch (IncorrectTeamNameException ex) {
-                            view.exceptionMessage(ex.getMessage());
-                        }
-                    }
+                    leagueManager.introduceTeamsLeague(selectedTeams, newLeagueController.getName());
                     try {
                         refreshTable();
                     } catch (SQLException ex) {
