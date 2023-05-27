@@ -79,7 +79,7 @@ public class LeagueManager {
     }
 
     public Date stringToDate(String dataString) throws ParseException {
-        return new SimpleDateFormat("dd-MM-yyyy").parse(dataString);
+        return new SimpleDateFormat("yyyy-MM-dd").parse(dataString);
     }
 
     public boolean comprovaData(Date date){
