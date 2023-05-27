@@ -12,7 +12,6 @@ public class League {
 
     private Time time;
     private int day;
-
     private int number_teams;
 
     private List<Team> teams;
@@ -30,6 +29,10 @@ public class League {
         this.teams = teams;
         this.matches = matches;
         this.state = state;
+    }
+
+    public League() {
+
     }
 
     public String getName() {
