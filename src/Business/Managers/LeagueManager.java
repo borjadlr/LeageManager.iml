@@ -85,7 +85,7 @@ public class LeagueManager {
 
     public boolean comprovaNumTeams(int numTeams) throws SQLException {
         List<Team> allTeams = teamManager.getAllTeams();
-        if (allTeams.size() <= numTeams){
+        if (allTeams.size() < numTeams){
             return false;
         } else return numTeams != 0;
     }
