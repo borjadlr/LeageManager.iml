@@ -3,6 +3,7 @@ package Presentation.Controllers;
 import Business.Entities.League;
 import Business.Managers.LeagueManager;
 import Exceptions.IncorrectLeagueNameException;
+import Exceptions.MatchIsPlayingException;
 import Presentation.Views.ListLeagueAdminGUI;
 import Presentation.Views.MainFrameGUI;
 import Presentation.Views.ListTeamUserGUI;
@@ -96,8 +97,8 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                             // Manejar la excepción según sea necesario
-                        } catch (IncorrectLeagueNameException ex) {
-                            throw new RuntimeException(ex);
+                        } catch (IncorrectLeagueNameException | MatchIsPlayingException ex) {
+                            view.exceptionMessage(ex.getMessage());
                         }
                     }
                     //refreshTable();

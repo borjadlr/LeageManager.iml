@@ -135,12 +135,13 @@ public class LeagueManager {
         return true;
     }
 
-    public void deleteLeague(String leagueName) throws IncorrectLeagueNameException, SQLException {
+    public void deleteLeague(String leagueName) throws IncorrectLeagueNameException, SQLException, MatchIsPlayingException {
         List<League> leagues = leagueDAO.getAllLeagues();
 
         for (League league : leagues) {
             if (league.getName().equals(leagueName)) {
                 leagueDAO.DeleteDataLeague(leagueName);
+                deleteLeagueMatches(leagueName);
                 return;
             } else {
                 throw new IncorrectLeagueNameException();
@@ -218,12 +219,12 @@ public class LeagueManager {
         return matches;
     }
 */
-    public void deleteLeagueMatches (League leagueName) throws SQLException, MatchIsPlayingException {
+    public void deleteLeagueMatches (String leagueName) throws SQLException, MatchIsPlayingException {
 
         List<League> leagues = leagueDAO.getAllLeagues();
         // Borrar partidos jugados por el equipo en todas las ligas
         for (League league : leagues) {
-            if (league.getName().equals(leagueName.getName())) {
+            if (league.getName().equals(leagueName)) {
                 for (Match match : league.getMatches()) {
                     if (match.isStatus()) {
                         // Parar la ejecución si el partido está en marcha.
@@ -234,6 +235,21 @@ public class LeagueManager {
                 }
             }
         }
+    }
+
+    public List<Match> getSimulatingMatches(String leagueName) throws SQLException {
+        List<Match> matches = new ArrayList<>();
+        List<League> leagues = leagueDAO.getAllLeagues();
+        for (League league : leagues) {
+            if (league.getName().equals(leagueName)) {
+                for (Match match : league.getMatches()) {
+                    if (match.isStatus()) {
+                        matches.add(match);
+                    }
+                }
+            }
+        }
+        return matches;
     }
 /*
     public void deleteTeamMatches (Team team) throws SQLException, MatchIsPlayingException {
