@@ -212,11 +212,7 @@ public class UserManager {
     }
 
     public boolean comprovaNumber(int number) {
-        boolean valid = true;
-        if (number <= 0) {
-            valid = false;
-        }
-        return valid;
+        return number > 0;
     }
 
     public User createUser(String dni, String password, String email, int number, String phone) {
@@ -305,7 +301,7 @@ public class UserManager {
         List<Match> matches = new ArrayList<>();
         int i = 0, j = 0;
         for (League league : leagues) {
-            while (leagues.get(i).getMatches().size() >= j) {
+            while (leagues.get(i).getMatches().size() > j) {
                 matches.add(leagues.get(i).getMatches().get(j));
                 j++;
             }
