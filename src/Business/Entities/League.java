@@ -8,7 +8,7 @@ public class League {
 
     private String name;
 
-    private Date date;
+    private java.sql.Date date;
 
     private Time time;
     private int day;
@@ -20,11 +20,14 @@ public class League {
 
     private boolean state;
 
-    public League(String name, Date date, Time time,  int day, int number_teams, List<Team> teams, List<Match> matches, boolean state) {
+
+
+    public League(String name, java.sql.Date date, Time time, int day, int number_teams, List<Team> teams, List<Match> matches, boolean state) {
         this.name = name;
         this.date = date;
         this.day = day;
         this.time = time;
+
         this.number_teams = number_teams;
         this.teams = teams;
         this.matches = matches;
@@ -33,6 +36,10 @@ public class League {
 
     public League() {
 
+    }
+
+    public void setDate(java.sql.Date date) {
+        this.date = date;
     }
 
     public String getName() {
@@ -71,9 +78,7 @@ public class League {
         this.name = name;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+
 
     public void setDay(int day) {
         this.day = day;

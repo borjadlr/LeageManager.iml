@@ -17,12 +17,13 @@ public class Main {
         Team team = new Team();
         League league = new League();
 
+
         //Dao
         UserDAO userDAO = new UserDAO();
         TeamsDAO teamsDAO = new TeamsDAO();
         UserTeamsDAO userTeamsDAO = new UserTeamsDAO();
         TeamsLeagueDAO teamsLeagueDAO = new TeamsLeagueDAO();
-        //LeagueDAO leagueDAO = new LeagueDAO();
+        LeagueDAO leagueDAO = new LeagueDAO();
 
         //Managers
         User user = new User();

@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Implementación de la interfaz MatchDAOInt para realizar operaciones sobre la tabla "partido".
  */
-
 public class MatchDAO implements MatchDAOInt {
     private static String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
     private static String username = "dreamteam";
@@ -27,18 +26,18 @@ public class MatchDAO implements MatchDAOInt {
             ex.printStackTrace();
         }
     }
+
     /**
      * Método para insertar un partido en la base de datos.
-     * @param equipoLocal El nombre del equipo local.
-     * @param equipoVisitante El nombre del equipo visitante.
-     * @param resultadoLocal El resultado del equipo local.
-     * @param resultadoVisitante El resultado del equipo visitante.
-     * @param jornada La jornada a la que pertenece el partido.
-     * @param partidoFinalizado Indica si el partido ha finalizado.
-     * @param nombreLiga El nombre de la liga a la que pertenece el partido.
+     *
+     * @param equipoLocal         El nombre del equipo local.
+     * @param equipoVisitante     El nombre del equipo visitante.
+     * @param resultadoLocal      El resultado del equipo local.
+     * @param resultadoVisitante  El resultado del equipo visitante.
+     * @param jornada             La jornada a la que pertenece el partido.
+     * @param partidoFinalizado   Indica si el partido ha finalizado.
+     * @param nombreLiga          El nombre de la liga a la que pertenece el partido.
      */
-
-
     public void insertMatch(String equipoLocal, String equipoVisitante, int resultadoLocal, int resultadoVisitante, int jornada, boolean partidoFinalizado, String nombreLiga) {
         String query = "INSERT INTO partido (equipo_local, equipo_visitante, resultado_local, resultado_visitante, jornada, partido_finalizado, nombre_liga, fecha_inicio) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -57,6 +56,12 @@ public class MatchDAO implements MatchDAOInt {
         }
     }
 
+    /**
+     * Método para insertar un partido en la base de datos utilizando un objeto Match.
+     *
+     * @param partido El objeto Match que contiene la información del partido.
+     * @throws SQLException si ocurre algún error al interactuar con la base de datos.
+     */
     public void insertMatchBeta(Match partido) throws SQLException {
         String query = "INSERT INTO partido (equipo_local, equipo_visitante, resultado_local, resultado_visitante, jornada, partido_finalizado, nombre_liga) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -75,6 +80,7 @@ public class MatchDAO implements MatchDAOInt {
 
     /**
      * Método para obtener todos los partidos de la base de datos.
+     *
      * @return Una lista de partidos.
      */
     public List<String> getAllMatches() {
@@ -105,6 +111,7 @@ public class MatchDAO implements MatchDAOInt {
 
     /**
      * Método para obtener los partidos de una liga específica.
+     *
      * @param nombreLiga El nombre de la liga.
      * @return Una lista de partidos de la liga especificada.
      */
@@ -152,14 +159,15 @@ public class MatchDAO implements MatchDAOInt {
 
     /**
      * Método para actualizar un partido en la base de datos.
-     * @param matchId El ID del partido a actualizar.
-     * @param equipoLocal El nombre actualizado del equipo local.
-     * @param equipoVisitante El nombre actualizado del equipo visitante.
-     * @param resultadoLocal El resultado actualizado del equipo local.
+     *
+     * @param matchId            El ID del partido a actualizar.
+     * @param equipoLocal        El nombre actualizado del equipo local.
+     * @param equipoVisitante    El nombre actualizado del equipo visitante.
+     * @param resultadoLocal     El resultado actualizado del equipo local.
      * @param resultadoVisitante El resultado actualizado del equipo visitante.
-     * @param jornada La jornada actualizada.
-     * @param partidoFinalizado El estado actualizado de si el partido ha finalizado.
-     * @param nombreLiga El nombre actualizado de la liga.
+     * @param jornada            La jornada actualizada.
+     * @param partidoFinalizado  El estado actualizado de si el partido ha finalizado.
+     * @param nombreLiga         El nombre actualizado de la liga.
      */
     public void updateMatch(int matchId, String equipoLocal, String equipoVisitante, int resultadoLocal, int resultadoVisitante, int jornada, boolean partidoFinalizado, String nombreLiga) {
         // Preparar la consulta SQL
@@ -186,6 +194,7 @@ public class MatchDAO implements MatchDAOInt {
 
     /**
      * Método para eliminar un partido de la base de datos.
+     *
      * @param matchId El ID del partido a eliminar.
      */
     public void deleteMatch(int matchId) {
@@ -206,9 +215,10 @@ public class MatchDAO implements MatchDAOInt {
 
     /**
      * Método para actualizar el resultado de un partido por el nombre del equipo local.
-     * @param localTeamName El nombre del equipo local.
-     * @param resultadoLocal El resultado actualizado del equipo local.
-     * @param resultadoVisitante El resultado actualizado del equipo visitante.
+     *
+     * @param localTeamName       El nombre del equipo local.
+     * @param resultadoLocal      El resultado actualizado del equipo local.
+     * @param resultadoVisitante  El resultado actualizado del equipo visitante.
      */
     public void updateMatchByLocalTeam(String localTeamName, int resultadoLocal, int resultadoVisitante) {
         // Preparar la consulta SQL
@@ -230,6 +240,7 @@ public class MatchDAO implements MatchDAOInt {
 
     /**
      * Método para obtener los ID de los partidos en una liga específica.
+     *
      * @param leagueName El nombre de la liga.
      * @return Una lista de IDs de partidos en la liga especificada.
      */
@@ -270,9 +281,10 @@ public class MatchDAO implements MatchDAOInt {
      *
      * Si el jugador no está asignado a ningún equipo o no hay partido en la jornada especificada para el equipo,
      * no mostrará ningún detalle del partido.
-     *  @param dni el identificador único del jugador
+     *
+     * @param dni     el identificador único del jugador
      * @param jornada la jornada de la liga
-     * @return
+     * @return el objeto Match que contiene los detalles del partido en el que el jugador está participando, o null si no se encontró ningún partido.
      */
     public Match getMatchDetails(String dni, int jornada) {
         Match match = null;
@@ -313,6 +325,7 @@ public class MatchDAO implements MatchDAOInt {
 
         return match;
     }
+
     /**
      * Elimina los partidos en función del nombre del equipo introducido.
      *
@@ -331,10 +344,13 @@ public class MatchDAO implements MatchDAOInt {
         }
     }
 
+    /**
+     * Obtiene los IDs de los partidos ordenados por jornada y hora.
+     */
     public void getMatchIdsByDayAndTime() {
         String url = "jdbc:mysql://localhost/league_manager_data";
-        String username = "tu_usuario";
-        String password = "tu_contraseña";
+        String username = "dreamteam";
+        String password = "dreamteam";
 
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             String sql = "SELECT id FROM partido ORDER BY jornada, hora ASC";
@@ -352,7 +368,9 @@ public class MatchDAO implements MatchDAOInt {
 
     /**
      * Crea un calendario de una liga con partidos de ida y vuelta a partir de una lista de equipos.
-     * @param equipos la lista de equipos de la liga
+     *
+     * @param equipos     la lista de equipos de la liga
+     * @param nombreLiga  el nombre de la liga
      * @return una lista enlazada con el orden de los partidos
      */
     public LinkedList<Match> crearCalendarioIdaVuelta(LinkedList<Team> equipos, String nombreLiga) {
@@ -370,9 +388,8 @@ public class MatchDAO implements MatchDAOInt {
         String username = "dreamteam";
         String password = "dreamteam";
 
-        try(Connection conn = DriverManager.getConnection(url, username, password)) {
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
             // Conexión a la base de datos
-
 
             for (int jornada = 0; jornada < numJornadas; jornada++) {
                 System.out.println("Jornada " + (jornada + 1) + ":");
@@ -423,6 +440,12 @@ public class MatchDAO implements MatchDAOInt {
         return calendario;
     }
 
+    /**
+     * Incrementa el resultado de un equipo en un partido de la liga en una jornada específica.
+     *
+     * @param nombreEquipo el nombre del equipo al que se le incrementará el resultado
+     * @param jornada      la jornada del partido
+     */
     public void sumaGol(String nombreEquipo, int jornada) {
         // Conexión a la base de datos y control de excepciones
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
@@ -446,13 +469,4 @@ public class MatchDAO implements MatchDAOInt {
             ex.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
-
 }
