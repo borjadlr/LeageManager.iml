@@ -3,7 +3,7 @@ import Business.Entities.League;
 import Business.Managers.LeagueManager;
 import Presentation.Views.MainFrameGUI;
 import Presentation.Views.MenuAdminGUI;
-import Presentation.Views.ShowLeague;
+import Presentation.Views.ListLeagueUserGUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,12 +16,12 @@ public class MenuAdminController implements ActionListener{
     private final MenuAdminGUI view;
     private final MainFrameGUI mainFrameGUI;
     private final LeagueManager leagueManager;
-    private final ShowLeague showLeague;
+    private final ListLeagueUserGUI listLeagueUserGUI;
 
-    public MenuAdminController(MainFrameGUI mainFrame, LeagueManager leagueManager, ShowLeague showLeague, MenuAdminGUI view) {
+    public MenuAdminController(MainFrameGUI mainFrame, LeagueManager leagueManager, ListLeagueUserGUI listLeagueUserGUI, MenuAdminGUI view) {
         this.leagueManager = leagueManager;
         this.mainFrameGUI = mainFrame;
-        this.showLeague = showLeague;
+        this.listLeagueUserGUI = listLeagueUserGUI;
         this.view = view;
     }
 
@@ -43,11 +43,18 @@ public class MenuAdminController implements ActionListener{
                     break;
                 case "DELETE_LEAGUE":
                     mainFrameGUI.showLeague();
+                    try {
+                        leagues = leagueManager.listLeagues();
+                        System.out.println(leagues.size());
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    System.out.println(leagues.size());
                     break;
                 case "VIEW_LEAGUES":
                     try {
                         leagues = leagueManager.listLeagues();
-                        showLeague.addLeagues(leagues);
+                        listLeagueUserGUI.addLeagues(leagues);
                         mainFrameGUI.showLeague();
                     } catch (SQLException | NullPointerException ex) {
                         view.exceptionMessage(ex.getMessage());

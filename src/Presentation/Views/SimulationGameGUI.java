@@ -63,4 +63,9 @@ public class SimulationGameGUI extends JPanel {
         awayTeamLabel.setText(awayTeamName);
         scoreLabel.setText(homeTeamScore + " - " + awayTeamScore);
     }
+
+    public void exceptionMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+    }
+
 }

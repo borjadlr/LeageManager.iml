@@ -1,7 +1,7 @@
 package Presentation.Views;
 
 import Business.Entities.Team;
-import Presentation.Controllers.TeamListController;
+import Presentation.Controllers.ListTeamUserController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,13 +10,13 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class TeamListGUI extends JPanel {
+public class ListTeamUserGUI extends JPanel {
     private JTable table;
     private DefaultTableModel tableModel;
-    TeamListController controller;
+    ListTeamUserController controller;
     private JLabel titleLabel;
 
-    public TeamListGUI() {
+    public ListTeamUserGUI() {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE); // Set the background color of the panel to white
 
@@ -27,13 +27,8 @@ public class TeamListGUI extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
 
         // Create the table with column names
-        String[] columnNames = {"Team Name", "Total Score"};
-        tableModel = new DefaultTableModel(columnNames, 0){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // Disable cell editing for all cells
-            }
-        };
+        String[] columnNames = {"Team Name", "Points", "Wins", "Draws", "Losses"};
+        tableModel = new DefaultTableModel(columnNames, 0);
         table = new JTable(tableModel);
         table.setBackground(Color.WHITE);
 
@@ -41,7 +36,6 @@ public class TeamListGUI extends JPanel {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         table.setDefaultRenderer(Object.class, renderer);
-
 
         // Add the table to a scroll pane
         JScrollPane scrollPane = new JScrollPane(table);
@@ -55,13 +49,12 @@ public class TeamListGUI extends JPanel {
 
         // Add team data to the table
         for (Team team : teams) {
-            Object[] rowData = {team.getName(), team.getWins()};
+            Object[] rowData = {team.getName(), team.getPoints(), team.getWins(), team.getTies(), team.getLosses()};
             tableModel.addRow(rowData);
         }
     }
 
-    public void setController(TeamListController controller) {
-        this.controller = controller;
+    public void setController(ListTeamUserController controller) {
         table.addMouseListener(controller);
     }
 

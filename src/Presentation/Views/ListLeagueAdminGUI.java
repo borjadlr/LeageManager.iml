@@ -1,6 +1,7 @@
 package Presentation.Views;
+
 import Business.Entities.League;
-import Presentation.Controllers.ShowLeagueController;
+import Presentation.Controllers.ListLeagueAdminController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,14 +10,14 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class ShowLeague extends JPanel {
+public class ListLeagueAdminGUI extends JPanel {
     private final JTable table;
     private final DefaultTableModel tableModel;
-    private ShowLeagueController controller;
+    private final JButton deleteButton;
 
-    public ShowLeague() {
+    public ListLeagueAdminGUI() {
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE); // Set the background color of the panel to white
+        setBackground(Color.WHITE);
 
         // Create a title label
         JLabel titleLabel = new JLabel("List of Leagues");
@@ -25,11 +26,19 @@ public class ShowLeague extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
 
         // Create the table with column names
-        String[] columnNames = {"League Name", "Number of Participating Teams", "Current Status"};
+        String[] columnNames = {"League Name", "Number of Participating Teams", "Current Status", "Select"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Disable cell editing for all cells
+                return column == 3; // Only allow editing the checkbox column
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == 3) {
+                    return Boolean.class;
+                }
+                return super.getColumnClass(columnIndex);
             }
         };
         table = new JTable(tableModel);
@@ -45,28 +54,41 @@ public class ShowLeague extends JPanel {
         scrollPane.setBorder(new EmptyBorder(50, 50, 50, 50));
         scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
+
+        // Create the Delete button
+        deleteButton = new JButton("Delete");
+        deleteButton.setPreferredSize(new Dimension(80, 30));
+
+        // Set the layout manager for the bottom area
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        bottomPanel.setBackground(Color.WHITE);
+
+        // Add the Delete button to the bottom panel
+        bottomPanel.add(deleteButton);
+
+        // Add the bottom panel to the main panel
+        add(bottomPanel, BorderLayout.SOUTH);
     }
 
     public JTable getTable() {
         return table;
     }
 
-    public void setController(ShowLeagueController controller) {
-        this.controller = controller;
+    public void setController(ListLeagueAdminController controller) {
         table.addMouseListener(controller);
+        deleteButton.addActionListener(controller);
     }
 
-    public void addLeagues(List<League> leagues) {
+    /*public void addLeagues(List<League> leagues) {
         tableModel.setRowCount(0);
 
         // Add league data to the table
         for (League league : leagues) {
-            Object[] rowData = {league.getName(), league.getNumber_teams(), league.isState()};
+            Object[] rowData = {league.getName(), league.getNumberOfTeams(), league.getStatus(), false};
             tableModel.addRow(rowData);
         }
     }
 
-    public void parseMessage() {
-        JOptionPane.showMessageDialog(null, "Call 666445481 if this error occurs.");
-    }
+     */
+
 }

@@ -1,29 +1,38 @@
 package Presentation.Views;
 
+import Business.Entities.User;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
 
-public class PlayersListGUI extends JPanel {
+public class ListPlayerGUI extends JPanel {
     private JTable table;
+    private JLabel titleLabel;
     private DefaultTableModel tableModel;
 
-    public PlayersListGUI() {
+    private User user;
+
+    public ListPlayerGUI() {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE); // Set the background color of the panel to white
 
         // Create a title label
-        JLabel titleLabel = new JLabel("Players List");
+        titleLabel = new JLabel("Players List");
         titleLabel.setFont(new Font("Calibri", Font.BOLD, 30));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
         // Create the table with column names
-        String[] columnNames = {"Player Name"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        String[] columnNames = {"Player Name", "Dni", "Email", "Phone", "Dorsal"};
+        tableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Disable cell editing for all cells
+            }
+        };
         table = new JTable(tableModel);
         table.setBackground(Color.WHITE);
 
@@ -38,14 +47,24 @@ public class PlayersListGUI extends JPanel {
         scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
     }
-
-    public void addPlayers(ArrayList<String> playerNames) {
+/*
+    public void addPlayers(List<User> playerNames) {
         tableModel.setRowCount(0);
 
         // Add player names to the table
-        for (String playerName : playerNames) {
-            Object[] rowData = {playerName};
+        for (User playerName : playerNames) {
+            Object[] rowData = {playerName.getName(), playerName.getDni(), playerName.getEmail(), playerName.getPhone(), playerName.getNumber()};
             tableModel.addRow(rowData);
         }
+
+
     }
+
+    public void setTitle(String title) {
+        titleLabel.setText(title);
+    }
+}
+
+
+ */
 }

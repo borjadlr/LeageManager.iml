@@ -7,8 +7,8 @@ import java.util.List;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 public class MainFrameGUI extends JFrame{
-    private static ArrayList<String> recorregutVistas = new ArrayList<>();
-    private static List<List<Boolean>> booleanPacks = new ArrayList<>();
+    private static final ArrayList<String> recorregutVistas = new ArrayList<>();
+    private static final List<List<Boolean>> booleanPacks = new ArrayList<>();
     public final String LOGIN_VIEW = "LOGIN_VIEW";
     public final String  MENU_USER_VIEW = "MENU_USER_VIEW";
     public final String MENU_ADMIN_VIEW = "MENU_ADMIN_VIEW";
@@ -26,15 +26,12 @@ public class MainFrameGUI extends JFrame{
     private final String CREATE_NEW_TEAM = "CREATE_NEW_TEAM";
     private final String SHOW_TEAMS_VIEW = "SHOW_TEAMS_VIEW";
     private int auxiliar = 0;
-    private  JPanel topPanel;
-    private  JPanel centerPanel;
-    private  JPanel bottomPanel;
+    private final JPanel topPanel;
+    private final JPanel centerPanel;
+    private final JPanel bottomPanel;
     private final CardLayout cardLayout;
 
-
-
-
-    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ShowLeague showLeague, StatisticsGUI statisticsGUI, SimulationGameGUI simulationGameGUI, TeamListGUI teamsListGUI, TopPanelGUI topPanelGUI, BottomPanelGUI bottomPanelGUI, NewTeamGUI newTeamGUI){
+    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ListLeagueUserGUI listLeagueUserGUI, StatisticsGUI statisticsGUI, SimulationGameGUI simulationGameGUI, ListTeamUserGUI teamsListGUI, TopPanelGUI topPanelGUI, BottomPanelGUI bottomPanelGUI, NewTeamGUI newTeamGUI){
 
         super("Main Frame");
 
@@ -59,7 +56,7 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(newLeaguesGUI, MENU_NEW_LEAGUE);
         centerPanel.add(registrationGUI, REGISTRATION_VIEW);
         centerPanel.add(deleteGUI, DELETE_VIEW);
-        centerPanel.add(showLeague, LEAGUE_LIST);
+        centerPanel.add(listLeagueUserGUI, LEAGUE_LIST);
         centerPanel.add(simulationGameGUI, SIMULATION_VIEW);
         centerPanel.add(statisticsGUI, STATISTICS_VIEW);
         centerPanel.add(teamsListGUI, TEAM_LIST_VIEW);
@@ -96,7 +93,6 @@ public class MainFrameGUI extends JFrame{
         cardLayout.show(centerPanel, LOGIN_VIEW);
         auxiliar++;
         updateRecorregut(LOGIN_VIEW, true, false);
-        //
     }
 
     public void showRegister() {
@@ -183,10 +179,6 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(DELETE_VIEW, true, true);
     }
-    public void showCurrentLeagues(){
-        cardLayout.show(centerPanel, CURRENT_LEAGUE_VIEW);
-    }
-
     public void showMenuNewLeague(){
         topPanel.setVisible(true);
         bottomPanel.setVisible(true);
