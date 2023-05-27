@@ -13,11 +13,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static java.lang.Integer.parseInt;
 
@@ -47,7 +46,7 @@ public class NewLeagueController implements ActionListener, FocusListener {
 
                     try {
                         String leagueName = view.getLeagueName();
-                        Date data = (Date) leagueManager.stringToDate(view.getData());
+                        Date data = leagueManager.stringToDate(view.getData());
                         Time hora = leagueManager.stringToTime(view.getHora());
                         String numeroEquipos = view.getNumeroEquipos();
                         leagueManager.introduceLeague(leagueManager.setLeague(leagueName, data, hora, 1, parseInt(numeroEquipos), true, teamManager.getTeamsOfLeague(leagueName)));

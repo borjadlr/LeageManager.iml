@@ -8,7 +8,7 @@ public class League {
 
     private String name;
 
-    private java.sql.Date date;
+    private Date date;
 
     private Time time;
     private int day;
@@ -22,7 +22,7 @@ public class League {
 
 
 
-    public League(String name, java.sql.Date date, Time time, int day, int number_teams, List<Team> teams, List<Match> matches, boolean state) {
+    public League(String name, Date date, Time time, int day, int number_teams, List<Team> teams, List<Match> matches, boolean state) {
         this.name = name;
         this.date = date;
         this.day = day;

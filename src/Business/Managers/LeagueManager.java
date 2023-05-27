@@ -7,11 +7,9 @@ import Business.Entities.Team;
 import Exceptions.*;
 import Persistance.LeagueDAOInt;
 import Persistance.TeamsDAOInt;
-import Persistance.dao.TeamsDAO;
 
 import java.sql.SQLException;
 import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -64,7 +62,7 @@ public class LeagueManager {
 
     }
 
-    public League setLeague (String name, java.sql.Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
+    public League setLeague (String name, Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
         List<Match> matches = new ArrayList<>();
         return new League(name, date, hour, day, teamNumber, teams, matches, state);
     }
