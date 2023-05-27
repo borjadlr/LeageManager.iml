@@ -30,7 +30,7 @@ public class LeagueManager {
 
 
 
-    public void introduceLeague(League league) throws LeagueAlreadyExistsException, DateExpiredException, RepeatedTeamException, SQLException, WrongTeamNumberException {
+    public void introduceLeague(League league) throws LeagueAlreadyExistsException, DateExpiredException, WrongTeamNumberException, RepeatedTeamException, SQLException {
         try {
             List<League> leagues = leagueDAO.getAllLeagues();
             int i = 0;
