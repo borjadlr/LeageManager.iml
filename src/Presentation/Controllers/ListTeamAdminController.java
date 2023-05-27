@@ -88,5 +88,4 @@ public class TeamListAdminController extends MouseInputAdapter implements Action
         view.addTeams(teams);
     }
 }
-
- */
+   */

@@ -18,37 +18,48 @@ public class LeagueManager {
 
     private final TeamManager teamManager;
     
-    private LeagueDAOInt leagueDAO;
+    private final LeagueDAOInt leagueDAO;
 
     private TeamsDAOInt teamsDAO;
 
-    public LeagueManager(TeamManager teamManager) {
+    public LeagueManager(TeamManager teamManager, LeagueDAOInt leagueDAO, TeamsDAOInt teamsDAO) {
         this.teamManager = teamManager;
+        this.leagueDAO = leagueDAO;
+        this.teamsDAO = teamsDAO;
     }
 
 
 
     public void introduceLeague(League league) throws LeagueAlreadyExistsException, DateExpiredException, RepeatedTeamException, SQLException {
-        List<League> leagues = leagueDAO.getAllLeagues(); //metodo borja nuevo
-        int i = 0;
-        
-        while (i < leagues.size()){
-            if (!leagues.get(i).getName().equals(league.getName())) {
-                throw new LeagueAlreadyExistsException();
-            } else if (!comprovaData(league.getDate())) {
+        try {
+            List<League> leagues = leagueDAO.getAllLeagues();
+            int i = 0;
+            while (i < leagues.size()){
+                if (!leagues.get(i).getName().equals(league.getName())) {
+                    throw new LeagueAlreadyExistsException();
+                } else if (!comprovaData(league.getDate())) {
+                    throw new DateExpiredException();
+                } else if (!comprovaRepeatedTeams(league)){
+                    throw new RepeatedTeamException();
+                } else {
+                    i++;
+                }
+            }
+        } catch (NullPointerException npe) {
+            if (!comprovaData(league.getDate())) {
                 throw new DateExpiredException();
             } else if (!comprovaRepeatedTeams(league)){
                 throw new RepeatedTeamException();
-            } else {
-                i++;
             }
         }
+
         leagueDAO.insertDataLeague(league.getName(),
-                                    (java.sql.Date) league.getDate(),
-                                    league.getTime(),
-                                    league.getDay(),
-                                    league.getNumber_teams(),
-                                    league.isState());
+                (java.sql.Date) league.getDate(),
+                league.getTime(),
+                league.getDay(),
+                league.getNumber_teams(),
+                league.isState());
+
     }
 
     public League setLeague (String name, java.sql.Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
