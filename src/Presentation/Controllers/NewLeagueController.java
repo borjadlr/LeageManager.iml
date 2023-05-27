@@ -46,8 +46,9 @@ public class NewLeagueController implements ActionListener, FocusListener {
                 case "OK_BUTTON":
 
                     try {
+                        String date = leagueManager.correctData(view.getData());
                         String leagueName = view.getLeagueName();
-                        Date data = leagueManager.stringToDate(leagueManager.correctData(view.getData()));
+                        Date data = leagueManager.stringToDate(date);
                         Time hora = leagueManager.stringToTime(view.getHora());
                         String numeroEquipos = view.getNumeroEquipos();
                         leagueManager.introduceLeague(leagueManager.setLeague(leagueName, data, hora, 1, parseInt(numeroEquipos), true, teamManager.getTeamsOfLeague(leagueName)));
