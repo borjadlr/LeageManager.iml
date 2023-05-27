@@ -77,8 +77,8 @@ public class LeagueManager {
         char caracter = data.charAt(4);
         if (data.length() != 10){
             throw new DateExpiredException();
-        } else if (caracter != '-') {
-            data.replace(caracter, '-');
+        } else if (caracter != '-' || data.charAt(7) != '-') {
+            data = data.replace(caracter, '-');
         }
 
         return data;
