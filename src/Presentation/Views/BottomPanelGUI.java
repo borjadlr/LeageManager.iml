@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * This class implements the bottonm panel of the Main Frame where there the action to change the password
+ */
 public class BottomPanelGUI extends JPanel {
 
     private final JButton changePassword;
@@ -30,6 +33,11 @@ public class BottomPanelGUI extends JPanel {
         downSection.add(changePassword, BorderLayout.EAST);
 
     }
+
+    /**
+     * This method is about the listener of the change password button
+     * @param actionListener
+     */
     public void changePasswordListener(ActionListener actionListener){
         changePassword.addActionListener(actionListener);
     }
