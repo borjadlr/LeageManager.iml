@@ -100,8 +100,6 @@ public class MenuAdminGUI extends JPanel {
         viewLeagues.setMaximumSize(buttonSize);
 
 
-
-
         // Add the buttons to the panel in the same order as before
         panel.add(createNewTeam);
         panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
@@ -127,12 +125,7 @@ public class MenuAdminGUI extends JPanel {
         viewLeagues.addActionListener(actionListener);
         viewStatistics.addActionListener(actionListener);
     }
-
     public void exceptionMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
     }
-
-
-
-
 }

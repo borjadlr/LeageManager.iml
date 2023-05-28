@@ -160,16 +160,15 @@ public class LeagueManager {
         return true;
     }
 
-    public void deleteLeague(String leagueName) throws IncorrectLeagueNameException, SQLException, MatchIsPlayingException {
+    public void deleteLeague(String leagueName) throws  SQLException, MatchIsPlayingException {
         List<League> leagues = leagueDAO.getAllLeagues();
 
         for (League league : leagues) {
+            //System.out.println(league.getName());
             if (league.getName().equals(leagueName)) {
                 leagueDAO.DeleteDataLeague(leagueName);
                 deleteLeagueMatches(leagueName);
                 return;
-            } else {
-                throw new IncorrectLeagueNameException();
             }
         }
     }

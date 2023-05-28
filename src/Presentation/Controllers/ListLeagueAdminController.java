@@ -54,7 +54,7 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                     for (i = 0; i < leagues.size(); i++) {
                         if (leagueName.equals(leagues.get(i).getName())) {
                             System.out.println(leagues.get(i).getName());
-                            teams = teamManager.getAllTeams();
+                            teams = teamManager.getTeamsOfLeague(leagueName);
                             listTeamAdminGUI.addTeams(teams);
                             listTeamAdminGUI.setTitle("leagueName");
                             mainFrame.showTeamListAdminView();
@@ -62,9 +62,6 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
-
-                } catch (NullPointerException npe) {
-                    view.noLeaguesMessage();
                 }
             } else if (cellValue instanceof Boolean) {
                 Boolean isChecked = (Boolean) view.getTable().getValueAt(selectedRow, selectedColumn);
@@ -98,10 +95,11 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                 if (confirmDialog == JOptionPane.YES_OPTION) {
                     for (League league : selectedLeagues) {
                         try {
+                            System.out.println("league name: " + league.getName());
                             leagueManager.deleteLeague(league.getName());
                         } catch (SQLException ex) {
                             ex.printStackTrace();
-                        } catch (IncorrectLeagueNameException | MatchIsPlayingException ex) {
+                        } catch (MatchIsPlayingException ex) {
                             view.exceptionMessage("ERROR");
                         }
                     }
