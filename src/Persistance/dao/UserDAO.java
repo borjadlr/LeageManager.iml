@@ -40,13 +40,25 @@ public class UserDAO implements UserDAOInt {
         }
     }
 
+    /**
+     * Obtiene los datos de configuración de la base de datos.
+     *
+     * @return los datos de configuración de la base de datos
+     * @throws IOException si ocurre un error al leer el archivo de configuración
+     */
     public Config GetDataBaseData() throws IOException {
         Config config;
-        //Llamamos y creamos en classe a la classe ConfigJsonDao para acceder a su metodo.
+
+        // Creamos una instancia de ConfigJsonDAO para acceder a su método.
         ConfigJsonDAO configJsonDao = new ConfigJsonDAO();
+
+        // Llamamos al método leerConfiguracionJson para obtener la configuración del archivo JSON.
         config = configJsonDao.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
+
+        // Imprimimos la configuración en la consola (puede ser útil para verificar que se ha leído correctamente).
         System.out.println(config);
-        //Devuelve config
+
+        // Devolvemos la configuración obtenida.
         return config;
     }
 
@@ -84,15 +96,18 @@ public class UserDAO implements UserDAOInt {
             ex.printStackTrace();
         }
     }
-    public void InsertDataUser2(User jugador) {
-        //Connectamos a la base de datos y controlamos excepciones.
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
+    /**
+     * Inserta los datos de un usuario en la tabla "jugador" de la base de datos.
+     *
+     * @param jugador el objeto User que contiene los datos del jugador a insertar
+     */
+    public void InsertDataUser2(User jugador) {
+        // Conectamos a la base de datos y controlamos excepciones.
+        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
             System.out.println("Successful connection...");
 
-
-
-            //Generamos una sentencia sql para insertar en la tabla user sus parametros
+            // Generamos una sentencia SQL para insertar en la tabla "jugador" los parámetros.
             String sql = "INSERT INTO jugador (dni, email, contrasena, dorsal, telefono) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, jugador.getDni());
@@ -100,7 +115,6 @@ public class UserDAO implements UserDAOInt {
             statement.setString(3, jugador.getPassword());
             statement.setInt(4, jugador.getNumber());
             statement.setString(5, jugador.getPhone());
-
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -112,15 +126,22 @@ public class UserDAO implements UserDAOInt {
         }
     }
 
-
-
-    public void UpdateDataUser(String dni1, String email,String pass_jugador,int number, String phone, String dni2){
-        //Connectamos a la base de datos y controlamos excepciones.
+    /**
+     * Actualiza los datos de un usuario en la tabla "jugador" de la base de datos.
+     *
+     * @param dni1         el nuevo DNI del jugador
+     * @param email        el nuevo email del jugador
+     * @param pass_jugador la nueva contraseña del jugador
+     * @param number       el nuevo número del jugador
+     * @param phone        el nuevo teléfono del jugador
+     * @param dni2         el DNI del jugador a actualizar
+     */
+    public void UpdateDataUser(String dni1, String email, String pass_jugador, int number, String phone, String dni2) {
+        // Conectamos a la base de datos y controlamos excepciones.
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
-
             System.out.println("Successful connection...");
-            //Generamos un statement sql para actualizar la tabla user dependiendo del username
-            String sql = "UPDATE jugador SET dni=?,email=?,contrasena=?,dorsal = ?,telefono = ? WHERE dni=?";
+            // Generamos una sentencia SQL para actualizar la tabla "jugador" dependiendo del DNI.
+            String sql = "UPDATE jugador SET dni=?, email=?, contrasena=?, dorsal=?, telefono=? WHERE dni=?";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, dni1);
@@ -130,8 +151,6 @@ public class UserDAO implements UserDAOInt {
             statement.setString(5, phone);
             statement.setString(6, dni2);
 
-
-
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("An existing user was updated successfully!");
@@ -140,15 +159,18 @@ public class UserDAO implements UserDAOInt {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
     }
 
-
+    /**
+     * Actualiza los datos de un jugador en la tabla "jugador" de la base de datos.
+     *
+     * @param jugador el objeto User que contiene los datos actualizados del jugador
+     */
     public void actualizarJugador(User jugador) {
         try {
             System.out.println("Successful connection...");
 
-            String sql = "UPDATE jugador SET email = ?, contrasena = ?, dorsal = ?, telefono = ? WHERE dni = ?";
+            String sql = "UPDATE jugador SET email=?, contrasena=?, dorsal=?, telefono=? WHERE dni=?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, jugador.getEmail());
             statement.setString(2, jugador.getPassword());
@@ -171,7 +193,6 @@ public class UserDAO implements UserDAOInt {
      * Metodo que se emplea para eliminar los datos de un usuario.
      * @param dni identificador del usuario
      */
-
 
     public void DeleteDataUser(String dni){
         //Connectamos a la base de datos y controlamos excepciones.
@@ -281,7 +302,13 @@ public class UserDAO implements UserDAOInt {
         }
     }
 
-
+    /**
+     * Obtiene un jugador por su número de identificación (DNI).
+     *
+     * @param dni el número de identificación del jugador
+     * @return el objeto User correspondiente al jugador encontrado, o null si no se encuentra
+     * @throws SQLException si ocurre un error en la conexión con la base de datos
+     */
     public User obtenerJugadorPorDni(String dni) throws SQLException {
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
             System.out.println("Conexion ok");
@@ -310,6 +337,13 @@ public class UserDAO implements UserDAOInt {
             return null;
         }
     }
+
+    /**
+     * Obtiene una lista de los DNIs de todos los jugadores.
+     *
+     * @return una lista de strings con los DNIs de los jugadores
+     * @throws SQLException si ocurre un error en la conexión con la base de datos
+     */
     public List<String> obtenerDNIs() throws SQLException {
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
 
@@ -335,6 +369,12 @@ public class UserDAO implements UserDAOInt {
 
     }
 
+    /**
+     * Obtiene una lista de todos los usuarios (jugadores).
+     *
+     * @return una lista de objetos User que representan a los jugadores
+     * @throws SQLException si ocurre un error en la conexión con la base de datos
+     */
     public List<User> getAllUsers() throws SQLException {
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM jugador";
@@ -358,7 +398,13 @@ public class UserDAO implements UserDAOInt {
         return users;
     }
 
-
+    /**
+     * Actualiza la contraseña de un usuario.
+     *
+     * @param email       el correo electrónico del usuario
+     * @param newPassword la nueva contraseña a establecer
+     * @return true si la actualización fue exitosa, false de lo contrario
+     */
     public boolean updatePassword(String email, String newPassword) {
         String updateQuery = "UPDATE jugador SET contrasena = ? WHERE email = ?";
 

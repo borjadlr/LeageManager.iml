@@ -13,7 +13,6 @@ import java.util.List;
  * The ListPlayerGUI class represents a panel that displays a list of players.
  */
 public class ListPlayerGUI extends JPanel {
-    private final JTable table;
     private final JLabel titleLabel;
     private final DefaultTableModel tableModel;
 
@@ -38,7 +37,7 @@ public class ListPlayerGUI extends JPanel {
                 return false; // Disable cell editing for all cells
             }
         };
-        table = new JTable(tableModel);
+        JTable table = new JTable(tableModel);
         table.setBackground(Color.WHITE);
 
         // Set cell renderer for aligning the content

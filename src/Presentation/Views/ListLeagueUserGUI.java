@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ListLeagueUserGUI extends JPanel {
     private final JTable table;
-    private DefaultTableModel tableModel;
+    private final DefaultTableModel tableModel;
 
     /**
      * Constructs a ListLeagueUserGUI object.

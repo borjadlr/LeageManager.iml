@@ -12,14 +12,13 @@ import java.io.File;
 import java.sql.SQLException;
 
 public class NewTeamController implements ActionListener {
-    private JTextField filePathField;
     private final MainFrameGUI mainFrame;
     private final NewTeamGUI view;
 
     private final TeamManager teamManager;
 
 
-    public NewTeamController(MainFrameGUI mainFrame, NewTeamGUI view, TeamManager teamManager){
+    public NewTeamController(MainFrameGUI mainFrame, NewTeamGUI view, TeamManager teamManager) {
         this.view = view;
         this.mainFrame = mainFrame;
         this.teamManager = teamManager;
@@ -27,22 +26,20 @@ public class NewTeamController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JButton){
-            switch (e.getActionCommand()){
-                case "SEARCH_BUTTON":
-                    mainFrame.showNewTeam();
-                    try {
-                        searchFile();
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    try {
-                        System.out.println(view.getName());
-                        teamManager.createTeam(view.getName());
-                    } catch (SQLException | NullPointerException ex) {
-                        mainFrame.showMenuAdmin();
-                    }
-                    break;
+        if (e.getSource() instanceof JButton) {
+            if ("SEARCH_BUTTON".equals(e.getActionCommand())) {
+                mainFrame.showNewTeam();
+                try {
+                    searchFile();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                try {
+                    System.out.println(view.getName());
+                    teamManager.createTeam(view.getName());
+                } catch (SQLException | NullPointerException ex) {
+                    mainFrame.showMenuAdmin();
+                }
             }
         }
     }

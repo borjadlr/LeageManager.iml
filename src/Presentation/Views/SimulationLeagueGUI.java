@@ -43,7 +43,6 @@ public class SimulationLeagueGUI extends JPanel {
         tableHeader.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tableHeader.setReorderingAllowed(false);
 
-        // Add the table to a scroll pane
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(new EmptyBorder(20, 20, 20, 20));
         add(scrollPane, BorderLayout.CENTER);
@@ -51,7 +50,7 @@ public class SimulationLeagueGUI extends JPanel {
 
     public void addMatch(List<Match> matches) {
         tableModel.setRowCount(0);
-        // Add match data to the table
+
         for (Match match : matches) {
             Object[] rowData = {match.getLocal(), match.getGolesLocal(), match.getGolesVisitante(), match.getVisitante()};
             tableModel.addRow(rowData);

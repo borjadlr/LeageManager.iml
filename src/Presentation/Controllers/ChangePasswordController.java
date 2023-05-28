@@ -30,22 +30,19 @@ public class ChangePasswordController implements FocusListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
-            switch (e.getActionCommand()) {
+            if ("OK".equals(e.getActionCommand())) {
+                try {
 
-                case "OK":
-                    try {
+                    String actualPassword = view.getActualPassword();
+                    String newPassword = view.getNewPassword();
+                    String repeatedPassword = view.getRepeatNewPassword();
 
-                        String actualPassword = view.getActualPassword();
-                        String newPassword = view.getNewPassword();
-                        String repeatedPassword = view.getRepeatNewPassword();
-
-                        userManager.canviContrasenya(actualPassword, newPassword, repeatedPassword);
-                        view.passwordSuccess();
-                        mainFrameGUI.showMenuUser();
-                    } catch (InvalidPasswordException | SamePasswordException ex) {
-                        view.exceptionMessage(ex.getMessage());
-                    }
-                    break;
+                    userManager.canviContrasenya(actualPassword, newPassword, repeatedPassword);
+                    view.passwordSuccess();
+                    mainFrameGUI.showMenuUser();
+                } catch (InvalidPasswordException | SamePasswordException ex) {
+                    view.exceptionMessage(ex.getMessage());
+                }
             }
         }
     }

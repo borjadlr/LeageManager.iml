@@ -12,21 +12,17 @@ public class MainPanelGUI extends JPanel {
     private final JButton login;
     private final JButton register;
     private static final String TITLE = "LeagueManager";
-
     private static final int MAX_SPACE_BUTTONS = 15;
-
     private static final int MAX_SPACE_TITLE = 90;
-    private final Color backgroundColor;
     private static final String LOGIN_BUTTON = "LOGIN_BUTTON";
     private static final String REGISTER_BUTTON = "REGISTER_BUTTON";
-
 
     /**
      * Creates a new instance of the MainPanelGUI class.
      */
     public MainPanelGUI() {
 
-        this.backgroundColor = Color.white;
+        Color backgroundColor = Color.white;
         this.setLayout(new GridBagLayout());
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));

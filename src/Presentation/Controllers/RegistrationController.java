@@ -16,9 +16,7 @@ public class RegistrationController implements FocusListener, ActionListener {
 
     private final UserManager userManager;
     private final MainFrameGUI mainFrameGUI;
-
     private final RegistrationGUI view;
-
     private final String defaultDniText = "Dni: ";
     private final String defaultDorsalText = "Dorsal: ";
     private final String defaultEmailText = "Email: ";
@@ -33,26 +31,24 @@ public class RegistrationController implements FocusListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
-            switch (e.getActionCommand()) {
-                case "OK_BUTTON":
-                    try {
-                        String dni = view.getDniText();
-                        int dorsal = Integer.parseInt(view.getDorsalText());
-                        String phoneNumber = String.valueOf(view.getPhoneNumberText());
-                        String email = view.getEmailText();
+            if ("OK_BUTTON".equals(e.getActionCommand())) {
+                try {
+                    String dni = view.getDniText();
+                    int dorsal = Integer.parseInt(view.getDorsalText());
+                    String phoneNumber = String.valueOf(view.getPhoneNumberText());
+                    String email = view.getEmailText();
 
-                        User user = userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber);
+                    User user = userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber);
 
-                        userManager.signUp(user, user.getPassword());
-                        mainFrameGUI.showMenuUser();
-                    } catch (InvalidPasswordException | ExistingDNIException | DNIOrMailDontExistException |
-                             InvalidEmailException | EmailAlreadyExistsException | SamePasswordException |
-                             DNIException | InvalidPlayerNumberException | SQLException ex ) {
-                        view.exceptionMessage(ex.getMessage());
-                    } catch (NumberFormatException nfe) {
-                        view.numberFormatMessage();
-                    }
-                    break;
+                    userManager.signUp(user, user.getPassword());
+                    mainFrameGUI.showMenuUser();
+                } catch (InvalidPasswordException | ExistingDNIException | DNIOrMailDontExistException |
+                         InvalidEmailException | EmailAlreadyExistsException | SamePasswordException |
+                         DNIException | InvalidPlayerNumberException | SQLException ex) {
+                    view.exceptionMessage(ex.getMessage());
+                } catch (NumberFormatException nfe) {
+                    view.numberFormatMessage();
+                }
             }
         }
     }

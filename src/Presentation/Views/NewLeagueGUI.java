@@ -17,7 +17,6 @@ public class NewLeagueGUI extends JPanel {
     private final JTextField data;
     private final JTextField numeroEquipos;
     private final JButton ok;
-    private final Color backgroundColor;
 
     private static final String OK_BUTTON = "OK_BUTTON";
 
@@ -26,7 +25,7 @@ public class NewLeagueGUI extends JPanel {
      */
     public NewLeagueGUI() {
 
-        this.backgroundColor = Color.white;
+        Color backgroundColor = Color.white;
         this.setLayout(new GridBagLayout());
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
@@ -146,9 +145,6 @@ public class NewLeagueGUI extends JPanel {
     /**
      * Displays a parse message dialog.
      */
-    public void parseMessage() {
-        JOptionPane.showMessageDialog(null, "Call 666445481 if this error occurs.");
-    }
 
     /**
      * Registers a FocusListener to the input fields for handling focus events.

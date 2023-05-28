@@ -92,13 +92,6 @@ public class ListLeagueAdminGUI extends JPanel {
     }
 
     /**
-     * Displays a message indicating that there are no leagues to list.
-     */
-    public void noLeaguesMessage() {
-        JOptionPane.showMessageDialog(null, "There are no leagues, so you cannot list them. Create one before!");
-    }
-
-    /**
      * Displays a warning message indicating that at least one league should be selected for deletion.
      */
     public void showWarningAtLeastOneLeague() {
@@ -111,9 +104,8 @@ public class ListLeagueAdminGUI extends JPanel {
      * @return the user's choice (JOptionPane.YES_OPTION or JOptionPane.NO_OPTION)
      */
     public int showAreYouSureDelete() {
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?",
+        return JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?",
                 "Delete", JOptionPane.YES_NO_OPTION);
-        return confirm;
     }
 
     /**

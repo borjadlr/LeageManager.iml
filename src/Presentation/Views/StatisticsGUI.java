@@ -4,9 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-/**
- * Statistics GUI class
- */
 public class StatisticsGUI extends JPanel {
     private static final int MARGEN_IZQUIERDO = 50;
     private static final int MARGEN_DERECHO = 50;
@@ -14,24 +11,22 @@ public class StatisticsGUI extends JPanel {
     private static final int MARGEN_INFERIOR = 80;
     private static final int GROSOR_LINEA = 3;
 
-    private String[] equipos = {"Equipo1 ", "Equipo 2", "Equipo 3", "Equipo 4", "Equipo 5", "Equipo 6"}; // Ejemplo: Nombres de los equipos
-    private int numJornadas = 10; // Ejemplo: Número de jornadas
-    private int[][] puntosEquipos; // Puntos de los equipos por jornada
+    private String[] equipos = {"Borjas FC", "Equipo 2", "Equipo 3", "Equipo 4", "Equipo 5", "Alberta"}; // Ejemplo: Nombres de los equipos
+    private int numJornadas = 10;
+    private int[][] puntosEquipos;
 
     public StatisticsGUI() {
         puntosEquipos = new int[equipos.length][numJornadas];
 
-        // Jornada inicial donde todos los equipos comienzan con 0 puntos
         for (int i = 0; i < equipos.length; i++) {
             puntosEquipos[i][0] = 0;
         }
 
-        // Generar puntos aleatorios para las jornadas restantes
-        Random random = new Random();
+
 
         for (int j = 1; j < numJornadas; j++) {
             for (int i = 0; i < equipos.length; i++) {
-                int puntos = (random.nextInt(2) == 0) ? 0 : 3;
+                int puntos = (i++);
                 puntosEquipos[i][j] = puntosEquipos[i][j - 1] + puntos;
             }
         }
@@ -132,11 +127,6 @@ public class StatisticsGUI extends JPanel {
         }
     }
 
-    /**
-     * This method returns a color depending the index
-     * @param index number of which color you want
-     * @return the color
-     */
     private Color getColor(int index) {
         Color[] colors = {Color.BLUE, Color.GREEN, Color.RED, Color.ORANGE, Color.MAGENTA};
         return colors[index % colors.length];

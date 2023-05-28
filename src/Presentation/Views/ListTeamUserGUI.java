@@ -1,6 +1,5 @@
 package Presentation.Views;
 
-import Business.Entities.Team;
 import Presentation.Controllers.ListTeamUserController;
 
 import javax.swing.*;
@@ -8,14 +7,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.List;
 
 /**
  * The ListTeamUserGUI class represents a panel that displays a list of teams in a table format.
  */
 public class ListTeamUserGUI extends JPanel {
     private final JTable table;
-    private final DefaultTableModel tableModel;
     private final JLabel titleLabel;
 
     /**
@@ -33,7 +30,7 @@ public class ListTeamUserGUI extends JPanel {
 
         // Create the table with column names
         String[] columnNames = {"Team Name", "Points", "Wins", "Draws", "Losses"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         table = new JTable(tableModel);
         table.setBackground(Color.WHITE);
 
@@ -47,20 +44,6 @@ public class ListTeamUserGUI extends JPanel {
         scrollPane.setBorder(new EmptyBorder(20, 20, 20, 20));
         scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
-    }
-
-    /**
-     * Adds a list of teams to the table.
-     * @param teams the list of teams to add
-     */
-    public void addTeams(List<Team> teams) {
-        tableModel.setRowCount(0);
-
-        // Add team data to the table
-        for (Team team : teams) {
-            Object[] rowData = {team.getName(), team.getPoints(), team.getWins(), team.getTies(), team.getLosses()};
-            tableModel.addRow(rowData);
-        }
     }
 
     /**

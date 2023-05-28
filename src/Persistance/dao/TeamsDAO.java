@@ -162,7 +162,11 @@ public class TeamsDAO implements TeamsDAOInt {
     }
 
 
-
+    /**
+     * Elimina los datos de un equipo y sus relaciones en la base de datos.
+     *
+     * @param teamName el nombre del equipo a eliminar
+     */
     public void deleteDataTeams(String teamName) {
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
             System.out.println("Conexión exitosa");
@@ -194,10 +198,14 @@ public class TeamsDAO implements TeamsDAOInt {
         }
     }
 
-
-
-
-
+    /**
+     * Obtiene los datos de un equipo de la base de datos.
+     *
+     * @param nombreEquipo el nombre del equipo a buscar
+     * @return el objeto Team con los datos del equipo, o null si no se encontró el
+     *         equipo
+     * @throws SQLException si ocurre un error al ejecutar la consulta SQL
+     */
     public Team selectTeam(String nombreEquipo) throws SQLException {
         String query = "SELECT * FROM equipo WHERE nombre = ?";
         Team equipo = null;
@@ -205,19 +213,25 @@ public class TeamsDAO implements TeamsDAOInt {
             statement.setString(1, nombreEquipo);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-
                     int numJugadores = resultSet.getInt("num_jugadores");
                     int numVictorias = resultSet.getInt("num_victorias");
                     int numDerrotas = resultSet.getInt("num_derrotas");
                     int numEmpates = resultSet.getInt("num_empates");
                     int puntosAcumulados = resultSet.getInt("puntos_acumulados");
-                    equipo = new Team( nombreEquipo, numJugadores, numVictorias, numDerrotas, numEmpates, puntosAcumulados);
+                    equipo = new Team(nombreEquipo, numJugadores, numVictorias, numDerrotas, numEmpates,
+                            puntosAcumulados);
                 }
             }
         }
         return equipo;
     }
 
+    /**
+     * Lee el contenido de un archivo JSON y lo devuelve como una cadena.
+     *
+     * @param fileName el nombre del archivo JSON a leer
+     * @return el contenido del archivo JSON como una cadena
+     */
     public String readJsonFile(String fileName) {
         StringBuilder jsonString = new StringBuilder();
 
@@ -233,72 +247,73 @@ public class TeamsDAO implements TeamsDAOInt {
         return jsonString.toString();
     }
 
-        public void jsonToDatabaseAlfa(String jsonFileName) {
-            //Llamamos al metodo que abre y lee el archivo json
-            String jsonString = readJsonFile(jsonFileName);
+    /**
+     * Convierte el contenido de un archivo JSON en objetos y los almacena en la
+     * base de datos.
+     *
+     * @param jsonFileName el nombre del archivo JSON a procesar
+     */
+    public void jsonToDatabaseAlfa(String jsonFileName) {
+        // Llamamos al metodo que abre y lee el archivo json
+        String jsonString = readJsonFile(jsonFileName);
 
+        // Crea un objeto Gson para parsear el String JSON
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
 
-            // crea un objeto Gson para parsear el String JSON
-            Gson gson = new Gson();
-            JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
+        // Extrae el nombre del equipo del objeto JSON.
+        String teamName = jsonObject.get("team_name").getAsString();
 
+        // Extrae el array de jugadores del JSON
+        JsonArray playersArray = jsonObject.getAsJsonArray("players");
 
-            // extrae el nombre del equipo de el objeto JSON.
-            String teamName = jsonObject.get("team_name").getAsString();
+        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+            // Introduce la información del equipo en la tabla equipo
+            PreparedStatement equipoStmt = conn.prepareStatement(
+                    "INSERT INTO equipo (nombre, num_jugadores, num_victorias, num_derrotas, num_empates, puntos_acumulados) VALUES (?, ?, ?, ?, ?, ?)");
+            equipoStmt.setString(1, teamName);
+            equipoStmt.setInt(2, playersArray.size());
+            equipoStmt.setInt(3, 0);
+            equipoStmt.setInt(4, 0);
+            equipoStmt.setInt(5, 0);
+            equipoStmt.setInt(6, 0);
+            equipoStmt.executeUpdate();
 
+            // Introduce la información del jugador en la tabla jugador
+            PreparedStatement jugadorStmt = conn.prepareStatement(
+                    "INSERT INTO jugador (dni, email, contrasena, dorsal, telefono) VALUES (?, ?, ?, ?, ?)");
+            for (JsonElement playerElement : playersArray) {
+                JsonObject player = playerElement.getAsJsonObject();
+                String name = player.get("name").getAsString();
+                String email = player.get("email").getAsString();
+                int number = player.get("number").getAsInt();
+                String dni = player.get("dni").getAsString();
+                String phone = player.get("phone").getAsString();
 
-            // extrae el array de jugadores de el JSON
-            JsonArray playersArray = jsonObject.getAsJsonArray("players");
+                jugadorStmt.setString(1, dni);
+                jugadorStmt.setString(2, email);
+                jugadorStmt.setString(3, "");
+                jugadorStmt.setInt(4, number);
+                jugadorStmt.setString(5, phone);
+                jugadorStmt.executeUpdate();
 
-            try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
-
-                // introduce la informacion del elquipo en la tabla equipo
-                PreparedStatement equipoStmt = conn.prepareStatement(
-                        "INSERT INTO equipo (nombre, num_jugadores, num_victorias, num_derrotas, num_empates, puntos_acumulados) VALUES (?, ?, ?, ?, ?, ?)");
-                equipoStmt.setString(1, teamName);
-                equipoStmt.setInt(2, playersArray.size());
-                equipoStmt.setInt(3, 0);
-                equipoStmt.setInt(4, 0);
-                equipoStmt.setInt(5, 0);
-                equipoStmt.setInt(6, 0);
-                equipoStmt.executeUpdate();
-
-
-                // introduce la informacion del jugador en la tabla jugador
-                PreparedStatement jugadorStmt = conn.prepareStatement(
-                        "INSERT INTO jugador (dni, email, contrasena, dorsal, telefono) VALUES (?, ?, ?, ?, ?)");
-                for (JsonElement playerElement : playersArray) {
-                    JsonObject player = playerElement.getAsJsonObject();
-                    String name = player.get("name").getAsString();
-                    String email = player.get("email").getAsString();
-                    int number = player.get("number").getAsInt();
-                    String dni = player.get("dni").getAsString();
-                    String phone = player.get("phone").getAsString();
-
-                    jugadorStmt.setString(1, dni);
-                    jugadorStmt.setString(2, email);
-                    jugadorStmt.setString(3, "");
-                    jugadorStmt.setInt(4, number);
-                    jugadorStmt.setString(5, phone);
-                    jugadorStmt.executeUpdate();
-
-                    // introduce el jugador en la tabla 'jugador_equipo' para su posterior tratamiento y relacion
-                    PreparedStatement jugadorEquipoLigaStmt = conn.prepareStatement(
-                            "INSERT INTO jugador_equipo (dni_jugador, nombre_equipo) VALUES (?, ?)");
-                    jugadorEquipoLigaStmt.setString(1, dni);
-                    jugadorEquipoLigaStmt.setString(2, teamName);
-                    jugadorEquipoLigaStmt.executeUpdate();
-                }
-
-                // cierra la conexion
-                equipoStmt.close();
-                jugadorStmt.close();
-                conn.close();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
+                // Introduce el jugador en la tabla 'jugador_equipo' para su posterior tratamiento y relacion
+                PreparedStatement jugadorEquipoLigaStmt = conn.prepareStatement(
+                        "INSERT INTO jugador_equipo (dni_jugador, nombre_equipo) VALUES (?, ?)");
+                jugadorEquipoLigaStmt.setString(1, dni);
+                jugadorEquipoLigaStmt.setString(2, teamName);
+                jugadorEquipoLigaStmt.executeUpdate();
             }
+
+            // Cierra la conexión
+            equipoStmt.close();
+            jugadorStmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+    }
 
     /**
      * Lee un archivo JSON y guarda los datos del equipo y jugadores en la base de datos.

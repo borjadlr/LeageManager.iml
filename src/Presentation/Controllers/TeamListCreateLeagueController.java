@@ -1,12 +1,8 @@
 package Presentation.Controllers;
 
-import Business.Entities.League;
 import Business.Entities.Team;
 import Business.Managers.LeagueManager;
 import Business.Managers.TeamManager;
-import Exceptions.IncorrectLeagueNameException;
-import Exceptions.IncorrectTeamNameException;
-import Exceptions.MatchIsPlayingException;
 import Exceptions.NumberOfTeamsDoNotRelateException;
 import Presentation.Views.*;
 
@@ -24,15 +20,12 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
     private final NewLeagueController newLeagueController;
     private final TeamManager teamManager;
     private final List<Team> selectedTeams;
-    private final ListTeamAdminGUI listTeamAdminGUI;
     private final LeagueManager leagueManager;
     private final MainFrameGUI mainFrame;
-    private int i;
 
-    public TeamListCreateLeagueController(TeamListCreateLeague view, TeamManager teamManager, ListTeamAdminGUI listTeamAdminGUI, MainFrameGUI mainFrame, LeagueManager leagueManager, NewLeagueController newLeagueController) {
+    public TeamListCreateLeagueController(TeamListCreateLeague view, TeamManager teamManager, MainFrameGUI mainFrame, LeagueManager leagueManager, NewLeagueController newLeagueController) {
         this.view = view;
         this.selectedTeams = new ArrayList<>();
-        this.listTeamAdminGUI = listTeamAdminGUI;
         this.mainFrame = mainFrame;
         this.teamManager = teamManager;
         this.leagueManager = leagueManager;
@@ -41,7 +34,6 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        List<Team> teams;
 
         int selectedRow = view.getTable().rowAtPoint(e.getPoint());
         int selectedColumn = view.getTable().columnAtPoint(e.getPoint());
@@ -70,7 +62,6 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        int i = 0;
         if (command.equals("Add Teams")) {
             if (selectedTeams.isEmpty()) {
                 view.showWarningAtLeastOneTeam();

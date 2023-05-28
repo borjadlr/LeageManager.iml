@@ -20,15 +20,14 @@ public class MainPanelController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
             switch (e.getActionCommand()) {
-                case "LOGIN_BUTTON":
+                case "LOGIN_BUTTON" -> {
                     mainFrame.showLogin();
                     topPanelGUI.hideShowDropDownButton(false);
-                    break;
-                case "REGISTER_BUTTON":
+                }
+                case "REGISTER_BUTTON" -> {
                     mainFrame.showRegister();
                     topPanelGUI.hideShowDropDownButton(false);
-                    break;
-
+                }
             }
         }
     }

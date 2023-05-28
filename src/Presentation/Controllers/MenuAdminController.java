@@ -16,19 +16,15 @@ public class MenuAdminController implements ActionListener {
     private final MenuAdminGUI view;
     private final MainFrameGUI mainFrameGUI;
     private final LeagueManager leagueManager;
-    private final ListLeagueUserGUI listLeagueUserGUI;
     private final ListLeagueAdminGUI listLeagueAdminGUI;
     private final MatchManager matchManager;
-    private final StatisticsGUI statisticsGUI;
     private final SimulationLeagueGUI simulationLeagueGUI;
     private int i;
 
-    public MenuAdminController(MainFrameGUI mainFrame, LeagueManager leagueManager, ListLeagueUserGUI listLeagueUserGUI, MenuAdminGUI view, ListLeagueAdminGUI listLeagueAdminGUI, StatisticsGUI statisticsGUI, MatchManager matchManager, SimulationLeagueGUI simulationLeagueGUI) {
+    public MenuAdminController(MainFrameGUI mainFrame, LeagueManager leagueManager, MenuAdminGUI view, ListLeagueAdminGUI listLeagueAdminGUI, MatchManager matchManager, SimulationLeagueGUI simulationLeagueGUI){
         this.leagueManager = leagueManager;
         this.mainFrameGUI = mainFrame;
-        this.listLeagueUserGUI = listLeagueUserGUI;
         this.view = view;
-        this.statisticsGUI = statisticsGUI;
         this.listLeagueAdminGUI = listLeagueAdminGUI;
         this.matchManager = matchManager;
         this.simulationLeagueGUI = simulationLeagueGUI;

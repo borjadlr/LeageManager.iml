@@ -4,48 +4,47 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The MenuUserGUI class represents a graphical user interface panel for the user menu.
+ * It provides buttons for watching live matches, viewing available leagues, and accessing statistics.
+ */
 public class MenuUserGUI extends JPanel {
     private final JButton watchMatches;
-    private final JButton viewAvaiableLeagues;
+    private final JButton viewAvailableLeagues;
     private final JButton viewStatistics;
     private static final String WATCH_MATCHES = "WATCH_MATCHES";
-    private static final String VIEW_AVAIABLE_LEAGUES = "VIEW_AVAIABLE_LEAGUES";
+    private static final String VIEW_AVAILABLE_LEAGUES = "VIEW_AVAILABLE_LEAGUES";
     private static final String VIEW_STATISTICS = "VIEW_STATISTICS";
 
+    /**
+     * Constructs a MenuUserGUI panel.
+     */
     public MenuUserGUI() {
-
+        // Set background color and layout
         Color backgroundColor = Color.white;
         setLayout(new GridBagLayout());
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
-        // General panel
+        // Create the main panel
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 50, 100, 50));
         panel.setBackground(backgroundColor);
-        //panel.setOpaque(true);
-
-        // Image panel
-        JPanel imagePanel = new JPanel();
-        imagePanel.setBackground(backgroundColor);
-        imagePanel.setOpaque(true);
-        imagePanel.setLayout(new BorderLayout());
-        imagePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
 
         panel.add(Box.createVerticalGlue());
 
-        //Title
+        // Add title label
         JLabel title = new JLabel("User Menu");
         title.setFont(new Font("Apple Casual", Font.PLAIN, 60));
         title.setForeground(Color.black);
-        title.setBorder(BorderFactory.createEmptyBorder(0,0,10,0));
+        title.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(title);
 
         panel.add(Box.createVerticalStrut(90));
 
-        //Watch Live Matches
+        // Add "Watch Live Matches" button
         watchMatches = new JButton("Watch Live Matches");
         watchMatches.setActionCommand(WATCH_MATCHES);
         watchMatches.setPreferredSize(new Dimension(150, 30));
@@ -55,17 +54,17 @@ public class MenuUserGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(15));
 
-        //View avaiable matches
-        viewAvaiableLeagues = new JButton("View Available Leagues");
-        viewAvaiableLeagues.setActionCommand(VIEW_AVAIABLE_LEAGUES);
-        viewAvaiableLeagues.setPreferredSize(new Dimension(150, 30));
-        viewAvaiableLeagues.setAlignmentX(Component.CENTER_ALIGNMENT);
-        viewAvaiableLeagues.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        panel.add(viewAvaiableLeagues);
+        // Add "View Available Leagues" button
+        viewAvailableLeagues = new JButton("View Available Leagues");
+        viewAvailableLeagues.setActionCommand(VIEW_AVAILABLE_LEAGUES);
+        viewAvailableLeagues.setPreferredSize(new Dimension(150, 30));
+        viewAvailableLeagues.setAlignmentX(Component.CENTER_ALIGNMENT);
+        viewAvailableLeagues.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        panel.add(viewAvailableLeagues);
 
         panel.add(Box.createVerticalStrut(15));
 
-        //Button of statistics
+        // Add "View Statistics" button
         viewStatistics = new JButton("View Statistics");
         viewStatistics.setActionCommand(VIEW_STATISTICS);
         viewStatistics.setPreferredSize(new Dimension(150, 30));
@@ -76,11 +75,16 @@ public class MenuUserGUI extends JPanel {
         panel.add(Box.createVerticalStrut(15));
 
         this.add(panel);
-
     }
+
+    /**
+     * Registers an action listener for the buttons.
+     *
+     * @param listener the ActionListener to be registered
+     */
     public void registerListener(ActionListener listener) {
         watchMatches.addActionListener(listener);
-        viewAvaiableLeagues.addActionListener(listener);
+        viewAvailableLeagues.addActionListener(listener);
         viewStatistics.addActionListener(listener);
     }
 }

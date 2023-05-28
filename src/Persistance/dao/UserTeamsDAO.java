@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class implements the UserTeamsDAOInt interface and provides methods for interacting with the user_teams table in the database.
+ */
 public class UserTeamsDAO implements UserTeamsDAOInt {
 
     private String dbURL;
@@ -17,100 +20,123 @@ public class UserTeamsDAO implements UserTeamsDAOInt {
     private String password;
     private Connection conn;
 
+    /**
+     * Constructs a new UserTeamsDAO object.
+     * Reads the database configuration from a JSON file and establishes a connection to the database.
+     */
     public UserTeamsDAO() {
         try {
-
-            // Leer la configuración JSON y obtener los valores correspondientes
-
+            // Read the JSON configuration and retrieve the corresponding values
             ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
-
             Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
 
-            // Asignar los valores obtenidos a las variables dbURL, username y password
+            // Assign the obtained values to the dbURL, username, and password variables
             dbURL = "jdbc:mysql://" + config.getIpServidorBD() + ":" + config.getPortConexionBD() + "/" + config.getNombreBD();
             username = config.getUsuarioBD();
             password = config.getContrasenaBD();
 
-            // Establecer la conexión aquí
+            // Establish the database connection here
             conn = DriverManager.getConnection(dbURL, username, password);
         } catch (IOException | SQLException ex) {
             ex.printStackTrace();
         }
     }
 
-    // Método para crear un registro en la tabla jugador_equipo
+    /**
+     * Creates a new record in the jugador_equipo table.
+     *
+     * @param dniJugador   the DNI of the player
+     * @param nombreEquipo the name of the team
+     */
     public void createUserTeam(String dniJugador, String nombreEquipo) {
         try {
-            // Preparar la consulta SQL
+            // Prepare the SQL query
             String query = "INSERT INTO jugador_equipo (dni_jugador, nombre_equipo) VALUES (?, ?)";
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, dniJugador);
             statement.setString(2, nombreEquipo);
 
-            // Ejecutar la consulta
+            // Execute the query
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // Método para leer un registro de la tabla jugador_equipo
+    /**
+     * Reads a record from the jugador_equipo table.
+     *
+     * @param dniJugador   the DNI of the player
+     * @param nombreEquipo the name of the team
+     */
     public void readUserTeam(String dniJugador, String nombreEquipo) {
         try {
-            // Preparar la consulta SQL
+            // Prepare the SQL query
             String query = "SELECT * FROM jugador_equipo WHERE dni_jugador = ? AND nombre_equipo = ?";
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, dniJugador);
             statement.setString(2, nombreEquipo);
 
-            // Ejecutar la consulta
+            // Execute the query
             ResultSet resultSet = statement.executeQuery();
 
-            // Procesar los resultados
+            // Process the results
             while (resultSet.next()) {
-                // Leer los datos de la fila
+                // Read the data from the row
                 String dni = resultSet.getString("dni_jugador");
                 String equipo = resultSet.getString("nombre_equipo");
 
-                // Hacer algo con los datos...
+                // Do something with the data...
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // Método para actualizar un registro en la tabla jugador_equipo
+    /**
+     * Updates a record in the jugador_equipo table.
+     *
+     * @param dniJugador    the DNI of the player
+     * @param nombreEquipo  the name of the team
+     * @param nuevoEquipo   the new name of the team
+     */
     public void updateUserTeam(String dniJugador, String nombreEquipo, String nuevoEquipo) {
         try {
-            // Preparar la consulta SQL
+            // Prepare the SQL query
             String query = "UPDATE jugador_equipo SET nombre_equipo = ? WHERE dni_jugador = ? AND nombre_equipo = ?";
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, nuevoEquipo);
             statement.setString(2, dniJugador);
             statement.setString(3, nombreEquipo);
 
-            // Ejecutar la consulta
+            // Execute the query
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // Método para eliminar un registro de la tabla jugador_equipo
+    /**
+     * Deletes a record from the jugador_equipo table.
+     *
+     * @param dniJugador   the DNI of the player
+     * @param nombreEquipo the name of the team
+     */
     public void deleteUserTeam(String dniJugador, String nombreEquipo) {
         try {
-            // Preparar la consulta SQL
+            // Prepare the SQL query
             String query = "DELETE FROM jugador_equipo WHERE dni_jugador = ? AND nombre_equipo = ?";
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, dniJugador);
             statement.setString(2, nombreEquipo);
 
-            // Ejecutar la consulta
+            // Execute the query
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método para obtener la lista de todos los jugadores en un equipo.
      *
