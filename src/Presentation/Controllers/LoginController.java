@@ -11,7 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-
+import java.io.IOException;
+/**
+ * The controller class for the LoginGUI.
+ * Handles the actions and focus events in the login view.
+ */
 public class LoginController implements ActionListener, FocusListener {
 
     private final String defaultEmailText = "dni/email: ";
@@ -22,6 +26,14 @@ public class LoginController implements ActionListener, FocusListener {
     private final UserManager userManager;
     private final TopPanelGUI topPanelGUI;
 
+    /**
+     * Constructs a LoginController object.
+     *
+     * @param mainView     The MainFrameGUI instance.
+     * @param view         The LoginGUI instance.
+     * @param userManager The UserManager instance.
+     * @param topPanelGUI  The TopPanelGUI instance.
+     */
     public LoginController(MainFrameGUI mainView, LoginGUI view, UserManager userManager, TopPanelGUI topPanelGUI) {
         this.mainFrameGUI = mainView;
         this.view = view;
@@ -29,6 +41,11 @@ public class LoginController implements ActionListener, FocusListener {
         this.topPanelGUI = topPanelGUI;
     }
 
+    /**
+     * Handles the action events in the login view.
+     *
+     * @param e The ActionEvent that occurred.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if ("LOGIN_BUTTON".equals(e.getActionCommand())) {
@@ -47,10 +64,17 @@ public class LoginController implements ActionListener, FocusListener {
                 view.exceptionMessage(ex.getMessage());
             } catch (NullPointerException npe) {
                 view.noUsersMessage();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
         }
     }
 
+    /**
+     * Handles the focus gained events in the login view.
+     *
+     * @param e The FocusEvent that occurred.
+     */
     @Override
     public void focusGained(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {
@@ -69,6 +93,11 @@ public class LoginController implements ActionListener, FocusListener {
         }
     }
 
+    /**
+     * Handles the focus lost events in the login view.
+     *
+     * @param e The FocusEvent that occurred.
+     */
     @Override
     public void focusLost(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {

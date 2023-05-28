@@ -10,7 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-
+/**
+ * The controller class for the DeleteGUI.
+ * Handles the focus events and action events performed in the delete user view.
+ */
 public class DeleteController implements ActionListener, FocusListener {
 
     private final String defaultEmailText = "dni/email: ";
@@ -19,13 +22,23 @@ public class DeleteController implements ActionListener, FocusListener {
     private final MainFrameGUI mainFrameGUI;
     private final DeleteGUI view;
     private final UserManager userManager;
-
+    /**
+     * Constructs a DeleteController object.
+     *
+     * @param mainView     The MainFrameGUI instance.
+     * @param view         The DeleteGUI instance.
+     * @param userManager The UserManager instance.
+     */
     public DeleteController(MainFrameGUI mainView, DeleteGUI view, UserManager userManager) {
         this.mainFrameGUI = mainView;
         this.view = view;
         this.userManager = userManager;
     }
-
+    /**
+     * Handles the action events performed on the delete button in the delete user view.
+     *
+     * @param e The ActionEvent that occurred.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if ("DELETE_BUTTON".equals(e.getActionCommand())) {
@@ -40,7 +53,11 @@ public class DeleteController implements ActionListener, FocusListener {
             }
         }
     }
-
+    /**
+     * Handles the focus gained events on the text fields.
+     *
+     * @param e The FocusEvent that occurred.
+     */
     @Override
     public void focusGained(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {
@@ -58,7 +75,11 @@ public class DeleteController implements ActionListener, FocusListener {
             }
         }
     }
-
+    /**
+     * Handles the focus lost events on the text fields.
+     *
+     * @param e The FocusEvent that occurred.
+     */
     @Override
     public void focusLost(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {

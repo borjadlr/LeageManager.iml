@@ -11,6 +11,10 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * The controller class for the MenuAdminGUI.
+ * Handles the actions in the admin menu view.
+ */
 public class MenuAdminController implements ActionListener {
 
     private final MenuAdminGUI view;
@@ -21,6 +25,16 @@ public class MenuAdminController implements ActionListener {
     private final SimulationLeagueGUI simulationLeagueGUI;
     private int i;
 
+    /**
+     * Constructs a MenuAdminController object.
+     *
+     * @param mainFrame        The MainFrameGUI instance.
+     * @param leagueManager    The LeagueManager instance.
+     * @param view             The MenuAdminGUI instance.
+     * @param listLeagueAdminGUI The ListLeagueAdminGUI instance.
+     * @param matchManager     The MatchManager instance.
+     * @param simulationLeagueGUI The SimulationLeagueGUI instance.
+     */
     public MenuAdminController(MainFrameGUI mainFrame, LeagueManager leagueManager, MenuAdminGUI view, ListLeagueAdminGUI listLeagueAdminGUI, MatchManager matchManager, SimulationLeagueGUI simulationLeagueGUI){
         this.leagueManager = leagueManager;
         this.mainFrameGUI = mainFrame;
@@ -31,6 +45,11 @@ public class MenuAdminController implements ActionListener {
         this.i = 1;
     }
 
+    /**
+     * Handles the action events in the admin menu view.
+     *
+     * @param e The ActionEvent that occurred.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
