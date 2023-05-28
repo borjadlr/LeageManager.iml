@@ -103,16 +103,7 @@ public class LeagueManager {
     }
 
     public List<Match> getAllMatches() throws SQLException {
-        List<Match> matches = new ArrayList<>();
-        List<League> leagues = listLeagues();
-        int i = 0;
-
-        while (leagues.size() > i) {
-            matches.addAll(leagues.get(i).getMatches());
-            i++;
-        }
-
-        return matches;
+        return matchDAO.getAllMatches();
     }
 
     public String correctData(String data) throws DateExpiredException {
