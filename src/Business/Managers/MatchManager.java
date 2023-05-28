@@ -1,5 +1,6 @@
 package Business.Managers;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,7 +25,7 @@ public class MatchManager {
         this.matchDAO = matchDAO;
     }
 
-    public List<Match> simularPartidos(List<Match> matches) {
+    public void simularPartidos(List<Match> matches) {
         for (Match match : matches) {
             Thread thread = new Thread(() -> {
                 System.out.println("Comenzando simulación para el partido: " + match.getLocal() + " vs " + match.getVisitante());
@@ -33,7 +34,6 @@ public class MatchManager {
             });
             thread.start();
         }
-        return matches;
     }
 
     public void simularPartido(Match match) {
@@ -91,19 +91,16 @@ public class MatchManager {
     }
 
 
-    public List<Match> simularPartidosConAumentoJornada() throws SQLException {
-        List<Match> resultados = new ArrayList<>();
-        List<League> leagues = leagueDAO.getAllLeagues();
-        int jornada = 1;
+    public void simularPartidosConAumentoJornada(String liga, int jornadaInicial) {
+        int jornada = jornadaInicial;
         while (true) {
-            System.out.println("Esta es la jornada" + jornada);
-            List<Match> partidos = matchDAO.getAllMatches();
+            System.out.println("Esta es la jornada"+ jornada);
+            List<Match> partidos = matchDAO.obtenerPartidosPorLigaYJornada(liga, jornada);
             if (partidos.isEmpty()) {
                 break; // Salir del bucle si no hay más partidos para la jornada actual
             }
 
-            List<Match> resultadoJornada = simularPartidos(partidos);
-            resultados.addAll(resultadoJornada);
+            simularPartidos(partidos);
 
             try {
                 Thread.sleep(10000); // Esperar 10 segundos (10,000 milisegundos) antes de pasar a la siguiente jornada
@@ -113,7 +110,6 @@ public class MatchManager {
 
             jornada++; // Incrementar el número de jornada para la siguiente iteración
         }
-        return resultados;
     }
 
 

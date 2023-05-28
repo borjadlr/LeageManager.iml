@@ -561,6 +561,35 @@ public class MatchDAO implements MatchDAOInt {
         return partidos;
     }
 
+    public List<Match> getMatchesByJornada(int jornada) {
+        String query = "SELECT * FROM partido WHERE jornada = ?";
+        List<Match> matches = new ArrayList<>();
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, jornada);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String equipoLocal = resultSet.getString("equipo_local");
+                String equipoVisitante = resultSet.getString("equipo_visitante");
+                int resultadoLocal = resultSet.getInt("resultado_local");
+                int resultadoVisitante = resultSet.getInt("resultado_visitante");
+                boolean partidoFinalizado = resultSet.getBoolean("partido_finalizado");
+                String nombreLiga = resultSet.getString("nombre_liga");
+
+                Match match = new Match(equipoLocal, equipoVisitante, resultadoLocal, resultadoVisitante, jornada, partidoFinalizado, nombreLiga);
+
+                matches.add(match);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return matches;
+    }
+
+
+
 
 
 
