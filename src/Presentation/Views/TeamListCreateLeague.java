@@ -1,9 +1,6 @@
 package Presentation.Views;
-
 import Business.Entities.Team;
 import Presentation.Controllers.TeamListCreateLeagueController;
-//import Presentation.Controllers.TeamListCreateLeagueController;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;

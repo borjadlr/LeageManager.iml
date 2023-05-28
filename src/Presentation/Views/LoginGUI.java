@@ -1,7 +1,5 @@
 package Presentation.Views;
 
-import Presentation.Controllers.LoginController;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -129,13 +127,6 @@ public class LoginGUI extends JPanel {
      */
     public void noUsersMessage() {
         JOptionPane.showMessageDialog(null, "There are no users, so you cannot log in.");
-    }
-
-    /**
-     * Displays a message dialog indicating that the fields are not completed.
-     */
-    public void fieldsNotCompleted() {
-        JOptionPane.showMessageDialog(null, "Fields are not completed, please fulfill them all.");
     }
 
 }

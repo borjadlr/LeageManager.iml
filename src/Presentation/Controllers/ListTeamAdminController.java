@@ -1,14 +1,8 @@
 package Presentation.Controllers;
 
-import Business.Entities.League;
 import Business.Entities.Team;
 import Business.Entities.User;
-import Business.Managers.LeagueManager;
 import Business.Managers.TeamManager;
-import Business.Managers.UserManager;
-import Exceptions.IncorrectLeagueNameException;
-import Exceptions.IncorrectTeamNameException;
-import Exceptions.MatchIsPlayingException;
 import Presentation.Views.*;
 
 import javax.swing.*;
@@ -22,17 +16,14 @@ import java.util.List;
 
 public class ListTeamAdminController extends MouseAdapter implements ActionListener {
     private final ListTeamAdminGUI view;
-    private final UserManager userManager;
     private final List<Team> selectedTeams;
     private final ListPlayerGUI listPlayerGUI;
     private final TeamManager teamManager;
     private final MainFrameGUI mainFrame;
     private final ListLeagueAdminController listLeagueAdminController;
-    private int i;
 
-    public ListTeamAdminController(ListTeamAdminGUI view, UserManager userManager, ListPlayerGUI listPlayerGUI, MainFrameGUI mainFrame, TeamManager teamManager, ListLeagueAdminController listLeagueAdminController) {
+    public ListTeamAdminController(ListTeamAdminGUI view, ListPlayerGUI listPlayerGUI, MainFrameGUI mainFrame, TeamManager teamManager, ListLeagueAdminController listLeagueAdminController) {
         this.view = view;
-        this.userManager = userManager;
         this.selectedTeams = new ArrayList<>();
         this.listPlayerGUI = listPlayerGUI;
         this.mainFrame = mainFrame;
@@ -53,6 +44,7 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
             if (selectedColumn != 6) {
                 try {
                     List<Team> teamList = teamManager.getAllTeams();
+                    int i;
                     for (i = 0; i < teamList.size(); i++) {
                         if (teamName.equals(teamList.get(i).getName())) {
                             System.out.println(teamList.get(i).getName());
@@ -94,7 +86,6 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
         if (command.equals("Delete")) {
             System.out.println("HOLA");
             if (selectedTeams.isEmpty()) {
-                //view.showWarningAtLeastOneLeague();
             } else {
                 int confirmDialog = view.showAreYouSureDelete();
                 if (confirmDialog == JOptionPane.YES_OPTION) {

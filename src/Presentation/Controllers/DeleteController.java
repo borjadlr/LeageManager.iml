@@ -18,7 +18,6 @@ public class DeleteController implements ActionListener, FocusListener {
 
     private final MainFrameGUI mainFrameGUI;
     private final DeleteGUI view;
-
     private final UserManager userManager;
 
     public DeleteController(MainFrameGUI mainView, DeleteGUI view, UserManager userManager) {
@@ -29,18 +28,16 @@ public class DeleteController implements ActionListener, FocusListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()){
-            case "DELETE_BUTTON":
-                try {
-                    String username = view.getUsernameInfo();
-                    String password = view.getPasswordInfo();
-                    userManager.deleteUser(username, password);
-                    mainFrameGUI.showMainPanel();
+        if ("DELETE_BUTTON".equals(e.getActionCommand())) {
+            try {
+                String username = view.getUsernameInfo();
+                String password = view.getPasswordInfo();
+                userManager.deleteUser(username, password);
+                mainFrameGUI.showMainPanel();
 
-                } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
-                    view.exceptionMessage(ex.getMessage());
-                }
-                break;
+            } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
+                view.exceptionMessage(ex.getMessage());
+            }
         }
     }
 

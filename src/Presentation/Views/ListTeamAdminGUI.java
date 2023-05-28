@@ -2,14 +2,12 @@ package Presentation.Views;
 
 import Business.Entities.Team;
 import Presentation.Controllers.ListTeamAdminController;
-import Presentation.Controllers.ListTeamUserController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 /**
@@ -114,8 +112,7 @@ public class ListTeamAdminGUI extends JPanel {
      * @return the user's choice (JOptionPane.YES_OPTION or JOptionPane.NO_OPTION)
      */
     public int showAreYouSureDelete() {
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?", "Delete", JOptionPane.YES_NO_OPTION);
-        return confirm;
+        return JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?", "Delete", JOptionPane.YES_NO_OPTION);
     }
 
     /**

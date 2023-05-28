@@ -5,7 +5,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.swing.JOptionPane.showMessageDialog;
+/**
+ * The MainFrameGUI class represents the main frame of the graphical user interface.
+ * It contains different panels and uses a CardLayout to switch between them based on user actions.
+ */
+
 public class MainFrameGUI extends JFrame{
     private static final ArrayList<String> recorregutVistas = new ArrayList<>();
     private static final List<List<Boolean>> booleanPacks = new ArrayList<>();
@@ -18,11 +22,8 @@ public class MainFrameGUI extends JFrame{
     private final String REGISTRATION_VIEW = "REGISTRATION_VIEW";
     private final String DELETE_VIEW = "DELETE_VIEW";
     private final String LEAGUE_LIST = "LEAGUE_LIST";
-    private final String SIMULATION_GAME_VIEW = "SIMULATION_GAME_VIEW";
     private final String STATISTICS_VIEW = "STATISTICS_VIEW";
-    private final String TEAM_LIST_VIEW = "TEAM_LIST_VIEW";
     private final String CREATE_NEW_TEAM = "CREATE_NEW_TEAM";
-    private final String SHOW_TEAMS_VIEW = "SHOW_TEAMS_VIEW";
     private final String SHOW_USERS_TEAM = "SHOW_USERS_TEAM";
     private final String SIMULATION_LEAGUE_VIEW = "SIMULATION_LEAGUE_VIEW";
     private final String TEAM_LIST_CREATE_LEAGUE = "TEAM_LIST_CREATE_LEAGUE";
@@ -33,7 +34,30 @@ public class MainFrameGUI extends JFrame{
     private final JPanel bottomPanel;
     private final CardLayout cardLayout;
 
-    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ListPlayerGUI listLeagueUserGUI, StatisticsGUI statisticsGUI, SimulationGameGUI simulationGameGUI, ListTeamUserGUI teamsListGUI, TopPanelGUI topPanelGUI, BottomPanelGUI bottomPanelGUI, NewTeamGUI newTeamGUI, ListLeagueAdminGUI listLeagueAdminGUI, TeamListCreateLeague teamListCreateLeague, SimulationLeagueGUI simulationLeagueGUI, ListTeamAdminGUI listTeamAdminGUI){
+
+    /**
+     * Constructs a MainFrameGUI object with the specified panels.
+     *
+     * @param userLoginGUI          the login panel
+     * @param menuUserGUI           the user menu panel
+     * @param menuAdminGUI          the admin menu panel
+     * @param changePasswordGUI     the change password panel
+     * @param newLeaguesGUI         the new leagues panel
+     * @param registrationGUI       the registration panel
+     * @param mainPanelGUI          the main panel
+     * @param deleteGUI             the delete panel
+     * @param listLeagueUserGUI     the list league (user) panel
+     * @param statisticsGUI         the statistics panel
+     * @param simulationGameGUI     the simulation game panel
+     * @param topPanelGUI           the top panel
+     * @param bottomPanelGUI        the bottom panel
+     * @param newTeamGUI            the new team panel
+     * @param listLeagueAdminGUI    the list league (admin) panel
+     * @param teamListCreateLeague  the team list (create league) panel
+     * @param simulationLeagueGUI   the simulation league panel
+     * @param listTeamAdminGUI      the list team (admin) panel
+     */
+    public MainFrameGUI(LoginGUI userLoginGUI, MenuUserGUI menuUserGUI, MenuAdminGUI menuAdminGUI, ChangePasswordGUI changePasswordGUI, NewLeagueGUI newLeaguesGUI, RegistrationGUI registrationGUI, MainPanelGUI mainPanelGUI, DeleteGUI deleteGUI, ListPlayerGUI listLeagueUserGUI, StatisticsGUI statisticsGUI, SimulationGameGUI simulationGameGUI, TopPanelGUI topPanelGUI, BottomPanelGUI bottomPanelGUI, NewTeamGUI newTeamGUI, ListLeagueAdminGUI listLeagueAdminGUI, TeamListCreateLeague teamListCreateLeague, SimulationLeagueGUI simulationLeagueGUI, ListTeamAdminGUI listTeamAdminGUI){
 
         super("Main Frame");
 
@@ -59,9 +83,11 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(registrationGUI, REGISTRATION_VIEW);
         centerPanel.add(deleteGUI, DELETE_VIEW);
         centerPanel.add(listLeagueAdminGUI, LEAGUE_LIST);
+        String SIMULATION_GAME_VIEW = "SIMULATION_GAME_VIEW";
         centerPanel.add(simulationGameGUI, SIMULATION_GAME_VIEW);
         centerPanel.add(simulationLeagueGUI, SIMULATION_LEAGUE_VIEW);
         centerPanel.add(statisticsGUI, STATISTICS_VIEW);
+        String TEAM_LIST_VIEW = "TEAM_LIST_VIEW";
         centerPanel.add(listTeamAdminGUI, TEAM_LIST_VIEW);
         centerPanel.add(newTeamGUI, CREATE_NEW_TEAM);
         centerPanel.add(teamListCreateLeague, TEAM_LIST_CREATE_LEAGUE);
@@ -77,6 +103,10 @@ public class MainFrameGUI extends JFrame{
 
     }
 
+    /**
+     * Displays the main panel.
+     */
+
     public void showMainPanel() {
         bottomPanel.setVisible(false);
         topPanel.setVisible(false);
@@ -84,6 +114,10 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(FIRST_UI, false, false);
     }
+
+    /**
+     * Displays the team user list.
+     */
 
     public void showUserList() {
         bottomPanel.setVisible(false);
@@ -93,6 +127,10 @@ public class MainFrameGUI extends JFrame{
         updateRecorregut(SHOW_USERS_TEAM, true, false);
     }
 
+    /**
+     * Displays simulation league view.
+     */
+
     public void showSimulationLeagueView(){
         bottomPanel.setVisible(true);
         topPanel.setVisible(true);
@@ -101,6 +139,9 @@ public class MainFrameGUI extends JFrame{
         updateRecorregut(SIMULATION_LEAGUE_VIEW, true, true);
     }
 
+    /**
+     * Displays the team list admin.
+     */
     public void showTeamListAdminView(){
         bottomPanel.setVisible(false);
         topPanel.setVisible(true);
@@ -108,15 +149,9 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(LIST_TEAM_ADMIN_VIEW, true, false);
     }
-
-    public void showSimulationGameView() {
-        bottomPanel.setVisible(true);
-        topPanel.setVisible(true);
-        cardLayout.show(centerPanel, SIMULATION_GAME_VIEW);
-        auxiliar++;
-        updateRecorregut(SIMULATION_GAME_VIEW, true, true);
-    }
-
+    /**
+     * Displays the previous panel.
+     */
     public void showGoBack() {
         recorregutVistas.remove(auxiliar);
         auxiliar--;
@@ -124,7 +159,9 @@ public class MainFrameGUI extends JFrame{
         topPanel.setVisible(booleanPacks.get(auxiliar).get(0));
         bottomPanel.setVisible(booleanPacks.get(auxiliar).get(1));
     }
-
+    /**
+     * Displays the login.
+     */
     public void showLogin() {
         topPanel.setVisible(true);
         bottomPanel.setVisible(false);
@@ -132,7 +169,9 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(LOGIN_VIEW, true, false);
     }
-
+    /**
+     * Displays the register view.
+     */
     public void showRegister() {
         topPanel.setVisible(true);
         bottomPanel.setVisible(false);
@@ -140,6 +179,9 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(REGISTRATION_VIEW, true, false);
     }
+    /**
+     * Displays the teams new league.
+     */
     public void showTeamsNewLeague(){
         topPanel.setVisible(true);
         bottomPanel.setVisible(false);
@@ -147,7 +189,9 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(TEAM_LIST_CREATE_LEAGUE, true, false);
     }
-
+    /**
+     * Displays the user menu.
+     */
     public void showMenuUser() {
         topPanel.setVisible(true);
         bottomPanel.setVisible(true);
@@ -155,7 +199,9 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(MENU_USER_VIEW, true, true);
     }
-
+    /**
+     * Displays the change password view.
+     */
     public void showChangePassword() {
         topPanel.setVisible(true);
         bottomPanel.setVisible(false);
@@ -163,15 +209,20 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(CHANGE_PASSWORD_VIEW, true, false);
     }
-
+    /**
+     * Displays teams view.
+     */
     public void showTeamsView() {
         topPanel.setVisible(true);
         bottomPanel.setVisible(true);
+        String SHOW_TEAMS_VIEW = "SHOW_TEAMS_VIEW";
         cardLayout.show(centerPanel, SHOW_TEAMS_VIEW);
         auxiliar++;
         updateRecorregut(SHOW_TEAMS_VIEW, true, true);
     }
-
+    /**
+     * Displays the main panel.
+     */
     public void showNewTeam() {
         topPanel.setVisible(true);
         bottomPanel.setVisible(false);
@@ -179,7 +230,9 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(CREATE_NEW_TEAM, true, false);
     }
-
+    /**
+     * Makes an update.
+     */
     public void updateRecorregut(String vista, boolean top, boolean bottom) {
         recorregutVistas.add(auxiliar, vista);
         List<Boolean> pack = new ArrayList<>();
@@ -187,6 +240,10 @@ public class MainFrameGUI extends JFrame{
         pack.add(bottom);
         booleanPacks.add(auxiliar, pack);
     }
+
+    /**
+     * Displays the league.
+     */
     public void showLeague(){
         topPanel.setVisible(true);
         bottomPanel.setVisible(false);
@@ -194,6 +251,9 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(LEAGUE_LIST, true, false);
     }
+    /**
+     * Displays admin menu.
+     */
     public void showMenuAdmin(){
         topPanel.setVisible(true);
         bottomPanel.setVisible(false);
@@ -201,14 +261,9 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(MENU_ADMIN_VIEW, true, false);
     }
-
-    public void showTeamList(){
-        topPanel.setVisible(true);
-        bottomPanel.setVisible(true);
-        cardLayout.show(centerPanel, TEAM_LIST_VIEW);
-        auxiliar++;
-        updateRecorregut(TEAM_LIST_VIEW, true, true);
-    }
+    /**
+     * Displays the main panel.
+     */
     public void deleteAccount(){
         topPanel.setVisible(true);
         bottomPanel.setVisible(true);
@@ -230,17 +285,5 @@ public class MainFrameGUI extends JFrame{
         cardLayout.show(centerPanel, STATISTICS_VIEW);
         auxiliar++;
         updateRecorregut(STATISTICS_VIEW, true, true);
-    }
-
-    public void showMessageToUser(String message) {
-        showMessageDialog(null, message);
-    }
-
-    public boolean confirmDeleteAccount() {
-        int input = JOptionPane.showConfirmDialog(null,"Are you sure you want to delete your account?", "Select an Option...", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-        if (input == 0) {
-            return true;
-        }
-        return false;
     }
 }

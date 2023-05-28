@@ -4,12 +4,10 @@ import Business.Entities.League;
 import Business.Entities.Team;
 import Business.Managers.LeagueManager;
 import Business.Managers.TeamManager;
-import Exceptions.IncorrectLeagueNameException;
 import Exceptions.MatchIsPlayingException;
 import Presentation.Views.ListLeagueAdminGUI;
 import Presentation.Views.ListTeamAdminGUI;
 import Presentation.Views.MainFrameGUI;
-import Presentation.Views.ListTeamUserGUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,9 +25,7 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
     private final ListTeamAdminGUI listTeamAdminGUI;
     private final TeamManager teamManager;
     private final MainFrameGUI mainFrame;
-
     private String leaguenames;
-    private int i;
 
     public ListLeagueAdminController(ListLeagueAdminGUI view, LeagueManager leagueManager, ListTeamAdminGUI listTeamAdminGUI, MainFrameGUI mainFrame, TeamManager teamManager) {
         this.view = view;
@@ -38,7 +34,7 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
         this.listTeamAdminGUI = listTeamAdminGUI;
         this.mainFrame = mainFrame;
         this.teamManager = teamManager;
-        this.leaguenames = new String();
+        this.leaguenames = "";
     }
 
     @Override
@@ -54,6 +50,7 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
             if (selectedColumn != 3) {
                 try {
                     List<League> leagues = leagueManager.listLeagues();
+                    int i;
                     for (i = 0; i < leagues.size(); i++) {
                         if (leagueName.equals(leagues.get(i).getName())) {
                             leaguenames = leagueName;

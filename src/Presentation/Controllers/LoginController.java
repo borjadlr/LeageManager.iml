@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.io.IOException;
 
 public class LoginController implements ActionListener, FocusListener {
 
@@ -32,27 +31,23 @@ public class LoginController implements ActionListener, FocusListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()){
-            case "LOGIN_BUTTON":
-                try {
-                    String username = view.getUsernameInfo();
-                    String password = view.getPasswordInfo();
-                    if(userManager.signIn(username, password)){
-                        mainFrameGUI.showMenuAdmin();
-                        topPanelGUI.hideShowDeleteAccount(false);
-                        topPanelGUI.hideShowDropDownButton(true);
-                    }else {
-                        mainFrameGUI.showMenuUser();
-                        topPanelGUI.hideShowDropDownButton(true);
-                    }
-                } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
-                    view.exceptionMessage(ex.getMessage());
-                } catch (NullPointerException npe) {
-                    view.noUsersMessage();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+        if ("LOGIN_BUTTON".equals(e.getActionCommand())) {
+            try {
+                String username = view.getUsernameInfo();
+                String password = view.getPasswordInfo();
+                if (userManager.signIn(username, password)) {
+                    mainFrameGUI.showMenuAdmin();
+                    topPanelGUI.hideShowDeleteAccount(false);
+                    topPanelGUI.hideShowDropDownButton(true);
+                } else {
+                    mainFrameGUI.showMenuUser();
+                    topPanelGUI.hideShowDropDownButton(true);
                 }
-                break;
+            } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
+                view.exceptionMessage(ex.getMessage());
+            } catch (NullPointerException npe) {
+                view.noUsersMessage();
+            }
         }
     }
 

@@ -1,5 +1,4 @@
 import Business.Entities.League;
-import Business.Entities.Match;
 import Business.Entities.Team;
 import Business.Entities.User;
 import Business.Managers.*;
@@ -32,6 +31,7 @@ public class Main {
         AdminManager adminManaguer = new AdminManager(userDAO, leagueManager, teamManager);
         UserManager userManager = new UserManager(userDAO, leagueManager, teamManager, userTeamsDAO, teamsLeagueDAO, user, adminManaguer);
         MatchManager matchManager = new MatchManager(matchDAO, leagueDAO);
+
         //Vistas
         LoginGUI loginGUI = new LoginGUI();
         StatisticsGUI statisticsGUI = new StatisticsGUI();
@@ -53,26 +53,25 @@ public class Main {
         TeamListCreateLeague teamListCreateLeague = new TeamListCreateLeague();
         SimulationLeagueGUI simulationLeagueGUI = new SimulationLeagueGUI();
         ListPlayerGUI listPlayerGUI = new ListPlayerGUI();
-        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, listPlayerGUI, statisticsGUI,simulationGameGUI, listTeamUserGUI, topPanelGUI, bottomPanelGUI, newTeamGUI, listLeagueAdminGUI, teamListCreateLeague, simulationLeagueGUI, listTeamAdminGUI);
+        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, listPlayerGUI, statisticsGUI,simulationGameGUI, topPanelGUI, bottomPanelGUI, newTeamGUI, listLeagueAdminGUI, teamListCreateLeague, simulationLeagueGUI, listTeamAdminGUI);
 
         //Controllers
         MainPanelController mainPanelController = new MainPanelController(mainFrame, topPanelGUI);
         RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
         LoginController loginController = new LoginController(mainFrame, loginGUI, userManager, topPanelGUI);
         ChangePasswordController changePasswordController = new ChangePasswordController(mainFrame, changePasswordGUI, userManager);
-        MenuAdminController menuAdminController = new MenuAdminController(mainFrame, leagueManager, listLeagueUserGUI, menuAdminGUI, listLeagueAdminGUI, statisticsGUI, matchManager, simulationLeagueGUI);
+        MenuAdminController menuAdminController = new MenuAdminController(mainFrame, leagueManager, menuAdminGUI, listLeagueAdminGUI, matchManager, simulationLeagueGUI);
         TopPanelController topPanelController =  new TopPanelController(mainFrame, topPanelGUI);
         DeleteController deleteController = new DeleteController(mainFrame, deleteGUI, userManager);
         NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI, leagueManager, teamManager, teamListCreateLeague, topPanelGUI);
-        ListLeagueUserController listLeagueUserController = new ListLeagueUserController(listLeagueUserGUI, mainFrame, listTeamUserGUI, leagueManager, league);
+        ListLeagueUserController listLeagueUserController = new ListLeagueUserController(listLeagueUserGUI, mainFrame, listTeamUserGUI, leagueManager);
         BottomPanelController bottomPanelController = new BottomPanelController(mainFrame);
         NewTeamController newTeamController = new NewTeamController(mainFrame, newTeamGUI, teamManager);
-        MenuUserController menuUserController = new MenuUserController(mainFrame, menuUserGUI, statisticsGUI, userManager, simulationLeagueGUI);
+        MenuUserController menuUserController = new MenuUserController(mainFrame);
         ListLeagueAdminController listLeagueAdminController = new ListLeagueAdminController(listLeagueAdminGUI, leagueManager, listTeamAdminGUI, mainFrame, teamManager);
         ListTeamUserController listTeamUserController = new ListTeamUserController(listTeamUserGUI, mainFrame, teamManager);
-        ListTeamAdminController listTeamAdminController = new ListTeamAdminController(listTeamAdminGUI, userManager, listPlayerGUI, mainFrame, teamManager, listLeagueAdminController);
-        ListPlayerController listPlayerController = new ListPlayerController();
-        TeamListCreateLeagueController teamListCreateLeagueController = new TeamListCreateLeagueController(teamListCreateLeague, teamManager, listTeamAdminGUI, mainFrame, leagueManager, newLeagueController);
+        ListTeamAdminController listTeamAdminController = new ListTeamAdminController(listTeamAdminGUI, listPlayerGUI, mainFrame, teamManager, listLeagueAdminController);
+        TeamListCreateLeagueController teamListCreateLeagueController = new TeamListCreateLeagueController(teamListCreateLeague, teamManager, mainFrame, leagueManager, newLeagueController);
 
         //Buttons
         loginGUI.actionListener(loginController);
@@ -96,8 +95,5 @@ public class Main {
         listTeamUserGUI.setController(listTeamUserController);
         teamListCreateLeague.setController(teamListCreateLeagueController);
         listTeamAdminGUI.setController(listTeamAdminController);
-
-            //UserDAO userDAO = new UserDAO();
-        //userDAO.InsertDataUser("267598111c","borjhs@gmail.com",2,"holaqtal",5,"554322233");
     }
 }

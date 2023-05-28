@@ -1,6 +1,5 @@
 package Presentation.Controllers;
 
-import Business.Entities.Team;
 import Business.Managers.LeagueManager;
 import Business.Managers.TeamManager;
 import Exceptions.*;
@@ -8,7 +7,6 @@ import Presentation.Views.MainFrameGUI;
 import Presentation.Views.NewLeagueGUI;
 import Presentation.Views.TeamListCreateLeague;
 import Presentation.Views.TopPanelGUI;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,36 +45,34 @@ public class NewLeagueController implements ActionListener, FocusListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
-            switch (e.getActionCommand()) {
-                case "OK_BUTTON":
-
-                    try {
-                        String date = leagueManager.correctData(view.getData());
-                        String time = leagueManager.correctTime(view.getHora());
-                        String leagueName = view.getLeagueName();
-                        league_Name = leagueName;
-                        Date data = leagueManager.stringToDate(date);
-                        Time hora = leagueManager.stringToTime(time);
-                        String numeroEquipos = view.getNumeroEquipos();
-                        leagueManager.introduceLeague(leagueManager.setLeague(leagueName, data, hora, 1, parseInt(numeroEquipos), true, teamManager.getTeamsOfLeague(leagueName)));
-                        teamListCreateLeague.addTeams(teamManager.getAllTeams());
-                        topPanelGUI.hideBackButton(false);
-                        mainFrame.showTeamsNewLeague();
-                        view.clearTextFields();
-                        break;
-                    } catch (LeagueAlreadyExistsException | WrongTimeException | RepeatedTeamException | DateExpiredException | WrongTeamNumberException ex) {
-                        view.exceptionMessage(ex.getMessage());
-                    } catch (SQLException | ParseException ex) {
-                        throw new RuntimeException(ex);
-                    }
+            if ("OK_BUTTON".equals(e.getActionCommand())) {
+                try {
+                    String date = leagueManager.correctData(view.getData());
+                    String time = leagueManager.correctTime(view.getHora());
+                    String leagueName = view.getLeagueName();
+                    league_Name = leagueName;
+                    Date data = leagueManager.stringToDate(date);
+                    Time hora = leagueManager.stringToTime(time);
+                    String numeroEquipos = view.getNumeroEquipos();
+                    leagueManager.introduceLeague(leagueManager.setLeague(leagueName, data, hora, 1, parseInt(numeroEquipos), true, teamManager.getTeamsOfLeague(leagueName)));
+                    teamListCreateLeague.addTeams(teamManager.getAllTeams());
+                    topPanelGUI.hideBackButton(false);
+                    mainFrame.showTeamsNewLeague();
+                    view.clearTextFields();
+                    return;
+                } catch (LeagueAlreadyExistsException | WrongTimeException | RepeatedTeamException |
+                         DateExpiredException | WrongTeamNumberException ex) {
+                    view.exceptionMessage(ex.getMessage());
+                } catch (SQLException | ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         }
     }
 
     @Override
     public void focusGained(FocusEvent e) {
-        if (e.getSource() instanceof JTextField) {
-            JTextField textField = (JTextField) e.getSource();
+        if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
                 case "Date":
                     if (textField.getText().equals(defaultDateText)) {
@@ -103,8 +99,7 @@ public class NewLeagueController implements ActionListener, FocusListener {
     }
 
     public void focusLost(FocusEvent e) {
-        if (e.getSource() instanceof JTextField) {
-            JTextField textField = (JTextField) e.getSource();
+        if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
                 case "Date":
                     if (textField.getText().isEmpty()) {

@@ -4,10 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SimulationGameGUI extends JPanel {
-    private JTextArea updatesTextArea;
-    private JLabel scoreLabel;
-    private JLabel homeTeamLabel;
-    private JLabel awayTeamLabel;
+    private final JTextArea updatesTextArea;
+    private final JLabel scoreLabel;
+    private final JLabel homeTeamLabel;
+    private final JLabel awayTeamLabel;
     public SimulationGameGUI() {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -50,17 +50,6 @@ public class SimulationGameGUI extends JPanel {
         scorePanel.add(awayTeamLabel, BorderLayout.EAST);
 
         add(scorePanel, BorderLayout.SOUTH);
-    }
-
-    public void addUpdate(int minute, String update) {
-        updatesTextArea.append("Minuto " + minute + ":\n- " + update + "\n\n");
-        updatesTextArea.setCaretPosition(updatesTextArea.getDocument().getLength());
-    }
-
-    public void setScore(String homeTeamName, int homeTeamScore, String awayTeamName, int awayTeamScore) {
-        homeTeamLabel.setText(homeTeamName);
-        awayTeamLabel.setText(awayTeamName);
-        scoreLabel.setText(homeTeamScore + " - " + awayTeamScore);
     }
 
     public void exceptionMessage(String message) {

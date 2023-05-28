@@ -1,9 +1,6 @@
 package Presentation.Views;
 
-import Presentation.Controllers.RegistrationController;
-
-import javax.swing.*;
-import javax.swing.text.NumberFormatter;
+import javax.swing.*;;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
@@ -15,11 +12,10 @@ public class RegistrationGUI extends JPanel {
     private final JTextField phoneNumber;
     private final JTextField dorsal;
     private final JButton ok;
-    private Color backgroundColor;
     private static final String OK_BUTTON = "OK_BUTTON";
 
     public RegistrationGUI() {
-        this.backgroundColor = Color.white;
+        Color backgroundColor = Color.white;
         this.setLayout(new GridBagLayout());
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
