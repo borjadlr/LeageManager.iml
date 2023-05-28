@@ -22,23 +22,23 @@ public class TeamListCreateLeague extends JPanel {
         setBackground(Color.WHITE); // Set the background color of the panel to white
 
         // Create a title label
-        titleLabel = new JLabel("List of Teams");
+        titleLabel = new JLabel("List of Teams Create New League");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
         // Create the table with column names
-        String[] columnNames = {"Team Name", "Points", "Wins", "Draws", "Losses", "Select"};
+        String[] columnNames = {"Team Name", "Select"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 5; // Only allow editing the checkbox column
+                return column == 1;
             }
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 5) {
-                    return Boolean.class; // Set checkbox column class to Boolean
+                if (columnIndex == 1) {
+                    return Boolean.class;
                 }
                 return super.getColumnClass(columnIndex);
             }
@@ -58,7 +58,7 @@ public class TeamListCreateLeague extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
 
         // Create the OK button
-        delete = new JButton("Delete");
+        delete = new JButton("Add Teams");
         delete.setPreferredSize(new Dimension(80, 30)); // Set the preferred size of the button
 
         // Set the layout manager for the bottom area
@@ -76,7 +76,7 @@ public class TeamListCreateLeague extends JPanel {
         tableModel.setRowCount(0);
         // Add team data to the table
         for (Team team : teams) {
-            Object[] rowData = {team.getName(), team.getPoints() ,team.getWins(), team.getTies(), team.getLosses() ,false}; // Add checkbox column data
+            Object[] rowData = {team.getName(),false}; // Add checkbox column data
             tableModel.addRow(rowData);
         }
     }
@@ -101,8 +101,8 @@ public class TeamListCreateLeague extends JPanel {
     }
 
     public int showAreYouSure(){
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?",
-                "delete", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to add?",
+                "Add teams", JOptionPane.YES_NO_OPTION);
         return confirm;
     }
 
