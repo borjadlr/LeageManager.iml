@@ -39,8 +39,8 @@ public class NewTeamController implements ActionListener {
                     try {
                         System.out.println(view.getName());
                         teamManager.createTeam(view.getName());
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
+                    } catch (SQLException | NullPointerException ex) {
+                        mainFrame.showMenuAdmin();
                     }
                     break;
             }

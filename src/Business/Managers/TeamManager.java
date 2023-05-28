@@ -22,7 +22,8 @@ public class TeamManager {
 
     private final UserTeamsDAOInt userTeamsDAOInt;
     private Team team;
-    private List<Team> teamsList;
+    private final List<Team> teamsList;
+
     private UserManager userManager;
 
     private List<User> userList;
