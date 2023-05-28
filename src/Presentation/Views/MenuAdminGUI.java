@@ -6,17 +6,12 @@ import java.awt.event.ActionListener;
 
 public class MenuAdminGUI extends JPanel {
     private final JButton createNewTeam;
-    private final JButton deleteTeam;
     private final JButton newLeague;
-    private final JButton deleteLeague;
     private final JButton viewLeagues;
     private final JButton viewStatistics;
 
     private static final String CREATE_NEW_TEAM = "CREATE_NEW_TEAM";
-    private static final String CREATE_NEW_ACCOUNT = "CREATE_NEW_ACCOUNT";
-    private static final String DELETE_TEAM = "DELETE_TEAM";
     private static final String NEW_LEAGUE = "NEW_LEAGUE";
-    private static final String DELETE_LEAGUE = "DELETE_LEAGUE";
     private static final String VIEW_LEAGUES = "VIEW_LEAGUES";
     private static final String VIEW_STATISTICS = "VIEW_SATATISTICS";
 
@@ -55,29 +50,17 @@ public class MenuAdminGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(90));
 
-        //Create account
-        createNewTeam = new JButton("Create account");
-        createNewTeam.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        createNewTeam.setActionCommand(CREATE_NEW_ACCOUNT);
-        createNewTeam.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         //Delete team
-        deleteTeam = new JButton("Create Team");
-        deleteTeam.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        deleteTeam.setActionCommand(CREATE_NEW_TEAM);
-        deleteTeam.setAlignmentX(Component.CENTER_ALIGNMENT);
+        createNewTeam = new JButton("Create Team");
+        createNewTeam.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        createNewTeam.setActionCommand(CREATE_NEW_TEAM);
+        createNewTeam.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //Create new league
         newLeague = new JButton("Create New League");
         newLeague.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         newLeague.setActionCommand(NEW_LEAGUE);
         newLeague.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        //Delete League
-        deleteLeague = new JButton("Delete League");
-        deleteLeague.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        deleteLeague.setActionCommand(DELETE_LEAGUE);
-        deleteLeague.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //View Leagues
         viewLeagues = new JButton("View Leagues");
@@ -94,20 +77,15 @@ public class MenuAdminGUI extends JPanel {
         // Set the maximum size of each button to be the same
         Dimension buttonSize = new Dimension(250, 120); // set the size of the buttons
         createNewTeam.setMaximumSize(buttonSize);
-        deleteTeam.setMaximumSize(buttonSize);
         newLeague.setMaximumSize(buttonSize);
-        deleteLeague.setMaximumSize(buttonSize);
         viewLeagues.setMaximumSize(buttonSize);
+        viewStatistics.setMaximumSize(buttonSize);
 
 
         // Add the buttons to the panel in the same order as before
         panel.add(createNewTeam);
         panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
-        panel.add(deleteTeam);
-        panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
         panel.add(newLeague);
-        panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
-        panel.add(deleteLeague);
         panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
         panel.add(viewLeagues);
         panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
@@ -119,9 +97,7 @@ public class MenuAdminGUI extends JPanel {
 
     public void menuAdminListener(ActionListener actionListener){
         createNewTeam.addActionListener(actionListener);
-        deleteTeam.addActionListener(actionListener);
         newLeague.addActionListener(actionListener);
-        deleteLeague.addActionListener(actionListener);
         viewLeagues.addActionListener(actionListener);
         viewStatistics.addActionListener(actionListener);
     }

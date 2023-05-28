@@ -1,12 +1,8 @@
 package Presentation.Controllers;
 
-import Business.Entities.League;
 import Business.Entities.Team;
 import Business.Managers.LeagueManager;
 import Business.Managers.TeamManager;
-import Exceptions.IncorrectLeagueNameException;
-import Exceptions.IncorrectTeamNameException;
-import Exceptions.MatchIsPlayingException;
 import Presentation.Views.*;
 
 import javax.swing.*;
@@ -47,13 +43,11 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
 
         if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
             Object cellValue = view.getTable().getValueAt(selectedRow, selectedColumn);
-            String leagueName = cellValue.toString();
 
             if (cellValue instanceof Boolean) {
                 Boolean isChecked = (Boolean) view.getTable().getValueAt(selectedRow, selectedColumn);
                 try {
                     Team selectedTeam = teamManager.getAllTeams().get(selectedRow);
-
                     if (isChecked) {
                         if (!selectedTeams.contains(selectedTeam)) {
                             selectedTeams.add(selectedTeam);
@@ -82,6 +76,8 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
                 if (confirmDialog == JOptionPane.YES_OPTION) {
                     try {
                         leagueManager.introduceTeamsLeague(selectedTeams, newLeagueController.getName());
+                        System.out.println(newLeagueController.getName());
+                        mainFrame.showMenuAdmin();
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }

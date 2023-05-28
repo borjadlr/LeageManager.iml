@@ -20,7 +20,7 @@ public class ListPlayerGUI extends JPanel {
         setBackground(Color.WHITE); // Set the background color of the panel to white
 
         // Create a title label
-        titleLabel = new JLabel("Players List");
+        titleLabel = new JLabel("");
         titleLabel.setFont(new Font("Calibri", Font.BOLD, 30));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
@@ -47,7 +47,6 @@ public class ListPlayerGUI extends JPanel {
         scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
     }
-
     public void addPlayers(List<User> playerNames) {
         tableModel.setRowCount(0);
         for (User playerName : playerNames) {
@@ -55,7 +54,6 @@ public class ListPlayerGUI extends JPanel {
             tableModel.addRow(rowData);
         }
     }
-
     public void setTitle(String title) {
         titleLabel.setText(title);
     }

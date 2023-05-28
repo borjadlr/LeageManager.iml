@@ -64,7 +64,7 @@ public class Main {
         MenuAdminController menuAdminController = new MenuAdminController(mainFrame, leagueManager, listLeagueUserGUI, menuAdminGUI, listLeagueAdminGUI, statisticsGUI);
         TopPanelController topPanelController =  new TopPanelController(mainFrame, topPanelGUI);
         DeleteController deleteController = new DeleteController(mainFrame, deleteGUI, userManager);
-        NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI, leagueManager, teamManager);
+        NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI, leagueManager, teamManager, teamListCreateLeague);
         ListLeagueUserController listLeagueUserController = new ListLeagueUserController(listLeagueUserGUI, mainFrame, listTeamUserGUI, leagueManager, league);
         BottomPanelController bottomPanelController = new BottomPanelController(mainFrame);
         NewTeamController newTeamController = new NewTeamController(mainFrame, newTeamGUI, teamManager);

@@ -43,16 +43,6 @@ public class MenuAdminController implements ActionListener{
                 case "NEW_LEAGUE":
                     mainFrameGUI.showMenuNewLeague();
                     break;
-                case "DELETE_LEAGUE":
-                    mainFrameGUI.showLeague();
-                    try {
-                        leagues = leagueManager.listLeagues();
-                        System.out.println(leagues.size());
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    System.out.println(leagues.size());
-                    break;
                 case "VIEW_LEAGUES":
                     try {
                         leagues = leagueManager.listLeagues();

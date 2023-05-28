@@ -89,10 +89,10 @@ public class MainFrameGUI extends JFrame{
 
     public void showUserList() {
         bottomPanel.setVisible(false);
-        topPanel.setVisible(false);
+        topPanel.setVisible(true);
         cardLayout.show(centerPanel, SHOW_USERS_TEAM);
         auxiliar++;
-        updateRecorregut(SHOW_USERS_TEAM, false, false);
+        updateRecorregut(SHOW_USERS_TEAM, true, false);
     }
 
     public void showSimulationLeagueView(){
@@ -142,15 +142,6 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(REGISTRATION_VIEW, true, false);
     }
-
-    public void showNewLeague() {
-        topPanel.setVisible(true);
-        bottomPanel.setVisible(true);
-        cardLayout.show(centerPanel, MENU_NEW_LEAGUE);
-        auxiliar++;
-        updateRecorregut(MENU_NEW_LEAGUE, true, true);
-    }
-
     public void showTeamsNewLeague(){
         topPanel.setVisible(true);
         bottomPanel.setVisible(true);

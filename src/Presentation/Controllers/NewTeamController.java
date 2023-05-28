@@ -30,13 +30,18 @@ public class NewTeamController implements ActionListener {
         if (e.getSource() instanceof JButton){
             switch (e.getActionCommand()){
                 case "SEARCH_BUTTON":
-                    //mainFrame.showNewTeam();
+                    mainFrame.showNewTeam();
                     try {
                         searchFile();
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
-                    //Crida logica
+                    try {
+                        System.out.println(view.getName());
+                        teamManager.createTeam(view.getName());
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     break;
             }
         }
