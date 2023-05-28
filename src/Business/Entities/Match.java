@@ -188,19 +188,17 @@ public class Match implements Runnable {
             }
 
             if (segundo % 60 == 0) {
-                System.out.println("Minuto " + minuto + " de la simulación del partido: " + getLocal() + " vs " + getVisitante());
                 auxiliar = simularGoles(random);
                 if (auxiliar == 1) {
                     golesLocal = getGolesLocal();
                     golesLocal++;
                     setGolesLocal(golesLocal);
-                    System.out.println("Minuto " + minuto + ": Gol del equipo local (" + getLocal() + "). Marcador: " + golesLocal + "-" + golesVisitante);
+
                 } else {
                     if (auxiliar == 2) {
                         golesVisitante = getGolesVisitante();
                         golesVisitante++;
                         setGolesVisitante(golesVisitante);
-                        System.out.println("Minuto " + minuto + ": Gol del equipo visitante (" + getVisitante() + "). Marcador: " + golesLocal + "-" + golesVisitante);
                     }
                 }
             }
