@@ -31,7 +31,6 @@ public class ListLeagueUserController extends MouseInputAdapter {
         int i;
         List<League> leagues;
         try {
-            //System.out.println("manolo gonzalez");
             leagues = leagueManager.listLeagues();
             System.out.println(leagues.size());
         } catch (SQLException ex) {

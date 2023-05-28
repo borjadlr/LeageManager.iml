@@ -48,7 +48,7 @@ public class MenuUserGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(90));
 
-        //Create account
+        //Watch Live Matches
         watchMatches = new JButton("Watch Live Matches");
         watchMatches.setActionCommand(WATCH_MATCHES);
         watchMatches.setPreferredSize(new Dimension(150, 30));

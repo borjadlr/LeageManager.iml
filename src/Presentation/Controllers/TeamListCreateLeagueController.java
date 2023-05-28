@@ -48,13 +48,11 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
 
         if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
             Object cellValue = view.getTable().getValueAt(selectedRow, selectedColumn);
-            String leagueName = cellValue.toString();
 
             if (cellValue instanceof Boolean) {
                 Boolean isChecked = (Boolean) view.getTable().getValueAt(selectedRow, selectedColumn);
                 try {
                     Team selectedTeam = teamManager.getAllTeams().get(selectedRow);
-
                     if (isChecked) {
                         if (!selectedTeams.contains(selectedTeam)) {
                             selectedTeams.add(selectedTeam);
@@ -64,7 +62,6 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
-                    // Manejar la excepción según sea necesario
                 }
             }
         }
@@ -74,7 +71,6 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         int i = 0;
-
         if (command.equals("Add Teams")) {
             if (selectedTeams.isEmpty()) {
                 view.showWarningAtLeastOneTeam();
@@ -83,23 +79,19 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
                 if (confirmDialog == JOptionPane.YES_OPTION) {
                     try {
                         leagueManager.introduceTeamsLeague(selectedTeams, newLeagueController.getName());
+                        mainFrame.showMenuAdmin();
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     } catch (NumberOfTeamsDoNotRelateException ex) {
                         view.exceptionMessage(ex.getMessage());
                     }
-                    try {
-                        refreshTable();
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
+                    for (int row = 0; row < view.getTable().getRowCount(); row++) {
+                        view.getTable().getModel().setValueAt(false, row, 1);
                     }
+                    view.getTable().clearSelection();
                     selectedTeams.clear();
                 }
             }
         }
     }
-    public void refreshTable() throws SQLException {
-        view.addTeams(teamManager.getAllTeams());
-    }
-
 }

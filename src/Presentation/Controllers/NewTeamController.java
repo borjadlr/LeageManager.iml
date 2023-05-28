@@ -56,7 +56,7 @@ public class NewTeamController implements ActionListener {
         int result = fileChooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            String filePath = ((File) selectedFile).getAbsolutePath();
+            String filePath = selectedFile.getAbsolutePath();
             teamManager.createTeam(filePath);
             JOptionPane.showMessageDialog(null, "New teams have been added correctly");
         }

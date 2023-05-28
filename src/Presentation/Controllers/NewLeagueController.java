@@ -1,5 +1,6 @@
 package Presentation.Controllers;
 
+import Business.Entities.Team;
 import Business.Managers.LeagueManager;
 import Business.Managers.TeamManager;
 import Exceptions.DateExpiredException;
@@ -25,6 +26,7 @@ import static java.lang.Integer.parseInt;
 public class NewLeagueController implements ActionListener, FocusListener {
 
     private final MainFrameGUI mainFrame;
+    private String league_Name;
     private final NewLeagueGUI view;
     private final String defaultDateText = "Date: ";
     private final String defaultLegueText = "League name: ";
@@ -51,6 +53,7 @@ public class NewLeagueController implements ActionListener, FocusListener {
                     try {
                         String date = leagueManager.correctData(view.getData());
                         String leagueName = view.getLeagueName();
+                        league_Name = leagueName;
                         Date data = leagueManager.stringToDate(date);
                         Time hora = leagueManager.stringToTime(view.getHora());
                         String numeroEquipos = view.getNumeroEquipos();
@@ -127,6 +130,6 @@ public class NewLeagueController implements ActionListener, FocusListener {
     }
 
     public String getName(){
-        return view.getLeagueName();
+        return league_Name;
     }
 }

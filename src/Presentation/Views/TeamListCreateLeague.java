@@ -15,7 +15,7 @@ public class TeamListCreateLeague extends JPanel {
     private final JTable table;
     private final DefaultTableModel tableModel;
     private final JLabel titleLabel;
-    private final JButton delete;
+    private final JButton add;
 
     public TeamListCreateLeague() {
         setLayout(new BorderLayout());
@@ -58,16 +58,14 @@ public class TeamListCreateLeague extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
 
         // Create the OK button
-        delete = new JButton("Add Teams");
-        delete.setPreferredSize(new Dimension(80, 30)); // Set the preferred size of the button
+        add = new JButton("Add Teams");
+        add.setPreferredSize(new Dimension(120, 30)); // Set the preferred size of the button
 
         // Set the layout manager for the bottom area
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.setBackground(Color.WHITE);
 
-        // Add the OK button to the bottom panel
-        bottomPanel.add(delete);
-
+        bottomPanel.add(add);
         // Add the bottom panel to the main panel
         add(bottomPanel, BorderLayout.SOUTH);
     }
@@ -76,14 +74,14 @@ public class TeamListCreateLeague extends JPanel {
         tableModel.setRowCount(0);
         // Add team data to the table
         for (Team team : teams) {
-            Object[] rowData = {team.getName(),false}; // Add checkbox column data
+            Object[] rowData = {team.getName(),false};
             tableModel.addRow(rowData);
         }
     }
 
    public void setController(TeamListCreateLeagueController controller) {
         table.addMouseListener(controller);
-        delete.addActionListener(controller);
+        add.addActionListener(controller);
     }
 
 
