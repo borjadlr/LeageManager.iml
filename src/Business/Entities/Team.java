@@ -1,6 +1,6 @@
 package Business.Entities;
 
-public class Team {
+public class Team implements Comparable<Team>{
     private String name;
     private int NPlayers;
     private int wins;
@@ -68,5 +68,11 @@ public class Team {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    @Override
+    public int compareTo(Team team) {
+        int comparePoints = ((Team) team).getPoints();
+        return comparePoints - this.points;
     }
 }

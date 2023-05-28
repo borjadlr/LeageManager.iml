@@ -11,6 +11,7 @@ import Persistance.UserTeamsDAOInt;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TeamManager {
@@ -79,6 +80,7 @@ public class TeamManager {
             teams.add(teamsDAO.selectTeam(teamNames.get(i)));
             i++;
         }
+        Collections.sort(teams);
 
         return teams;
     }
