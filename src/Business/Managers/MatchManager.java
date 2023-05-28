@@ -91,12 +91,13 @@ public class MatchManager {
     }
 
 
-    public List<Match> simularPartidosConAumentoJornada(String liga, int jornadaInicial) {
+    public List<Match> simularPartidosConAumentoJornada() throws SQLException {
         List<Match> resultados = new ArrayList<>();
-        int jornada = jornadaInicial;
+        List<League> leagues = leagueDAO.getAllLeagues();
+        int jornada = 1;
         while (true) {
             System.out.println("Esta es la jornada" + jornada);
-            List<Match> partidos = matchDAO.obtenerPartidosPorLigaYJornada(liga, jornada);
+            List<Match> partidos = matchDAO.getAllMatches();
             if (partidos.isEmpty()) {
                 break; // Salir del bucle si no hay más partidos para la jornada actual
             }

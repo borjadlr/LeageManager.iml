@@ -98,9 +98,9 @@ public class MatchDAO implements MatchDAOInt {
      *
      * @return Una lista de partidos.
      */
-    public List<String> getAllMatches() {
+    public List<Match> getAllMatches() {
         String query = "SELECT * FROM partido";
-        List<String> matches = new ArrayList<>();
+        List<Match> matches = new ArrayList<>();
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             ResultSet resultSet = statement.executeQuery();
@@ -115,12 +115,14 @@ public class MatchDAO implements MatchDAOInt {
                 String nombreLiga = resultSet.getString("nombre_liga");
                 Timestamp fechaInicio = resultSet.getTimestamp("fecha_inicio");
 
-                String matchInfo = "..., Fecha Inicio: " + fechaInicio;
-                matches.add(matchInfo);
+                Match match = new Match(equipoLocal, equipoVisitante, resultadoLocal, resultadoVisitante, jornada, partidoFinalizado, nombreLiga);
+
+                matches.add(match);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return matches;
     }
 
