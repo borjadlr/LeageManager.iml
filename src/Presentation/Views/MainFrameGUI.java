@@ -271,6 +271,9 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(DELETE_VIEW, true, true);
     }
+    /**
+     * Displays the menu new league.
+     */
     public void showMenuNewLeague(){
         topPanel.setVisible(true);
         bottomPanel.setVisible(true);
@@ -278,7 +281,9 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(MENU_NEW_LEAGUE, true, false);
     }
-
+    /**
+     * Displays the statistics view.
+     */
     public void showStatistics(){
         topPanel.setVisible(true);
         bottomPanel.setVisible(true);

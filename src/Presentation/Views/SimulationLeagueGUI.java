@@ -1,7 +1,6 @@
 package Presentation.Views;
 
 import Business.Entities.Match;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -10,9 +9,18 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * A JPanel class representing the GUI for simulating a league.
+ */
+
 public class SimulationLeagueGUI extends JPanel {
     private JTable table;
     private final DefaultTableModel tableModel;
+
+    /**
+     * Constructs a SimulationLeagueGUI object.
+     * Initializes the GUI components and sets up the layout.
+     */
 
     public SimulationLeagueGUI() {
         setLayout(new BorderLayout());
@@ -47,7 +55,12 @@ public class SimulationLeagueGUI extends JPanel {
         scrollPane.setBorder(new EmptyBorder(20, 20, 20, 20));
         add(scrollPane, BorderLayout.CENTER);
     }
-
+    /**
+     * Adds match data to the table.
+     * Clears the existing table data and populates it with the provided matches.
+     *
+     * @param matches The list of Match objects representing the matches to be added.
+     */
     public void addMatch(List<Match> matches) {
         tableModel.setRowCount(0);
 
