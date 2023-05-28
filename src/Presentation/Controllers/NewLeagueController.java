@@ -3,10 +3,7 @@ package Presentation.Controllers;
 import Business.Entities.Team;
 import Business.Managers.LeagueManager;
 import Business.Managers.TeamManager;
-import Exceptions.DateExpiredException;
-import Exceptions.LeagueAlreadyExistsException;
-import Exceptions.RepeatedTeamException;
-import Exceptions.WrongTeamNumberException;
+import Exceptions.*;
 import Presentation.Views.MainFrameGUI;
 import Presentation.Views.NewLeagueGUI;
 import Presentation.Views.TeamListCreateLeague;
@@ -52,17 +49,18 @@ public class NewLeagueController implements ActionListener, FocusListener {
 
                     try {
                         String date = leagueManager.correctData(view.getData());
+                        String time = leagueManager.correctTime(view.getHora());
                         String leagueName = view.getLeagueName();
                         league_Name = leagueName;
                         Date data = leagueManager.stringToDate(date);
-                        Time hora = leagueManager.stringToTime(view.getHora());
+                        Time hora = leagueManager.stringToTime(time);
                         String numeroEquipos = view.getNumeroEquipos();
                         leagueManager.introduceLeague(leagueManager.setLeague(leagueName, data, hora, 1, parseInt(numeroEquipos), true, teamManager.getTeamsOfLeague(leagueName)));
                         teamListCreateLeague.addTeams(teamManager.getAllTeams());
                         mainFrame.showTeamsNewLeague();
                         view.clearTextFields();
                         break;
-                    } catch (LeagueAlreadyExistsException | RepeatedTeamException | DateExpiredException | WrongTeamNumberException ex) {
+                    } catch (LeagueAlreadyExistsException | WrongTimeException | RepeatedTeamException | DateExpiredException | WrongTeamNumberException ex) {
                         view.exceptionMessage(ex.getMessage());
                     } catch (SQLException | ParseException ex) {
                         throw new RuntimeException(ex);

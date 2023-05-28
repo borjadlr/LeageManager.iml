@@ -113,6 +113,17 @@ public class LeagueManager {
         return data;
     }
 
+    public String correctTime(String time) throws WrongTimeException {
+        char caracter = time.charAt(2);
+        if (time.length() != 8){
+            throw new WrongTimeException();
+        } else if (caracter != ':' || time.charAt(6) != ':') {
+            time = time.replace(caracter, ':');
+        }
+
+        return time;
+    }
+
     public League setLeague (String name, Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
         List<Match> matches = new ArrayList<>();
         return new League(name, date, hour, day, teamNumber, teams, matches, state);
