@@ -16,8 +16,12 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.util.Date;
-
 import static java.lang.Integer.parseInt;
+
+/**
+ * The controller class for the NewLeagueGUI.
+ * Handles the actions and events in the new league creation view.
+ */
 
 public class NewLeagueController implements ActionListener, FocusListener {
 
@@ -33,6 +37,17 @@ public class NewLeagueController implements ActionListener, FocusListener {
     private final LeagueManager leagueManager;
     private final TeamListCreateLeague teamListCreateLeague;
     private final TeamManager teamManager;
+
+    /**
+     * Constructs a NewLeagueController object.
+     *
+     * @param mainFrame          The MainFrameGUI instance.
+     * @param view               The NewLeagueGUI instance.
+     * @param leagueManager      The LeagueManager instance.
+     * @param teamManager        The TeamManager instance.
+     * @param teamListCreateLeague The TeamListCreateLeague instance.
+     * @param topPanelGUI        The TopPanelGUI instance.
+     */
     public NewLeagueController(MainFrameGUI mainFrame, NewLeagueGUI view, LeagueManager leagueManager, TeamManager teamManager, TeamListCreateLeague teamListCreateLeague, TopPanelGUI topPanelGUI) {
         this.mainFrame = mainFrame;
         this.leagueManager = leagueManager;
@@ -42,6 +57,11 @@ public class NewLeagueController implements ActionListener, FocusListener {
         this.topPanelGUI = topPanelGUI;
     }
 
+    /**
+     * Handles the action events in the new league creation view.
+     *
+     * @param e The ActionEvent that occurred.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
@@ -70,6 +90,11 @@ public class NewLeagueController implements ActionListener, FocusListener {
         }
     }
 
+    /**
+     * Handles the focus gained events in the text fields.
+     *
+     * @param e The FocusEvent that occurred.
+     */
     @Override
     public void focusGained(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {
@@ -98,6 +123,11 @@ public class NewLeagueController implements ActionListener, FocusListener {
         }
     }
 
+    /**
+     * Handles the focus lost events in the text fields.
+     *
+     * @param e The FocusEvent that occurred.
+     */
     public void focusLost(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
@@ -124,6 +154,12 @@ public class NewLeagueController implements ActionListener, FocusListener {
             }
         }
     }
+
+    /**
+     * Returns the name of the league.
+     *
+     * @return The name of the league.
+     */
 
     public String getName(){
         return league_Name;

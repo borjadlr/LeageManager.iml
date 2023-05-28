@@ -13,7 +13,10 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * The controller class for the ListTeamAdminGUI.
+ * Handles the mouse events and actions performed in the list team admin view.
+ */
 public class ListTeamAdminController extends MouseAdapter implements ActionListener {
     private final ListTeamAdminGUI view;
     private final List<Team> selectedTeams;
@@ -21,7 +24,15 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
     private final TeamManager teamManager;
     private final MainFrameGUI mainFrame;
     private final ListLeagueAdminController listLeagueAdminController;
-
+    /**
+     * Constructs a ListTeamAdminController object.
+     *
+     * @param view                    The ListTeamAdminGUI instance.
+     * @param listPlayerGUI           The ListPlayerGUI instance.
+     * @param mainFrame               The MainFrameGUI instance.
+     * @param teamManager             The TeamManager instance.
+     * @param listLeagueAdminController The ListLeagueAdminController instance.
+     */
     public ListTeamAdminController(ListTeamAdminGUI view, ListPlayerGUI listPlayerGUI, MainFrameGUI mainFrame, TeamManager teamManager, ListLeagueAdminController listLeagueAdminController) {
         this.view = view;
         this.selectedTeams = new ArrayList<>();
@@ -30,7 +41,11 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
         this.teamManager = teamManager;
         this.listLeagueAdminController = listLeagueAdminController;
     }
-
+    /**
+     * Handles the mouse clicked events in the list team admin view.
+     *
+     * @param e The MouseEvent that occurred.
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         List<User> users;
@@ -79,6 +94,11 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
         }
     }
 
+    /**
+     * Handles the action events in the list team admin view.
+     *
+     * @param e The ActionEvent that occurred.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
@@ -129,6 +149,11 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
             }
         }
     }
+    /**
+     * Refreshes the table in the list team admin view.
+     *
+     * @throws SQLException If a database access error occurs.
+     */
     public void refreshTable() throws SQLException {
         view.addTeams(teamManager.getTeamsOfLeague(listLeagueAdminController.getLeaguenames()));
     }

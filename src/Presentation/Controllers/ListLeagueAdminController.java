@@ -17,6 +17,10 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * The controller class for the ListLeagueAdminGUI.
+ * Handles the mouse and action events performed in the list league admin view.
+ */
 
 public class ListLeagueAdminController extends MouseAdapter implements ActionListener {
     private final ListLeagueAdminGUI view;
@@ -27,6 +31,15 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
     private final MainFrameGUI mainFrame;
     private String leaguenames;
 
+    /**
+     * Constructs a ListLeagueAdminController object.
+     *
+     * @param view              The ListLeagueAdminGUI instance.
+     * @param leagueManager     The LeagueManager instance.
+     * @param listTeamAdminGUI  The ListTeamAdminGUI instance.
+     * @param mainFrame         The MainFrameGUI instance.
+     * @param teamManager       The TeamManager instance.
+     */
     public ListLeagueAdminController(ListLeagueAdminGUI view, LeagueManager leagueManager, ListTeamAdminGUI listTeamAdminGUI, MainFrameGUI mainFrame, TeamManager teamManager) {
         this.view = view;
         this.leagueManager = leagueManager;
@@ -36,6 +49,11 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
         this.teamManager = teamManager;
         this.leaguenames = "";
     }
+    /**
+     * Handles the mouse clicked events in the list league admin view.
+     *
+     * @param e The MouseEvent that occurred.
+     */
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -86,7 +104,11 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
             }
         }
     }
-
+    /**
+     * Handles the action events performed in the list league admin view.
+     *
+     * @param e The ActionEvent that occurred.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
@@ -139,10 +161,19 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
             }
         }
     }
+    /**
+     * Refreshes the table in the list league admin view with updated league data.
+     *
+     * @throws SQLException If an SQL exception occurs while retrieving the league data.
+     */
     public void refreshTable() throws SQLException {
         view.addLeagues(leagueManager.listLeagues());
     }
-
+    /**
+     * Returns the names of the selected leagues.
+     *
+     * @return The names of the selected leagues.
+     */
     public String getLeaguenames(){
         return leaguenames;
     }

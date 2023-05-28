@@ -11,7 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-
+/**
+ * The controller class for the ChangePasswordGUI.
+ * Handles the focus events and action events performed in the change password view.
+ */
 public class ChangePasswordController implements FocusListener, ActionListener {
 
     private final MainFrameGUI mainFrameGUI;
@@ -21,12 +24,23 @@ public class ChangePasswordController implements FocusListener, ActionListener {
     private final ChangePasswordGUI view;
     private final UserManager userManager;
 
+    /**
+     * Constructs a ChangePasswordController object.
+     *
+     * @param mainFrameGUI The MainFrameGUI instance.
+     * @param view         The ChangePasswordGUI instance.
+     * @param userManager The UserManager instance.
+     */
     public ChangePasswordController(MainFrameGUI mainFrameGUI, ChangePasswordGUI view, UserManager userManager) {
         this.mainFrameGUI = mainFrameGUI;
         this.view = view;
         this.userManager = userManager;
     }
-
+    /**
+     * Handles the action events performed on the buttons in the change password view.
+     *
+     * @param e The ActionEvent that occurred.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
@@ -46,7 +60,11 @@ public class ChangePasswordController implements FocusListener, ActionListener {
             }
         }
     }
-
+    /**
+     * Handles the focus gained events on the password fields.
+     *
+     * @param e The FocusEvent that occurred.
+     */
     @Override
     public void focusGained(FocusEvent e) {
         if (e.getSource() instanceof JPasswordField textField) {
@@ -73,6 +91,11 @@ public class ChangePasswordController implements FocusListener, ActionListener {
         }
     }
 
+    /**
+     * Handles the focus lost events on the password fields.
+     *
+     * @param e The FocusEvent that occurred.
+     */
     @Override
     public void focusLost(FocusEvent e) {
         if (e.getSource() instanceof JPasswordField textField) {
