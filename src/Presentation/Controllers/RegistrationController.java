@@ -11,7 +11,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.SQLException;
 
-
+/**
+ * The RegistrationController class handles user registration logic and interacts with the RegistrationGUI view
+ * and the UserManager.
+ */
 public class RegistrationController implements FocusListener, ActionListener {
 
     private final UserManager userManager;
@@ -22,12 +25,24 @@ public class RegistrationController implements FocusListener, ActionListener {
     private final String defaultEmailText = "Email: ";
     private final String defaultPhoneNumberText = "Phone number: ";
 
+    /**
+     * Constructs a RegistrationController with the specified dependencies.
+     *
+     * @param mainFrameGUI The MainFrameGUI instance for navigating between views.
+     * @param view         The RegistrationGUI instance for user input and display.
+     * @param userManager The UserManager instance for user management.
+     */
     public RegistrationController(MainFrameGUI mainFrameGUI, RegistrationGUI view, UserManager userManager) {
         this.mainFrameGUI = mainFrameGUI;
         this.view = view;
         this.userManager = userManager;
     }
 
+    /**
+     * Handles the actionPerformed event for buttons.
+     *
+     * @param e The ActionEvent representing the button action.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
@@ -52,6 +67,12 @@ public class RegistrationController implements FocusListener, ActionListener {
             }
         }
     }
+
+    /**
+     * Handles the focusGained event for text fields.
+     *
+     * @param e The FocusEvent representing the focus gained event.
+     */
     @Override
     public void focusGained(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {
@@ -80,6 +101,11 @@ public class RegistrationController implements FocusListener, ActionListener {
         }
     }
 
+    /**
+     * Handles the focusLost event for text fields.
+     *
+     * @param e The FocusEvent representing the focus lost event.
+     */
     @Override
     public void focusLost(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {
