@@ -4,44 +4,83 @@ package Business.Entities;
  *Esta clase representa los datos de la configuracion de la base de datos
  */
 public class Config {
+    private int portConexionBD;
+    private String ipServidorBD;
+    private String nombreBD;
+    private String usuarioBD;
+    private String contrasenaBD;
+    private String contrasenaAdministrador;
+    private int duracionPartidoMinutos;
 
-    private int dataBasePort;
-    private String dataBaseIP;
-    private String dataBaseName;
-    private String userDataBase;
-    private String passwordDataBase;
-    private String password;
-    private int gameTimeLeft;
-
-    public String getDataBaseIP() {
-        return dataBaseIP;
+    public Config() {
+        // Constructor vacío necesario para la deserialización JSON
     }
 
-    public int getDataBasePort() {
-        return dataBasePort;
+    public Config(int portConexionBD, String ipServidorBD, String nombreBD, String usuarioBD,
+                             String contrasenaBD, String contrasenaAdministrador, int duracionPartidoMinutos) {
+        this.portConexionBD = portConexionBD;
+        this.ipServidorBD = ipServidorBD;
+        this.nombreBD = nombreBD;
+        this.usuarioBD = usuarioBD;
+        this.contrasenaBD = contrasenaBD;
+        this.contrasenaAdministrador = contrasenaAdministrador;
+        this.duracionPartidoMinutos = duracionPartidoMinutos;
     }
 
-    public String getDataBaseName() {
-        return dataBaseName;
+    public int getPortConexionBD() {
+        return portConexionBD;
     }
 
-    public String getUserDataBase() {
-        return userDataBase;
+    public void setPortConexionBD(int portConexionBD) {
+        this.portConexionBD = portConexionBD;
     }
 
-    public String getPasswordDataBase() {
-        return passwordDataBase;
+    public String getIpServidorBD() {
+        return ipServidorBD;
     }
 
-    public int getGameTimeLeft() {
-        return gameTimeLeft;
+    public void setIpServidorBD(String ipServidorBD) {
+        this.ipServidorBD = ipServidorBD;
     }
 
-    public String getUserName() {
-        return userDataBase;
+    public String getNombreBD() {
+        return nombreBD;
     }
 
-    public String getPassword() {
-        return password;
+    public void setNombreBD(String nombreBD) {
+        this.nombreBD = nombreBD;
+    }
+
+    public String getUsuarioBD() {
+        return usuarioBD;
+    }
+
+    public void setUsuarioBD(String usuarioBD) {
+        this.usuarioBD = usuarioBD;
+    }
+
+    public String getContrasenaBD() {
+        return contrasenaBD;
+    }
+
+    public void setContrasenaBD(String contrasenaBD) {
+        this.contrasenaBD = contrasenaBD;
+    }
+
+    public String getContrasenaAdministrador() {
+        return contrasenaAdministrador;
+    }
+
+    public void setContrasenaAdministrador(String contrasenaAdministrador) {
+        this.contrasenaAdministrador = contrasenaAdministrador;
+    }
+
+    public int getDuracionPartidoMinutos() {
+        return duracionPartidoMinutos;
+    }
+
+    public void setDuracionPartidoMinutos(int duracionPartidoMinutos) {
+        this.duracionPartidoMinutos = duracionPartidoMinutos;
     }
 }
+

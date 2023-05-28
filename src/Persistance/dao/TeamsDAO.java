@@ -23,9 +23,15 @@ public class TeamsDAO implements TeamsDAOInt {
     private static String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
     private static String username = "dreamteam";
     private static String password = "dreamteam";
-    private static Connection conn;
+    private Connection conn;
 
-
+    public TeamsDAO() {
+        try {
+            conn = DriverManager.getConnection(dbURL, username, password);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
     /**
      * Metodo que añade informacion dentro de la tabla teams
      * @param name

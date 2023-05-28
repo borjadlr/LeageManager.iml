@@ -7,18 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
-    private Connection connection;
+    private static String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
+    private static String username = "dreamteam";
+    private static String password = "dreamteam";
+    private Connection conn;
 
     public TeamsLeagueDAO() {
-        // Inicializar la conexión a la base de datos
-        String url = "jdbc:mysql://localhost:3306/league_manager_data";
-        String username = "dreamteam";
-        String password = "dreamteam";
-
         try {
-            connection = DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            // Corregir la asignación de la variable conn
+            conn = DriverManager.getConnection(dbURL, username, password);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -26,7 +25,7 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
     public void insertarEquipoLiga(String nombreEquipo, String nombreLiga) {
         String query = "INSERT INTO equipo_liga (nombre_equipo, nombre_liga) VALUES (?, ?)";
 
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, nombreEquipo);
             statement.setString(2, nombreLiga);
 
@@ -40,7 +39,7 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
     public void actualizarEquipoLiga(String nombreEquipo, String nombreLiga, String nuevoNombreEquipo, String nuevoNombreLiga) {
         String query = "UPDATE equipo_liga SET nombre_equipo = ?, nombre_liga = ? WHERE nombre_equipo = ? AND nombre_liga = ?";
 
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, nuevoNombreEquipo);
             statement.setString(2, nuevoNombreLiga);
             statement.setString(3, nombreEquipo);
@@ -56,7 +55,7 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
     public void eliminarEquipoLiga(String nombreEquipo, String nombreLiga) {
         String query = "DELETE FROM equipo_liga WHERE nombre_equipo = ? AND nombre_liga = ?";
 
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, nombreEquipo);
             statement.setString(2, nombreLiga);
 
@@ -70,7 +69,7 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
         List<String> equipos = new ArrayList<>();
         String query = "SELECT nombre_equipo FROM equipo_liga";
 
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {

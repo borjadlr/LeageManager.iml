@@ -1,14 +1,18 @@
 package Persistance.dao;
 
+import Business.Entities.Config;
 import Business.Entities.User;
 import Persistance.UserDAOInt;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class UserDAO implements UserDAOInt {
+
+
 
     private static String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
     private static String username = "dreamteam";
@@ -23,6 +27,16 @@ public class UserDAO implements UserDAOInt {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public Config GetDataBaseData() throws IOException {
+        Config config;
+        //Llamamos y creamos en classe a la classe ConfigJsonDao para acceder a su metodo.
+        ConfigJsonDAO configJsonDao = new ConfigJsonDAO();
+        config = configJsonDao.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
+        System.out.println(config);
+        //Devuelve config
+        return config;
     }
 
 

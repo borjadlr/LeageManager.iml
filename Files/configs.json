@@ -1,9 +1,9 @@
 {
-  "dataBasePort": 3306,
-  "dataBaseIP": "jdbc:mysql://localhost:3306/leage_manager",
-  "dataBaseName": "leage_manager",
-  "userDataBase": "dreamteam",
-  "passwordDataBase": "dreamteam",
-  "password": "dreamteam",
-  "gameTimeLeft": 3600
+  "portConexionBD": 5432,
+  "ipServidorBD": "localhost",
+  "nombreBD": "nombre_base_de_datos",
+  "usuarioBD": "usuario",
+  "contrasenaBD": "contrasena",
+  "contrasenaAdministrador": "contrasena_administrador",
+  "duracionPartidoMinutos": 90
 }
