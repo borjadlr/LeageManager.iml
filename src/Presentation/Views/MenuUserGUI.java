@@ -5,10 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class MenuUserGUI extends JPanel {
-    private JButton watchMatches;
-    private JButton viewAvaiableLeagues;
-    private Color backgroundColor;
-    private JButton viewStatistics;
+    private final JButton watchMatches;
+    private final JButton viewAvaiableLeagues;
+    private final JButton viewStatistics;
 
     private static final String WATCH_MATCHES = "WATCH_MATCHES";
     private static final String CREATE_PLAYER = "CREATE_PLAYER";
@@ -17,7 +16,7 @@ public class MenuUserGUI extends JPanel {
 
     public MenuUserGUI() {
 
-        backgroundColor = Color.white;
+        Color backgroundColor = Color.white;
         setLayout(new GridBagLayout());
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));

@@ -10,13 +10,11 @@ import Presentation.Controllers.*;
 import Presentation.Views.*;
 
 public class Main {
-
     public static void main(String[] args) {
 
         //Entities
         Team team = new Team();
         League league = new League();
-
 
         //Dao
         UserDAO userDAO = new UserDAO();
@@ -32,7 +30,7 @@ public class Main {
         LeagueManager leagueManager = new LeagueManager(teamManager, leagueDAO, teamsDAO, matchDAO, teamsLeagueDAO);
         AdminManager adminManaguer = new AdminManager(userDAO, leagueManager, teamManager);
         UserManager userManager = new UserManager(userDAO, leagueManager, teamManager, userTeamsDAO, teamsLeagueDAO, user, adminManaguer);
-
+        MatchManager matchManager = new MatchManager(matchDAO, leagueDAO);
         //Vistas
         LoginGUI loginGUI = new LoginGUI();
         StatisticsGUI statisticsGUI = new StatisticsGUI();
@@ -61,7 +59,7 @@ public class Main {
         RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
         LoginController loginController = new LoginController(mainFrame, loginGUI, userManager, topPanelGUI);
         ChangePasswordController changePasswordController = new ChangePasswordController(mainFrame, changePasswordGUI, userManager);
-        MenuAdminController menuAdminController = new MenuAdminController(mainFrame, leagueManager, listLeagueUserGUI, menuAdminGUI, listLeagueAdminGUI, statisticsGUI);
+        MenuAdminController menuAdminController = new MenuAdminController(mainFrame, leagueManager, listLeagueUserGUI, menuAdminGUI, listLeagueAdminGUI, statisticsGUI, matchManager, simulationLeagueGUI);
         TopPanelController topPanelController =  new TopPanelController(mainFrame, topPanelGUI);
         DeleteController deleteController = new DeleteController(mainFrame, deleteGUI, userManager);
         NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI, leagueManager, teamManager, teamListCreateLeague, topPanelGUI);
@@ -99,8 +97,6 @@ public class Main {
         listTeamAdminGUI.setController(listTeamAdminController);
 
         //UserDAO userDAO = new UserDAO();
-
-
         //userDAO.InsertDataUser("267598111c","borjhs@gmail.com",2,"holaqtal",5,"554322233");
     }
 }

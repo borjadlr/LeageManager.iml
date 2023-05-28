@@ -5,8 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class NewTeamGUI extends JPanel {
-    private JTextField filePathField;
-    private JButton searchButton;
+    private final JButton searchButton;
     private static final String SEARCH_BUTTON = "SEARCH_BUTTON";
 
     public NewTeamGUI() {
@@ -14,7 +13,7 @@ public class NewTeamGUI extends JPanel {
         setBackground(Color.WHITE);
 
         // Crear el campo de texto para mostrar la ruta del archivo seleccionado
-        filePathField = new JTextField();
+        JTextField filePathField = new JTextField();
         filePathField.setEditable(false);
         add(filePathField, BorderLayout.NORTH);
 

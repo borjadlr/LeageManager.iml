@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 public class BottomPanelController implements ActionListener {
 
-    private MainFrameGUI mainFrame;
+    private final MainFrameGUI mainFrame;
 
     public BottomPanelController(MainFrameGUI mainFrame) {
         this.mainFrame = mainFrame;

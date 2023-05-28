@@ -18,7 +18,6 @@ public class ChangePasswordController implements FocusListener, ActionListener {
     private final String defaultCurrentPassword = "Actual Password: ";
     private final String defaultNewPassword = "New Password: ";
     private final String defaultRepeatNewPassword = "Repeat New Password: ";
-
     private final ChangePasswordGUI view;
     private final UserManager userManager;
 

@@ -4,7 +4,7 @@ public class Match {
 
     private String local;
     private String visitante;
-    private String nombreLiga;
+    private final String nombreLiga;
 
     private int golesLocal;
     private int golesVisitante;

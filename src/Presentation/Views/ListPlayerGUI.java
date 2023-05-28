@@ -10,9 +10,9 @@ import java.awt.*;
 import java.util.List;
 
 public class ListPlayerGUI extends JPanel {
-    private JTable table;
-    private JLabel titleLabel;
-    private DefaultTableModel tableModel;
+    private final JTable table;
+    private final JLabel titleLabel;
+    private final DefaultTableModel tableModel;
 
 
     public ListPlayerGUI() {

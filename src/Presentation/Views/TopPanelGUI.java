@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class TopPanelGUI extends JPanel {
-
     private JButton dropdownButton;
     private JButton atras;
     private JPopupMenu dropdownMenu;

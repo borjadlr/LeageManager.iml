@@ -15,15 +15,11 @@ public class ChangePasswordGUI extends JPanel {
     private final JPasswordField repeatNewPassword;
 
     private final JButton ok;
-    private Color backgroundColor;
 
-    public Color getBackgroundColor() {
-        return backgroundColor;
-    }
 
     public ChangePasswordGUI() {
 
-        this.backgroundColor = Color.white;
+        Color backgroundColor = Color.white;
         this.setLayout(new GridBagLayout());
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));

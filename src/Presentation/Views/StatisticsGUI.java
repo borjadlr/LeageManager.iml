@@ -11,7 +11,7 @@ public class StatisticsGUI extends JPanel {
     private static final int MARGEN_INFERIOR = 80;
     private static final int GROSOR_LINEA = 3;
 
-    private String[] equipos = {"Borjas FC", "Equipo 2", "Equipo 3", "Equipo 4", "Equipo 5", "Alberta"}; // Ejemplo: Nombres de los equipos
+    private String[] equipos = {"Equipo1 ", "Equipo 2", "Equipo 3", "Equipo 4", "Equipo 5", "Equipo 6"}; // Ejemplo: Nombres de los equipos
     private int numJornadas = 10; // Ejemplo: Número de jornadas
     private int[][] puntosEquipos; // Puntos de los equipos por jornada
 

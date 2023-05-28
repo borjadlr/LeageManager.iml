@@ -26,7 +26,7 @@ public class LeagueManager {
 
     private final TeamsLeagueDAOInt teamsLeagueDAOInt;
 
-    private TeamsDAOInt teamsDAO;
+    private final TeamsDAOInt teamsDAO;
 
     public LeagueManager(TeamManager teamManager, LeagueDAOInt leagueDAO, TeamsDAOInt teamsDAO, MatchDAOInt matchDAO, TeamsLeagueDAOInt teamsLeagueDAO) {
         this.teamManager = teamManager;

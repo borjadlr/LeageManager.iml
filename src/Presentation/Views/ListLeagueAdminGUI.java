@@ -91,9 +91,6 @@
                     "Delete", JOptionPane.YES_NO_OPTION);
             return confirm;
         }
-
-
-
         public void addLeagues(List<League> leagues) {
             tableModel.setRowCount(0);
             // Add league data to the table
@@ -106,7 +103,4 @@
         public void exceptionMessage(String message) {
             JOptionPane.showMessageDialog(null, message);
         }
-
-
-
     }

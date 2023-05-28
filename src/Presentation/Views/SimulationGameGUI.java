@@ -8,7 +8,6 @@ public class SimulationGameGUI extends JPanel {
     private JLabel scoreLabel;
     private JLabel homeTeamLabel;
     private JLabel awayTeamLabel;
-
     public SimulationGameGUI() {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));

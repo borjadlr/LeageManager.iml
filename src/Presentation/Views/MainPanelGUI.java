@@ -13,13 +13,9 @@ public class MainPanelGUI extends JPanel {
     private static final int MAX_SPACE_BUTTONS = 15;
 
     private static final int MAX_SPACE_TITTLE = 90;
-
-    public Color getBackgroundColor() {
-        return backgroundColor;
-    }
     private final Color backgroundColor;
-    public static final String LOGIN_BUTTON = "LOGIN_BUTTON";
-    public static final String REGISTER_BUTTON = "REGISTER_BUTTON";
+    private static final String LOGIN_BUTTON = "LOGIN_BUTTON";
+    private static final String REGISTER_BUTTON = "REGISTER_BUTTON";
 
 
     public MainPanelGUI() {

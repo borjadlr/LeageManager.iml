@@ -16,7 +16,7 @@ public class ListLeagueUserController extends MouseInputAdapter {
     private final MainFrameGUI mainFrame;
     private final ListTeamUserGUI listTeamUserGUI;
     private final LeagueManager leagueManager;
-    private League league;
+    private final League league;
 
     public ListLeagueUserController(ListLeagueUserGUI listLeaguesUserGUI, MainFrameGUI mainFrame, ListTeamUserGUI listTeamUserGUI, LeagueManager leagueManager, League league) {
         this.listLeaguesUserGUI = listLeaguesUserGUI;

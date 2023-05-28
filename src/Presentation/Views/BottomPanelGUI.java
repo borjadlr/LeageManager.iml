@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class BottomPanelGUI extends JPanel {
 
-    private JButton changePassword;
+    private final JButton changePassword;
     private static final String INTER = "INTER";
     private static final String CHANGE_CURRENT_PASSWORD = "CHANGE_CURRENT_PASSWORD";
 

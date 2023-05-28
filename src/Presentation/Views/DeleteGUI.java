@@ -12,11 +12,10 @@ public class DeleteGUI extends JPanel {
     private final JTextField email;
     private final JTextField password;
     private final JButton delete;
-    private Color backgroundColor;
-    public static final String DELETE_BUTTON = "DELETE_BUTTON";
+    private static final String DELETE_BUTTON = "DELETE_BUTTON";
 
     public DeleteGUI() {
-        this.backgroundColor = Color.white;
+        Color backgroundColor = Color.white;
         this.setLayout(new GridBagLayout());
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));

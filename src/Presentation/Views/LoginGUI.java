@@ -16,12 +16,10 @@ public class LoginGUI extends JPanel {
     private final JTextField email;
     private final JTextField password;
     private final JButton login;
-
-    private Color backgroundColor;
-    public static final String LOGIN_BUTTON = "LOGIN_BUTTON";
+    private static final String LOGIN_BUTTON = "LOGIN_BUTTON";
 
     public LoginGUI() {
-        this.backgroundColor = Color.white;
+        Color backgroundColor = Color.white;
         this.setLayout(new GridBagLayout());
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));

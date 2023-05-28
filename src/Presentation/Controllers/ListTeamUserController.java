@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ListTeamUserController extends MouseInputAdapter {
     private final ListTeamUserGUI listTeamUserGUI;
-    private MainFrameGUI mainFrame;
+    private final MainFrameGUI mainFrame;
 
     private final  TeamManager teamManager;
     private final List<Team> selectedTeams;

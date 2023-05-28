@@ -11,10 +11,9 @@ import java.awt.*;
 import java.util.List;
 
 public class ListTeamUserGUI extends JPanel {
-    private JTable table;
-    private DefaultTableModel tableModel;
-    ListTeamUserController controller;
-    private JLabel titleLabel;
+    private final JTable table;
+    private final DefaultTableModel tableModel;
+    private final JLabel titleLabel;
 
     public ListTeamUserGUI() {
         setLayout(new BorderLayout());

@@ -15,14 +15,14 @@ public class NewLeagueGUI extends JPanel {
     private final JTextField hora;
     private final JTextField data;
     private final JTextField numeroEquipos;
-    private JButton ok;
+    private final JButton ok;
     public Color getBackgroundColor() {
         return backgroundColor;
     }
 
     private final Color backgroundColor;
 
-    public static final String OK_BUTTON = "OK_BUTTON";
+    private static final String OK_BUTTON = "OK_BUTTON";
     public NewLeagueGUI() {
 
         this.backgroundColor = Color.white;

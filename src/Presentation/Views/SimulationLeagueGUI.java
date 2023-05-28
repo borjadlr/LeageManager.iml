@@ -25,7 +25,7 @@ public class SimulationLeagueGUI extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
 
         // Create the table with column names
-        String[] columnNames = {"Team A", "Goles de Equipo A", "Goles de Equipo B", "Team B"};
+        String[] columnNames = {"Equipo Local", "Local", "Goles Visitante", "Equipo Visitante"};
         tableModel = new DefaultTableModel(columnNames, 0);
         table = new JTable(tableModel);
         table.setBackground(Color.WHITE);
@@ -53,7 +53,7 @@ public class SimulationLeagueGUI extends JPanel {
         tableModel.setRowCount(0);
         // Add match data to the table
         for (Match match : matches) {
-            Object[] rowData = {match.getLocal(), match.getGolesLocal(), match.getGolesVisitante(), match.getLocal()};
+            Object[] rowData = {match.getLocal(), match.getGolesLocal(), match.getGolesVisitante(), match.getVisitante()};
             tableModel.addRow(rowData);
         }
     }

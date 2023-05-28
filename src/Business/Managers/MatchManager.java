@@ -36,6 +36,10 @@ public class MatchManager {
         }
     }
 
+    public List<Match> getMatchesByJornada(int jornada){
+        return  matchDAO.getMatchesByJornada(jornada);
+    }
+
     public void simularPartido(Match match) {
         Random random = new Random();
         // Simulación de goles

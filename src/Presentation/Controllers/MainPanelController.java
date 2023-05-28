@@ -9,8 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainPanelController implements ActionListener {
-    private MainFrameGUI mainFrame;
-    private TopPanelGUI topPanelGUI;
+    private final MainFrameGUI mainFrame;
+    private final TopPanelGUI topPanelGUI;
     public MainPanelController(MainFrameGUI mainFrame, TopPanelGUI topPanelGUI) {
         this.mainFrame = mainFrame;
         this.topPanelGUI = topPanelGUI;

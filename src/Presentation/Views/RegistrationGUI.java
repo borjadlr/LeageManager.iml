@@ -10,16 +10,13 @@ import java.awt.event.FocusListener;
 import static java.awt.Font.PLAIN;
 
 public class RegistrationGUI extends JPanel {
-
     private final JTextField dni;
     private final JTextField email;
-
     private final JTextField phoneNumber;
     private final JTextField dorsal;
     private final JButton ok;
     private Color backgroundColor;
-
-    public static final String OK_BUTTON = "OK_BUTTON";
+    private static final String OK_BUTTON = "OK_BUTTON";
 
     public RegistrationGUI() {
         this.backgroundColor = Color.white;
