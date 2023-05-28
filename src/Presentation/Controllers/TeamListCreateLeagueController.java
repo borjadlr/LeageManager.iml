@@ -7,6 +7,7 @@ import Business.Managers.TeamManager;
 import Exceptions.IncorrectLeagueNameException;
 import Exceptions.IncorrectTeamNameException;
 import Exceptions.MatchIsPlayingException;
+import Exceptions.NumberOfTeamsDoNotRelateException;
 import Presentation.Views.*;
 
 import javax.swing.*;
@@ -84,6 +85,8 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
                         leagueManager.introduceTeamsLeague(selectedTeams, newLeagueController.getName());
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
+                    } catch (NumberOfTeamsDoNotRelateException ex) {
+                        view.exceptionMessage(ex.getMessage());
                     }
                     try {
                         refreshTable();

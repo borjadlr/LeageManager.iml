@@ -10,7 +10,7 @@ import Persistance.MatchDAOInt;
 public class MatchManager {
 
     private MatchDAOInt matchDAO;
-    private List<Match> partidosSimulados;
+    private final List<Match> partidosSimulados;
 
     public MatchManager() {
         partidosSimulados = new ArrayList<>();

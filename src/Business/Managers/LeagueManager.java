@@ -73,15 +73,20 @@ public class LeagueManager {
                 league.isState());
     }
 
-    public void introduceTeamsLeague(List<Team> teams, String leagueName) throws SQLException {
+    public void introduceTeamsLeague(List<Team> teams, String leagueName) throws SQLException, NumberOfTeamsDoNotRelateException {
         int i = 0;
+        League league = getLeagueByName(leagueName);
 
-        for (Team team : teams) {
-            teamsLeagueDAOInt.insertarEquipoLiga(teams.get(i).getName(), leagueName);
-            i++;
+        while (teams.size() > i) {
+            if (league.getNumber_teams() <= i){
+                teamsLeagueDAOInt.insertarEquipoLiga(teams.get(i).getName(), leagueName);
+                i++;
+            } else {
+                throw new NumberOfTeamsDoNotRelateException();
+            }
+
         }
         generateCalendar(teams, leagueName);
-        League league = getLeagueByName(leagueName);
         league.setTeams(teams);
     }
 
