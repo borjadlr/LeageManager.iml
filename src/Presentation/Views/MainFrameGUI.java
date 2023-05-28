@@ -9,20 +9,18 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class MainFrameGUI extends JFrame{
     private static final ArrayList<String> recorregutVistas = new ArrayList<>();
     private static final List<List<Boolean>> booleanPacks = new ArrayList<>();
-    public final String LOGIN_VIEW = "LOGIN_VIEW";
-    public final String  MENU_USER_VIEW = "MENU_USER_VIEW";
-    public final String MENU_ADMIN_VIEW = "MENU_ADMIN_VIEW";
-    public final String MAIN_PANEL = "MAIN_PANEL";
-    public final String FIRST_UI = "FIRST_UI";
-    public final String MENU_NEW_LEAGUE = "MENU_NEW_LEAGUE";
-    public final String CHANGE_PASSWORD_VIEW = "CHANGE_PASSWORD_VIEW";
-    public final String CURRENT_LEAGUE_VIEW = "CURRENT_LEAGUE_VIEW";
-    public final String REGISTRATION_VIEW = "REGISTRATION_VIEW";
-    public final String DELETE_VIEW = "DELETE_VIEW";
-    public final String LEAGUE_LIST = "LEAGUE_LIST";
-    public final String SIMULATION_GAME_VIEW = "SIMULATION_GAME_VIEW";
-    public final String STATISTICS_VIEW = "STATISTICS_VIEW";
-    public final String TEAM_LIST_VIEW = "TEAM_LIST_VIEW";
+    private final String LOGIN_VIEW = "LOGIN_VIEW";
+    private final String  MENU_USER_VIEW = "MENU_USER_VIEW";
+    private final String MENU_ADMIN_VIEW = "MENU_ADMIN_VIEW";
+    private final String FIRST_UI = "FIRST_UI";
+    private final String MENU_NEW_LEAGUE = "MENU_NEW_LEAGUE";
+    private final String CHANGE_PASSWORD_VIEW = "CHANGE_PASSWORD_VIEW";
+    private final String REGISTRATION_VIEW = "REGISTRATION_VIEW";
+    private final String DELETE_VIEW = "DELETE_VIEW";
+    private final String LEAGUE_LIST = "LEAGUE_LIST";
+    private final String SIMULATION_GAME_VIEW = "SIMULATION_GAME_VIEW";
+    private final String STATISTICS_VIEW = "STATISTICS_VIEW";
+    private final String TEAM_LIST_VIEW = "TEAM_LIST_VIEW";
     private final String CREATE_NEW_TEAM = "CREATE_NEW_TEAM";
     private final String SHOW_TEAMS_VIEW = "SHOW_TEAMS_VIEW";
     private final String SHOW_USERS_TEAM = "SHOW_USERS_TEAM";
@@ -104,11 +102,11 @@ public class MainFrameGUI extends JFrame{
     }
 
     public void showTeamListAdminView(){
-        bottomPanel.setVisible(true);
+        bottomPanel.setVisible(false);
         topPanel.setVisible(true);
         cardLayout.show(centerPanel, LIST_TEAM_ADMIN_VIEW);
         auxiliar++;
-        updateRecorregut(LIST_TEAM_ADMIN_VIEW, true, true);
+        updateRecorregut(LIST_TEAM_ADMIN_VIEW, true, false);
     }
 
     public void showSimulationGameView() {
@@ -144,10 +142,10 @@ public class MainFrameGUI extends JFrame{
     }
     public void showTeamsNewLeague(){
         topPanel.setVisible(true);
-        bottomPanel.setVisible(true);
+        bottomPanel.setVisible(false);
         cardLayout.show(centerPanel, TEAM_LIST_CREATE_LEAGUE);
         auxiliar++;
-        updateRecorregut(TEAM_LIST_CREATE_LEAGUE, true, true);
+        updateRecorregut(TEAM_LIST_CREATE_LEAGUE, true, false);
     }
 
     public void showMenuUser() {
@@ -176,10 +174,10 @@ public class MainFrameGUI extends JFrame{
 
     public void showNewTeam() {
         topPanel.setVisible(true);
-        bottomPanel.setVisible(true);
+        bottomPanel.setVisible(false);
         cardLayout.show(centerPanel, CREATE_NEW_TEAM);
         auxiliar++;
-        updateRecorregut(CREATE_NEW_TEAM, true, true);
+        updateRecorregut(CREATE_NEW_TEAM, true, false);
     }
 
     public void updateRecorregut(String vista, boolean top, boolean bottom) {
@@ -191,10 +189,10 @@ public class MainFrameGUI extends JFrame{
     }
     public void showLeague(){
         topPanel.setVisible(true);
-        bottomPanel.setVisible(true);
+        bottomPanel.setVisible(false);
         cardLayout.show(centerPanel, LEAGUE_LIST);
         auxiliar++;
-        updateRecorregut(LEAGUE_LIST, true, true);
+        updateRecorregut(LEAGUE_LIST, true, false);
     }
     public void showMenuAdmin(){
         topPanel.setVisible(true);
@@ -223,7 +221,7 @@ public class MainFrameGUI extends JFrame{
         bottomPanel.setVisible(true);
         cardLayout.show(centerPanel, MENU_NEW_LEAGUE);
         auxiliar++;
-        updateRecorregut(MENU_NEW_LEAGUE, true, true);
+        updateRecorregut(MENU_NEW_LEAGUE, true, false);
     }
 
     public void showStatistics(){

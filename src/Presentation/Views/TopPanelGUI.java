@@ -75,6 +75,10 @@ public class TopPanelGUI extends JPanel {
         dropdownButton.setVisible(t);
     }
 
+    public void hideBackButton(boolean t){
+        atras.setVisible(t);
+    }
+
     public void hideShowDeleteAccount(boolean t){
         deleteAccount.setVisible(t);
     }

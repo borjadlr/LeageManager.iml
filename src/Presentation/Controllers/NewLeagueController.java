@@ -7,6 +7,7 @@ import Exceptions.*;
 import Presentation.Views.MainFrameGUI;
 import Presentation.Views.NewLeagueGUI;
 import Presentation.Views.TeamListCreateLeague;
+import Presentation.Views.TopPanelGUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,6 +26,7 @@ public class NewLeagueController implements ActionListener, FocusListener {
     private final MainFrameGUI mainFrame;
     private String league_Name;
     private final NewLeagueGUI view;
+    private final TopPanelGUI topPanelGUI;
     private final String defaultDateText = "Date: ";
     private final String defaultLegueText = "League name: ";
 
@@ -33,12 +35,13 @@ public class NewLeagueController implements ActionListener, FocusListener {
     private final LeagueManager leagueManager;
     private final TeamListCreateLeague teamListCreateLeague;
     private final TeamManager teamManager;
-    public NewLeagueController(MainFrameGUI mainFrame, NewLeagueGUI view, LeagueManager leagueManager, TeamManager teamManager, TeamListCreateLeague teamListCreateLeague) {
+    public NewLeagueController(MainFrameGUI mainFrame, NewLeagueGUI view, LeagueManager leagueManager, TeamManager teamManager, TeamListCreateLeague teamListCreateLeague, TopPanelGUI topPanelGUI) {
         this.mainFrame = mainFrame;
         this.leagueManager = leagueManager;
         this.teamManager = teamManager;
         this.view = view;
         this.teamListCreateLeague = teamListCreateLeague;
+        this.topPanelGUI = topPanelGUI;
     }
 
     @Override
@@ -57,6 +60,7 @@ public class NewLeagueController implements ActionListener, FocusListener {
                         String numeroEquipos = view.getNumeroEquipos();
                         leagueManager.introduceLeague(leagueManager.setLeague(leagueName, data, hora, 1, parseInt(numeroEquipos), true, teamManager.getTeamsOfLeague(leagueName)));
                         teamListCreateLeague.addTeams(teamManager.getAllTeams());
+                        topPanelGUI.hideBackButton(false);
                         mainFrame.showTeamsNewLeague();
                         view.clearTextFields();
                         break;

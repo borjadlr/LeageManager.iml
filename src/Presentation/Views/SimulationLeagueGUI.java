@@ -51,7 +51,6 @@ public class SimulationLeagueGUI extends JPanel {
 
     public void addMatch(List<Match> matches) {
         tableModel.setRowCount(0);
-
         // Add match data to the table
         for (Match match : matches) {
             Object[] rowData = {match.getLocal(), match.getGolesLocal(), match.getGolesVisitante(), match.getLocal()};
