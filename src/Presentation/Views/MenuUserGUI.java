@@ -8,9 +8,7 @@ public class MenuUserGUI extends JPanel {
     private final JButton watchMatches;
     private final JButton viewAvaiableLeagues;
     private final JButton viewStatistics;
-
     private static final String WATCH_MATCHES = "WATCH_MATCHES";
-    private static final String CREATE_PLAYER = "CREATE_PLAYER";
     private static final String VIEW_AVAIABLE_LEAGUES = "VIEW_AVAIABLE_LEAGUES";
     private static final String VIEW_STATISTICS = "VIEW_STATISTICS";
 
@@ -80,11 +78,9 @@ public class MenuUserGUI extends JPanel {
         this.add(panel);
 
     }
-
     public void registerListener(ActionListener listener) {
         watchMatches.addActionListener(listener);
         viewAvaiableLeagues.addActionListener(listener);
         viewStatistics.addActionListener(listener);
     }
-
 }

@@ -11,13 +11,9 @@ import Persistance.LeagueDAOInt;
 import Persistance.MatchDAOInt;
 
 public class MatchManager {
-
     private final MatchDAOInt matchDAO;
-
     private final LeagueDAOInt leagueDAO;
-
     private final List<Match> partidosSimulados;
-
 
     public MatchManager(MatchDAOInt matchDAO, LeagueDAOInt leagueDAO) {
         this.leagueDAO = leagueDAO;
@@ -26,13 +22,12 @@ public class MatchManager {
     }
 
     public void simularPartidos(List<Match> matches) {
+        int i = 0;
         for (Match match : matches) {
-            Thread thread = new Thread(() -> {
-                System.out.println("Comenzando simulación para el partido: " + match.getLocal() + " vs " + match.getVisitante());
-                simularPartido(match);
-                System.out.println("Finalizando simulación para el partido: " + match.getLocal() + " vs " + match.getVisitante());
-            });
+            Match partido = new Match(matches.get(i).getLocal(), matches.get(i).getVisitante(), matches.get(i).getGolesLocal(), matches.get(i).getGolesVisitante(), matches.get(i).getJornada(), matches.get(i).isStatus(), matches.get(i).getNombreLiga());
+            Thread thread = new Thread(partido);
             thread.start();
+            i++;
         }
     }
 

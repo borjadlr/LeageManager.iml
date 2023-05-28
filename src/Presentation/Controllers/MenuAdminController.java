@@ -21,6 +21,7 @@ public class MenuAdminController implements ActionListener {
     private final MatchManager matchManager;
     private final StatisticsGUI statisticsGUI;
     private final SimulationLeagueGUI simulationLeagueGUI;
+    private int i;
 
     public MenuAdminController(MainFrameGUI mainFrame, LeagueManager leagueManager, ListLeagueUserGUI listLeagueUserGUI, MenuAdminGUI view, ListLeagueAdminGUI listLeagueAdminGUI, StatisticsGUI statisticsGUI, MatchManager matchManager, SimulationLeagueGUI simulationLeagueGUI) {
         this.leagueManager = leagueManager;
@@ -31,6 +32,7 @@ public class MenuAdminController implements ActionListener {
         this.listLeagueAdminGUI = listLeagueAdminGUI;
         this.matchManager = matchManager;
         this.simulationLeagueGUI = simulationLeagueGUI;
+        this.i = 1;
     }
 
     @Override
@@ -62,12 +64,12 @@ public class MenuAdminController implements ActionListener {
                 case "VIEW_MATCHES":
                     try {
                         matchManager.simularPartidos(leagueManager.getAllMatches());
-                        simulationLeagueGUI.addMatch(matchManager.getMatchesByJornada(1));
+                        simulationLeagueGUI.addMatch(matchManager.getAllMatchesByJornada(i));
                         mainFrameGUI.showSimulationLeagueView();
+                        i++;
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
-
                     break;
             }
         }
