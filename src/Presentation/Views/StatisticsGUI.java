@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * The StatisticsGUI class represents a panel for displaying statistics using a graph.
+ */
 public class StatisticsGUI extends JPanel {
     private static final int MARGEN_IZQUIERDO = 50;
     private static final int MARGEN_DERECHO = 50;
@@ -11,18 +14,19 @@ public class StatisticsGUI extends JPanel {
     private static final int MARGEN_INFERIOR = 80;
     private static final int GROSOR_LINEA = 3;
 
-    private String[] equipos = {"Borjas FC", "Equipo 2", "Equipo 3", "Equipo 4", "Equipo 5", "Alberta"}; // Ejemplo: Nombres de los equipos
+    private String[] equipos = {"Borjas FC", "Equipo 2", "Equipo 3", "Equipo 4", "Equipo 5", "Alberta"};
     private int numJornadas = 10;
     private int[][] puntosEquipos;
 
+    /**
+     * Constructs a StatisticsGUI object.
+     */
     public StatisticsGUI() {
         puntosEquipos = new int[equipos.length][numJornadas];
 
         for (int i = 0; i < equipos.length; i++) {
             puntosEquipos[i][0] = 0;
         }
-
-
 
         for (int j = 1; j < numJornadas; j++) {
             for (int i = 0; i < equipos.length; i++) {
@@ -36,22 +40,22 @@ public class StatisticsGUI extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Establecer colores
+        // Set colors
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.BLACK);
 
-        // Calcular dimensiones del gráfico
+        // Calculate graph dimensions
         int numEquipos = equipos.length;
         int xIncrement = (getWidth() - MARGEN_IZQUIERDO - MARGEN_DERECHO) / (numJornadas - 1);
-        int maxValue = numJornadas * 3; // Ejemplo: Valor máximo es el número de jornadas multiplicado por 3
+        int maxValue = numJornadas * 3;
         int graphHeight = getHeight() - MARGEN_SUPERIOR - MARGEN_INFERIOR;
 
-        // Dibujar ejes
+        // Draw axes
         g.drawLine(MARGEN_IZQUIERDO, getHeight() - MARGEN_INFERIOR, MARGEN_IZQUIERDO, MARGEN_SUPERIOR);
         g.drawLine(MARGEN_IZQUIERDO, getHeight() - MARGEN_INFERIOR, getWidth() - MARGEN_DERECHO, getHeight() - MARGEN_INFERIOR);
 
-        // Dibujar líneas de recorrido de los equipos
+        // Draw team path lines
         for (int i = 0; i < numEquipos; i++) {
             int xPrev = MARGEN_IZQUIERDO;
             int yPrev = getHeight() - MARGEN_INFERIOR - (int) ((double) puntosEquipos[i][0] / maxValue * graphHeight);
@@ -70,7 +74,7 @@ public class StatisticsGUI extends JPanel {
                 yPrev = y;
             }
 
-            // Rellenar puntos de la jornada con números
+            // Fill in the points of the match with numbers
             for (int j = 0; j < numJornadas; j++) {
                 int x = MARGEN_IZQUIERDO + j * xIncrement - 2;
                 int y = getHeight() - MARGEN_INFERIOR - (int) ((double) puntosEquipos[i][j] / maxValue * graphHeight) - 2;
@@ -81,49 +85,47 @@ public class StatisticsGUI extends JPanel {
             }
         }
 
-        // Etiquetas de ejes
+        // Axis labels
         g.setColor(Color.BLACK);
         g.setFont(new Font("Calibri", Font.PLAIN, 12));
 
-        // Etiquetas del eje x (jornadas)
+        // x-axis labels (jornadas)
         for (int i = 0; i < numJornadas; i++) {
             int x = MARGEN_IZQUIERDO + i * xIncrement - 10;
             int y = getHeight() - MARGEN_INFERIOR + 20;
             g.drawString("J" + i, x, y);
         }
 
-        // Etiquetas del eje y (puntos)
+        // y-axis labels (puntos)
         for (int i = 0; i <= maxValue; i += 2) {
             int x = MARGEN_IZQUIERDO - 30;
             int y = getHeight() - MARGEN_INFERIOR - (int) ((double) i / maxValue * graphHeight) + 5;
             g.drawString(Integer.toString(i), x, y);
         }
 
-        // Leyenda de equipos
+        // Team legend
         g.setFont(new Font("Calibri", Font.BOLD, 14));
         int leyendaWidth = (getWidth() - MARGEN_IZQUIERDO - MARGEN_DERECHO) / numEquipos;
         int leyendaHeight = 30;
 
         for (int i = 0; i < numEquipos; i++) {
-            int x = MARGEN_IZQUIERDO + i * leyendaWidth; // Corrección aquí: usa leyendaWidth en lugar de xIncrement
-
+            int x = MARGEN_IZQUIERDO + i * leyendaWidth;
             int y = getHeight() - MARGEN_INFERIOR + 50;
 
-            // Dibujar línea de equipo
+            // Draw team line
             g.setColor(getColor(i));
             ((Graphics2D) g).setStroke(new BasicStroke(GROSOR_LINEA));
             g.drawLine(x + leyendaWidth / 2, y, x + leyendaWidth / 2, y + leyendaHeight / 2);
 
-            // Escribir nombre de equipo
+            // Write team name
             g.setColor(getColor(i));
             g.setFont(new Font("Calibri", Font.BOLD, 12));
 
-            // Obtener el ancho del nombre del equipo
+            // Get the width of the team name
             int nombreWidth = g.getFontMetrics().stringWidth(equipos[i]);
-            int nombreX = x + leyendaWidth / 2 + 5; // Corrección aquí: calcula nombreX después de dibujar la línea
+            int nombreX = x + leyendaWidth / 2 + 5;
 
             g.drawString(equipos[i], nombreX + 15, getHeight() - 20);
-
         }
     }
 

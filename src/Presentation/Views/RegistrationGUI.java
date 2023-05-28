@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import static java.awt.Font.PLAIN;
 
+/**
+ * A JPanel class representing the GUI for user registration.
+ */
 public class RegistrationGUI extends JPanel {
     private final JTextField dni;
     private final JTextField email;
@@ -13,6 +16,11 @@ public class RegistrationGUI extends JPanel {
     private final JTextField dorsal;
     private final JButton ok;
     private static final String OK_BUTTON = "OK_BUTTON";
+
+    /**
+     * Constructs a RegistrationGUI object.
+     * Initializes the GUI components and sets up the layout.
+     */
 
     public RegistrationGUI() {
         Color backgroundColor = Color.white;
@@ -84,10 +92,20 @@ public class RegistrationGUI extends JPanel {
         this.add(panel);
     }
 
+    /**
+     * Registers an ActionListener for the OK button.
+     *
+     * @param actionListener The ActionListener to register.
+     */
     public void registerRegistration(ActionListener actionListener) {
         ok.addActionListener(actionListener);
     }
 
+    /**
+     * Registers a FocusListener for the input fields.
+     *
+     * @param focusListener The FocusListener to register.
+     */
     public void foscusListener(FocusListener focusListener) {
         dni.addFocusListener(focusListener);
         dni.setName("DNI");
@@ -99,26 +117,51 @@ public class RegistrationGUI extends JPanel {
         phoneNumber.setName("Phone");
     }
 
+    /**
+     * Returns the entered DNI.
+     *
+     * @return The DNI.
+     */
     public String getDniText() {
         return dni.getText();
     }
 
+    /**
+     * Returns the entered email.
+     *
+     * @return The email.
+     */
     public String getEmailText() {
         return email.getText();
     }
 
+    /**
+     * Returns the entered dorsal.
+     *
+     * @return The dorsal.
+     */
     public String getDorsalText() {
         return dorsal.getText();
     }
-
+    /**
+     * Returns the entered phone number.
+     *
+     * @return The phone number.
+     */
     public String getPhoneNumberText() {
         return phoneNumber.getText();
     }
-
+    /**
+     * Displays an exception message in a JOptionPane.
+     *
+     * @param message The exception message to display.
+     */
     public void exceptionMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
     }
-
+    /**
+     * Displays a number format error message in a JOptionPane.
+     */
     public void numberFormatMessage(){
         JOptionPane.showMessageDialog(null, "This is not even a number!");
     }
