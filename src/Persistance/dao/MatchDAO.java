@@ -561,6 +561,12 @@ public class MatchDAO implements MatchDAOInt {
         return partidos;
     }
 
+    /**
+     * Recupera una lista de partidos basados en el número de jornada especificado.
+     *
+     * @param jornada el número de jornada para filtrar los partidos
+     * @return una lista de partidos correspondientes a la jornada especificada
+     */
     public List<Match> getMatchesByJornada(int jornada) {
         String query = "SELECT * FROM partido WHERE jornada = ?";
         List<Match> matches = new ArrayList<>();
@@ -587,25 +593,6 @@ public class MatchDAO implements MatchDAOInt {
 
         return matches;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**

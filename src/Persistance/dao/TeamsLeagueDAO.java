@@ -9,19 +9,22 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que maneja la persistencia de datos de equipos en una liga.
+ */
 public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
     private String dbURL;
     private String username;
     private String password;
     private Connection conn;
 
+    /**
+     * Constructor de la clase. Establece la conexión a la base de datos utilizando la configuración proporcionada.
+     */
     public TeamsLeagueDAO() {
         try {
-
             // Leer la configuración JSON y obtener los valores correspondientes
-
             ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
-
             Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
 
             // Asignar los valores obtenidos a las variables dbURL, username y password
@@ -36,7 +39,12 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
         }
     }
 
-    // Método para insertar un nuevo registro en la tabla equipo_liga
+    /**
+     * Método para insertar un nuevo registro en la tabla equipo_liga.
+     *
+     * @param nombreEquipo el nombre del equipo a insertar
+     * @param nombreLiga el nombre de la liga en la que se inserta el equipo
+     */
     public void insertarEquipoLiga(String nombreEquipo, String nombreLiga) {
         String query = "INSERT INTO equipo_liga (nombre_equipo, nombre_liga) VALUES (?, ?)";
 
@@ -50,7 +58,14 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
         }
     }
 
-    // Método para actualizar un registro de la tabla equipo_liga
+    /**
+     * Método para actualizar un registro de la tabla equipo_liga.
+     *
+     * @param nombreEquipo el nombre del equipo a actualizar
+     * @param nombreLiga el nombre de la liga del equipo a actualizar
+     * @param nuevoNombreEquipo el nuevo nombre para el equipo
+     * @param nuevoNombreLiga el nuevo nombre para la liga del equipo
+     */
     public void actualizarEquipoLiga(String nombreEquipo, String nombreLiga, String nuevoNombreEquipo, String nuevoNombreLiga) {
         String query = "UPDATE equipo_liga SET nombre_equipo = ?, nombre_liga = ? WHERE nombre_equipo = ? AND nombre_liga = ?";
 
@@ -66,7 +81,12 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
         }
     }
 
-    // Método para eliminar un registro de la tabla equipo_liga por su nombre de equipo y nombre de liga
+    /**
+     * Método para eliminar un registro de la tabla equipo_liga por su nombre de equipo y nombre de liga.
+     *
+     * @param nombreEquipo el nombre del equipo a eliminar
+     * @param nombreLiga el nombre de la liga del equipo a eliminar
+     */
     public void eliminarEquipoLiga(String nombreEquipo, String nombreLiga) {
         String query = "DELETE FROM equipo_liga WHERE nombre_equipo = ? AND nombre_liga = ?";
 
@@ -80,6 +100,12 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
         }
     }
 
+    /**
+     * Método para obtener los nombres de los equipos por nombre de liga.
+     *
+     * @param nombreLiga el nombre de la liga
+     * @return una lista de nombres de equipos pertenecientes a la liga especificada
+     */
     public List<String> obtenerEquiposPorLiga(String nombreLiga) {
         List<String> equipos = new ArrayList<>();
         String query = "SELECT nombre_equipo FROM equipo_liga WHERE nombre_liga = ?";
@@ -96,10 +122,16 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(equipos);
+
         return equipos;
     }
 
+    /**
+     * Método para obtener los equipos por nombre de liga, representados como objetos Team.
+     *
+     * @param nombreLiga el nombre de la liga
+     * @return una lista de objetos Team pertenecientes a la liga especificada
+     */
     public List<Team> obtenerEquiposPorLigaTeam(String nombreLiga) {
         List<Team> equipos = new ArrayList<>();
         String query = "SELECT nombre_equipo, num_jugadores, victorias, empates, derrotas, puntos FROM equipo_liga WHERE nombre_liga = ?";
@@ -109,25 +141,21 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                String nombreEquipo = resultSet.getString("nombre");
+                String nombreEquipo = resultSet.getString("nombre_equipo");
                 int numJugadores = resultSet.getInt("num_jugadores");
-                int victorias = resultSet.getInt("num_victorias");
-                int empates = resultSet.getInt("num_empates");
-                int derrotas = resultSet.getInt("num_derrotas");
-                int puntos = resultSet.getInt("puntos_acumulados");
+                int victorias = resultSet.getInt("victorias");
+                int empates = resultSet.getInt("empates");
+                int derrotas = resultSet.getInt("derrotas");
+                int puntos = resultSet.getInt("puntos");
 
                 Team equipo = new Team(nombreEquipo, numJugadores, victorias, empates, derrotas, puntos);
                 equipos.add(equipo);
-
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(equipos);
+
         return equipos;
     }
-
-
-
 }

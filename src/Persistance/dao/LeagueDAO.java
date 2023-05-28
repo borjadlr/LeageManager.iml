@@ -24,13 +24,14 @@ public class LeagueDAO implements LeagueDAOInt {
     private String password;
     private Connection conn;
 
+    /**
+     * Constructor de la clase LeagueDAO.
+     * Lee la configuración JSON y establece la conexión a la base de datos.
+     */
     public LeagueDAO() {
         try {
-
             // Leer la configuración JSON y obtener los valores correspondientes
-
             ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
-            
             Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
 
             // Asignar los valores obtenidos a las variables dbURL, username y password
