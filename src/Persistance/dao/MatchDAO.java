@@ -1,9 +1,12 @@
 package Persistance.dao;
 
+
+import Business.Entities.Config;
 import Business.Entities.Match;
 import Business.Entities.Team;
 import Persistance.MatchDAOInt;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,16 +16,28 @@ import java.util.List;
  * Implementación de la interfaz MatchDAOInt para realizar operaciones sobre la tabla "partido".
  */
 public class MatchDAO implements MatchDAOInt {
-    private static final String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
-    private static final String username = "dreamteam";
-    private static final String password = "dreamteam";
-    private static Connection conn;
+    private String dbURL;
+    private String username;
+    private String password;
+    private Connection conn;
 
     public MatchDAO() {
         try {
+
+            // Leer la configuración JSON y obtener los valores correspondientes
+
+            ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
+
+            Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
+
+            // Asignar los valores obtenidos a las variables dbURL, username y password
+            dbURL = "jdbc:mysql://" + config.getIpServidorBD() + ":" + config.getPortConexionBD() + "/" + config.getNombreBD();
+            username = config.getUsuarioBD();
+            password = config.getContrasenaBD();
+
             // Establecer la conexión aquí
             conn = DriverManager.getConnection(dbURL, username, password);
-        } catch (SQLException ex) {
+        } catch (IOException | SQLException ex) {
             ex.printStackTrace();
         }
     }
@@ -370,31 +385,40 @@ public class MatchDAO implements MatchDAOInt {
      * Crea un calendario de una liga con partidos de ida y vuelta a partir de una lista de equipos.
      *
      * @param equipos     la lista de equipos de la liga
-     * @param nombreLiga  el nombre de la liga
      * @return una lista enlazada con el orden de los partidos
      */
     public LinkedList<Match> crearCalendarioIdaVuelta(List<Team> equipos, String nombreLiga) {
         LinkedList<Match> calendario = new LinkedList<>();
         int numEquipos = equipos.size();
-        int numJornadas = 2 * (numEquipos - 1);
-        int mitadEquipos = numEquipos / 2;
+        int numJornadas = numEquipos - 1;
+        boolean omitirEquipo = numEquipos % 2 != 0;
 
         LinkedList<Team> equiposCopia = new LinkedList<>(equipos);
 
-        // Si el número de equipos es impar, se omite un equipo en cada jornada
-        boolean omitirEquipo = numEquipos % 2 != 0;
-
-        String url = "jdbc:mysql://localhost/league_manager_data";
-        String username = "dreamteam";
-        String password = "dreamteam";
-
-        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
             // Conexión a la base de datos
 
-            for (int jornada = 0; jornada < numJornadas; jornada++) {
-                System.out.println("Jornada " + (jornada + 1) + ":");
+            int jornadaIda = 1;
+            int jornadaVuelta = numJornadas + 1;
 
-                for (int i = 0; i < mitadEquipos; i++) {
+            for (int jornada = 0; jornada < numJornadas * 2; jornada++) {
+                int jornadaActual;
+
+                if (jornada < numJornadas) {
+                    jornadaActual = jornadaIda;
+                    jornadaIda++;
+                } else {
+                    jornadaActual = jornadaVuelta;
+                    jornadaVuelta++;
+                }
+
+                System.out.println("Jornada " + jornadaActual + ":");
+
+                // Verificar si hay que descansar un equipo en esta jornada
+                boolean descansaEquipo = omitirEquipo && jornada % 2 == 0 && jornada < numJornadas * 2 - 1;
+                Team equipoDescansa = null;
+
+                for (int i = 0; i < numEquipos / 2; i++) {
                     Team equipoLocal = equiposCopia.get(i);
                     Team equipoVisitante = equiposCopia.get(numEquipos - 1 - i);
 
@@ -403,32 +427,32 @@ public class MatchDAO implements MatchDAOInt {
                         continue; // Saltar a la siguiente iteración si es el mismo equipo
                     }
 
-                    // Crear partido de ida
-                    if (jornada % 2 == 0) {
-                        Match partidoIda = new Match(equipoLocal.getName(), equipoVisitante.getName(), 0, 0, (jornada / 2) + 1, false);
-                        calendario.add(partidoIda);
-                        System.out.println("Partido de ida: " + partidoIda.getLocal() + " vs " + partidoIda.getVisitante());
+                    Match partido;
 
-                        // Guardar el partido de ida en la base de datos
-                        insertMatchBeta(partidoIda);
+                    if (jornada < numJornadas) {
+                        partido = new Match(equipoLocal.getName(), equipoVisitante.getName(), 0, 0, jornadaActual, false, nombreLiga);
+                        System.out.println("Partido de ida: " + partido.getLocal() + " vs " + partido.getVisitante());
+                    } else {
+                        partido = new Match(equipoVisitante.getName(), equipoLocal.getName(), 0, 0, jornadaActual, false, nombreLiga);
+                        System.out.println("Partido de vuelta: " + partido.getLocal() + " vs " + partido.getVisitante());
                     }
-                    // Crear partido de vuelta
-                    else {
-                        Match partidoVuelta = new Match(equipoVisitante.getName(), equipoLocal.getName(), 0, 0, numEquipos + (jornada / 2) + 1, false);
-                        calendario.add(partidoVuelta);
-                        System.out.println("Partido de vuelta: " + partidoVuelta.getLocal() + " vs " + partidoVuelta.getVisitante());
 
-                        // Guardar el partido de vuelta en la base de datos
-                        insertMatchBeta(partidoVuelta);
+                    calendario.add(partido);
+                    insertMatchBeta(partido);
+
+                    // Verificar si se debe asignar un equipo que descansa en esta jornada
+                    if (descansaEquipo) {
+                        equipoDescansa = equipoLocal;
                     }
+                }
+
+                // Imprimir el equipo que descansa en esta jornada
+                if (descansaEquipo) {
+                    System.out.println("Descansa: " + equipoDescansa.getName());
                 }
 
                 // Rotar los equipos en sentido horario, omitiendo un equipo si es necesario
-                if (omitirEquipo) {
-                    equiposCopia.add(1, equiposCopia.removeLast());
-                } else {
-                    equiposCopia.addFirst(equiposCopia.removeLast());
-                }
+                equiposCopia.add(1, equiposCopia.removeLast());
             }
 
             // Cerrar la conexión a la base de datos
@@ -439,6 +463,119 @@ public class MatchDAO implements MatchDAOInt {
 
         return calendario;
     }
+
+    /**
+     * Método que obtiene todos los partidos de la base de datos para una jornada específica
+     * y los retorna en forma de LinkedList.
+     *
+     * @param jornada La jornada para la cual se desean obtener los partidos.
+     * @return Una LinkedList que contiene los partidos de la jornada especificada.
+     */
+    public LinkedList<Match> obtenerPartidosPorJornada(int jornada) {
+        LinkedList<Match> partidos = new LinkedList<>();
+
+        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+            // Conexión a la base de datos
+
+            String query = "SELECT * FROM partido WHERE jornada = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, jornada);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                // Obtener los datos del partido desde el ResultSet
+                String equipoLocal = resultSet.getString("equipo_local");
+                String equipoVisitante = resultSet.getString("equipo_visitante");
+                int golesLocal = resultSet.getInt("resultado_local");
+                int golesVisitante = resultSet.getInt("resultado_visitante");
+                boolean esVuelta = resultSet.getBoolean("partido_finalizado");
+                String nombreLiga = resultSet.getString("nombre_liga");
+
+                // Crear un objeto Match con los datos obtenidos y agregarlo a la LinkedList de partidos
+                Match partido = new Match(equipoLocal, equipoVisitante, golesLocal, golesVisitante, jornada, esVuelta, nombreLiga);
+                partidos.add(partido);
+                System.out.println(equipoLocal);
+                System.out.println(equipoVisitante);
+            }
+
+            // Cerrar el ResultSet, PreparedStatement y la conexión a la base de datos
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return partidos;
+    }
+
+
+    /**
+     * Método que obtiene todos los partidos de una liga y una jornada específica desde la base de datos.
+     *
+     * @param nombreLiga El nombre de la liga para la cual se desean obtener los partidos.
+     * @param jornada    La jornada para la cual se desean obtener los partidos.
+     * @return Una LinkedList que contiene los partidos de la liga y jornada especificadas.
+     */
+    public LinkedList<Match> obtenerPartidosPorLigaYJornada(String nombreLiga, int jornada) {
+        LinkedList<Match> partidos = new LinkedList<>();
+
+        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+            // Conexión a la base de datos
+
+            String query = "SELECT * FROM partido WHERE nombre_liga = ? AND jornada = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, nombreLiga);
+            statement.setInt(2, jornada);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                // Obtener los datos del partido desde el ResultSet
+                String equipoLocal = resultSet.getString("equipo_local");
+                String equipoVisitante = resultSet.getString("equipo_visitante");
+                int golesLocal = resultSet.getInt("resultado_local");
+                int golesVisitante = resultSet.getInt("resultado_visitante");
+                boolean esVuelta = resultSet.getBoolean("partido_finalizado");
+
+                // Crear un objeto Match con los datos obtenidos y agregarlo a la LinkedList de partidos
+                Match partido = new Match(equipoLocal, equipoVisitante, golesLocal, golesVisitante, jornada, esVuelta, nombreLiga);
+                partidos.add(partido);
+                System.out.println(equipoLocal);
+                System.out.println(equipoVisitante);
+                System.out.println("-----------");
+
+            }
+
+            // Cerrar el ResultSet, PreparedStatement y la conexión a la base de datos
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return partidos;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Incrementa el resultado de un equipo en un partido de la liga en una jornada específica.

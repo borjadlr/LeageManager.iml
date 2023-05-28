@@ -1,5 +1,7 @@
 package Persistance;
 
+import Business.Entities.Team;
+
 import java.util.List;
 
 public interface TeamsLeagueDAOInt {
@@ -8,4 +10,5 @@ public interface TeamsLeagueDAOInt {
     void actualizarEquipoLiga(String nombreEquipo, String nombreLiga, String nuevoNombreEquipo, String nuevoNombreLiga);
     void eliminarEquipoLiga(String nombreEquipo, String nombreLiga);
     List<String> obtenerEquiposPorLiga(String nombreLiga);
+    List<Team> obtenerEquiposPorLigaTeam(String nombreLiga);
 }

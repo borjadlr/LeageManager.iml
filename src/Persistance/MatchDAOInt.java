@@ -20,7 +20,9 @@ public interface MatchDAOInt {
     Match getMatchDetails(String dni, int jornada);
     void deleteMatchesByTeamName(String teamName) throws SQLException;
     void getMatchIdsByDayAndTime();
-    List<Match> crearCalendarioIdaVuelta(List<Team> equipos, String nombreLiga);
+    List<Match> crearCalendarioIdaVuelta(List<Team> equipos,String nombreLiga);
     void sumaGol(String equipo, int jornada);
+    LinkedList<Match> obtenerPartidosPorJornada(int jornada);
+    LinkedList<Match> obtenerPartidosPorLigaYJornada(String nombreLiga, int jornada);
 }
 

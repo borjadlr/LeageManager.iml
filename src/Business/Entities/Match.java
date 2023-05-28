@@ -4,14 +4,14 @@ public class Match {
 
     private String local;
     private String visitante;
+    private String nombreLiga;
 
     private int golesLocal;
     private int golesVisitante;
     private int jornada;
     private boolean status;
-    private String nombreLiga;
 
-    public Match(String local, String visitante, int golesLocal, int golesVisitante, int jornada, boolean status) {
+    public Match(String local, String visitante, int golesLocal, int golesVisitante, int jornada, boolean status,String nombreLiga) {
         this.local = local;
         this.visitante = visitante;
         this.golesLocal = golesLocal;
@@ -74,6 +74,5 @@ public class Match {
     }
 
     public void setNombreLiga(String nombreLiga) {
-        this.nombreLiga = nombreLiga;
     }
 }

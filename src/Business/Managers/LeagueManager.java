@@ -86,7 +86,7 @@ public class LeagueManager {
     }
 
     public void generateCalendar(List<Team> teams, String leagueName) throws SQLException {
-        List<Match> matches = matchDAO.crearCalendarioIdaVuelta(teams, leagueName);
+        List<Match> matches = matchDAO.crearCalendarioIdaVuelta(teams,leagueName);
         League league = getLeagueByName(leagueName);
         league.setMatches(matches);
     }

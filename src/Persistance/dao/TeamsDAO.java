@@ -1,5 +1,6 @@
 package Persistance.dao;
 
+import Business.Entities.Config;
 import Business.Entities.Team;
 import Persistance.TeamsDAOInt;
 import com.google.gson.Gson;
@@ -20,15 +21,28 @@ import java.util.List;
  */
 public class TeamsDAO implements TeamsDAOInt {
 
-    private static String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
-    private static String username = "dreamteam";
-    private static String password = "dreamteam";
+    private String dbURL;
+    private String username;
+    private String password;
     private Connection conn;
 
     public TeamsDAO() {
         try {
+
+            // Leer la configuración JSON y obtener los valores correspondientes
+
+            ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
+
+            Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
+
+            // Asignar los valores obtenidos a las variables dbURL, username y password
+            dbURL = "jdbc:mysql://" + config.getIpServidorBD() + ":" + config.getPortConexionBD() + "/" + config.getNombreBD();
+            username = config.getUsuarioBD();
+            password = config.getContrasenaBD();
+
+            // Establecer la conexión aquí
             conn = DriverManager.getConnection(dbURL, username, password);
-        } catch (SQLException ex) {
+        } catch (IOException | SQLException ex) {
             ex.printStackTrace();
         }
     }
@@ -519,7 +533,7 @@ public class TeamsDAO implements TeamsDAOInt {
 
         try (Connection connection = DriverManager.getConnection(dbURL, username, password)) {
             System.out.println("Successful connection...");
-            String sql = "SELECT nombre, num_jugadores, num_victorias, num_empates, num_derrotas, puntos_acumulados " +
+            String sql = "SELECT equipo.nombre, num_jugadores, num_victorias, num_empates, num_derrotas, puntos_acumulados " +
                     "FROM equipo " +
                     "INNER JOIN equipo_liga ON equipo.nombre = equipo_liga.nombre_equipo " +
                     "INNER JOIN liga ON equipo_liga.nombre_liga = liga.nombre " +

@@ -1,10 +1,13 @@
 package Persistance.dao;
 
+import Business.Entities.Config;
 import Business.Entities.League;
 import Business.Entities.Match;
 import Business.Entities.Team;
+import Persistance.ConfigJsonDAOInt;
 import Persistance.LeagueDAOInt;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +17,30 @@ import java.util.List;
  */
 public class LeagueDAO implements LeagueDAOInt {
 
-    private final String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
-    private final String username = "dreamteam";
-    private final String password = "dreamteam";
+
+    
+    private String dbURL;
+    private String username;
+    private String password;
     private Connection conn;
 
     public LeagueDAO() {
         try {
+
+            // Leer la configuración JSON y obtener los valores correspondientes
+
+            ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
+            
+            Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
+
+            // Asignar los valores obtenidos a las variables dbURL, username y password
+            dbURL = "jdbc:mysql://" + config.getIpServidorBD() + ":" + config.getPortConexionBD() + "/" + config.getNombreBD();
+            username = config.getUsuarioBD();
+            password = config.getContrasenaBD();
+
             // Establecer la conexión aquí
             conn = DriverManager.getConnection(dbURL, username, password);
-        } catch (SQLException ex) {
+        } catch (IOException | SQLException ex) {
             ex.printStackTrace();
         }
     }

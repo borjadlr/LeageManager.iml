@@ -1,22 +1,37 @@
 package Persistance.dao;
 
+import Business.Entities.Config;
+import Business.Entities.Team;
 import Persistance.TeamsLeagueDAOInt;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
-    private static String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
-    private static String username = "dreamteam";
-    private static String password = "dreamteam";
+    private String dbURL;
+    private String username;
+    private String password;
     private Connection conn;
 
     public TeamsLeagueDAO() {
         try {
-            // Corregir la asignación de la variable conn
+
+            // Leer la configuración JSON y obtener los valores correspondientes
+
+            ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
+
+            Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
+
+            // Asignar los valores obtenidos a las variables dbURL, username y password
+            dbURL = "jdbc:mysql://" + config.getIpServidorBD() + ":" + config.getPortConexionBD() + "/" + config.getNombreBD();
+            username = config.getUsuarioBD();
+            password = config.getContrasenaBD();
+
+            // Establecer la conexión aquí
             conn = DriverManager.getConnection(dbURL, username, password);
-        } catch (SQLException ex) {
+        } catch (IOException | SQLException ex) {
             ex.printStackTrace();
         }
     }
@@ -84,6 +99,35 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
         System.out.println(equipos);
         return equipos;
     }
+
+    public List<Team> obtenerEquiposPorLigaTeam(String nombreLiga) {
+        List<Team> equipos = new ArrayList<>();
+        String query = "SELECT nombre_equipo, num_jugadores, victorias, empates, derrotas, puntos FROM equipo_liga WHERE nombre_liga = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, nombreLiga);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String nombreEquipo = resultSet.getString("nombre");
+                int numJugadores = resultSet.getInt("num_jugadores");
+                int victorias = resultSet.getInt("num_victorias");
+                int empates = resultSet.getInt("num_empates");
+                int derrotas = resultSet.getInt("num_derrotas");
+                int puntos = resultSet.getInt("puntos_acumulados");
+
+                Team equipo = new Team(nombreEquipo, numJugadores, victorias, empates, derrotas, puntos);
+                equipos.add(equipo);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(equipos);
+        return equipos;
+    }
+
 
 
 }

@@ -14,17 +14,28 @@ public class UserDAO implements UserDAOInt {
 
 
 
-    private static String dbURL = "jdbc:mysql://localhost:3306/league_manager_data";
-    private static String username = "dreamteam";
-    private static String password = "dreamteam";
-    private static Connection conn;
-    private static User user;
+    private String dbURL;
+    private String username;
+    private String password;
+    private Connection conn;
 
     public UserDAO() {
         try {
+
+            // Leer la configuración JSON y obtener los valores correspondientes
+
+            ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
+
+            Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
+
+            // Asignar los valores obtenidos a las variables dbURL, username y password
+            dbURL = "jdbc:mysql://" + config.getIpServidorBD() + ":" + config.getPortConexionBD() + "/" + config.getNombreBD();
+            username = config.getUsuarioBD();
+            password = config.getContrasenaBD();
+
             // Establecer la conexión aquí
             conn = DriverManager.getConnection(dbURL, username, password);
-        } catch (SQLException ex) {
+        } catch (IOException | SQLException ex) {
             ex.printStackTrace();
         }
     }

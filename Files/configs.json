@@ -1,9 +1,9 @@
 {
-  "portConexionBD": 5432,
+  "portConexionBD": 3306,
   "ipServidorBD": "localhost",
-  "nombreBD": "nombre_base_de_datos",
-  "usuarioBD": "usuario",
-  "contrasenaBD": "contrasena",
+  "nombreBD": "league_manager_data",
+  "usuarioBD": "dreamteam",
+  "contrasenaBD": "dreamteam",
   "contrasenaAdministrador": "contrasena_administrador",
   "duracionPartidoMinutos": 90
 }

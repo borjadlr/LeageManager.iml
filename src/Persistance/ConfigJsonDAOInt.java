@@ -1,12 +1,13 @@
 package Persistance;
 
+import Business.Entities.Config;
 import Persistance.dao.ConfigJsonDAO;
 
 import java.io.IOException;
 
 public interface ConfigJsonDAOInt {
 
-    ConfigJsonDAO leerConfiguracionJson(String nombreArchivo) throws IOException;
+     Config leerConfiguracionJson(String nombreArchivo) throws IOException;
 
 }
 
