@@ -77,14 +77,13 @@ public class LeagueManager {
         int i = 0;
         League league = getLeagueByName(leagueName);
 
-        while (teams.size() > i) {
-            if (league.getNumber_teams() <= i){
-                teamsLeagueDAOInt.insertarEquipoLiga(teams.get(i).getName(), leagueName);
-                i++;
-            } else {
-                throw new NumberOfTeamsDoNotRelateException();
-            }
+        if (league.getNumber_teams() != teams.size()){
+            throw new NumberOfTeamsDoNotRelateException();
+        }
 
+        while (teams.size() > i) {
+            teamsLeagueDAOInt.insertarEquipoLiga(teams.get(i).getName(), leagueName);
+            i++;
         }
         generateCalendar(teams, leagueName);
         league.setTeams(teams);
