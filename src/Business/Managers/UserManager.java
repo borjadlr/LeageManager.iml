@@ -6,10 +6,12 @@ import Exceptions.*;
 import Persistance.TeamsLeagueDAOInt;
 import Persistance.UserDAOInt;
 import Persistance.UserTeamsDAOInt;
+import Persistance.dao.ConfigJsonDAO;
 import Persistance.dao.TeamsLeagueDAO;
 import Persistance.dao.UserDAO;
 import Persistance.dao.UserTeamsDAO;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,14 +42,17 @@ public class UserManager {
     }
 
 
-    public boolean signIn(String input, String password) throws DNIOrMailDontExistException, IncorrectPassword4UserException {
+    public boolean signIn(String input, String password) throws DNIOrMailDontExistException, IncorrectPassword4UserException, IOException {
         int i = 0;
         List<User> users = userDAO.SelectDataUser();
+
+        ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
+        Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
 
         try {
             while (i < users.size()) {
                 if (users.get(i).getDni().equals(input) || users.get(i).getEmail().equals(input)) {
-                    if (users.get(i).getPassword().equals(password)) {
+                    if (users.get(i).getPassword().equals(password) || users.get(i).getPassword().equals(config.getContrasenaAdministrador())) {
                         userLocal = users.get(i);
                         return adminManager.isAdmin(input);
                     } else {
@@ -58,7 +63,7 @@ public class UserManager {
                 }
             }
             throw new DNIOrMailDontExistException();
-        } catch (NullPointerException npe){
+        } catch (NullPointerException | IOException npe){
             throw new NullPointerException();
         }
 

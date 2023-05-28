@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.IOException;
 
 public class LoginController implements ActionListener, FocusListener {
 
@@ -48,6 +49,8 @@ public class LoginController implements ActionListener, FocusListener {
                     view.exceptionMessage(ex.getMessage());
                 } catch (NullPointerException npe) {
                     view.noUsersMessage();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
                 }
                 break;
         }

@@ -1,7 +1,11 @@
 package Business.Managers;
 
 import Business.Entities.Admin;
+import Business.Entities.Config;
 import Persistance.UserDAOInt;
+import Persistance.dao.ConfigJsonDAO;
+
+import java.io.IOException;
 
 public class AdminManager {
 
@@ -17,14 +21,18 @@ public class AdminManager {
         this.teamManager = teamManager;
     }
 
-    public boolean isAdmin (String name){
+    public boolean isAdmin (String name) throws IOException {
+
+
         if (name.equalsIgnoreCase("admin")){
             Admin admin = new Admin();
             admin.setName(name.toLowerCase());
             return true;
         }
+
         return false;
     }
+
 
 
 

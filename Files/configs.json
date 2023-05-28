@@ -4,6 +4,6 @@
   "nombreBD": "league_manager_data",
   "usuarioBD": "dreamteam",
   "contrasenaBD": "dreamteam",
-  "contrasenaAdministrador": "contrasena_administrador",
+  "contrasenaAdministrador": "admin",
   "duracionPartidoMinutos": 90
 }
