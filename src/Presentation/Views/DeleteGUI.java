@@ -7,6 +7,9 @@ import java.awt.event.FocusListener;
 
 import static java.awt.Font.PLAIN;
 
+/**
+ * The DeleteGUI class represents a panel for deleting an account.
+ */
 public class DeleteGUI extends JPanel {
 
     private final JTextField email;
@@ -14,6 +17,9 @@ public class DeleteGUI extends JPanel {
     private final JButton delete;
     private static final String DELETE_BUTTON = "DELETE_BUTTON";
 
+    /**
+     * Constructs a DeleteGUI object.
+     */
     public DeleteGUI() {
         Color backgroundColor = Color.white;
         this.setLayout(new GridBagLayout());
@@ -27,7 +33,7 @@ public class DeleteGUI extends JPanel {
         panel.setBackground(backgroundColor);
         panel.setOpaque(true);
 
-        //Title
+        // Title
         JLabel title = new JLabel("Delete Account");
         title.setFont(new Font("Apple Casual", PLAIN, 60));
         title.setForeground(Color.BLACK);
@@ -72,21 +78,45 @@ public class DeleteGUI extends JPanel {
         this.add(panel);
     }
 
+    /**
+     * Sets the focus listener for the email and password fields.
+     * @param focusListener the focus listener to set
+     */
     public void focusListener(FocusListener focusListener) {
         email.addFocusListener(focusListener);
         email.setName("Email or DNI");
         password.addFocusListener(focusListener);
         password.setName("Password");
     }
-    public void actionListener(ActionListener actionListener){
+
+    /**
+     * Sets the action listener for the delete button.
+     * @param actionListener the action listener to set
+     */
+    public void actionListener(ActionListener actionListener) {
         delete.addActionListener(actionListener);
     }
+
+    /**
+     * Returns the username (email or DNI) entered in the email field.
+     * @return the username entered in the email field
+     */
     public String getUsernameInfo() {
         return email.getText();
     }
+
+    /**
+     * Returns the password entered in the password field.
+     * @return the password entered in the password field
+     */
     public String getPasswordInfo() {
         return password.getText();
     }
+
+    /**
+     * Displays an exception message in a dialog box.
+     * @param message the exception message to display
+     */
     public void exceptionMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
     }

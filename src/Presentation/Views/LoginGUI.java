@@ -1,5 +1,3 @@
-
-
 package Presentation.Views;
 
 import Presentation.Controllers.LoginController;
@@ -11,6 +9,9 @@ import java.awt.event.FocusListener;
 
 import static java.awt.Font.PLAIN;
 
+/**
+ * The graphical user interface for the login functionality.
+ */
 public class LoginGUI extends JPanel {
 
     private final JTextField email;
@@ -18,12 +19,14 @@ public class LoginGUI extends JPanel {
     private final JButton login;
     private static final String LOGIN_BUTTON = "LOGIN_BUTTON";
 
+    /**
+     * Creates a new instance of the LoginGUI class.
+     */
     public LoginGUI() {
         Color backgroundColor = Color.white;
         this.setLayout(new GridBagLayout());
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-
 
         // General panel
         JPanel panel = new JPanel();
@@ -32,7 +35,7 @@ public class LoginGUI extends JPanel {
         panel.setBackground(backgroundColor);
         panel.setOpaque(true);
 
-        //Title
+        // Title
         JLabel title = new JLabel("LeagueManager Login");
         title.setFont(new Font("Apple Casual", PLAIN, 60));
         title.setForeground(Color.BLACK);
@@ -65,7 +68,6 @@ public class LoginGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(15));
 
-
         login = new JButton("Login");
         login.setActionCommand(LOGIN_BUTTON);
         login.setPreferredSize(new Dimension(150, 40));
@@ -79,34 +81,61 @@ public class LoginGUI extends JPanel {
         this.add(panel);
     }
 
+    /**
+     * Registers a focus listener for the text fields.
+     * @param focusListener The focus listener to register.
+     */
     public void focusListener(FocusListener focusListener) {
         email.addFocusListener(focusListener);
         email.setName("Email or DNI");
         password.addFocusListener(focusListener);
         password.setName("Password");
     }
-    public void actionListener(ActionListener actionListener){
+
+    /**
+     * Registers an action listener for the login button.
+     * @param actionListener The action listener to register.
+     */
+    public void actionListener(ActionListener actionListener) {
         login.addActionListener(actionListener);
     }
 
+    /**
+     * Retrieves the entered username or email information.
+     * @return The username or email information.
+     */
     public String getUsernameInfo() {
         return email.getText();
     }
 
+    /**
+     * Retrieves the entered password information.
+     * @return The password information.
+     */
     public String getPasswordInfo() {
         return password.getText();
     }
 
+    /**
+     * Displays an exception message dialog with the specified message.
+     * @param message The exception message to display.
+     */
     public void exceptionMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
     }
 
+    /**
+     * Displays a message dialog indicating that there are no users, so login is not possible.
+     */
     public void noUsersMessage() {
         JOptionPane.showMessageDialog(null, "There are no users, so you cannot log in.");
     }
 
+    /**
+     * Displays a message dialog indicating that the fields are not completed.
+     */
     public void fieldsNotCompleted() {
-        JOptionPane.showMessageDialog(null, "Fields are not completed, please, fulfill them all.");
+        JOptionPane.showMessageDialog(null, "Fields are not completed, please fulfill them all.");
     }
 
 }

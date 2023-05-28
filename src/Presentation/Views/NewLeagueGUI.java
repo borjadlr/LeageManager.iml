@@ -1,14 +1,15 @@
 package Presentation.Views;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import static java.awt.Font.PLAIN;
 
+/**
+ * The NewLeagueGUI class represents a panel for creating a new league.
+ */
 public class NewLeagueGUI extends JPanel {
 
     private final JTextField leagueName;
@@ -16,13 +17,13 @@ public class NewLeagueGUI extends JPanel {
     private final JTextField data;
     private final JTextField numeroEquipos;
     private final JButton ok;
-    public Color getBackgroundColor() {
-        return backgroundColor;
-    }
-
     private final Color backgroundColor;
 
     private static final String OK_BUTTON = "OK_BUTTON";
+
+    /**
+     * Constructs a NewLeagueGUI object.
+     */
     public NewLeagueGUI() {
 
         this.backgroundColor = Color.white;
@@ -94,35 +95,65 @@ public class NewLeagueGUI extends JPanel {
         this.add(panel);
     }
 
+    /**
+     * Returns the league name entered by the user.
+     * @return the league name
+     */
     public String getLeagueName() {
         return leagueName.getText();
     }
 
+    /**
+     * Returns the hour entered by the user.
+     * @return the hour
+     */
     public String getHora() {
         return hora.getText();
     }
 
+    /**
+     * Returns the date entered by the user.
+     * @return the date
+     */
     public String getData() {
         return data.getText();
     }
 
+    /**
+     * Returns the number of teams entered by the user.
+     * @return the number of teams
+     */
     public String getNumeroEquipos() {
         return numeroEquipos.getText();
     }
 
-    public void registerListener(ActionListener actionListener){
+    /**
+     * Registers an ActionListener to the OK button.
+     * @param actionListener the ActionListener to register
+     */
+    public void registerListener(ActionListener actionListener) {
         ok.addActionListener(actionListener);
     }
 
+    /**
+     * Displays an exception message dialog with the given message.
+     * @param message the exception message to display
+     */
     public void exceptionMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
     }
 
+    /**
+     * Displays a parse message dialog.
+     */
     public void parseMessage() {
         JOptionPane.showMessageDialog(null, "Call 666445481 if this error occurs.");
     }
 
-
+    /**
+     * Registers a FocusListener to the input fields for handling focus events.
+     * @param focusListener the FocusListener to register
+     */
     public void newLeagueFocusListener(FocusListener focusListener) {
         leagueName.addFocusListener(focusListener);
         leagueName.setName("New League");
@@ -134,6 +165,9 @@ public class NewLeagueGUI extends JPanel {
         hora.setName("Hora");
     }
 
+    /**
+     * Clears the text fields in the panel.
+     */
     public void clearTextFields() {
         leagueName.setText("");
         hora.setText("");

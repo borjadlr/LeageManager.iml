@@ -9,12 +9,17 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The ListPlayerGUI class represents a panel that displays a list of players.
+ */
 public class ListPlayerGUI extends JPanel {
     private final JTable table;
     private final JLabel titleLabel;
     private final DefaultTableModel tableModel;
 
-
+    /**
+     * Constructs a ListPlayerGUI object.
+     */
     public ListPlayerGUI() {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE); // Set the background color of the panel to white
@@ -47,6 +52,11 @@ public class ListPlayerGUI extends JPanel {
         scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
     }
+
+    /**
+     * Adds a list of players to the table.
+     * @param playerNames the list of players to add
+     */
     public void addPlayers(List<User> playerNames) {
         tableModel.setRowCount(0);
         for (User playerName : playerNames) {
@@ -54,8 +64,12 @@ public class ListPlayerGUI extends JPanel {
             tableModel.addRow(rowData);
         }
     }
+
+    /**
+     * Sets the title of the panel.
+     * @param title the title to set
+     */
     public void setTitle(String title) {
         titleLabel.setText(title);
     }
 }
-

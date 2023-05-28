@@ -10,11 +10,17 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The ListTeamUserGUI class represents a panel that displays a list of teams in a table format.
+ */
 public class ListTeamUserGUI extends JPanel {
     private final JTable table;
     private final DefaultTableModel tableModel;
     private final JLabel titleLabel;
 
+    /**
+     * Constructs a ListTeamUserGUI object.
+     */
     public ListTeamUserGUI() {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE); // Set the background color of the panel to white
@@ -43,6 +49,10 @@ public class ListTeamUserGUI extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
+    /**
+     * Adds a list of teams to the table.
+     * @param teams the list of teams to add
+     */
     public void addTeams(List<Team> teams) {
         tableModel.setRowCount(0);
 
@@ -53,14 +63,26 @@ public class ListTeamUserGUI extends JPanel {
         }
     }
 
+    /**
+     * Sets the controller for handling user interactions with the table.
+     * @param controller the ListTeamUserController to set as the controller
+     */
     public void setController(ListTeamUserController controller) {
         table.addMouseListener(controller);
     }
 
+    /**
+     * Sets the title of the panel.
+     * @param title the title to set
+     */
     public void setTitle(String title) {
         titleLabel.setText(title);
     }
 
+    /**
+     * Retrieves the JTable component used for displaying the teams.
+     * @return the JTable component
+     */
     public JTable getTable() {
         return table;
     }

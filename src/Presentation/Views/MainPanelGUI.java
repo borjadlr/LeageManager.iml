@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The graphical user interface for the main panel of the application.
+ */
 public class MainPanelGUI extends JPanel {
 
     private final JButton login;
@@ -12,12 +15,15 @@ public class MainPanelGUI extends JPanel {
 
     private static final int MAX_SPACE_BUTTONS = 15;
 
-    private static final int MAX_SPACE_TITTLE = 90;
+    private static final int MAX_SPACE_TITLE = 90;
     private final Color backgroundColor;
     private static final String LOGIN_BUTTON = "LOGIN_BUTTON";
     private static final String REGISTER_BUTTON = "REGISTER_BUTTON";
 
 
+    /**
+     * Creates a new instance of the MainPanelGUI class.
+     */
     public MainPanelGUI() {
 
         this.backgroundColor = Color.white;
@@ -32,7 +38,7 @@ public class MainPanelGUI extends JPanel {
         panel.setBackground(backgroundColor);
         panel.setOpaque(true);
 
-        //Title
+        // Title
         JLabel title = new JLabel(TITLE);
         title.setFont(new Font("Apple Casual", Font.PLAIN, 60));
         title.setForeground(Color.BLACK);
@@ -40,7 +46,7 @@ public class MainPanelGUI extends JPanel {
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(title, BorderLayout.NORTH);
 
-        panel.add(Box.createVerticalStrut(MAX_SPACE_TITTLE));
+        panel.add(Box.createVerticalStrut(MAX_SPACE_TITLE));
 
         login = new JButton("           Login          ");
         login.setActionCommand(LOGIN_BUTTON);
@@ -59,13 +65,12 @@ public class MainPanelGUI extends JPanel {
         this.add(panel);
     }
 
-
     /**
-     *
-     * @param actionListener
+     * Registers an action listener for the login and register buttons.
+     * @param actionListener The action listener to register.
      */
-    public void registerListener(ActionListener actionListener){
+    public void registerListener(ActionListener actionListener) {
         login.addActionListener(actionListener);
         register.addActionListener(actionListener);
     }
-    }
+}

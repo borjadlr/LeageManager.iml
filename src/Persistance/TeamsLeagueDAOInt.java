@@ -4,6 +4,9 @@ import Business.Entities.Team;
 
 import java.util.List;
 
+/**
+ * Interface for accessing and manipulating League data in a database
+ */
 public interface TeamsLeagueDAOInt {
 
     void insertarEquipoLiga(String nombreEquipo, String nombreLiga);

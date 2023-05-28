@@ -5,6 +5,10 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The TopPanelGUI class represents a panel for the top section of the user interface.
+ * It includes a dropdown button, a back button, and a dropdown menu.
+ */
 public class TopPanelGUI extends JPanel {
     private JButton dropdownButton;
     private JButton atras;
@@ -16,6 +20,9 @@ public class TopPanelGUI extends JPanel {
     private static final String DELETE_ACCOUNT_BUTTON = "DELETE_ACCOUNT_BUTTON";
     private static final String BACK_BUTTON = "BACK_BUTTON";
 
+    /**
+     * Constructs a TopPanelGUI object.
+     */
     public TopPanelGUI() {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(0, 50));
@@ -67,33 +74,55 @@ public class TopPanelGUI extends JPanel {
         dropdownMenu.add(deleteAccount);
 
         dropdownButton.setComponentPopupMenu(dropdownMenu);
-
     }
 
-    public void hideShowDropDownButton(boolean t){
+    /**
+     * Hides or shows the dropdown button based on the specified flag.
+     * @param t true to show the dropdown button, false to hide it
+     */
+    public void hideShowDropDownButton(boolean t) {
         dropdownButton.setVisible(t);
     }
 
-    public void hideBackButton(boolean t){
+    /**
+     * Hides or shows the back button based on the specified flag.
+     * @param t true to show the back button, false to hide it
+     */
+    public void hideBackButton(boolean t) {
         atras.setVisible(t);
     }
 
-    public void hideShowDeleteAccount(boolean t){
+    /**
+     * Hides or shows the "Delete Account" option in the dropdown menu based on the specified flag.
+     * @param t true to show the "Delete Account" option, false to hide it
+     */
+    public void hideShowDeleteAccount(boolean t) {
         deleteAccount.setVisible(t);
     }
 
+    /**
+     * Displays the dropdown menu.
+     */
     public void showDropdownMenu() {
         JPopupMenu popupMenu = (JPopupMenu) dropdownButton.getComponentPopupMenu();
         popupMenu.show(dropdownButton, 0, dropdownButton.getHeight());
     }
 
-    public int messageAreYouSure(){
+    /**
+     * Displays a confirmation message dialog asking the user if they want to log out.
+     * @return the user's confirmation choice (JOptionPane.YES_OPTION or JOptionPane.NO_OPTION)
+     */
+    public int messageAreYouSure() {
         int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?",
                 "Logout", JOptionPane.YES_NO_OPTION);
         return confirm;
     }
 
-    public void actionListener(ActionListener actionListener){
+    /**
+     * Registers an ActionListener to the buttons in the top panel.
+     * @param actionListener the ActionListener to register
+     */
+    public void actionListener(ActionListener actionListener) {
         dropdownButton.addActionListener(actionListener);
         logout.addActionListener(actionListener);
         deleteAccount.addActionListener(actionListener);

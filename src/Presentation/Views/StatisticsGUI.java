@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * Statistics GUI class
+ */
 public class StatisticsGUI extends JPanel {
     private static final int MARGEN_IZQUIERDO = 50;
     private static final int MARGEN_DERECHO = 50;
@@ -129,6 +132,11 @@ public class StatisticsGUI extends JPanel {
         }
     }
 
+    /**
+     * This method returns a color depending the index
+     * @param index number of which color you want
+     * @return the color
+     */
     private Color getColor(int index) {
         Color[] colors = {Color.BLUE, Color.GREEN, Color.RED, Color.ORANGE, Color.MAGENTA};
         return colors[index % colors.length];

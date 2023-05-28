@@ -12,12 +12,18 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * The ListTeamAdminGUI class represents a panel that displays a list of teams with additional administrative functionality.
+ */
 public class ListTeamAdminGUI extends JPanel {
     private final JTable table;
     private final DefaultTableModel tableModel;
     private final JLabel titleLabel;
     private final JButton delete;
 
+    /**
+     * Constructs a ListTeamAdminGUI object.
+     */
     public ListTeamAdminGUI() {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE); // Set the background color of the panel to white
@@ -58,7 +64,7 @@ public class ListTeamAdminGUI extends JPanel {
         scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Create the OK button
+        // Create the Delete button
         delete = new JButton("Delete");
         delete.setPreferredSize(new Dimension(80, 30)); // Set the preferred size of the button
 
@@ -66,40 +72,57 @@ public class ListTeamAdminGUI extends JPanel {
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.setBackground(Color.WHITE);
 
-        // Add the OK button to the bottom panel
+        // Add the Delete button to the bottom panel
         bottomPanel.add(delete);
 
         // Add the bottom panel to the main panel
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Sets the title of the panel.
+     * @param title the title to set
+     */
     public void setTitle(String title) {
         titleLabel.setText(title);
     }
 
+    /**
+     * Adds a list of teams to the table.
+     * @param teams the list of teams to add
+     */
     public void addTeams(List<Team> teams) {
         tableModel.setRowCount(0);
         // Add team data to the table
         for (Team team : teams) {
-            Object[] rowData = {team.getName(), team.getPoints() ,team.getWins(), team.getTies(), team.getLosses() , team.getNPlayers(),false}; // Add checkbox column data
+            Object[] rowData = {team.getName(), team.getPoints(), team.getWins(), team.getTies(), team.getLosses(), team.getNPlayers(), false}; // Add checkbox column data
             tableModel.addRow(rowData);
         }
     }
 
+    /**
+     * Sets the controller for handling user interactions with the table and delete button.
+     * @param controller the ListTeamAdminController to set as the controller
+     */
     public void setController(ListTeamAdminController controller) {
         table.addMouseListener(controller);
         delete.addActionListener(controller);
     }
 
-    public int showAreYouSureDelete(){
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?",
-                "Delete", JOptionPane.YES_NO_OPTION);
+    /**
+     * Displays a confirmation dialog for deleting a team and returns the user's choice.
+     * @return the user's choice (JOptionPane.YES_OPTION or JOptionPane.NO_OPTION)
+     */
+    public int showAreYouSureDelete() {
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?", "Delete", JOptionPane.YES_NO_OPTION);
         return confirm;
     }
 
-
+    /**
+     * Retrieves the JTable component used for displaying the teams.
+     * @return the JTable component
+     */
     public JTable getTable() {
         return table;
     }
 }
-

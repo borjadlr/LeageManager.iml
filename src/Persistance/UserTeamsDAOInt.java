@@ -5,6 +5,9 @@ import Business.Entities.User;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Interface for accessing and manipulating Userteams data in a database
+ */
 public interface UserTeamsDAOInt {
     void createUserTeam(String dniJugador, String nombreEquipo);
     void readUserTeam(String dniJugador, String nombreEquipo);

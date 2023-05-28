@@ -5,7 +5,9 @@ import Business.Entities.User;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ * Interface for accessing and manipulating user data in a database
+ */
 public interface UserDAOInt {
     void InsertDataUser(String dni, String email, String pass_jugador, int number, String phone);
     void InsertDataUser2(User jugador);

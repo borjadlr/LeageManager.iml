@@ -8,6 +8,9 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This method interface caonfigurates de MatchDAO
+ */
 public interface MatchDAOInt {
     void insertMatch(String equipoLocal, String equipoVisitante, int resultadoLocal, int resultadoVisitante, int jornada, boolean partidoFinalizado, String nombreLiga);
     List<Match> getAllMatches();
