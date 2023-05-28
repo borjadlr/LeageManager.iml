@@ -67,9 +67,10 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
 
     public List<String> obtenerEquiposPorLiga(String nombreLiga) {
         List<String> equipos = new ArrayList<>();
-        String query = "SELECT nombre_equipo FROM equipo_liga";
+        String query = "SELECT nombre_equipo FROM equipo_liga WHERE nombre_liga = ?";
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, nombreLiga);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -80,8 +81,9 @@ public class TeamsLeagueDAO implements TeamsLeagueDAOInt {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        System.out.println(equipos);
         return equipos;
     }
+
 
 }
