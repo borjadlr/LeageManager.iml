@@ -1,23 +1,26 @@
 package Business.Managers;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
+
+import Business.Entities.League;
 import Business.Entities.Match;
-import Business.Entities.Team;
+import Persistance.LeagueDAOInt;
 import Persistance.MatchDAOInt;
-import Persistance.dao.MatchDAO;
 
 public class MatchManager {
 
-    private MatchDAOInt matchDAO;
+    private final MatchDAOInt matchDAO;
 
-
+    private final LeagueDAOInt leagueDAO;
 
     private final List<Match> partidosSimulados;
 
 
-    public MatchManager(MatchDAOInt matchDAO) {
+    public MatchManager(MatchDAOInt matchDAO, LeagueDAOInt leagueDAO) {
+        this.leagueDAO = leagueDAO;
         partidosSimulados = new ArrayList<>();
         this.matchDAO = matchDAO;
     }
@@ -112,6 +115,19 @@ public class MatchManager {
 
     public List<Match> getPartidosSimulados() {
         return partidosSimulados;
+    }
+
+    public List<Match> getAllMatchesByJornada(int jornada) throws SQLException {
+        int i = 0;
+        List<Match> matches = new ArrayList<>();
+        List<League> leagues = leagueDAO.getAllLeagues();
+
+        while (leagues.size() > i) {
+            matches.addAll(matchDAO.obtenerPartidosPorLigaYJornada(leagues.get(i).getName(), jornada));
+            i++;
+        }
+
+        return matches;
     }
 
 }

@@ -69,7 +69,6 @@ public class NewLeagueController implements ActionListener, FocusListener {
                     } catch (SQLException | ParseException ex) {
                         throw new RuntimeException(ex);
                     }
-
             }
         }
     }
