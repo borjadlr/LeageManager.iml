@@ -15,6 +15,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The controller class for the TeamListCreateLeague view.
+ * Handles user interactions and events related to team selection and league creation.
+ */
 public class TeamListCreateLeagueController extends MouseAdapter implements ActionListener {
     private final TeamListCreateLeague view;
     private final NewLeagueController newLeagueController;
@@ -23,6 +27,15 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
     private final LeagueManager leagueManager;
     private final MainFrameGUI mainFrame;
 
+    /**
+     * Constructs a TeamListCreateLeagueController object.
+     *
+     * @param view               The TeamListCreateLeague view associated with this controller.
+     * @param teamManager        The TeamManager instance used to manage teams.
+     * @param mainFrame          The MainFrameGUI instance representing the main application frame.
+     * @param leagueManager      The LeagueManager instance used to manage leagues.
+     * @param newLeagueController The NewLeagueController instance associated with this controller.
+     */
     public TeamListCreateLeagueController(TeamListCreateLeague view, TeamManager teamManager, MainFrameGUI mainFrame, LeagueManager leagueManager, NewLeagueController newLeagueController) {
         this.view = view;
         this.selectedTeams = new ArrayList<>();
@@ -32,6 +45,11 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
         this.newLeagueController = newLeagueController;
     }
 
+    /**
+     * Handles the mouseClicked event for team selection in the view.
+     *
+     * @param e The MouseEvent object representing the mouse click event.
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -59,6 +77,11 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
         }
     }
 
+    /**
+     * Handles the actionPerformed event for button clicks in the view.
+     *
+     * @param e The ActionEvent object representing the action event.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
