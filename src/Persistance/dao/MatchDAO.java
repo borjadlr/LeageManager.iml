@@ -518,8 +518,8 @@ public class MatchDAO implements MatchDAOInt {
      * @param jornada    La jornada para la cual se desean obtener los partidos.
      * @return Una LinkedList que contiene los partidos de la liga y jornada especificadas.
      */
-    public LinkedList<Match> obtenerPartidosPorLigaYJornada(String nombreLiga, int jornada) {
-        LinkedList<Match> partidos = new LinkedList<>();
+    public List<Match> obtenerPartidosPorLigaYJornada(String nombreLiga, int jornada) {
+        List<Match> partidos = new LinkedList<>();
 
         try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
             // Conexión a la base de datos

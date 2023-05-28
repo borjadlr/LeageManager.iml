@@ -23,6 +23,6 @@ public interface MatchDAOInt {
     List<Match> crearCalendarioIdaVuelta(List<Team> equipos,String nombreLiga);
     void sumaGol(String equipo, int jornada);
     LinkedList<Match> obtenerPartidosPorJornada(int jornada);
-    LinkedList<Match> obtenerPartidosPorLigaYJornada(String nombreLiga, int jornada);
+    List<Match> obtenerPartidosPorLigaYJornada(String nombreLiga, int jornada);
 }
 

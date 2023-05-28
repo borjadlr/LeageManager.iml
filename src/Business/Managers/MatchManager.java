@@ -22,7 +22,7 @@ public class MatchManager {
         this.matchDAO = matchDAO;
     }
 
-    public void simularPartidos(LinkedList<Match> matches) {
+    public void simularPartidos(List<Match> matches) {
         for (Match match : matches) {
             Thread thread = new Thread(() -> {
                 System.out.println("Comenzando simulación para el partido: " + match.getLocal() + " vs " + match.getVisitante());
@@ -92,7 +92,7 @@ public class MatchManager {
         int jornada = jornadaInicial;
         while (true) {
             System.out.println("Esta es la jornada"+ jornada);
-            LinkedList<Match> partidos = matchDAO.obtenerPartidosPorLigaYJornada(liga, jornada);
+            List<Match> partidos = matchDAO.obtenerPartidosPorLigaYJornada(liga, jornada);
             if (partidos.isEmpty()) {
                 break; // Salir del bucle si no hay más partidos para la jornada actual
             }
