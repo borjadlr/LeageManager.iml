@@ -16,7 +16,6 @@ public class User {
         this.password = password;
         this.number = number;
         this.phone = phone;
-
     }
 
     public User () {

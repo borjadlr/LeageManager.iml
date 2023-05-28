@@ -1,6 +1,7 @@
 package Presentation.Views;
 
 import Business.Entities.Team;
+import Presentation.Controllers.ListTeamAdminController;
 import Presentation.Controllers.ListTeamUserController;
 
 import javax.swing.*;
@@ -85,9 +86,15 @@ public class ListTeamAdminGUI extends JPanel {
         }
     }
 
-    public void setController(ListTeamUserController controller) {
+    public void setController(ListTeamAdminController controller) {
         table.addMouseListener(controller);
-        delete.addActionListener((ActionListener) controller);
+        delete.addActionListener(controller);
+    }
+
+    public int showAreYouSureDelete(){
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?",
+                "Delete", JOptionPane.YES_NO_OPTION);
+        return confirm;
     }
 
 

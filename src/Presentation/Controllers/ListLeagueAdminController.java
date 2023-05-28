@@ -27,6 +27,8 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
     private final ListTeamAdminGUI listTeamAdminGUI;
     private final TeamManager teamManager;
     private final MainFrameGUI mainFrame;
+
+    private String leaguenames;
     private int i;
 
     public ListLeagueAdminController(ListLeagueAdminGUI view, LeagueManager leagueManager, ListTeamAdminGUI listTeamAdminGUI, MainFrameGUI mainFrame, TeamManager teamManager) {
@@ -36,6 +38,7 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
         this.listTeamAdminGUI = listTeamAdminGUI;
         this.mainFrame = mainFrame;
         this.teamManager = teamManager;
+        this.leaguenames = new String();
     }
 
     @Override
@@ -53,6 +56,7 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                     List<League> leagues = leagueManager.listLeagues();
                     for (i = 0; i < leagues.size(); i++) {
                         if (leagueName.equals(leagues.get(i).getName())) {
+                            leaguenames = leagueName;
                             System.out.println(leagues.get(i).getName());
                             teams = teamManager.getTeamsOfLeague(leagues.get(i).getName());
                             listTeamAdminGUI.addTeams(teams);
@@ -140,6 +144,10 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
     }
     public void refreshTable() throws SQLException {
         view.addLeagues(leagueManager.listLeagues());
+    }
+
+    public String getLeaguenames(){
+        return leaguenames;
     }
 
 }

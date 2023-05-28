@@ -51,15 +51,13 @@ public class TeamManager {
         teamsDAO.jsonToDatabase(teamName);
     }
 
-    public void deleteTeam(String teamName) throws IncorrectTeamNameException, SQLException {
+    public void deleteTeam(String teamName) throws SQLException {
         List<Team> teams = getAllTeams();
         for (Team team : teams) {
             if (team.getName().equals(teamName)) {
                 teamsDAO.deleteDataTeams(teamName);
                 teamsList.remove(team);
                 return;
-            } else {
-                throw new IncorrectTeamNameException();
             }
         }
     }

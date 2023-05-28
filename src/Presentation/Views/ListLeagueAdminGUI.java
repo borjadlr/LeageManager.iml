@@ -96,7 +96,6 @@
 
         public void addLeagues(List<League> leagues) {
             tableModel.setRowCount(0);
-
             // Add league data to the table
             for (League league : leagues) {
                 Object[] rowData = {league.getName(), league.getNumber_teams(), league.isState(), false};

@@ -54,8 +54,7 @@ public class Main {
         TeamListCreateLeague teamListCreateLeague = new TeamListCreateLeague();
         SimulationLeagueGUI simulationLeagueGUI = new SimulationLeagueGUI();
         ListPlayerGUI listPlayerGUI = new ListPlayerGUI();
-
-        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, listLeagueUserGUI, statisticsGUI,simulationGameGUI, listTeamUserGUI, topPanelGUI, bottomPanelGUI, newTeamGUI, listLeagueAdminGUI, teamListCreateLeague, simulationLeagueGUI, listTeamAdminGUI);
+        MainFrameGUI mainFrame = new MainFrameGUI(loginGUI, menuUserGUI, menuAdminGUI, changePasswordGUI, newLeaguesGUI, registrationGUI, mainPanelGUI, deleteGUI, listPlayerGUI, statisticsGUI,simulationGameGUI, listTeamUserGUI, topPanelGUI, bottomPanelGUI, newTeamGUI, listLeagueAdminGUI, teamListCreateLeague, simulationLeagueGUI, listTeamAdminGUI);
 
         //Controllers
         MainPanelController mainPanelController = new MainPanelController(mainFrame, topPanelGUI);
@@ -72,6 +71,7 @@ public class Main {
         MenuUserController menuUserController = new MenuUserController(mainFrame, menuUserGUI, statisticsGUI, userManager, simulationLeagueGUI);
         ListLeagueAdminController listLeagueAdminController = new ListLeagueAdminController(listLeagueAdminGUI, leagueManager, listTeamAdminGUI, mainFrame, teamManager);
         ListTeamUserController listTeamUserController = new ListTeamUserController(listTeamUserGUI, mainFrame, teamManager);
+        ListTeamAdminController listTeamAdminController = new ListTeamAdminController(listTeamAdminGUI, userManager, listPlayerGUI, mainFrame, teamManager, listLeagueAdminController);
         ListPlayerController listPlayerController = new ListPlayerController();
         TeamListCreateLeagueController teamListCreateLeagueController = new TeamListCreateLeagueController(teamListCreateLeague, teamManager, listTeamAdminGUI, mainFrame, leagueManager, newLeagueController);
 
@@ -96,6 +96,7 @@ public class Main {
         listLeagueAdminGUI.setController(listLeagueAdminController);
         listTeamUserGUI.setController(listTeamUserController);
         teamListCreateLeague.setController(teamListCreateLeagueController);
+        listTeamAdminGUI.setController(listTeamAdminController);
 
         //UserDAO userDAO = new UserDAO();
 

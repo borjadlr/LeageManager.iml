@@ -7,13 +7,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 public class ListPlayerGUI extends JPanel {
     private JTable table;
     private JLabel titleLabel;
     private DefaultTableModel tableModel;
 
-    private User user;
 
     public ListPlayerGUI() {
         setLayout(new BorderLayout());
@@ -26,7 +26,7 @@ public class ListPlayerGUI extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
 
         // Create the table with column names
-        String[] columnNames = {"Player Name", "Dni", "Email", "Phone", "Dorsal"};
+        String[] columnNames = {"Dni", "Email", "Phone", "Dorsal"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -47,17 +47,13 @@ public class ListPlayerGUI extends JPanel {
         scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
     }
-/*
+
     public void addPlayers(List<User> playerNames) {
         tableModel.setRowCount(0);
-
-        // Add player names to the table
         for (User playerName : playerNames) {
-            Object[] rowData = {playerName.getName(), playerName.getDni(), playerName.getEmail(), playerName.getPhone(), playerName.getNumber()};
+            Object[] rowData = {playerName.getDni(), playerName.getEmail(), playerName.getPhone(), playerName.getNumber()};
             tableModel.addRow(rowData);
         }
-
-
     }
 
     public void setTitle(String title) {
@@ -65,6 +61,3 @@ public class ListPlayerGUI extends JPanel {
     }
 }
 
-
- */
-}
