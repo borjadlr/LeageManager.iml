@@ -13,10 +13,10 @@ import java.sql.SQLException;
 
 public class NewTeamController implements ActionListener {
     private JTextField filePathField;
-    private MainFrameGUI mainFrame;
-    private NewTeamGUI view;
+    private final MainFrameGUI mainFrame;
+    private final NewTeamGUI view;
 
-    private TeamManager teamManager;
+    private final TeamManager teamManager;
 
 
     public NewTeamController(MainFrameGUI mainFrame, NewTeamGUI view, TeamManager teamManager){

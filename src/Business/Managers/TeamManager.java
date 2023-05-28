@@ -47,6 +47,13 @@ public class TeamManager {
         return teams;
     }
 
+    public void eraseRAM(List<Team> teams) {
+        int i = 0;
+        for (Team team : teams) {
+            teams.get(i).setName(null);
+        }
+    }
+
 
     public void createTeam(String teamName) throws SQLException {
         teamsDAO.jsonToDatabase(teamName);
