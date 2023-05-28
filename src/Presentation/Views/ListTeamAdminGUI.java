@@ -28,16 +28,16 @@ public class ListTeamAdminGUI extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
 
         // Create the table with column names
-        String[] columnNames = {"Team Name", "Points", "Wins", "Draws", "Losses", "Select"};
+        String[] columnNames = {"Team Name", "Points", "Wins", "Draws", "Losses", "Number of Players", "Select"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 5; // Only allow editing the checkbox column
+                return column == 6; // Only allow editing the checkbox column
             }
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 5) {
+                if (columnIndex == 6) {
                     return Boolean.class; // Set checkbox column class to Boolean
                 }
                 return super.getColumnClass(columnIndex);
@@ -80,7 +80,7 @@ public class ListTeamAdminGUI extends JPanel {
         tableModel.setRowCount(0);
         // Add team data to the table
         for (Team team : teams) {
-            Object[] rowData = {team.getName(), team.getPoints() ,team.getWins(), team.getTies(), team.getLosses() ,false}; // Add checkbox column data
+            Object[] rowData = {team.getName(), team.getPoints() ,team.getWins(), team.getTies(), team.getLosses() , team.getNPlayers(),false}; // Add checkbox column data
             tableModel.addRow(rowData);
         }
     }

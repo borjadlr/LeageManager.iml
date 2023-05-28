@@ -54,9 +54,9 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                     for (i = 0; i < leagues.size(); i++) {
                         if (leagueName.equals(leagues.get(i).getName())) {
                             System.out.println(leagues.get(i).getName());
-                            teams = teamManager.getTeamsOfLeague(leagueName);
+                            teams = teamManager.getTeamsOfLeague(leagues.get(i).getName());
                             listTeamAdminGUI.addTeams(teams);
-                            listTeamAdminGUI.setTitle("leagueName");
+                            listTeamAdminGUI.setTitle(leagueName);
                             mainFrame.showTeamListAdminView();
                         }
                     }
@@ -67,13 +67,16 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                 Boolean isChecked = (Boolean) view.getTable().getValueAt(selectedRow, selectedColumn);
                 try {
                     League selectedLeague = leagueManager.listLeagues().get(selectedRow);
+                    System.out.println(selectedLeague.getName());
 
                     if (isChecked) {
                         if (!selectedLeagues.contains(selectedLeague)) {
                             selectedLeagues.add(selectedLeague);
+                            System.out.println(selectedLeague.getName());
                         }
                     } else {
                         selectedLeagues.remove(selectedLeague);
+                        System.out.println(selectedLeague.getName());
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -93,7 +96,29 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
             } else {
                 int confirmDialog = view.showAreYouSureDelete();
                 if (confirmDialog == JOptionPane.YES_OPTION) {
+                    List<League> leaguesToRemove = new ArrayList<>();
                     for (League league : selectedLeagues) {
+                        boolean isChecked = false;
+                        int row = 0;
+                        try {
+                            List<League> leagues = leagueManager.listLeagues();
+                            for (int i = 0; i < leagues.size(); i++) {
+                                if (league.getName().equals(leagues.get(i).getName())) {
+                                    isChecked = (Boolean) view.getTable().getValueAt(i, 3);
+                                    row = i;
+                                    break;
+                                }
+                            }
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                        if (isChecked) {
+                            leaguesToRemove.add(league);
+                        } else {
+                            view.getTable().setValueAt(false, row, 3);
+                        }
+                    }
+                    for (League league : leaguesToRemove) {
                         try {
                             System.out.println("league name: " + league.getName());
                             leagueManager.deleteLeague(league.getName());

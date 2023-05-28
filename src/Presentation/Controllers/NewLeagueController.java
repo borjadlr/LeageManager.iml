@@ -55,7 +55,6 @@ public class NewLeagueController implements ActionListener, FocusListener {
                         mainFrame.showTeamList();
                         view.clearTextFields();
                         break;
-
                     } catch (LeagueAlreadyExistsException | RepeatedTeamException | DateExpiredException | WrongTeamNumberException ex) {
                         view.exceptionMessage(ex.getMessage());
                     } catch (SQLException | ParseException ex) {
