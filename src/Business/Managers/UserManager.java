@@ -1,4 +1,3 @@
-
 package Business.Managers;
 
 import Business.Entities.*;
@@ -6,18 +5,19 @@ import Exceptions.*;
 import Persistance.TeamsLeagueDAOInt;
 import Persistance.UserDAOInt;
 import Persistance.UserTeamsDAOInt;
-import Persistance.dao.ConfigJsonDAO;
 import Persistance.dao.TeamsLeagueDAO;
 import Persistance.dao.UserDAO;
 import Persistance.dao.UserTeamsDAO;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * Clase que gestiona las operaciones relacionadas con los usuarios.
+ */
 public class UserManager {
     private final UserDAOInt userDAO;
     private final LeagueManager leagueManager;
@@ -31,6 +31,16 @@ public class UserManager {
 
     private final AdminManager adminManager;
 
+    /**
+     * Constructor de la clase UserManager.
+     * @param userDAO objeto de acceso a datos de usuarios
+     * @param leagueManager objeto de gestión de ligas
+     * @param teamManager objeto de gestión de equipos
+     * @param userTeamsDAOInt objeto de acceso a datos de usuarios y equipos
+     * @param teamsLeagueDAOInt objeto de acceso a datos de equipos y ligas
+     * @param user usuario actual
+     * @param adminManager objeto de gestión de administradores
+     */
     public UserManager(UserDAOInt userDAO, LeagueManager leagueManager, TeamManager teamManager, UserTeamsDAOInt userTeamsDAOInt, TeamsLeagueDAOInt teamsLeagueDAOInt, User user, AdminManager adminManager) {
         this.userDAO = userDAO;
         this.leagueManager = leagueManager;
@@ -41,18 +51,22 @@ public class UserManager {
         this.adminManager = adminManager;
     }
 
-
-    public boolean signIn(String input, String password) throws DNIOrMailDontExistException, IncorrectPassword4UserException, IOException {
+    /**
+     * Realiza el inicio de sesión de un usuario.
+     * @param input DNI o correo electrónico del usuario
+     * @param password contraseña del usuario
+     * @return true si el inicio de sesión es exitoso, false de lo contrario
+     * @throws DNIOrMailDontExistException excepción lanzada cuando el DNI o correo electrónico no existen
+     * @throws IncorrectPassword4UserException excepción lanzada cuando la contraseña es incorrecta
+     */
+    public boolean signIn(String input, String password) throws DNIOrMailDontExistException, IncorrectPassword4UserException {
         int i = 0;
         List<User> users = userDAO.SelectDataUser();
-
-        ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
-        Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
 
         try {
             while (i < users.size()) {
                 if (users.get(i).getDni().equals(input) || users.get(i).getEmail().equals(input)) {
-                    if (users.get(i).getPassword().equals(password) || users.get(i).getPassword().equals(config.getContrasenaAdministrador())) {
+                    if (users.get(i).getPassword().equals(password)) {
                         userLocal = users.get(i);
                         return adminManager.isAdmin(input);
                     } else {
@@ -63,14 +77,25 @@ public class UserManager {
                 }
             }
             throw new DNIOrMailDontExistException();
-        } catch (NullPointerException | IOException npe){
+        } catch (NullPointerException npe){
             throw new NullPointerException();
         }
-
-
     }
 
-
+    /**
+     * Realiza el registro de un nuevo usuario.
+     * @param user objeto de usuario a registrar
+     * @param password contraseña del usuario
+     * @throws InvalidPasswordException excepción lanzada cuando la contraseña es inválida
+     * @throws EmailAlreadyExistsException excepción lanzada cuando el correo electrónico ya existe
+     * @throws ExistingDNIException excepción lanzada cuando el DNI ya existe
+     * @throws DNIOrMailDontExistException excepción lanzada cuando el DNI o correo electrónico no existen
+     * @throws InvalidEmailException excepción lanzada cuando el correo electrónico es inválido
+     * @throws SamePasswordException excepción lanzada cuando la contraseña es la misma que la anterior
+     * @throws DNIException excepción lanzada cuando el DNI es inválido
+     * @throws SQLException excepción lanzada cuando ocurre un error de SQL
+     * @throws InvalidPlayerNumberException excepción lanzada cuando el número de jugador es inválido
+     */
     public void signUp(User user, String password) throws InvalidPasswordException, EmailAlreadyExistsException, ExistingDNIException, DNIOrMailDontExistException, InvalidEmailException, SamePasswordException, DNIException, SQLException, InvalidPlayerNumberException {
         List<User> users = userDAO.SelectDataUser();
         int i = 0;
@@ -90,14 +115,12 @@ public class UserManager {
                         throw new DNIException();
                     } else if (!comprovaNumber(user.getNumber())) {
                         throw new InvalidPlayerNumberException();
-                    }else {
+                    } else {
                         i++;
                     }
-
                 }
                 userLocal = user;
                 userDAO.InsertDataUser2(user);
-
             } else {
                 throw new SamePasswordException();
             }
@@ -108,7 +131,7 @@ public class UserManager {
                 throw new InvalidEmailException();
             } else if (comprovaDNI(user.getDni())) {
                 throw new DNIException();
-            }else if (!comprovaNumber(user.getNumber())) {
+            } else if (!comprovaNumber(user.getNumber())) {
                 throw new InvalidPlayerNumberException();
             } else {
                 userLocal = user;
