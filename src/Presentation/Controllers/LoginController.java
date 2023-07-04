@@ -64,8 +64,6 @@ public class LoginController implements ActionListener, FocusListener {
                 view.exceptionMessage(ex.getMessage());
             } catch (NullPointerException npe) {
                 view.noUsersMessage();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
             }
         }
     }

@@ -26,7 +26,7 @@ public class UserDAO implements UserDAOInt {
 
             ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
 
-            Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
+            Config config = configJsonDAO.leerConfiguracionJson("Files/configs.json");
 
             // Asignar los valores obtenidos a las variables dbURL, username y password
             dbURL = "jdbc:mysql://" + config.getIpServidorBD() + ":" + config.getPortConexionBD() + "/" + config.getNombreBD();
@@ -53,7 +53,7 @@ public class UserDAO implements UserDAOInt {
         ConfigJsonDAO configJsonDao = new ConfigJsonDAO();
 
         // Llamamos al método leerConfiguracionJson para obtener la configuración del archivo JSON.
-        config = configJsonDao.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
+        config = configJsonDao.leerConfiguracionJson("Files/configs.json");
 
         // Imprimimos la configuración en la consola (puede ser útil para verificar que se ha leído correctamente).
         System.out.println(config);

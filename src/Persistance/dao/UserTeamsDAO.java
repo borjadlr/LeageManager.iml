@@ -28,7 +28,7 @@ public class UserTeamsDAO implements UserTeamsDAOInt {
         try {
             // Read the JSON configuration and retrieve the corresponding values
             ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
-            Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
+            Config config = configJsonDAO.leerConfiguracionJson("Files/configs.json");
 
             // Assign the obtained values to the dbURL, username, and password variables
             dbURL = "jdbc:mysql://" + config.getIpServidorBD() + ":" + config.getPortConexionBD() + "/" + config.getNombreBD();

@@ -32,7 +32,7 @@ public class LeagueDAO implements LeagueDAOInt {
         try {
             // Leer la configuración JSON y obtener los valores correspondientes
             ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
-            Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
+            Config config = configJsonDAO.leerConfiguracionJson("Files/configs.json");
 
             // Asignar los valores obtenidos a las variables dbURL, username y password
             dbURL = "jdbc:mysql://" + config.getIpServidorBD() + ":" + config.getPortConexionBD() + "/" + config.getNombreBD();

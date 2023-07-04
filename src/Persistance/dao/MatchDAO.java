@@ -28,7 +28,7 @@ public class MatchDAO implements MatchDAOInt {
 
             ConfigJsonDAO configJsonDAO = new ConfigJsonDAO();
 
-            Config config = configJsonDAO.leerConfiguracionJson("C:\\Users\\borja\\LeageManager\\Files\\configs.json");
+            Config config = configJsonDAO.leerConfiguracionJson("Files/configs.json");
 
             // Asignar los valores obtenidos a las variables dbURL, username y password
             dbURL = "jdbc:mysql://" + config.getIpServidorBD() + ":" + config.getPortConexionBD() + "/" + config.getNombreBD();
