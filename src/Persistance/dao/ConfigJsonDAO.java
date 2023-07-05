@@ -26,6 +26,7 @@ public class ConfigJsonDAO {
             e.printStackTrace();
         }
 
+        assert configuracion != null;
         int portConexionBD = configuracion.get("portConexionBD").getAsInt();
         String ipServidorBD = configuracion.get("ipServidorBD").getAsString();
         String nombreBD = configuracion.get("nombreBD").getAsString();

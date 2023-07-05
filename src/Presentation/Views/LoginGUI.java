@@ -129,4 +129,12 @@ public class LoginGUI extends JPanel {
         JOptionPane.showMessageDialog(null, "There are no users, so you cannot log in.");
     }
 
+    /**
+     * Clean the variables in JTextFields.
+     */
+    public void clear(){
+        email.setText("");
+        password.setText("");
+    }
+
 }

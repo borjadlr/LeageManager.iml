@@ -111,7 +111,7 @@ public class UserManager {
                         throw new InvalidPasswordException();
                     } else if (comprovaCaractersMail(user)) {
                         throw new InvalidEmailException();
-                    } else if (comprovaDNI(user.getDni())) {
+                    } else if (!isValidDNI(user.getDni())) {
                         throw new DNIException();
                     } else if (!comprovaNumber(user.getNumber())) {
                         throw new InvalidPlayerNumberException();
@@ -129,7 +129,7 @@ public class UserManager {
                 throw new InvalidPasswordException();
             } else if (comprovaCaractersMail(user)) {
                 throw new InvalidEmailException();
-            } else if (comprovaDNI(user.getDni())) {
+            } else if (!isValidDNI(user.getDni())) {
                 throw new DNIException();
             } else if (!comprovaNumber(user.getNumber())) {
                 throw new InvalidPlayerNumberException();
@@ -213,27 +213,14 @@ public class UserManager {
         return dotCounter < MIN_DOT || arrobaCounter < MIN_ARROBA;
     }
 
-    public boolean comprovaDNI(String dni) throws SQLException {
-        boolean isValid = false;
-        List<String> dniList = userDAO.obtenerDNIs(); //getAllDNI()
-        int i = 0;
-
-        if (dni != null && dni.length() == 8) {
-            while (dniList.size() > i){
-                i++;
-                isValid = isValidDNI(dni);
-            }
-        }
-        return isValid;
-    }
-
     public boolean isValidDNI(String dni) {
         if (dni == null || dni.isEmpty()) {
             return false;
         }
-        if (!dni.matches("\\d{8}")) {
+        /*if (!dni.matches("\\d{8}")) {
             return false;
-        }
+        }*/
+
         int dniNumber = Integer.parseInt(dni.substring(0, 8));
         char verificationLetter = "TRWAGMYFPDXBNJZSQVHLCKE".charAt(dniNumber % 23);
         return dni.charAt(8) == verificationLetter;

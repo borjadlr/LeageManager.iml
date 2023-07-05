@@ -54,9 +54,9 @@ public class RegistrationController implements FocusListener, ActionListener {
                     String email = view.getEmailText();
 
                     User user = userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber);
-
                     userManager.signUp(user, user.getPassword());
                     mainFrameGUI.showMenuUser();
+                    view.clear();
                 } catch (InvalidPasswordException | ExistingDNIException | DNIOrMailDontExistException |
                          InvalidEmailException | EmailAlreadyExistsException | SamePasswordException |
                          DNIException | InvalidPlayerNumberException | SQLException ex) {

@@ -56,6 +56,7 @@ public class LoginController implements ActionListener, FocusListener {
                     mainFrameGUI.showMenuAdmin();
                     topPanelGUI.hideShowDeleteAccount(false);
                     topPanelGUI.hideShowDropDownButton(true);
+                    view.clear();
                 } else {
                     mainFrameGUI.showMenuUser();
                     topPanelGUI.hideShowDropDownButton(true);

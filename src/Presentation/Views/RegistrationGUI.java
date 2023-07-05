@@ -165,4 +165,14 @@ public class RegistrationGUI extends JPanel {
     public void numberFormatMessage(){
         JOptionPane.showMessageDialog(null, "This is not even a number!");
     }
+
+    /**
+     * Clean the variables in JTextFields.
+     */
+    public void clear(){
+        email.setText("");
+        dni.setText("");
+        phoneNumber.setText("");
+        dorsal.setText("");
+    }
 }
