@@ -55,12 +55,11 @@ public class LoginController implements ActionListener, FocusListener {
                 if (userManager.signIn(username, password)) {
                     mainFrameGUI.showMenuAdmin();
                     topPanelGUI.hideShowDeleteAccount(false);
-                    topPanelGUI.hideShowDropDownButton(true);
-                    view.clear();
                 } else {
                     mainFrameGUI.showMenuUser();
-                    topPanelGUI.hideShowDropDownButton(true);
                 }
+                topPanelGUI.hideShowDropDownButton(true);
+                view.clear();
             } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
                 view.exceptionMessage(ex.getMessage());
             } catch (NullPointerException npe) {
