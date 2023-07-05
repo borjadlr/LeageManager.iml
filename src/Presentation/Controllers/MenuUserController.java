@@ -32,9 +32,7 @@ public class MenuUserController implements ActionListener {
 
             if (e.getSource() instanceof JButton) {
                 switch (e.getActionCommand()) {
-                    case "WATCH_MATCHES" ->
-                        //simulationLeagueGUI.addMatch(userManager.getSelectedMatches());
-                            mainFrameGUI.showSimulationLeagueView();
+                    case "WATCH_MATCHES" -> mainFrameGUI.showSimulationLeagueView();
                     case "VIEW_AVAIABLE_LEAGUES" -> mainFrameGUI.showLeague();
                     case "VIEW_STATISTICS" -> mainFrameGUI.showStatistics();
                 }

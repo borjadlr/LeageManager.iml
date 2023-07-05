@@ -164,6 +164,7 @@ public class MainFrameGUI extends JFrame{
      */
     public void showLogin() {
         topPanel.setVisible(true);
+
         bottomPanel.setVisible(false);
         cardLayout.show(centerPanel, LOGIN_VIEW);
         auxiliar++;

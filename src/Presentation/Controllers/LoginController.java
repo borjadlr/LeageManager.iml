@@ -24,7 +24,6 @@ public class LoginController implements ActionListener, FocusListener {
     private final MainFrameGUI mainFrameGUI;
     private final LoginGUI view;
     private final UserManager userManager;
-    private final TopPanelGUI topPanelGUI;
 
     /**
      * Constructs a LoginController object.
@@ -32,13 +31,11 @@ public class LoginController implements ActionListener, FocusListener {
      * @param mainView     The MainFrameGUI instance.
      * @param view         The LoginGUI instance.
      * @param userManager The UserManager instance.
-     * @param topPanelGUI  The TopPanelGUI instance.
      */
-    public LoginController(MainFrameGUI mainView, LoginGUI view, UserManager userManager, TopPanelGUI topPanelGUI) {
+    public LoginController(MainFrameGUI mainView, LoginGUI view, UserManager userManager) {
         this.mainFrameGUI = mainView;
         this.view = view;
         this.userManager = userManager;
-        this.topPanelGUI = topPanelGUI;
     }
 
     /**
@@ -54,11 +51,9 @@ public class LoginController implements ActionListener, FocusListener {
                 String password = view.getPasswordInfo();
                 if (userManager.signIn(username, password)) {
                     mainFrameGUI.showMenuAdmin();
-                    topPanelGUI.hideShowDeleteAccount(false);
                 } else {
                     mainFrameGUI.showMenuUser();
                 }
-                topPanelGUI.hideShowDropDownButton(true);
                 view.clear();
             } catch (IncorrectPassword4UserException | DNIOrMailDontExistException ex) {
                 view.exceptionMessage(ex.getMessage());

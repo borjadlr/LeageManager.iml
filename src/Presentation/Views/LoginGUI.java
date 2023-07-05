@@ -1,5 +1,8 @@
 package Presentation.Views;
 
+import Presentation.Controllers.LoginController;
+import Presentation.Controllers.TopPanelController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -11,7 +14,6 @@ import static java.awt.Font.PLAIN;
  * The graphical user interface for the login functionality.
  */
 public class LoginGUI extends JPanel {
-
     private final JTextField email;
     private final JTextField password;
     private final JButton login;

@@ -32,7 +32,6 @@ public class RegistrationController implements FocusListener, ActionListener {
      * @param mainFrameGUI The MainFrameGUI instance for navigating between views.
      * @param view         The RegistrationGUI instance for user input and display.
      * @param userManager  The UserManager instance for user management.
-     * @param topPanelGUI
      */
     public RegistrationController(MainFrameGUI mainFrameGUI, RegistrationGUI view, UserManager userManager, TopPanelGUI topPanelGUI) {
         this.mainFrameGUI = mainFrameGUI;
