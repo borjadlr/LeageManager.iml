@@ -10,9 +10,9 @@ import java.awt.event.ActionListener;
  * It includes a dropdown button, a back button, and a dropdown menu.
  */
 public class TopPanelGUI extends JPanel {
-    private JButton dropdownButton;
-    private JButton atras;
-    private JPopupMenu dropdownMenu;
+    private final JButton dropdownButton;
+    private final JButton atras;
+    private final JPopupMenu dropdownMenu;
     private final JMenuItem logout;
     private final JMenuItem deleteAccount;
     private static final String DROPDOWN_BUTTON = "DROPDOWN_BUTTON";
@@ -72,7 +72,6 @@ public class TopPanelGUI extends JPanel {
         deleteAccount.setActionCommand(DELETE_ACCOUNT_BUTTON);
         dropdownMenu.add(logout);
         dropdownMenu.add(deleteAccount);
-
         dropdownButton.setComponentPopupMenu(dropdownMenu);
     }
 
@@ -113,9 +112,8 @@ public class TopPanelGUI extends JPanel {
      * @return the user's confirmation choice (JOptionPane.YES_OPTION or JOptionPane.NO_OPTION)
      */
     public int messageAreYouSure() {
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?",
+        return JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?",
                 "Logout", JOptionPane.YES_NO_OPTION);
-        return confirm;
     }
 
     /**

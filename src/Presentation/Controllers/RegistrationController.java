@@ -19,6 +19,7 @@ public class RegistrationController implements FocusListener, ActionListener {
 
     private final UserManager userManager;
     private final MainFrameGUI mainFrameGUI;
+    private final TopPanelGUI topPanelGUI;
     private final RegistrationGUI view;
     private final String defaultDniText = "Dni: ";
     private final String defaultDorsalText = "Dorsal: ";
@@ -30,12 +31,14 @@ public class RegistrationController implements FocusListener, ActionListener {
      *
      * @param mainFrameGUI The MainFrameGUI instance for navigating between views.
      * @param view         The RegistrationGUI instance for user input and display.
-     * @param userManager The UserManager instance for user management.
+     * @param userManager  The UserManager instance for user management.
+     * @param topPanelGUI
      */
-    public RegistrationController(MainFrameGUI mainFrameGUI, RegistrationGUI view, UserManager userManager) {
+    public RegistrationController(MainFrameGUI mainFrameGUI, RegistrationGUI view, UserManager userManager, TopPanelGUI topPanelGUI) {
         this.mainFrameGUI = mainFrameGUI;
         this.view = view;
         this.userManager = userManager;
+        this.topPanelGUI = topPanelGUI;
     }
 
     /**
@@ -56,6 +59,7 @@ public class RegistrationController implements FocusListener, ActionListener {
                     User user = userManager.createUser(dni, UserManager.generatePassword(), email, dorsal, phoneNumber);
                     userManager.signUp(user, user.getPassword());
                     mainFrameGUI.showMenuUser();
+                    topPanelGUI.hideShowDropDownButton(true);
                     view.clear();
                 } catch (InvalidPasswordException | ExistingDNIException | DNIOrMailDontExistException |
                          InvalidEmailException | EmailAlreadyExistsException | SamePasswordException |

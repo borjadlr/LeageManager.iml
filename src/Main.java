@@ -57,7 +57,7 @@ public class Main {
 
         //Controllers
         MainPanelController mainPanelController = new MainPanelController(mainFrame, topPanelGUI);
-        RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager);
+        RegistrationController registrationController =  new RegistrationController(mainFrame, registrationGUI, userManager, topPanelGUI);
         LoginController loginController = new LoginController(mainFrame, loginGUI, userManager, topPanelGUI);
         ChangePasswordController changePasswordController = new ChangePasswordController(mainFrame, changePasswordGUI, userManager);
         MenuAdminController menuAdminController = new MenuAdminController(mainFrame, leagueManager, menuAdminGUI, listLeagueAdminGUI, matchManager, simulationLeagueGUI);

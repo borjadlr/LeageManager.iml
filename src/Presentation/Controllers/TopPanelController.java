@@ -34,14 +34,11 @@ public class TopPanelController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
-        if (command.equals("DROPDOWN_BUTTON")) {
-            view.showDropdownMenu();
-        } else if (command.equals("LOGOUT_BUTTON")) {
-            logout();
-        } else if (command.equals("DELETE_ACCOUNT_BUTTON")) {
-            deleteAccount();
-        } else if (command.equals("BACK_BUTTON")) {
-            mainFrame.showGoBack();
+        switch (command) {
+            case "DROPDOWN_BUTTON" -> view.showDropdownMenu();
+            case "LOGOUT_BUTTON" -> logout();
+            case "DELETE_ACCOUNT_BUTTON" -> deleteAccount();
+            case "BACK_BUTTON" -> mainFrame.showGoBack();
         }
     }
 
