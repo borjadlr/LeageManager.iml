@@ -67,7 +67,7 @@ public class Main {
         ListLeagueUserController listLeagueUserController = new ListLeagueUserController(listLeagueUserGUI, mainFrame, listTeamUserGUI, leagueManager);
         BottomPanelController bottomPanelController = new BottomPanelController(mainFrame);
         NewTeamController newTeamController = new NewTeamController(mainFrame, newTeamGUI, teamManager);
-        MenuUserController menuUserController = new MenuUserController(mainFrame);
+        MenuUserController menuUserController = new MenuUserController(mainFrame, leagueManager, listLeagueUserGUI, menuUserGUI);
         ListLeagueAdminController listLeagueAdminController = new ListLeagueAdminController(listLeagueAdminGUI, leagueManager, listTeamAdminGUI, mainFrame, teamManager);
         ListTeamUserController listTeamUserController = new ListTeamUserController(listTeamUserGUI, mainFrame, teamManager);
         ListTeamAdminController listTeamAdminController = new ListTeamAdminController(listTeamAdminGUI, listPlayerGUI, mainFrame, teamManager, listLeagueAdminController);

@@ -28,6 +28,7 @@ public class MainFrameGUI extends JFrame{
     private final String SIMULATION_LEAGUE_VIEW = "SIMULATION_LEAGUE_VIEW";
     private final String TEAM_LIST_CREATE_LEAGUE = "TEAM_LIST_CREATE_LEAGUE";
     private final String LIST_TEAM_ADMIN_VIEW = "LIST_TEAM_ADMIN_VIEW";
+    private final String LEAGUE_USER_LIST = "LEAGUE_USER_LIST";
     private int auxiliar = 0;
     private final JPanel topPanel;
     private final JPanel centerPanel;
@@ -83,6 +84,7 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(registrationGUI, REGISTRATION_VIEW);
         centerPanel.add(deleteGUI, DELETE_VIEW);
         centerPanel.add(listLeagueAdminGUI, LEAGUE_LIST);
+        centerPanel.add(listLeagueUserGUI, LEAGUE_USER_LIST);
         String SIMULATION_GAME_VIEW = "SIMULATION_GAME_VIEW";
         centerPanel.add(simulationGameGUI, SIMULATION_GAME_VIEW);
         centerPanel.add(simulationLeagueGUI, SIMULATION_LEAGUE_VIEW);
@@ -114,6 +116,15 @@ public class MainFrameGUI extends JFrame{
         auxiliar++;
         updateRecorregut(FIRST_UI, false, false);
     }
+
+    public void showUsersLeague(){
+        topPanel.setVisible(true);
+        bottomPanel.setVisible(false);
+        cardLayout.show(centerPanel, LEAGUE_USER_LIST);
+        auxiliar++;
+        updateRecorregut(LEAGUE_USER_LIST, true, false);
+    }
+
 
     /**
      * Displays the team user list.

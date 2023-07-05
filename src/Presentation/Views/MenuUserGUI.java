@@ -13,7 +13,7 @@ public class MenuUserGUI extends JPanel {
     private final JButton viewAvailableLeagues;
     private final JButton viewStatistics;
     private static final String WATCH_MATCHES = "WATCH_MATCHES";
-    private static final String VIEW_AVAILABLE_LEAGUES = "VIEW_AVAILABLE_LEAGUES";
+    private static final String VIEW_AVAILABLE_LEAGUES = "VIEW_LEAGUES";
     private static final String VIEW_STATISTICS = "VIEW_STATISTICS";
 
     /**
@@ -86,5 +86,13 @@ public class MenuUserGUI extends JPanel {
         watchMatches.addActionListener(listener);
         viewAvailableLeagues.addActionListener(listener);
         viewStatistics.addActionListener(listener);
+    }
+
+    /**
+     * Displays an exception message in a dialog box.
+     * @param message The exception message to display.
+     */
+    public void exceptionMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
     }
 }
