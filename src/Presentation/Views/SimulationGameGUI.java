@@ -7,10 +7,11 @@ import java.awt.*;
  * A JPanel class representing the GUI for simulating a game.
  */
 public class SimulationGameGUI extends JPanel {
-    private final JTextArea updatesTextArea;
-    private final JLabel scoreLabel;
-    private final JLabel homeTeamLabel;
-    private final JLabel awayTeamLabel;
+    private static final String LetterType = "Inter";
+    private static final String TITLE = "CURRENT MATCH";
+    private static final String HOME_TEAM = "Home Team";
+    private static final String AWAY_TEAM = "Away Team";
+    private static final String TitleLetterType = "Apple Casual";
 
     /**
      * Constructs a SimulationGameGUI object.
@@ -20,14 +21,14 @@ public class SimulationGameGUI extends JPanel {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel titleLabel = new JLabel("CURRENT MATCH");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        JLabel titleLabel = new JLabel(TITLE);
+        titleLabel.setFont(new Font(TitleLetterType, Font.BOLD, 18));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
-        updatesTextArea = new JTextArea();
+        JTextArea updatesTextArea = new JTextArea();
         updatesTextArea.setEditable(false);
-        updatesTextArea.setFont(new Font("Arial", Font.PLAIN, 12));
+        updatesTextArea.setFont(new Font(LetterType, Font.PLAIN, 12));
         updatesTextArea.setLineWrap(true);
 
         JScrollPane scrollPane = new JScrollPane(updatesTextArea);
@@ -39,18 +40,18 @@ public class SimulationGameGUI extends JPanel {
         scorePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         scorePanel.setBackground(Color.WHITE);
 
-        homeTeamLabel = new JLabel("Home Team");
-        homeTeamLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        JLabel homeTeamLabel = new JLabel(HOME_TEAM);
+        homeTeamLabel.setFont(new Font(LetterType, Font.BOLD, 16));
         homeTeamLabel.setHorizontalAlignment(JLabel.CENTER);
         scorePanel.add(homeTeamLabel, BorderLayout.WEST);
 
-        scoreLabel = new JLabel("0 - 0");
-        scoreLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        JLabel scoreLabel = new JLabel("0 - 0");
+        scoreLabel.setFont(new Font(LetterType, Font.BOLD, 24));
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
         scorePanel.add(scoreLabel, BorderLayout.CENTER);
 
-        awayTeamLabel = new JLabel("Away Team");
-        awayTeamLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        JLabel awayTeamLabel = new JLabel(AWAY_TEAM);
+        awayTeamLabel.setFont(new Font(LetterType, Font.BOLD, 16));
         awayTeamLabel.setHorizontalAlignment(JLabel.CENTER);
         scorePanel.add(awayTeamLabel, BorderLayout.EAST);
 

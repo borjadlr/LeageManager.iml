@@ -14,8 +14,14 @@ import java.util.List;
  */
 
 public class SimulationLeagueGUI extends JPanel {
-    private JTable table;
     private final DefaultTableModel tableModel;
+    private static final String COLUMN1 = "Home Team";
+    private static final String COLUMN2 = "GOALS HOME";
+    private static final String COLUMN3 = "GOALS AWAY";
+    private static final String COLUMN4 = "Away Team";
+    private static final String LetterType = "Inter";
+    private static final String TITLE = "League Simulation";
+    private static final String TitleLetterType = "Apple Casual";
 
     /**
      * Constructs a SimulationLeagueGUI object.
@@ -26,14 +32,14 @@ public class SimulationLeagueGUI extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        JLabel titleLabel = new JLabel("League Simulation");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        JLabel titleLabel = new JLabel(TITLE);
+        titleLabel.setFont(new Font(TitleLetterType, Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
-        String[] columnNames = {"Equipo Local", "Local", "Goles Visitante", "Equipo Visitante"};
+        String[] columnNames = {COLUMN1, COLUMN2, COLUMN3, COLUMN4};
         tableModel = new DefaultTableModel(columnNames, 0);
-        table = new JTable(tableModel);
+        JTable table = new JTable(tableModel);
         table.setBackground(Color.WHITE);
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -41,7 +47,7 @@ public class SimulationLeagueGUI extends JPanel {
         table.setDefaultRenderer(Object.class, centerRenderer);
 
         JTableHeader tableHeader = table.getTableHeader();
-        tableHeader.setFont(new Font("Arial", Font.BOLD, 14));
+        tableHeader.setFont(new Font(LetterType, Font.BOLD, 14));
         tableHeader.setForeground(Color.WHITE);
         tableHeader.setBackground(Color.DARK_GRAY);
         tableHeader.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -51,6 +57,7 @@ public class SimulationLeagueGUI extends JPanel {
         scrollPane.setBorder(new EmptyBorder(20, 20, 20, 20));
         add(scrollPane, BorderLayout.CENTER);
     }
+
     /**
      * Adds match data to the table.
      * Clears the existing table data and populates it with the provided matches.

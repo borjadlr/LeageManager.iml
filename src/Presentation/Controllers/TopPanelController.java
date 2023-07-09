@@ -1,6 +1,5 @@
 package Presentation.Controllers;
 
-import Business.Managers.LeagueManager;
 import Business.Managers.UserManager;
 import Presentation.Views.MainFrameGUI;
 import Presentation.Views.TopPanelGUI;
@@ -15,8 +14,11 @@ import javax.swing.JOptionPane;
 public class TopPanelController implements ActionListener {
     private final MainFrameGUI mainFrame;
     private final TopPanelGUI view;
-
     private final UserManager userManager;
+    private static final String DROPDOWN_BUTTON = "DROPDOWN_BUTTON";
+    private static final String LOGOUT_BUTTON = "LOGOUT_BUTTON";
+    private static final String DELETE_ACCOUNT_BUTTON = "DELETE_ACCOUNT_BUTTON";
+    private static final String BACK_BUTTON = "BACK_BUTTON";
 
 
     /**
@@ -39,10 +41,10 @@ public class TopPanelController implements ActionListener {
         String command = e.getActionCommand();
 
         switch (command) {
-            case "DROPDOWN_BUTTON" -> view.showDropdownMenu();
-            case "LOGOUT_BUTTON" -> logout();
-            case "DELETE_ACCOUNT_BUTTON" -> deleteAccount();
-            case "BACK_BUTTON" -> mainFrame.showGoBack();
+            case DROPDOWN_BUTTON -> view.showDropdownMenu();
+            case LOGOUT_BUTTON -> logout();
+            case DELETE_ACCOUNT_BUTTON -> deleteAccount();
+            case BACK_BUTTON -> mainFrame.showGoBack();
         }
     }
 
@@ -62,8 +64,7 @@ public class TopPanelController implements ActionListener {
      * Asks for confirmation before deleting the account.
      */
     private void deleteAccount() {
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete your account?",
-                "Delete Account", JOptionPane.YES_NO_OPTION);
+        int confirm = view.messageAreYouSure();
         if (confirm == JOptionPane.YES_OPTION) {
             mainFrame.deleteAccount();
         }

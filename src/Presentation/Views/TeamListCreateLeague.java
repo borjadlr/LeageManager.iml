@@ -19,6 +19,14 @@ public class TeamListCreateLeague extends JPanel {
     private final DefaultTableModel tableModel;
     private final JLabel titleLabel;
     private final JButton add;
+    private static final String TITLE = "List of Teams Create New League";
+    private static final String TitleLetterType = "Apple Casual";
+    private static final String COLUMN1 = "Team Name";
+    private static final String COLUMN2 = "Select";
+    private static final String ADD_TEAMS = "Add Teams";
+    private static final String NO_TEAMS_SELECTED = "No Team Selected";
+    private static final String ONE_TEAM_MESSAGE = "Please select at least one team to add.";
+    private static final String AYS_MESSAGE = "Are you sure you want to add?";
 
     /**
      * Constructs a TeamListCreateLeague object.
@@ -28,12 +36,12 @@ public class TeamListCreateLeague extends JPanel {
         setBackground(Color.WHITE);
 
         // Create a title label
-        titleLabel = new JLabel("List of Teams Create New League");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        titleLabel = new JLabel(TITLE);
+        titleLabel.setFont(new Font(TitleLetterType, Font.BOLD, 36));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
-        String[] columnNames = {"Team Name", "Select"};
+        String[] columnNames = {COLUMN1, COLUMN2};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -60,7 +68,7 @@ public class TeamListCreateLeague extends JPanel {
         scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
 
-        add = new JButton("Add Teams");
+        add = new JButton(ADD_TEAMS);
         add.setPreferredSize(new Dimension(120, 30));
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -77,7 +85,6 @@ public class TeamListCreateLeague extends JPanel {
      */
     public void addTeams(List<Team> teams) {
         tableModel.setRowCount(0);
-        // Add team data to the table
         for (Team team : teams) {
             Object[] rowData = {team.getName(), false};
             tableModel.addRow(rowData);
@@ -116,8 +123,8 @@ public class TeamListCreateLeague extends JPanel {
      * Displays a warning message when no team is selected for adding.
      */
     public void showWarningAtLeastOneTeam() {
-        JOptionPane.showMessageDialog(null, "Please select at least one team to add.",
-                "No Team Selected", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, ONE_TEAM_MESSAGE,
+                NO_TEAMS_SELECTED, JOptionPane.WARNING_MESSAGE);
     }
 
     /**
@@ -126,8 +133,8 @@ public class TeamListCreateLeague extends JPanel {
      * @return the user's choice (YES or NO)
      */
     public int showAreYouSure() {
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to add?",
-                "Add teams", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(null, AYS_MESSAGE,
+                ADD_TEAMS, JOptionPane.YES_NO_OPTION);
         return confirm;
     }
 

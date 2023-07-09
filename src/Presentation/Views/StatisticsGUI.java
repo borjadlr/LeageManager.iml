@@ -14,9 +14,9 @@ public class StatisticsGUI extends JPanel {
     private static final int MARGEN_INFERIOR = 80;
     private static final int GROSOR_LINEA = 3;
 
-    private String[] equipos = {"Borjas FC", "Equipo 2", "Equipo 3", "Equipo 4", "Equipo 5", "Alberta"};
-    private int numJornadas = 10;
-    private int[][] puntosEquipos;
+    private final String[] equipos = {"Borjas FC", "Equipo 2", "Equipo 3", "Equipo 4", "Equipo 5", "Alberta"};
+    private final int numJornadas = 10;
+    private final int[][] puntosEquipos;
 
     /**
      * Constructs a StatisticsGUI object.

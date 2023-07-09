@@ -26,6 +26,7 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
     private final List<Team> selectedTeams;
     private final LeagueManager leagueManager;
     private final MainFrameGUI mainFrame;
+    private static final String ADD_TEAMS = "Add Teams";
 
     /**
      * Constructs a TeamListCreateLeagueController object.
@@ -71,7 +72,7 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
                         selectedTeams.remove(selectedTeam);
                     }
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    view.exceptionMessage(ex.getMessage());
                 }
             }
         }
@@ -85,7 +86,7 @@ public class TeamListCreateLeagueController extends MouseAdapter implements Acti
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        if (command.equals("Add Teams")) {
+        if (command.equals(ADD_TEAMS)) {
             if (selectedTeams.isEmpty()) {
                 view.showWarningAtLeastOneTeam();
             } else {
