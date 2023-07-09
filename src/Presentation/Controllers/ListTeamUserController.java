@@ -50,7 +50,6 @@ public class ListTeamUserController extends MouseInputAdapter {
                 }
                 if (!selectedTeams.contains(selectedTeam)) {
                     selectedTeams.add(selectedTeam);
-                    //System.out.println("Selected team: " + selectedTeam.getName());
                 } else {
                     System.out.println("Team already selected: " + selectedTeam.getName());
                 }

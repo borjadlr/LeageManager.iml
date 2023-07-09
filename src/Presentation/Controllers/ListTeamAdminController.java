@@ -25,6 +25,9 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
     private final TeamManager teamManager;
     private final MainFrameGUI mainFrame;
     private final ListLeagueAdminController listLeagueAdminController;
+    private static final String DELETE = "Delete";
+
+
     /**
      * Constructs a ListTeamAdminController object.
      *
@@ -42,6 +45,7 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
         this.teamManager = teamManager;
         this.listLeagueAdminController = listLeagueAdminController;
     }
+
     /**
      * Handles the mouse clicked events in the list team admin view.
      *
@@ -71,7 +75,7 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
                         }
                     }
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    view.exceptionMessage(ex.getMessage());
                 }
             } else if (cellValue instanceof Boolean) {
                 Boolean isChecked = (Boolean) view.getTable().getValueAt(selectedRow, selectedColumn);
@@ -88,8 +92,7 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
                         System.out.println(selectedTeam.getName());
                     }
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
-                    // Manejar la excepción según sea necesario
+                    view.exceptionMessage(ex.getMessage());
                 }
             }
         }
@@ -104,10 +107,9 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
-        if (command.equals("Delete")) {
-            System.out.println("HOLA");
-            if (selectedTeams.isEmpty()) {
-            } else {
+        if (command.equals(DELETE)) {
+
+            if (!selectedTeams.isEmpty()) {
                 int confirmDialog = view.showAreYouSureDelete();
                 if (confirmDialog == JOptionPane.YES_OPTION) {
                     List<Team> teamsToRemove = new ArrayList<>();
@@ -124,7 +126,7 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
                                 }
                             }
                         } catch (SQLException ex) {
-                            ex.printStackTrace();
+                            view.exceptionMessage(ex.getMessage());
                         }
                         if (isChecked) {
                             teamsToRemove.add(teams);
@@ -134,31 +136,27 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
                     }
                     for (Team team : teamsToRemove) {
                         try {
-                            System.out.println("Team name: " + team.getName());
                             teamManager.deleteTeam(team.getName());
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
-                        } catch (MatchIsPlayingException ex) {
-                            throw new RuntimeException(ex);
+                        } catch (SQLException | MatchIsPlayingException ex) {
+                            view.exceptionMessage(ex.getMessage());
                         }
                     }
-                    try {
-                        refreshTable();
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    refreshTable();
                     selectedTeams.clear();
                 }
             }
         }
     }
+
     /**
      * Refreshes the table in the list team admin view.
      *
-     * @throws SQLException If a database access error occurs.
      */
-    public void refreshTable() throws SQLException {
-        view.addTeams(teamManager.getTeamsOfLeague(listLeagueAdminController.getLeaguenames()));
+    public void refreshTable(){
+        try {
+            view.addTeams(teamManager.getTeamsOfLeague(listLeagueAdminController.getLeaguenames()));
+        } catch (SQLException e) {
+            view.exceptionMessage(e.getMessage());
+        }
     }
-
 }

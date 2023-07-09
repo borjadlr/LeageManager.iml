@@ -75,7 +75,6 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                     for (i = 0; i < leagues.size(); i++) {
                         if (leagueName.equals(leagues.get(i).getName())) {
                             leaguenames = leagueName;
-                            System.out.println(leagues.get(i).getName());
                             teams = teamManager.getTeamsOfLeague(leagues.get(i).getName());
                             listTeamAdminGUI.addTeams(teams);
                             listTeamAdminGUI.setTitle(leagueName);
@@ -83,26 +82,21 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                         }
                     }
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    view.exceptionMessage(ex.getMessage());
                 }
             } else if (cellValue instanceof Boolean) {
                 Boolean isChecked = (Boolean) view.getTable().getValueAt(selectedRow, selectedColumn);
                 try {
                     League selectedLeague = leagueManager.listLeagues().get(selectedRow);
-                    System.out.println(selectedLeague.getName());
-
                     if (isChecked) {
                         if (!selectedLeagues.contains(selectedLeague)) {
                             selectedLeagues.add(selectedLeague);
-                            System.out.println(selectedLeague.getName());
                         }
                     } else {
                         selectedLeagues.remove(selectedLeague);
-                        System.out.println(selectedLeague.getName());
                     }
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
-                    // Manejar la excepción según sea necesario
+                    view.exceptionMessage(ex.getMessage());
                 }
             }
         }

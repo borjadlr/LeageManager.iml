@@ -122,4 +122,13 @@ public class ListTeamAdminGUI extends JPanel {
     public JTable getTable() {
         return table;
     }
+
+    /**
+     * Displays an exception message in a dialog box.
+     * @param message the exception message to display
+     */
+    public void exceptionMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+    }
+
 }
