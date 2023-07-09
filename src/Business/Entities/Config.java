@@ -16,7 +16,6 @@ public class Config {
      * Constructs a new empty Config object.
      */
     public Config() {
-        // Empty constructor required for JSON deserialization
     }
 
     /**

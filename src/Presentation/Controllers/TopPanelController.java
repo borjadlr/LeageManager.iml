@@ -21,7 +21,6 @@ public class TopPanelController implements ActionListener {
 
     /**
      * Constructs a TopPanelController object.
-     *
      * @param mainFrame The main frame GUI object.
      * @param view The top panel GUI object.
      */
@@ -33,7 +32,6 @@ public class TopPanelController implements ActionListener {
 
     /**
      * Performs an action in response to an event.
-     *
      * @param e The event that occurred.
      */
     @Override
