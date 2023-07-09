@@ -3,6 +3,7 @@ package Presentation.Controllers;
 import Business.Entities.Team;
 import Business.Entities.User;
 import Business.Managers.TeamManager;
+import Exceptions.MatchIsPlayingException;
 import Presentation.Views.*;
 
 import javax.swing.*;
@@ -137,6 +138,8 @@ public class ListTeamAdminController extends MouseAdapter implements ActionListe
                             teamManager.deleteTeam(team.getName());
                         } catch (SQLException ex) {
                             ex.printStackTrace();
+                        } catch (MatchIsPlayingException ex) {
+                            throw new RuntimeException(ex);
                         }
                     }
                     try {

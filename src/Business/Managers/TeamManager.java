@@ -1,18 +1,19 @@
 package Business.Managers;
 
+import Business.Entities.League;
+import Business.Entities.Match;
 import Business.Entities.Team;
 import Business.Entities.User;
-import Exceptions.IncorrectTeamNameException;
-import Exceptions.InvalidPlayerNumberException;
-import Exceptions.TeamAlreadyExistsException;
-import Persistance.TeamsDAOInt;
-import Persistance.TeamsLeagueDAOInt;
-import Persistance.UserTeamsDAOInt;
+import Exceptions.MatchIsPlayingException;
+import Persistance.*;
+import Persistance.dao.LeagueDAO;
+import Persistance.dao.MatchDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Clase que gestiona las operaciones relacionadas con los equipos.
@@ -22,12 +23,7 @@ public class TeamManager {
     private final TeamsDAOInt teamsDAO;
     private final TeamsLeagueDAOInt teamsLeagueDAOInt;
     private final UserTeamsDAOInt userTeamsDAOInt;
-    private Team team;
     private final List<Team> teamsList;
-
-    private UserManager userManager;
-
-    private List<User> userList;
 
     /**
      * Constructor de la clase TeamManager.
@@ -35,14 +31,12 @@ public class TeamManager {
      * @param teamDAO          objeto TeamsDAOInt para acceder a los datos de los equipos
      * @param teamsLeagueDAOInt objeto TeamsLeagueDAOInt para acceder a los datos de las ligas de equipos
      * @param userTeamsDAOInt  objeto UserTeamsDAOInt para acceder a los datos de los equipos de usuarios
-     * @param team             objeto Team que representa al equipo actual
      */
-    public TeamManager(TeamsDAOInt teamDAO, TeamsLeagueDAOInt teamsLeagueDAOInt, UserTeamsDAOInt userTeamsDAOInt, Team team) {
+    public TeamManager(TeamsDAOInt teamDAO, TeamsLeagueDAOInt teamsLeagueDAOInt, UserTeamsDAOInt userTeamsDAOInt) {
 
         this.teamsDAO = teamDAO;
         this.teamsLeagueDAOInt = teamsLeagueDAOInt;
         this.userTeamsDAOInt = userTeamsDAOInt;
-        this.team = team;
         this.teamsList = new ArrayList<>();
     }
 
@@ -63,18 +57,6 @@ public class TeamManager {
     }
 
     /**
-     * Borra los nombres de los equipos de la memoria RAM.
-     *
-     * @param teams lista de equipos
-     */
-    public void eraseRAM(List<Team> teams) {
-        int i = 0;
-        for (Team team : teams) {
-            teams.get(i).setName(null);
-        }
-    }
-
-    /**
      * Crea un nuevo equipo con el nombre proporcionado.
      *
      * @param teamName nombre del equipo a crear
@@ -90,13 +72,39 @@ public class TeamManager {
      * @param teamName nombre del equipo a eliminar
      * @throws SQLException si ocurre un error al acceder a los datos de los equipos
      */
-    public void deleteTeam(String teamName) throws SQLException {
+    public void deleteTeam(String teamName) throws SQLException, MatchIsPlayingException {
         List<Team> teams = getAllTeams();
         for (Team team : teams) {
             if (team.getName().equals(teamName)) {
                 teamsDAO.deleteDataTeams(teamName);
                 teamsList.remove(team);
+                deleteTeamMatches(team);
                 return;
+            }
+        }
+    }
+
+    /**
+     * Elimina los partidos asociados a un equipo en todas las ligas.
+     *
+     * @param team el equipo a eliminar los partidos
+     * @throws SQLException            si ocurre un error al acceder a la base de datos
+     * @throws MatchIsPlayingException si se intenta eliminar partidos en curso
+     */
+    public void deleteTeamMatches(Team team) throws SQLException, MatchIsPlayingException {
+        LeagueDAOInt leagueDAO = new LeagueDAO();
+        MatchDAOInt matchDAO = new MatchDAO();
+        List<League> leagues = leagueDAO.getAllLeagues();
+        for (League league : leagues) {
+            for (Match match : league.getMatches()) {
+                if (match.isStatus()) {
+                    throw new MatchIsPlayingException();
+                } else {
+                    if (Objects.equals(match.getLocal(), team.getName()) || Objects.equals(match.getVisitante(), team.getName())) {
+                        league.getMatches().remove(match);
+                        matchDAO.deleteMatchesByTeamName(team.getName());
+                    }
+                }
             }
         }
     }

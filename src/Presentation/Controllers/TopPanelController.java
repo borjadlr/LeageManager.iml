@@ -1,5 +1,6 @@
 package Presentation.Controllers;
 
+import Business.Managers.UserManager;
 import Presentation.Views.MainFrameGUI;
 import Presentation.Views.TopPanelGUI;
 import java.awt.event.ActionEvent;
@@ -11,8 +12,11 @@ import javax.swing.JOptionPane;
  * It handles the actions performed by the buttons in the top panel.
  */
 public class TopPanelController implements ActionListener {
-    public MainFrameGUI mainFrame;
-    public TopPanelGUI view;
+    private final MainFrameGUI mainFrame;
+    private final TopPanelGUI view;
+
+    private final UserManager userManager;
+
 
     /**
      * Constructs a TopPanelController object.
@@ -20,9 +24,10 @@ public class TopPanelController implements ActionListener {
      * @param mainFrame The main frame GUI object.
      * @param view The top panel GUI object.
      */
-    public TopPanelController(MainFrameGUI mainFrame, TopPanelGUI view){
+    public TopPanelController(MainFrameGUI mainFrame, TopPanelGUI view, UserManager userManager){
         this.mainFrame = mainFrame;
         this.view = view;
+        this.userManager = userManager;
     }
 
     /**
@@ -49,6 +54,7 @@ public class TopPanelController implements ActionListener {
     private void logout() {
         if (view.messageAreYouSure() == JOptionPane.YES_OPTION) {
             mainFrame.showMainPanel();
+            userManager.logOut();
         }
     }
 

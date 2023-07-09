@@ -63,14 +63,6 @@ public class Team implements Comparable<Team> {
         return NPlayers;
     }
 
-    /**
-     * Sets the number of players in the team.
-     *
-     * @param NPlayers The number of players in the team.
-     */
-    public void setNPlayers(int NPlayers) {
-        this.NPlayers = NPlayers;
-    }
 
     /**
      * Returns the number of wins by the team.
@@ -81,14 +73,6 @@ public class Team implements Comparable<Team> {
         return wins;
     }
 
-    /**
-     * Sets the number of wins by the team.
-     *
-     * @param wins The number of wins by the team.
-     */
-    public void setWins(int wins) {
-        this.wins = wins;
-    }
 
     /**
      * Returns the number of ties by the team.
@@ -99,14 +83,6 @@ public class Team implements Comparable<Team> {
         return ties;
     }
 
-    /**
-     * Sets the number of ties by the team.
-     *
-     * @param ties The number of ties by the team.
-     */
-    public void setTies(int ties) {
-        this.ties = ties;
-    }
 
     /**
      * Returns the number of losses by the team.
@@ -117,14 +93,6 @@ public class Team implements Comparable<Team> {
         return losses;
     }
 
-    /**
-     * Sets the number of losses by the team.
-     *
-     * @param losses The number of losses by the team.
-     */
-    public void setLosses(int losses) {
-        this.losses = losses;
-    }
 
     /**
      * Returns the total points earned by the team.
@@ -135,14 +103,6 @@ public class Team implements Comparable<Team> {
         return points;
     }
 
-    /**
-     * Sets the total points earned by the team.
-     *
-     * @param points The total points earned by the team.
-     */
-    public void setPoints(int points) {
-        this.points = points;
-    }
 
     /**
      * Compares this team with the specified team for ordering based on points.

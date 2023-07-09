@@ -2,7 +2,6 @@ package Business.Managers;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -38,7 +37,7 @@ public class MatchManager {
      */
     public void simularPartidos(List<Match> matches) {
         int i = 0;
-        for (Match match : matches) {
+        for (Match ignored : matches) {
             Match partido = new Match(matches.get(i).getLocal(), matches.get(i).getVisitante(),
                     matches.get(i).getGolesLocal(), matches.get(i).getGolesVisitante(), matches.get(i).getJornada(),
                     matches.get(i).isStatus(), matches.get(i).getNombreLiga());
@@ -58,47 +57,6 @@ public class MatchManager {
         return matchDAO.getMatchesByJornada(jornada);
     }
 
-    /**
-     * Simula un partido de fútbol.
-     *
-     * @param match  Partido a simular.
-     */
-    public void simularPartido(Match match) {
-        Random random = new Random();
-        // Simulación de goles
-        int duracionPartidoEnSegundos = 90 * 60;
-        int duracionMinutoEnMilisegundos = 100 / 101; // Haciendo que la simulación sea 5 veces más rápida
-        int golesLocal = 0;
-        int golesVisitante = 0;
-
-        for (int segundo = 1; segundo <= duracionPartidoEnSegundos; segundo++) {
-            int auxiliar = 0;
-            int minuto = segundo / 60;
-            int milisegundos = ((segundo % 60) * duracionMinutoEnMilisegundos);
-
-            try {
-                Thread.sleep(milisegundos);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if (segundo % 60 == 0) {
-                auxiliar = simularGoles(random, match);
-                if (auxiliar == 1) {
-                    golesLocal = match.getGolesLocal();
-                    golesLocal++;
-                    match.setGolesLocal(golesLocal);
-                } else {
-                    if (auxiliar == 2) {
-                        golesVisitante = match.getGolesVisitante();
-                        golesVisitante++;
-                        match.setGolesVisitante(golesVisitante);
-                    }
-                }
-                partidosSimulados.add(match);
-            }
-        }
-    }
 
     /**
      * Simula la secuencia de goles en un partido.

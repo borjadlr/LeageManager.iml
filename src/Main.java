@@ -26,9 +26,9 @@ public class Main {
 
         //Managers
         User user = new User();
-        TeamManager teamManager = new TeamManager(teamsDAO, teamsLeagueDAO, userTeamsDAO, team);
+        TeamManager teamManager = new TeamManager(teamsDAO, teamsLeagueDAO, userTeamsDAO);
         LeagueManager leagueManager = new LeagueManager(teamManager, leagueDAO, matchDAO, teamsLeagueDAO);
-        AdminManager adminManaguer = new AdminManager(userDAO, leagueManager, teamManager);
+        AdminManager adminManaguer = new AdminManager();
         UserManager userManager = new UserManager(userDAO, leagueManager, user, adminManaguer);
         MatchManager matchManager = new MatchManager(matchDAO, leagueDAO);
 
@@ -61,7 +61,7 @@ public class Main {
         LoginController loginController = new LoginController(mainFrame, loginGUI, userManager);
         ChangePasswordController changePasswordController = new ChangePasswordController(mainFrame, changePasswordGUI, userManager);
         MenuAdminController menuAdminController = new MenuAdminController(mainFrame, leagueManager, menuAdminGUI, listLeagueAdminGUI, matchManager, simulationLeagueGUI);
-        TopPanelController topPanelController =  new TopPanelController(mainFrame, topPanelGUI);
+        TopPanelController topPanelController =  new TopPanelController(mainFrame, topPanelGUI, userManager);
         DeleteController deleteController = new DeleteController(mainFrame, deleteGUI, userManager);
         NewLeagueController newLeagueController = new NewLeagueController(mainFrame, newLeaguesGUI, leagueManager, teamManager, teamListCreateLeague, topPanelGUI);
         ListLeagueUserController listLeagueUserController = new ListLeagueUserController(listLeagueUserGUI, mainFrame, listTeamUserGUI, leagueManager);

@@ -85,12 +85,9 @@ public class LeagueManager {
         int i = 0;
         League league = getLeagueByName(leagueName);
 
-        // Comprobación del número de equipos
         if (league.getNumber_teams() != teams.size()) {
             throw new NumberOfTeamsDoNotRelateException();
         }
-
-        // Inserción de equipos en la liga y generación del calendario
         while (teams.size() > i) {
             teamsLeagueDAOInt.insertarEquipoLiga(teams.get(i).getName(), leagueName);
             i++;
@@ -331,30 +328,6 @@ public class LeagueManager {
                     }
                     league.getMatches().remove(match);
                     //matchDAO.deleteMatch(match.getNombreLiga());
-                }
-            }
-        }
-    }
-
-    /**
-     * Elimina los partidos asociados a un equipo en todas las ligas.
-     *
-     * @param team el equipo a eliminar los partidos
-     * @throws SQLException            si ocurre un error al acceder a la base de datos
-     * @throws MatchIsPlayingException si se intenta eliminar partidos en curso
-     */
-    public void deleteTeamMatches(Team team) throws SQLException, MatchIsPlayingException {
-        List<League> leagues = leagueDAO.getAllLeagues();
-        for (League league : leagues) {
-            for (Match match : league.getMatches()) {
-                if (match.isStatus()) {
-                    // Parar la ejecución si el partido está en marcha.
-                    throw new MatchIsPlayingException();
-                } else {
-                    if (Objects.equals(match.getLocal(), team.getName()) || Objects.equals(match.getVisitante(), team.getName())) {
-                        league.getMatches().remove(match);
-                        matchDAO.deleteMatchesByTeamName(team.getName());
-                    }
                 }
             }
         }
