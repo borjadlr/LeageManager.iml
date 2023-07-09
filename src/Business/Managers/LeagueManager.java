@@ -185,8 +185,17 @@ public class LeagueManager {
      * @return una instancia de la clase `League`
      */
     public League setLeague(String name, Date date, Time hour, int day, int teamNumber, boolean state, List<Team> teams) {
+        League league = new League();
+        league.setName(name);
+        league.setDate(turnToSql(date));
+        league.setTime(hour);
+        league.setDay(day);
+        league.setNumber_teams(teamNumber);
+        league.setState(state);
+        league.setTeams(teams);
         List<Match> matches = new ArrayList<>();
-        return new League(name, date, hour, day, teamNumber, teams, matches, state);
+        league.setMatches(matches);
+        return league;
     }
 
     /**
@@ -279,6 +288,8 @@ public class LeagueManager {
      */
     public void deleteLeague(String leagueName) throws SQLException, MatchIsPlayingException {
         List<League> leagues = leagueDAO.getAllLeagues();
+        List<Team> teams = teamManager.getAllTeams();
+        int i = 0;
 
         for (League league : leagues) {
             if (league.getName().equals(leagueName)) {
@@ -293,13 +304,10 @@ public class LeagueManager {
      * Obtiene la lista de ligas disponibles.
      *
      * @return la lista de ligas
-     * @throws SQLException         si ocurre un error al acceder a la base de datos
+     * @throws SQLException si ocurre un error al acceder a la base de datos
      * @throws NullPointerException si no hay ligas disponibles
      */
     public List<League> listLeagues() throws SQLException, NullPointerException {
-        if (leagueDAO.getAllLeagues().size() == 0) {
-            throw new NullPointerException();
-        }
         return leagueDAO.getAllLeagues();
     }
 

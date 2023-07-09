@@ -79,6 +79,14 @@ public class League {
     }
 
     /**
+     * Sets the time of the league.
+     * @param time of the league.
+     */
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    /**
      * Returns the day of the league.
      * @return The day of the league.
      */
@@ -150,18 +158,7 @@ public class League {
         this.teams = teams;
     }
 
-    /**
-     * Sets the time of the league.
-     * @param time The time of the league.
-     */
-    public void setTime(Time time) {
-        this.time = time;
-    }
 
-    /**
-     * Sets the list of matches scheduled for the league.
-     * @param matches The list of matches scheduled for the league.
-     */
     public void setMatches(List<Match> matches) {
         this.matches = matches;
     }
