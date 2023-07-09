@@ -30,6 +30,9 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
     private final TeamManager teamManager;
     private final MainFrameGUI mainFrame;
     private String leaguenames;
+    private static final String DELETE = "Delete";
+
+
 
     /**
      * Constructs a ListLeagueAdminController object.
@@ -49,12 +52,12 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
         this.teamManager = teamManager;
         this.leaguenames = "";
     }
+
     /**
      * Handles the mouse clicked events in the list league admin view.
      *
      * @param e The MouseEvent that occurred.
      */
-
     @Override
     public void mouseClicked(MouseEvent e) {
         List<Team> teams;
@@ -104,6 +107,7 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
             }
         }
     }
+
     /**
      * Handles the action events performed in the list league admin view.
      *
@@ -113,7 +117,7 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
-        if (command.equals("Delete")) {
+        if (command.equals(DELETE)) {
             if (selectedLeagues.isEmpty()) {
                 view.showWarningAtLeastOneLeague();
             } else {
@@ -143,12 +147,9 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
                     }
                     for (League league : leaguesToRemove) {
                         try {
-                            System.out.println("league name: " + league.getName());
                             leagueManager.deleteLeague(league.getName());
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
-                        } catch (MatchIsPlayingException ex) {
-                            view.exceptionMessage("ERROR");
+                        } catch (SQLException | MatchIsPlayingException ex) {
+                            view.exceptionMessage(ex.getMessage());
                         }
                     }
                     try {
@@ -161,6 +162,7 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
             }
         }
     }
+
     /**
      * Refreshes the table in the list league admin view with updated league data.
      *
@@ -169,6 +171,7 @@ public class ListLeagueAdminController extends MouseAdapter implements ActionLis
     public void refreshTable() throws SQLException {
         view.addLeagues(leagueManager.listLeagues());
     }
+
     /**
      * Returns the names of the selected leagues.
      *

@@ -15,37 +15,41 @@ import java.util.List;
 public class ListPlayerGUI extends JPanel {
     private final JLabel titleLabel;
     private final DefaultTableModel tableModel;
+    private static final String COLUMN1 = "Dni";
+    private static final String COLUMN2 = "Email";
+    private static final String COLUMN3 = "Phone";
+    private static final String COLUMN4 = "Dorsal";
+    private static final String BLANK = "";
+    private static final String LetterType = "Inter";
+
 
     /**
      * Constructs a ListPlayerGUI object.
      */
     public ListPlayerGUI() {
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE); // Set the background color of the panel to white
+        setBackground(Color.WHITE);
 
-        // Create a title label
-        titleLabel = new JLabel("");
-        titleLabel.setFont(new Font("Calibri", Font.BOLD, 30));
+        titleLabel = new JLabel(BLANK);
+        titleLabel.setFont(new Font(LetterType, Font.BOLD, 30));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
-        // Create the table with column names
-        String[] columnNames = {"Dni", "Email", "Phone", "Dorsal"};
+
+        String[] columnNames = {COLUMN1, COLUMN2, COLUMN3, COLUMN4};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Disable cell editing for all cells
+                return false;
             }
         };
         JTable table = new JTable(tableModel);
         table.setBackground(Color.WHITE);
 
-        // Set cell renderer for aligning the content
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         table.setDefaultRenderer(Object.class, renderer);
 
-        // Add the table to a scroll pane
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(new EmptyBorder(20, 20, 20, 20));
         scrollPane.setBackground(Color.WHITE);

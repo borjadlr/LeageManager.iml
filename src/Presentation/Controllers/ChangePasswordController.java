@@ -17,10 +17,16 @@ import java.awt.event.FocusListener;
  */
 public class ChangePasswordController implements FocusListener, ActionListener {
 
-    private final MainFrameGUI mainFrameGUI;
+    private static final String OK = "OK";
+    private static final char STAR = '*';
+    private static final String BLANK = "";
+    private static final String ACTUAL_PASSWORD = "ActualPassword";
+    private static final String REPEATED_PASSWORD = "RepeatNewPassword";
+    private static final String NEW_PASSWORD = "NewPassword";
     private final String defaultCurrentPassword = "Actual Password: ";
     private final String defaultNewPassword = "New Password: ";
     private final String defaultRepeatNewPassword = "Repeat New Password: ";
+    private final MainFrameGUI mainFrameGUI;
     private final ChangePasswordGUI view;
     private final UserManager userManager;
 
@@ -44,7 +50,7 @@ public class ChangePasswordController implements FocusListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
-            if ("OK".equals(e.getActionCommand())) {
+            if (OK.equals(e.getActionCommand())) {
                 try {
 
                     String actualPassword = view.getActualPassword();
@@ -69,24 +75,24 @@ public class ChangePasswordController implements FocusListener, ActionListener {
     public void focusGained(FocusEvent e) {
         if (e.getSource() instanceof JPasswordField textField) {
             switch (textField.getName()) {
-                case "ActualPassword":
+                case ACTUAL_PASSWORD -> {
                     if (textField.getText().equals(defaultCurrentPassword)) {
-                        textField.setText("");
+                        textField.setText(BLANK);
                     }
-                    textField.setEchoChar('*');
-                    break;
-                case "NewPassword":
+                    textField.setEchoChar(STAR);
+                }
+                case NEW_PASSWORD -> {
                     if (textField.getText().equals(defaultNewPassword)) {
-                        textField.setText("");
+                        textField.setText(BLANK);
                     }
-                    textField.setEchoChar('*');
-                    break;
-                case "RepeatNewPassword":
+                    textField.setEchoChar(STAR);
+                }
+                case REPEATED_PASSWORD -> {
                     if (textField.getText().equals(defaultRepeatNewPassword)) {
-                        textField.setText("");
+                        textField.setText(BLANK);
                     }
-                    textField.setEchoChar('*');
-                    break;
+                    textField.setEchoChar(STAR);
+                }
             }
         }
     }
@@ -100,21 +106,21 @@ public class ChangePasswordController implements FocusListener, ActionListener {
     public void focusLost(FocusEvent e) {
         if (e.getSource() instanceof JPasswordField textField) {
             switch (textField.getName()) {
-                case "ActualPassword":
+                case ACTUAL_PASSWORD:
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultCurrentPassword);
                         textField.setEchoChar((char) 0);
                     }
 
                     break;
-                case "NewPassword":
+                case NEW_PASSWORD:
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultNewPassword);
                         textField.setEchoChar((char) 0);
                     }
 
                     break;
-                case "RepeatNewPassword":
+                case REPEATED_PASSWORD:
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultRepeatNewPassword);
                         textField.setEchoChar((char) 0);

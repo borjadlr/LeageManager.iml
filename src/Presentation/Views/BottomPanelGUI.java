@@ -10,7 +10,8 @@ import java.awt.event.ActionListener;
 public class BottomPanelGUI extends JPanel {
 
     private final JButton changePassword;
-    private static final String INTER = "INTER";
+    private static final String LetterType = "INTER";
+    private static final String CHANGE_PASSWORD = "Change Password";
     private static final String CHANGE_CURRENT_PASSWORD = "CHANGE_CURRENT_PASSWORD";
 
     public BottomPanelGUI() {
@@ -24,10 +25,10 @@ public class BottomPanelGUI extends JPanel {
         downSection.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 5));
 
         // Add a button to the white section to change the current password
-        changePassword = new JButton("Change Password");
+        changePassword = new JButton(CHANGE_PASSWORD);
         changePassword.setActionCommand(CHANGE_CURRENT_PASSWORD);
         changePassword.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        changePassword.setFont(Font.getFont(INTER));
+        changePassword.setFont(Font.getFont(LetterType));
         changePassword.setPreferredSize(new Dimension(180, 30));
         changePassword.setBackground(Color.WHITE);
         downSection.add(changePassword, BorderLayout.EAST);
@@ -36,7 +37,7 @@ public class BottomPanelGUI extends JPanel {
 
     /**
      * This method is about the listener of the change password button
-     * @param actionListener
+     * @param actionListener action listener
      */
     public void changePasswordListener(ActionListener actionListener){
         changePassword.addActionListener(actionListener);

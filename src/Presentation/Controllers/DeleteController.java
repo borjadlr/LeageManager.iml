@@ -16,8 +16,12 @@ import java.awt.event.FocusListener;
  */
 public class DeleteController implements ActionListener, FocusListener {
 
-    private final String defaultEmailText = "dni/email: ";
-    private final String defaultPasswordText = "Password: ";
+    private static final String EMAIL_OR_DNI = "Email or DNI";
+    private static final String PASSWORD = "Password";
+    private static final String BLANK = "";
+    private static final String defaultEmailText = "dni/email: ";
+    private static final String defaultPasswordText = "Password: ";
+    private static final String DELETE_BUTTON = "DELETE_BUTTON";
 
     private final MainFrameGUI mainFrameGUI;
     private final DeleteGUI view;
@@ -41,7 +45,7 @@ public class DeleteController implements ActionListener, FocusListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if ("DELETE_BUTTON".equals(e.getActionCommand())) {
+        if (DELETE_BUTTON.equals(e.getActionCommand())) {
             try {
                 String username = view.getUsernameInfo();
                 String password = view.getPasswordInfo();
@@ -62,14 +66,14 @@ public class DeleteController implements ActionListener, FocusListener {
     public void focusGained(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
-                case "Email or DNI":
+                case EMAIL_OR_DNI:
                     if (textField.getText().equals(defaultEmailText)) {
-                        textField.setText("");
+                        textField.setText(BLANK);
                     }
                     break;
-                case "Password":
+                case PASSWORD:
                     if (textField.getText().equals(defaultPasswordText)) {
-                        textField.setText("");
+                        textField.setText(BLANK);
                     }
                     break;
             }
@@ -84,12 +88,12 @@ public class DeleteController implements ActionListener, FocusListener {
     public void focusLost(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
-                case "Email or DNI":
+                case EMAIL_OR_DNI:
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultEmailText);
                     }
                     break;
-                case "Password":
+                case PASSWORD:
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultPasswordText);
                     }

@@ -18,6 +18,17 @@ public class ListLeagueAdminGUI extends JPanel {
     private final DefaultTableModel tableModel;
     private final JButton deleteButton;
 
+    private static final String DELETE = "Delete";
+    private static final String LIST_OF_LEAGUES = "List of Leagues";
+    private static final String COLUMN1 = "League Name";
+    private static final String COLUMN2 = "Number of Participating Teams";
+    private static final String COLUMN3 = "Current Status";
+    private static final String COLUMN4 = "Select";
+    private static final String MESSAGE_DELETE = "Are you sure you want to delete?";
+    private static final String MESSAGE_LEAGUE_SELECTED = "Please select at least one league to delete.";
+    private static final String MESSAGE_NO_LEAGUE_SELECTED = "No League Selected";
+    private static final String LetterType = "Arial";
+
     /**
      * Constructs a ListLeagueAdminGUI object.
      */
@@ -25,13 +36,13 @@ public class ListLeagueAdminGUI extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        JLabel titleLabel = new JLabel("List of Leagues");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 60));
+        JLabel titleLabel = new JLabel(LIST_OF_LEAGUES);
+        titleLabel.setFont(new Font(LetterType, Font.BOLD, 60));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
         // Create the table with column names
-        String[] columnNames = {"League Name", "Number of Participating Teams", "Current Status", "Select"};
+        String[] columnNames = {COLUMN1, COLUMN2, COLUMN3, COLUMN4};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -60,7 +71,7 @@ public class ListLeagueAdminGUI extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
 
         // Create the Delete button
-        deleteButton = new JButton("Delete");
+        deleteButton = new JButton(DELETE);
         deleteButton.setPreferredSize(new Dimension(80, 30));
 
         // Set the layout manager for the bottom area
@@ -95,8 +106,8 @@ public class ListLeagueAdminGUI extends JPanel {
      * Displays a warning message indicating that at least one league should be selected for deletion.
      */
     public void showWarningAtLeastOneLeague() {
-        JOptionPane.showMessageDialog(null, "Please select at least one league to delete.",
-                "No League Selected", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, MESSAGE_LEAGUE_SELECTED,
+                MESSAGE_NO_LEAGUE_SELECTED, JOptionPane.WARNING_MESSAGE);
     }
 
     /**
@@ -104,8 +115,8 @@ public class ListLeagueAdminGUI extends JPanel {
      * @return the user's choice (JOptionPane.YES_OPTION or JOptionPane.NO_OPTION)
      */
     public int showAreYouSureDelete() {
-        return JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?",
-                "Delete", JOptionPane.YES_NO_OPTION);
+        return JOptionPane.showConfirmDialog(null, MESSAGE_DELETE,
+                DELETE, JOptionPane.YES_NO_OPTION);
     }
 
     /**

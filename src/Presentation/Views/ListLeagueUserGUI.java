@@ -15,6 +15,13 @@ import java.util.List;
  */
 public class ListLeagueUserGUI extends JPanel {
     private final JTable table;
+    private static final String LetterType = "Arial";
+    private static final String LIST_OF_LEAGUES = "List of Leagues";
+    private static final String COLUMN1 = "League Name";
+    private static final String COLUMN2 = "Number of Participating Teams";
+    private static final String COLUMN3 = "Current Status";
+
+
     private final DefaultTableModel tableModel;
 
     /**
@@ -25,13 +32,13 @@ public class ListLeagueUserGUI extends JPanel {
         setBackground(Color.WHITE); // Set the background color of the panel to white
 
         // Create a title label
-        JLabel titleLabel = new JLabel("List of Leagues");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 60));
+        JLabel titleLabel = new JLabel(LIST_OF_LEAGUES);
+        titleLabel.setFont(new Font(LetterType, Font.BOLD, 60));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
         // Create the table with column names
-        String[] columnNames = {"League Name", "Number of Participating Teams", "Current Status"};
+        String[] columnNames = {COLUMN1, COLUMN2, COLUMN3};
         // Disable cell editing for all cells
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
@@ -77,7 +84,6 @@ public class ListLeagueUserGUI extends JPanel {
     public void addLeagues(List<League> leagues) {
         tableModel.setRowCount(0);
 
-        // Add league data to the table
         for (League league : leagues) {
             Object[] rowData = {league.getName(), league.getNumber_teams(), league.isState()};
             tableModel.addRow(rowData);

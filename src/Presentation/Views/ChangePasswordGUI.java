@@ -8,6 +8,15 @@ import java.awt.event.ActionListener;
 
 public class ChangePasswordGUI extends JPanel {
 
+    private static final String OK = "OK";
+    private static final String LetterType = "Inter";
+    private static final String BackGroundColor = "#D9D9D9";
+    private static final String BLANK = "    ";
+    private static final String SUCCESS_MESSAGE = "The password has been successfully changed!";
+    private static final String ACTUAL_PASSWORD = "ActualPassword";
+    private static final String REPEATED_PASSWORD = "RepeatNewPassword";
+    private static final String NEW_PASSWORD = "NewPassword";
+    private static final String CHANGE_PASSWORD = "Change Password";
     private final JPasswordField actualPassword;
     private final JPasswordField newPassword;
     private final JPasswordField repeatNewPassword;
@@ -32,51 +41,51 @@ public class ChangePasswordGUI extends JPanel {
         panel.setOpaque(true);
 
         // Title
-        JLabel title = new JLabel("Change Password");
+        JLabel title = new JLabel(CHANGE_PASSWORD);
         title.setForeground(Color.BLACK);
         title.setBorder(BorderFactory.createEmptyBorder(4, 0, 10, 0));
-        title.setFont(new Font("Apple Casual", Font.PLAIN, 60));
+        String defaultCurrentPassword = "Actual Password: ";
+        title.setFont(new Font(defaultCurrentPassword, Font.PLAIN, 60));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(title, BorderLayout.NORTH);
 
         panel.add(Box.createVerticalStrut(60));
 
         // Actual Password
-        String defaultActualPasswordText = "Actual Password: ";
-        actualPassword = new JPasswordField(defaultActualPasswordText);
+        actualPassword = new JPasswordField(defaultCurrentPassword);
         actualPassword.setEchoChar((char)  0);
-        actualPassword.setFont(new Font("Inter", Font.PLAIN, 20));
-        actualPassword.setBackground(Color.decode("#D9D9D9"));
+        actualPassword.setFont(new Font(LetterType, Font.PLAIN, 20));
+        actualPassword.setBackground(Color.decode(BackGroundColor));
         actualPassword.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(actualPassword);
 
         panel.add(Box.createVerticalStrut(15));
 
         // New Password
-        String defaultNewPasswordText = "New Password: ";
-        newPassword = new JPasswordField(defaultNewPasswordText);
+        String defaultNewPassword = "New Password: ";
+        newPassword = new JPasswordField(defaultNewPassword);
         newPassword.setEchoChar((char)  0);
-        newPassword.setFont(new Font("Inter", Font.PLAIN, 20));
-        newPassword.setBackground(Color.decode("#D9D9D9"));
+        newPassword.setFont(new Font(LetterType, Font.PLAIN, 20));
+        newPassword.setBackground(Color.decode(BackGroundColor));
         newPassword.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(newPassword);
 
         panel.add(Box.createVerticalStrut(15));
 
         // Repeat New Password
-        String defaultRepeatNewPasswordText = "Repeat New Password: ";
-        repeatNewPassword = new JPasswordField(defaultRepeatNewPasswordText);
+        String defaultRepeatNewPassword = "Repeat New Password: ";
+        repeatNewPassword = new JPasswordField(defaultRepeatNewPassword);
         repeatNewPassword.setEchoChar((char)  0);
-        repeatNewPassword.setFont(new Font("Inter", Font.PLAIN, 20));
-        repeatNewPassword.setBackground(Color.decode("#D9D9D9"));
+        repeatNewPassword.setFont(new Font(LetterType, Font.PLAIN, 20));
+        repeatNewPassword.setBackground(Color.decode(BackGroundColor));
         repeatNewPassword.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(repeatNewPassword);
 
         panel.add(Box.createVerticalStrut(20));
 
         // OK Button
-        ok = new JButton("    OK    ");
-        ok.setActionCommand("OK");
+        ok = new JButton(BLANK + OK + BLANK);
+        ok.setActionCommand(OK);
         ok.setPreferredSize(new Dimension(150, 40));
         ok.setAlignmentX(Component.CENTER_ALIGNMENT);
         ok.setBorder(BorderFactory.createLineBorder(Color.black, 2));
@@ -91,11 +100,11 @@ public class ChangePasswordGUI extends JPanel {
      */
     public void registerChangePassword(ChangePasswordController controller) {
         actualPassword.addFocusListener(controller);
-        actualPassword.setName("ActualPassword");
+        actualPassword.setName(ACTUAL_PASSWORD);
         newPassword.addFocusListener(controller);
-        newPassword.setName("NewPassword");
+        newPassword.setName(NEW_PASSWORD);
         repeatNewPassword.addFocusListener(controller);
-        repeatNewPassword.setName("RepeatNewPassword");
+        repeatNewPassword.setName(REPEATED_PASSWORD);
     }
 
     /**
@@ -134,7 +143,7 @@ public class ChangePasswordGUI extends JPanel {
      * Displays a success message when the password has been changed successfully.
      */
     public void passwordSuccess() {
-        JOptionPane.showMessageDialog(null, "The password has been successfully changed!");
+        JOptionPane.showMessageDialog(null, SUCCESS_MESSAGE);
     }
 
     /**
