@@ -24,15 +24,13 @@ public class ListTeamAdminGUI extends JPanel {
      */
     public ListTeamAdminGUI() {
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE); // Set the background color of the panel to white
+        setBackground(Color.WHITE);
 
-        // Create a title label
         titleLabel = new JLabel("List of Teams");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
-        // Create the table with column names
         String[] columnNames = {"Team Name", "Points", "Wins", "Draws", "Losses", "Number of Players", "Select"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
@@ -51,29 +49,23 @@ public class ListTeamAdminGUI extends JPanel {
         table = new JTable(tableModel);
         table.setBackground(Color.WHITE);
 
-        // Set cell renderer for aligning the content
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         table.setDefaultRenderer(Object.class, renderer);
 
-        // Add the table to a scroll pane
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(new EmptyBorder(20, 20, 20, 20));
         scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Create the Delete button
         delete = new JButton("Delete");
         delete.setPreferredSize(new Dimension(80, 30)); // Set the preferred size of the button
 
-        // Set the layout manager for the bottom area
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.setBackground(Color.WHITE);
 
-        // Add the Delete button to the bottom panel
         bottomPanel.add(delete);
 
-        // Add the bottom panel to the main panel
         add(bottomPanel, BorderLayout.SOUTH);
     }
 

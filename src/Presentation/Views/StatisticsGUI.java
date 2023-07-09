@@ -40,22 +40,18 @@ public class StatisticsGUI extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Set colors
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.BLACK);
 
-        // Calculate graph dimensions
         int numEquipos = equipos.length;
         int xIncrement = (getWidth() - MARGEN_IZQUIERDO - MARGEN_DERECHO) / (numJornadas - 1);
         int maxValue = numJornadas * 3;
         int graphHeight = getHeight() - MARGEN_SUPERIOR - MARGEN_INFERIOR;
 
-        // Draw axes
         g.drawLine(MARGEN_IZQUIERDO, getHeight() - MARGEN_INFERIOR, MARGEN_IZQUIERDO, MARGEN_SUPERIOR);
         g.drawLine(MARGEN_IZQUIERDO, getHeight() - MARGEN_INFERIOR, getWidth() - MARGEN_DERECHO, getHeight() - MARGEN_INFERIOR);
 
-        // Draw team path lines
         for (int i = 0; i < numEquipos; i++) {
             int xPrev = MARGEN_IZQUIERDO;
             int yPrev = getHeight() - MARGEN_INFERIOR - (int) ((double) puntosEquipos[i][0] / maxValue * graphHeight);
@@ -74,7 +70,6 @@ public class StatisticsGUI extends JPanel {
                 yPrev = y;
             }
 
-            // Fill in the points of the match with numbers
             for (int j = 0; j < numJornadas; j++) {
                 int x = MARGEN_IZQUIERDO + j * xIncrement - 2;
                 int y = getHeight() - MARGEN_INFERIOR - (int) ((double) puntosEquipos[i][j] / maxValue * graphHeight) - 2;
@@ -85,25 +80,21 @@ public class StatisticsGUI extends JPanel {
             }
         }
 
-        // Axis labels
         g.setColor(Color.BLACK);
         g.setFont(new Font("Calibri", Font.PLAIN, 12));
 
-        // x-axis labels (jornadas)
         for (int i = 0; i < numJornadas; i++) {
             int x = MARGEN_IZQUIERDO + i * xIncrement - 10;
             int y = getHeight() - MARGEN_INFERIOR + 20;
             g.drawString("J" + i, x, y);
         }
 
-        // y-axis labels (puntos)
         for (int i = 0; i <= maxValue; i += 2) {
             int x = MARGEN_IZQUIERDO - 30;
             int y = getHeight() - MARGEN_INFERIOR - (int) ((double) i / maxValue * graphHeight) + 5;
             g.drawString(Integer.toString(i), x, y);
         }
 
-        // Team legend
         g.setFont(new Font("Calibri", Font.BOLD, 14));
         int leyendaWidth = (getWidth() - MARGEN_IZQUIERDO - MARGEN_DERECHO) / numEquipos;
         int leyendaHeight = 30;
@@ -112,16 +103,12 @@ public class StatisticsGUI extends JPanel {
             int x = MARGEN_IZQUIERDO + i * leyendaWidth;
             int y = getHeight() - MARGEN_INFERIOR + 50;
 
-            // Draw team line
             g.setColor(getColor(i));
             ((Graphics2D) g).setStroke(new BasicStroke(GROSOR_LINEA));
             g.drawLine(x + leyendaWidth / 2, y, x + leyendaWidth / 2, y + leyendaHeight / 2);
-
-            // Write team name
             g.setColor(getColor(i));
             g.setFont(new Font("Calibri", Font.BOLD, 12));
 
-            // Get the width of the team name
             int nombreWidth = g.getFontMetrics().stringWidth(equipos[i]);
             int nombreX = x + leyendaWidth / 2 + 5;
 

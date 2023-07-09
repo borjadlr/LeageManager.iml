@@ -29,17 +29,14 @@ public class ListLeagueUserGUI extends JPanel {
      */
     public ListLeagueUserGUI() {
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE); // Set the background color of the panel to white
+        setBackground(Color.WHITE);
 
-        // Create a title label
         JLabel titleLabel = new JLabel(LIST_OF_LEAGUES);
         titleLabel.setFont(new Font(LetterType, Font.BOLD, 60));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
-        // Create the table with column names
         String[] columnNames = {COLUMN1, COLUMN2, COLUMN3};
-        // Disable cell editing for all cells
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -49,12 +46,10 @@ public class ListLeagueUserGUI extends JPanel {
         table = new JTable(tableModel);
         table.setBackground(Color.WHITE);
 
-        // Set cell renderer for aligning the content
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         table.setDefaultRenderer(Object.class, renderer);
 
-        // Add the table to a scroll pane
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(new EmptyBorder(50, 50, 50, 50));
         scrollPane.setBackground(Color.WHITE);

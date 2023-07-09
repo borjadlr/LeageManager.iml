@@ -18,12 +18,10 @@ public class NewTeamGUI extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        // Create the text field to display the selected file path
         JTextField filePathField = new JTextField();
         filePathField.setEditable(false);
         add(filePathField, BorderLayout.NORTH);
 
-        // Create the center panel with the "Buscar archivo" button and the "Create new team" label
         JPanel centerPanel = new JPanel(new GridBagLayout());
         centerPanel.setBackground(Color.WHITE);
         add(centerPanel, BorderLayout.CENTER);

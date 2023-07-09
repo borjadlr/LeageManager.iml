@@ -34,14 +34,12 @@ public class DeleteGUI extends JPanel {
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
-        // General panel
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 50, 100, 50));
         panel.setBackground(backgroundColor);
         panel.setOpaque(true);
 
-        // Title
         JLabel title = new JLabel(DELETE_ACCOUNT);
         title.setFont(new Font(LetterType, PLAIN, 60));
         title.setForeground(Color.BLACK);
@@ -51,7 +49,6 @@ public class DeleteGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(90));
 
-        // Dni/Email
         email = new JTextField(defaultEmailText);
         email.setFont(new Font(LetterType, PLAIN, 20));
         email.setBackground(Color.decode(BackGroundColor));

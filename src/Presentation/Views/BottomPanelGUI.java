@@ -17,14 +17,12 @@ public class BottomPanelGUI extends JPanel {
     public BottomPanelGUI() {
         setLayout(new BorderLayout());
 
-        // Add a white section to the bottom panel
         JPanel downSection = new JPanel(new BorderLayout());
         downSection.setPreferredSize(new Dimension(0, 30));
         add(downSection, BorderLayout.SOUTH);
         downSection.setBackground(Color.WHITE);
         downSection.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 5));
 
-        // Add a button to the white section to change the current password
         changePassword = new JButton(CHANGE_PASSWORD);
         changePassword.setActionCommand(CHANGE_CURRENT_PASSWORD);
         changePassword.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));

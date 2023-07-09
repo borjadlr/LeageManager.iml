@@ -28,13 +28,11 @@ public class TopPanelGUI extends JPanel {
         setPreferredSize(new Dimension(0, 50));
         setBackground(Color.WHITE);
 
-        // Add a section to the top panel
         JPanel upSection = new JPanel(new BorderLayout());
         upSection.setPreferredSize(new Dimension(0, 50));
         add(upSection, BorderLayout.NORTH);
         upSection.setBackground(Color.WHITE);
 
-        // Add a back button to the top-left corner of the top panel
         atras = new JButton("◀");
         atras.setFont(new Font("Inter", Font.PLAIN, 20));
         atras.setBackground(Color.WHITE);
@@ -45,7 +43,6 @@ public class TopPanelGUI extends JPanel {
         upSection.setBorder(emptyBorder);
         upSection.add(atras, BorderLayout.WEST);
 
-        // Add a dropdown button to the top-right corner of the top panel
         dropdownButton = new JButton("  ▼  ");
         JPanel drop = new JPanel();
         drop.add(dropdownButton);
@@ -57,7 +54,6 @@ public class TopPanelGUI extends JPanel {
         dropdownButton.setActionCommand(DROPDOWN_BUTTON);
         dropdownButton.setVisible(true);
 
-        // Add a dropdown menu to the dropdown button
         dropdownMenu = new JPopupMenu();
         dropdownMenu.setBackground(Color.black);
         logout = new JMenuItem("Log out");

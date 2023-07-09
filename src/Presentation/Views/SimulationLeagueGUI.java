@@ -26,24 +26,20 @@ public class SimulationLeagueGUI extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        // Create a title label
         JLabel titleLabel = new JLabel("League Simulation");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
-        // Create the table with column names
         String[] columnNames = {"Equipo Local", "Local", "Goles Visitante", "Equipo Visitante"};
         tableModel = new DefaultTableModel(columnNames, 0);
         table = new JTable(tableModel);
         table.setBackground(Color.WHITE);
 
-        // Center align the content in the table cells
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         table.setDefaultRenderer(Object.class, centerRenderer);
 
-        // Set table header font and alignment
         JTableHeader tableHeader = table.getTableHeader();
         tableHeader.setFont(new Font("Arial", Font.BOLD, 14));
         tableHeader.setForeground(Color.WHITE);

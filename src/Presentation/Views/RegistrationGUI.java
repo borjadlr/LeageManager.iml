@@ -28,21 +28,18 @@ public class RegistrationGUI extends JPanel {
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
-        // General panel
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 50, 100, 50));
         panel.setBackground(backgroundColor);
         panel.setOpaque(true);
 
-        // Title
         JLabel title = new JLabel("LaegueManager Registration");
         title.setForeground(Color.BLACK);
         title.setBorder(BorderFactory.createEmptyBorder(4, 0, 10, 0));
         title.setFont(new Font("Apple Casual", PLAIN, 60));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(title, BorderLayout.NORTH);
-
         panel.add(Box.createVerticalStrut(90));
 
         String defaultPhoneText = "Phone number: ";
@@ -60,7 +57,6 @@ public class RegistrationGUI extends JPanel {
         email.setBackground(Color.decode("#D9D9D9"));
         email.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(email);
-
         panel.add(Box.createVerticalStrut(15));
 
         String defaultDniText = "Dni: ";
@@ -69,7 +65,6 @@ public class RegistrationGUI extends JPanel {
         dni.setBackground(Color.decode("#D9D9D9"));
         dni.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(dni);
-
         panel.add(Box.createVerticalStrut(15));
 
         String defaultDorsalText = "Dorsal: ";
@@ -78,7 +73,6 @@ public class RegistrationGUI extends JPanel {
         dorsal.setBackground(Color.decode("#D9D9D9"));
         dorsal.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(dorsal);
-
         panel.add(Box.createVerticalStrut(15));
 
         ok = new JButton("    OK    ");

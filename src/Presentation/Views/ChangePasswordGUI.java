@@ -33,14 +33,12 @@ public class ChangePasswordGUI extends JPanel {
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
-        // General panel
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 50, 100, 50));
         panel.setBackground(backgroundColor);
         panel.setOpaque(true);
 
-        // Title
         JLabel title = new JLabel(CHANGE_PASSWORD);
         title.setForeground(Color.BLACK);
         title.setBorder(BorderFactory.createEmptyBorder(4, 0, 10, 0));
@@ -51,7 +49,6 @@ public class ChangePasswordGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(60));
 
-        // Actual Password
         actualPassword = new JPasswordField(defaultCurrentPassword);
         actualPassword.setEchoChar((char)  0);
         actualPassword.setFont(new Font(LetterType, Font.PLAIN, 20));
@@ -61,7 +58,6 @@ public class ChangePasswordGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(15));
 
-        // New Password
         String defaultNewPassword = "New Password: ";
         newPassword = new JPasswordField(defaultNewPassword);
         newPassword.setEchoChar((char)  0);
@@ -72,7 +68,6 @@ public class ChangePasswordGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(15));
 
-        // Repeat New Password
         String defaultRepeatNewPassword = "Repeat New Password: ";
         repeatNewPassword = new JPasswordField(defaultRepeatNewPassword);
         repeatNewPassword.setEchoChar((char)  0);
@@ -83,7 +78,6 @@ public class ChangePasswordGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(20));
 
-        // OK Button
         ok = new JButton(BLANK + OK + BLANK);
         ok.setActionCommand(OK);
         ok.setPreferredSize(new Dimension(150, 40));

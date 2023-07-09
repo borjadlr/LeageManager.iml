@@ -96,7 +96,6 @@ public class MainFrameGUI extends JFrame{
         centerPanel.add(listTeamAdminGUI, LIST_TEAM_ADMIN_VIEW);
         centerPanel.add(listLeagueUserGUI, SHOW_USERS_TEAM);
 
-        //FIRST UI
         auxiliar--;
         showMainPanel();
 

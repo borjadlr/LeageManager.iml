@@ -27,14 +27,12 @@ public class MainPanelGUI extends JPanel {
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
-        // General panel
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 50, 100, 50));
         panel.setBackground(backgroundColor);
         panel.setOpaque(true);
 
-        // Title
         JLabel title = new JLabel(TITLE);
         title.setFont(new Font("Apple Casual", Font.PLAIN, 60));
         title.setForeground(Color.BLACK);

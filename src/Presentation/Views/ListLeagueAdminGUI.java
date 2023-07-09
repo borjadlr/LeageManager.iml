@@ -41,12 +41,11 @@ public class ListLeagueAdminGUI extends JPanel {
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
-        // Create the table with column names
         String[] columnNames = {COLUMN1, COLUMN2, COLUMN3, COLUMN4};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 3; // Only allow editing the checkbox column
+                return column == 3;
             }
 
             @Override
@@ -64,24 +63,19 @@ public class ListLeagueAdminGUI extends JPanel {
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         table.setDefaultRenderer(Object.class, renderer);
 
-        // Add the table to a scroll pane
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(new EmptyBorder(50, 50, 50, 50));
         scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Create the Delete button
         deleteButton = new JButton(DELETE);
         deleteButton.setPreferredSize(new Dimension(80, 30));
 
-        // Set the layout manager for the bottom area
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.setBackground(Color.WHITE);
 
-        // Add the Delete button to the bottom panel
         bottomPanel.add(deleteButton);
 
-        // Add the bottom panel to the main panel
         add(bottomPanel, BorderLayout.SOUTH);
     }
 

@@ -28,14 +28,12 @@ public class LoginGUI extends JPanel {
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
-        // General panel
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 50, 100, 50));
         panel.setBackground(backgroundColor);
         panel.setOpaque(true);
 
-        // Title
         JLabel title = new JLabel("LeagueManager Login");
         title.setFont(new Font("Apple Casual", PLAIN, 60));
         title.setForeground(Color.BLACK);
@@ -45,7 +43,6 @@ public class LoginGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(90));
 
-        // Dni/Email
         String defaultDniText = "dni/email: ";
         email = new JTextField(defaultDniText);
         email.setFont(new Font("Inter", PLAIN, 20));
@@ -75,9 +72,6 @@ public class LoginGUI extends JPanel {
         login.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(login);
 
-        // register focus listener for login controller
-
-        // add panel to this
         this.add(panel);
     }
 

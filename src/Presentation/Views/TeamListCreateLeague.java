@@ -33,7 +33,6 @@ public class TeamListCreateLeague extends JPanel {
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
-        // Create the table with column names
         String[] columnNames = {"Team Name", "Select"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
@@ -52,22 +51,18 @@ public class TeamListCreateLeague extends JPanel {
         table = new JTable(tableModel);
         table.setBackground(Color.WHITE);
 
-        // Set cell renderer for aligning the content
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         table.setDefaultRenderer(Object.class, renderer);
 
-        // Add the table to a scroll pane
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(new EmptyBorder(20, 20, 20, 20));
         scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Create the Add Teams button
         add = new JButton("Add Teams");
         add.setPreferredSize(new Dimension(120, 30));
 
-        // Set the layout manager for the bottom area
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.setBackground(Color.WHITE);
 

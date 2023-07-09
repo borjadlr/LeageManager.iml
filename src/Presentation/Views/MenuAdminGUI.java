@@ -32,7 +32,6 @@ public class MenuAdminGUI extends JPanel {
         this.setBackground(backgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
-        // General panel
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 50, 100, 50));
@@ -41,7 +40,6 @@ public class MenuAdminGUI extends JPanel {
 
         panel.add(Box.createVerticalGlue());
 
-        // Title
         JLabel title = new JLabel("Admin Menu");
         title.setFont(new Font("Apple Casual", Font.PLAIN, 60));
         title.setForeground(Color.black);
@@ -51,37 +49,31 @@ public class MenuAdminGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(90));
 
-        // Create new team button
         createNewTeam = new JButton("Create Team");
         createNewTeam.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         createNewTeam.setActionCommand(CREATE_NEW_TEAM);
         createNewTeam.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Create new league button
         newLeague = new JButton("Create New League");
         newLeague.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         newLeague.setActionCommand(NEW_LEAGUE);
         newLeague.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // View leagues button
         viewLeagues = new JButton("View Leagues");
         viewLeagues.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         viewLeagues.setActionCommand(VIEW_LEAGUES);
         viewLeagues.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // View statistics button
         viewStatistics = new JButton("View Statistics");
         viewStatistics.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         viewStatistics.setActionCommand(VIEW_STATISTICS);
         viewStatistics.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // View matches button
         viewMatches = new JButton("View Matches");
         viewMatches.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         viewMatches.setActionCommand(VIEW_MATCHES);
         viewMatches.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Set the maximum size of each button to be the same
         Dimension buttonSize = new Dimension(250, 120);
         createNewTeam.setMaximumSize(buttonSize);
         newLeague.setMaximumSize(buttonSize);
@@ -89,7 +81,6 @@ public class MenuAdminGUI extends JPanel {
         viewStatistics.setMaximumSize(buttonSize);
         viewMatches.setMaximumSize(buttonSize);
 
-        // Add the buttons to the panel in the same order
         panel.add(createNewTeam);
         panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
         panel.add(newLeague);
