@@ -27,9 +27,9 @@ public class Main {
         //Managers
         User user = new User();
         TeamManager teamManager = new TeamManager(teamsDAO, teamsLeagueDAO, userTeamsDAO, team);
-        LeagueManager leagueManager = new LeagueManager(teamManager, leagueDAO, teamsDAO, matchDAO, teamsLeagueDAO);
+        LeagueManager leagueManager = new LeagueManager(teamManager, leagueDAO, matchDAO, teamsLeagueDAO);
         AdminManager adminManaguer = new AdminManager(userDAO, leagueManager, teamManager);
-        UserManager userManager = new UserManager(userDAO, leagueManager, teamManager, userTeamsDAO, teamsLeagueDAO, user, adminManaguer);
+        UserManager userManager = new UserManager(userDAO, leagueManager, user, adminManaguer);
         MatchManager matchManager = new MatchManager(matchDAO, leagueDAO);
 
         //Vistas

@@ -2,12 +2,7 @@ package Business.Managers;
 
 import Business.Entities.*;
 import Exceptions.*;
-import Persistance.TeamsLeagueDAOInt;
 import Persistance.UserDAOInt;
-import Persistance.UserTeamsDAOInt;
-import Persistance.dao.TeamsLeagueDAO;
-import Persistance.dao.UserDAO;
-import Persistance.dao.UserTeamsDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,12 +16,6 @@ import java.util.Random;
 public class UserManager {
     private final UserDAOInt userDAO;
     private final LeagueManager leagueManager;
-
-    private final TeamManager teamManager;
-
-    private final UserTeamsDAOInt userTeamsDAOInt;
-
-    private final TeamsLeagueDAOInt teamsLeagueDAOInt;
     private User userLocal;
 
     private final AdminManager adminManager;
@@ -35,18 +24,12 @@ public class UserManager {
      * Constructor de la clase UserManager.
      * @param userDAO objeto de acceso a datos de usuarios
      * @param leagueManager objeto de gestión de ligas
-     * @param teamManager objeto de gestión de equipos
-     * @param userTeamsDAOInt objeto de acceso a datos de usuarios y equipos
-     * @param teamsLeagueDAOInt objeto de acceso a datos de equipos y ligas
      * @param user usuario actual
      * @param adminManager objeto de gestión de administradores
      */
-    public UserManager(UserDAOInt userDAO, LeagueManager leagueManager, TeamManager teamManager, UserTeamsDAOInt userTeamsDAOInt, TeamsLeagueDAOInt teamsLeagueDAOInt, User user, AdminManager adminManager) {
+    public UserManager(UserDAOInt userDAO, LeagueManager leagueManager, User user, AdminManager adminManager) {
         this.userDAO = userDAO;
         this.leagueManager = leagueManager;
-        this.teamManager = teamManager;
-        this.userTeamsDAOInt = userTeamsDAOInt;
-        this.teamsLeagueDAOInt = teamsLeagueDAOInt;
         this.userLocal = user;
         this.adminManager = adminManager;
     }
@@ -111,9 +94,9 @@ public class UserManager {
                         throw new InvalidPasswordException();
                     } else if (comprovaCaractersMail(user)) {
                         throw new InvalidEmailException();
-                    } else if (!isValidDNI(user.getDni())) {
+                    } else if (isValidDNI(user.getDni())) {
                         throw new DNIException();
-                    } else if (!comprovaNumber(user.getNumber())) {
+                    } else if (comprovaNumber(user.getNumber())) {
                         throw new InvalidPlayerNumberException();
                     } else {
                         i++;
@@ -129,9 +112,9 @@ public class UserManager {
                 throw new InvalidPasswordException();
             } else if (comprovaCaractersMail(user)) {
                 throw new InvalidEmailException();
-            } else if (!isValidDNI(user.getDni())) {
+            } else if (isValidDNI(user.getDni())) {
                 throw new DNIException();
-            } else if (!comprovaNumber(user.getNumber())) {
+            } else if (comprovaNumber(user.getNumber())) {
                 throw new InvalidPlayerNumberException();
             } else {
                 userLocal = user;
@@ -140,6 +123,11 @@ public class UserManager {
         }
     }
 
+    /**
+     * Genera una contraseña aleatoria.
+     *
+     * @return Contraseña generada.
+     */
     public static String generatePassword() {
         String MINUSCULA = "abcdefghijklmnopqrstuvwxyz";
         String MAYUSCULA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -159,7 +147,7 @@ public class UserManager {
         // Una numero com a minim
         password.append(NOMBRES.charAt(random.nextInt(NOMBRES.length())));
 
-        // Altres numero random
+        // Altres numeros random
         for (int i = 0; i < LONGITUD - 3; i++) {
             password.append(TODOS.charAt(random.nextInt(TODOS.length())));
         }
@@ -167,6 +155,12 @@ public class UserManager {
         return password.toString();
     }
 
+    /**
+     * Comprueba si una contraseña cumple con los requisitos mínimos de caracteres.
+     *
+     * @param user Usuario que contiene la contraseña a comprobar.
+     * @return {@code true} si la contraseña cumple con los requisitos mínimos, {@code false} en caso contrario.
+     */
     public boolean comprovaCaractersPassword(User user) {
         String password = user.getPassword();
         final int MIN_UPPERCASE = 1;
@@ -192,6 +186,12 @@ public class UserManager {
                 && lowercaseCounter >= MIN_LOWERCASE && digitCounter >= MIN_NUMBER;
     }
 
+    /**
+     * Comprueba si un correo electrónico cumple con los requisitos mínimos de caracteres.
+     *
+     * @param user Usuario que contiene el correo electrónico a comprobar.
+     * @return {@code true} si el correo electrónico cumple con los requisitos mínimos, {@code false} en caso contrario.
+     */
     public boolean comprovaCaractersMail(User user) {
         String email = user.getEmail();
         final char dot = '.';
@@ -213,23 +213,41 @@ public class UserManager {
         return dotCounter < MIN_DOT || arrobaCounter < MIN_ARROBA;
     }
 
+    /**
+     * Valida si un DNI es válido.
+     *
+     * @param dni DNI a validar.
+     * @return {@code true} si el DNI es válido, {@code false} en caso contrario.
+     */
     public boolean isValidDNI(String dni) {
         if (dni == null || dni.isEmpty()) {
-            return false;
+            return true;
         }
-        /*if (!dni.matches("\\d{8}")) {
-            return false;
-        }*/
-
         int dniNumber = Integer.parseInt(dni.substring(0, 8));
         char verificationLetter = "TRWAGMYFPDXBNJZSQVHLCKE".charAt(dniNumber % 23);
-        return dni.charAt(8) == verificationLetter;
+        return dni.charAt(8) != verificationLetter;
     }
 
+    /**
+     * Comprueba si un número es menor o igual a cero.
+     *
+     * @param number Número a comprobar.
+     * @return {@code true} si el número es menor o igual a cero, {@code false} en caso contrario.
+     */
     public boolean comprovaNumber(int number) {
-        return number > 0;
+        return number <= 0;
     }
 
+    /**
+     * Crea un nuevo objeto User con los datos proporcionados.
+     *
+     * @param dni     DNI del usuario.
+     * @param password Contraseña del usuario.
+     * @param email   Correo electrónico del usuario.
+     * @param number  Número del usuario.
+     * @param phone   Teléfono del usuario.
+     * @return Objeto User creado.
+     */
     public User createUser(String dni, String password, String email, int number, String phone) {
         userLocal.setDni(dni);
         userLocal.setPassword(password);
@@ -239,7 +257,14 @@ public class UserManager {
         return userLocal;
     }
 
-
+    /**
+     * Elimina un usuario mediante su DNI y contraseña.
+     *
+     * @param dni      DNI o correo electrónico del usuario a eliminar.
+     * @param password Contraseña del usuario.
+     * @throws DNIOrMailDontExistException      Si el DNI o correo electrónico no existe.
+     * @throws IncorrectPassword4UserException Si la contraseña es incorrecta.
+     */
     public void deleteUser(String dni, String password) throws DNIOrMailDontExistException, IncorrectPassword4UserException {
         List<User> users = userDAO.SelectDataUser();
         int i = 0;
@@ -258,24 +283,54 @@ public class UserManager {
         throw new DNIOrMailDontExistException();
     }
 
+    /**
+     * Comprueba si un usuario está conectado.
+     *
+     * @param user Usuario a comprobar.
+     * @return {@code true} si el usuario está conectado, {@code false} en caso contrario.
+     */
     public boolean isConnected(User user) {
         return user.getDni().equals(userLocal.getDni());
     }
 
+    /**
+     * Cierra la sesión del usuario actual.
+     */
     public void logOut() {
         userLocal.setDni(null);
         userLocal.setEmail(null);
         userLocal.setPassword(null);
     }
 
+    /**
+     * Obtiene el DNI del usuario actual.
+     *
+     * @return DNI del usuario actual.
+     */
     public String getDNI() {
         return userLocal.getDni();
     }
 
+    /**
+     * Compara dos contraseñas para verificar si son iguales.
+     *
+     * @param password1 Contraseña 1.
+     * @param password2 Contraseña 2.
+     * @return {@code true} si las contraseñas son iguales, {@code false} en caso contrario.
+     */
     public boolean comparePassword(String password1, String password2) {
         return Objects.equals(password1, password2);
     }
 
+    /**
+     * Realiza el cambio de contraseña del usuario actual.
+     *
+     * @param pastPassword     Contraseña actual del usuario.
+     * @param newPassword     Nueva contraseña del usuario.
+     * @param repeatedPassword Nueva contraseña repetida del usuario.
+     * @throws InvalidPasswordException Si la nueva contraseña no cumple los requisitos mínimos.
+     * @throws SamePasswordException   Si la nueva contraseña es igual a la contraseña actual.
+     */
     public void canviContrasenya(String pastPassword, String newPassword, String repeatedPassword) throws InvalidPasswordException, SamePasswordException {
         userLocal.setPassword(newPassword);
         if (comprovaCaractersPassword(userLocal) && comparePassword(repeatedPassword, newPassword)){
@@ -290,9 +345,14 @@ public class UserManager {
 
     }
 
+    /**
+     * Obtiene una lista de ligas disponibles.
+     *
+     * @return Lista de ligas.
+     * @throws SQLException Si ocurre un error al acceder a la base de datos.
+     */
     public List<League> getLeagues() throws SQLException {
         List<League> leagues = leagueManager.listLeagues();
-
         List<League> leaguesUserActive = new ArrayList<>();
         int i = 0;
 
@@ -300,8 +360,8 @@ public class UserManager {
             return leagues;
         } else {
             List<League> leaguesUser = getUserLeagues();
-            while (leagues.size() > i){
-                if (leagueManager.isLeagueActive(leagues.get(i))){
+            while (leaguesUser.size() > i){
+                if (leagueManager.isLeagueActive(leaguesUser.get(i))){
                     leaguesUserActive.add(leagues.get(i));
                     i++;
                 }
@@ -311,6 +371,12 @@ public class UserManager {
 
     }
 
+    /**
+     * Obtiene una lista de partidos seleccionados.
+     *
+     * @return Lista de partidos seleccionados.
+     * @throws SQLException Si ocurre un error al acceder a la base de datos.
+     */
     public List<Match> getSelectedMatches() throws SQLException {
         List<League> leagues = getLeagues();
         List<Match> matches = new ArrayList<>();
@@ -325,6 +391,12 @@ public class UserManager {
         return matches;
     }
 
+    /**
+     * Obtiene una lista de ligas del usuario actual.
+     *
+     * @return Lista de ligas del usuario actual.
+     * @throws SQLException Si ocurre un error al acceder a la base de datos.
+     */
     public List<League> getUserLeagues() throws SQLException {
         List<League> leagues = leagueManager.listLeagues();
         List<League> leaguesUser = new ArrayList<>();

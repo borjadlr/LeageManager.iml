@@ -6,7 +6,6 @@ import Business.Entities.Team;
 import Exceptions.*;
 import Persistance.LeagueDAOInt;
 import Persistance.MatchDAOInt;
-import Persistance.TeamsDAOInt;
 import Persistance.TeamsLeagueDAOInt;
 
 import java.sql.SQLException;
@@ -21,14 +20,12 @@ public class LeagueManager {
     private final LeagueDAOInt leagueDAO;
     private final MatchDAOInt matchDAO;
     private final TeamsLeagueDAOInt teamsLeagueDAOInt;
-    private final TeamsDAOInt teamsDAO;
 
-    public LeagueManager(TeamManager teamManager, LeagueDAOInt leagueDAO, TeamsDAOInt teamsDAO, MatchDAOInt matchDAO, TeamsLeagueDAOInt teamsLeagueDAO) {
+    public LeagueManager(TeamManager teamManager, LeagueDAOInt leagueDAO, MatchDAOInt matchDAO, TeamsLeagueDAOInt teamsLeagueDAO) {
         this.teamManager = teamManager;
         this.leagueDAO = leagueDAO;
         this.teamsLeagueDAOInt = teamsLeagueDAO;
         this.matchDAO = matchDAO;
-        this.teamsDAO = teamsDAO;
     }
 
     /**
@@ -42,34 +39,32 @@ public class LeagueManager {
      * @throws SQLException                 si ocurre un error de SQL
      */
     public void introduceLeague(League league) throws LeagueAlreadyExistsException, DateExpiredException, WrongTeamNumberException, RepeatedTeamException, SQLException {
-        // Comprobaciones de validez de la liga
         try {
             List<League> leagues = leagueDAO.getAllLeagues();
             int i = 0;
             while (i < leagues.size()) {
                 if (leagues.get(i).getName().equals(league.getName())) {
                     throw new LeagueAlreadyExistsException();
-                } else if (!comprovaData(league.getDate())) {
+                } else if (comprovaData(league.getDate())) {
                     throw new DateExpiredException();
-                } else if (!comprovaRepeatedTeams(league)) {
+                } else if (comprovaRepeatedTeams(league)) {
                     throw new RepeatedTeamException();
-                } else if (!comprovaNumTeams(league.getNumber_teams())) {
+                } else if (comprovaNumTeams(league.getNumber_teams())) {
                     throw new WrongTeamNumberException();
                 } else {
                     i++;
                 }
             }
         } catch (NullPointerException npe) {
-            if (!comprovaData(league.getDate())) {
+            if (comprovaData(league.getDate())) {
                 throw new DateExpiredException();
-            } else if (!comprovaRepeatedTeams(league)) {
+            } else if (comprovaRepeatedTeams(league)) {
                 throw new RepeatedTeamException();
-            } else if (!comprovaNumTeams(league.getNumber_teams())) {
+            } else if (comprovaNumTeams(league.getNumber_teams())) {
                 throw new WrongTeamNumberException();
             }
         }
 
-        // Inserción de los datos de la liga en la base de datos
         leagueDAO.insertDataLeague(league.getName(),
                 turnToSql(league.getDate()),
                 league.getTime(),
@@ -127,8 +122,8 @@ public class LeagueManager {
     public boolean comprovaNumTeams(int numTeams) throws SQLException {
         List<Team> allTeams = teamManager.getAllTeams();
         if (allTeams.size() < numTeams) {
-            return false;
-        } else return numTeams != 0;
+            return true;
+        } else return numTeams == 0;
     }
 
     /**
@@ -240,7 +235,7 @@ public class LeagueManager {
      */
     public boolean comprovaData(Date date) {
         Date today = new Date(System.currentTimeMillis());
-        return date.after(today);
+        return !date.after(today);
     }
 
     /**
@@ -264,7 +259,7 @@ public class LeagueManager {
                 if (leagueTeams.get(i).getName().equals(allTeams.get(j).getName())) {
                     leaguesWithSameName++;
                     if (leaguesWithSameName == 2) {
-                        return false;
+                        return true;
                     }
                 }
                 i++;
@@ -272,7 +267,7 @@ public class LeagueManager {
             j++;
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -348,7 +343,7 @@ public class LeagueManager {
                     // Parar la ejecución si el partido está en marcha.
                     throw new MatchIsPlayingException();
                 } else {
-                    if ((match.getLocal()) == team.getName() || (match.getVisitante()) == team.getName()) {
+                    if (Objects.equals(match.getLocal(), team.getName()) || Objects.equals(match.getVisitante(), team.getName())) {
                         league.getMatches().remove(match);
                         matchDAO.deleteMatchesByTeamName(team.getName());
                     }
