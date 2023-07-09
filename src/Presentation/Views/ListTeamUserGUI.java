@@ -14,6 +14,13 @@ import java.awt.*;
 public class ListTeamUserGUI extends JPanel {
     private final JTable table;
     private final JLabel titleLabel;
+    private static final String COLUMN1 = "Team Name";
+    private static final String COLUMN2 = "Points";
+    private static final String COLUMN3 = "Wins";
+    private static final String COLUMN4 = "Draws";
+    private static final String COLUMN5 = "Losses";
+    private static final String LIST_OF_TEAMS = "List of Teams";
+    private static final String LetterType = "Arial";
 
     /**
      * Constructs a ListTeamUserGUI object.
@@ -22,12 +29,12 @@ public class ListTeamUserGUI extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE); // Set the background color of the panel to white
 
-        titleLabel = new JLabel("Teams List");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        titleLabel = new JLabel(LIST_OF_TEAMS);
+        titleLabel.setFont(new Font(LetterType, Font.BOLD, 36));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
-        String[] columnNames = {"Team Name", "Points", "Wins", "Draws", "Losses"};
+        String[] columnNames = {COLUMN1, COLUMN2, COLUMN3, COLUMN4, COLUMN5};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         table = new JTable(tableModel);
         table.setBackground(Color.WHITE);
@@ -65,4 +72,13 @@ public class ListTeamUserGUI extends JPanel {
     public JTable getTable() {
         return table;
     }
+
+    /**
+     * Displays an exception message in a dialog box.
+     * @param message the exception message to display
+     */
+    public void exceptionMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+    }
+
 }

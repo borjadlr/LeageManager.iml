@@ -18,6 +18,20 @@ public class ListTeamAdminGUI extends JPanel {
     private final DefaultTableModel tableModel;
     private final JLabel titleLabel;
     private final JButton delete;
+    private static final String COLUMN1 = "Team Name";
+    private static final String COLUMN2 = "Points";
+    private static final String COLUMN3 = "Wins";
+    private static final String COLUMN4 = "Draws";
+    private static final String COLUMN5 = "Losses";
+    private static final String COLUMN6 = "Number of Players";
+    private static final String COLUMN7 = "Select";
+    private static final String LIST_OF_TEAMS = "List of Teams";
+    private static final String LetterType = "Arial";
+    private static final String DELETE = "Delete";
+    private static final String MESSAGE_DELETE = "Are you sure you want to delete?";
+
+
+
 
     /**
      * Constructs a ListTeamAdminGUI object.
@@ -26,22 +40,22 @@ public class ListTeamAdminGUI extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        titleLabel = new JLabel("List of Teams");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        titleLabel = new JLabel(LIST_OF_TEAMS);
+        titleLabel.setFont(new Font(LetterType, Font.BOLD, 36));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
-        String[] columnNames = {"Team Name", "Points", "Wins", "Draws", "Losses", "Number of Players", "Select"};
+        String[] columnNames = {COLUMN1, COLUMN2, COLUMN3, COLUMN4,COLUMN5 , COLUMN6, COLUMN7};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 6; // Only allow editing the checkbox column
+                return column == 6;
             }
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 if (columnIndex == 6) {
-                    return Boolean.class; // Set checkbox column class to Boolean
+                    return Boolean.class;
                 }
                 return super.getColumnClass(columnIndex);
             }
@@ -58,7 +72,7 @@ public class ListTeamAdminGUI extends JPanel {
         scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
 
-        delete = new JButton("Delete");
+        delete = new JButton(DELETE);
         delete.setPreferredSize(new Dimension(80, 30)); // Set the preferred size of the button
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -83,9 +97,8 @@ public class ListTeamAdminGUI extends JPanel {
      */
     public void addTeams(List<Team> teams) {
         tableModel.setRowCount(0);
-        // Add team data to the table
         for (Team team : teams) {
-            Object[] rowData = {team.getName(), team.getPoints(), team.getWins(), team.getTies(), team.getLosses(), team.getNPlayers(), false}; // Add checkbox column data
+            Object[] rowData = {team.getName(), team.getPoints(), team.getWins(), team.getTies(), team.getLosses(), team.getNPlayers(), false};
             tableModel.addRow(rowData);
         }
     }
@@ -104,7 +117,7 @@ public class ListTeamAdminGUI extends JPanel {
      * @return the user's choice (JOptionPane.YES_OPTION or JOptionPane.NO_OPTION)
      */
     public int showAreYouSureDelete() {
-        return JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?", "Delete", JOptionPane.YES_NO_OPTION);
+        return JOptionPane.showConfirmDialog(null, MESSAGE_DELETE, DELETE, JOptionPane.YES_NO_OPTION);
     }
 
     /**

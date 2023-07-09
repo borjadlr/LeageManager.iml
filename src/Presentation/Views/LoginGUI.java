@@ -18,6 +18,17 @@ public class LoginGUI extends JPanel {
     private final JTextField password;
     private final JButton login;
     private static final String LOGIN_BUTTON = "LOGIN_BUTTON";
+    private static final String defaultEmailText = "dni/email: ";
+    private static final String BLANK = "";
+    private static final String EMAIL_OR_DNI = "Email or DNI";
+    private static final String USERS_ERROR = "There are no users registered, so you cannot log in.";
+    private static final String PASSWORD = "Password: ";
+    private static final String TITLE = "LeagueManager Login";
+    private static final String TitleLetterType = "Apple Casual";
+    private static final String LOGIN = "Login";
+    private static final String LetterType = "Inter";
+    private static final String BackGroundColor = "#D9D9D9";
+
 
     /**
      * Creates a new instance of the LoginGUI class.
@@ -34,8 +45,8 @@ public class LoginGUI extends JPanel {
         panel.setBackground(backgroundColor);
         panel.setOpaque(true);
 
-        JLabel title = new JLabel("LeagueManager Login");
-        title.setFont(new Font("Apple Casual", PLAIN, 60));
+        JLabel title = new JLabel(TITLE);
+        title.setFont(new Font(TitleLetterType, PLAIN, 60));
         title.setForeground(Color.BLACK);
         title.setBorder(BorderFactory.createEmptyBorder(4, 0, 10, 0));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -43,10 +54,9 @@ public class LoginGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(90));
 
-        String defaultDniText = "dni/email: ";
-        email = new JTextField(defaultDniText);
-        email.setFont(new Font("Inter", PLAIN, 20));
-        email.setBackground(Color.decode("#D9D9D9"));
+        email = new JTextField(defaultEmailText);
+        email.setFont(new Font(LetterType, PLAIN, 20));
+        email.setBackground(Color.decode(BackGroundColor));
         email.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(email);
 
@@ -56,16 +66,15 @@ public class LoginGUI extends JPanel {
 
         panel.add(passwordPanel);
 
-        String defaultPasswordText = "Password: ";
-        password = new JPasswordField(defaultPasswordText);
-        password.setFont(new Font("Inter", PLAIN, 20));
-        password.setBackground(Color.decode("#D9D9D9"));
+        password = new JPasswordField(PASSWORD);
+        password.setFont(new Font(LetterType, PLAIN, 20));
+        password.setBackground(Color.decode(BackGroundColor));
         password.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         passwordPanel.add(password, BorderLayout.CENTER);
 
         panel.add(Box.createVerticalStrut(15));
 
-        login = new JButton("Login");
+        login = new JButton(LOGIN);
         login.setActionCommand(LOGIN_BUTTON);
         login.setPreferredSize(new Dimension(150, 40));
         login.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -81,9 +90,9 @@ public class LoginGUI extends JPanel {
      */
     public void focusListener(FocusListener focusListener) {
         email.addFocusListener(focusListener);
-        email.setName("Email or DNI");
+        email.setName(EMAIL_OR_DNI);
         password.addFocusListener(focusListener);
-        password.setName("Password");
+        password.setName(PASSWORD);
     }
 
     /**
@@ -122,15 +131,15 @@ public class LoginGUI extends JPanel {
      * Displays a message dialog indicating that there are no users, so login is not possible.
      */
     public void noUsersMessage() {
-        JOptionPane.showMessageDialog(null, "There are no users, so you cannot log in.");
+        JOptionPane.showMessageDialog(null, USERS_ERROR);
     }
 
     /**
      * Clean the variables in JTextFields.
      */
     public void clear(){
-        email.setText("");
-        password.setText("");
+        email.setText(BLANK);
+        password.setText(BLANK);
     }
 
 }

@@ -16,23 +16,21 @@ import java.util.List;
  */
 public class ListTeamUserController extends MouseInputAdapter {
     private final ListTeamUserGUI listTeamUserGUI;
-    private final MainFrameGUI mainFrame;
-
     private final  TeamManager teamManager;
     private final List<Team> selectedTeams;
+
     /**
      * Constructs a ListTeamUserController object.
      *
      * @param listTeamUserGUI The ListTeamUserGUI instance.
-     * @param mainFrame       The MainFrameGUI instance.
      * @param teamManager     The TeamManager instance.
      */
-    public ListTeamUserController(ListTeamUserGUI listTeamUserGUI, MainFrameGUI mainFrame, TeamManager teamManager) {
+    public ListTeamUserController(ListTeamUserGUI listTeamUserGUI, TeamManager teamManager) {
         this.listTeamUserGUI = listTeamUserGUI;
-        this.mainFrame = mainFrame;
         this.teamManager = teamManager;
         this.selectedTeams = new ArrayList<>();
     }
+
     /**
      * Handles the mouse clicked events in the list team user view.
      *
@@ -46,22 +44,13 @@ public class ListTeamUserController extends MouseInputAdapter {
                 try {
                     selectedTeam = teamManager.getAllTeams().get(selectedRow);
                 } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+                    listTeamUserGUI.exceptionMessage(ex.getMessage());
                 }
                 if (!selectedTeams.contains(selectedTeam)) {
                     selectedTeams.add(selectedTeam);
-                } else {
-                    System.out.println("Team already selected: " + selectedTeam.getName());
                 }
             }
         }
     }
-    /**
-     * Returns the list of selected teams.
-     *
-     * @return The list of selected teams.
-     */
-    public List<Team> getSelectedTeams() {
-        return selectedTeams;
-    }
+
 }
