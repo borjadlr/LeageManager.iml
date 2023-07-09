@@ -1,7 +1,6 @@
 package Presentation.Controllers;
 
 import Business.Entities.User;
-import Business.Managers.LeagueManager;
 import Business.Managers.UserManager;
 import Exceptions.*;
 import Presentation.Views.*;
@@ -26,6 +25,12 @@ public class RegistrationController implements FocusListener, ActionListener {
     private final String defaultDorsalText = "Dorsal: ";
     private final String defaultEmailText = "Email: ";
     private final String defaultPhoneNumberText = "Phone number: ";
+    private static final String DNI = "DNI";
+    private static final String DORSAL = "Dorsal";
+    private static final String EMAIL = "Email";
+    private static final String PHONE_NUMBER = "Phone Number";
+    private static final String OK_BUTTON = "OK_BUTTON";
+    private static final String BLANK = "";
 
     /**
      * Constructs a RegistrationController with the specified dependencies.
@@ -49,7 +54,7 @@ public class RegistrationController implements FocusListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
-            if ("OK_BUTTON".equals(e.getActionCommand())) {
+            if (OK_BUTTON.equals(e.getActionCommand())) {
                 try {
                     String dni = view.getDniText();
                     int dorsal = Integer.parseInt(view.getDorsalText());
@@ -81,24 +86,24 @@ public class RegistrationController implements FocusListener, ActionListener {
     public void focusGained(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
-                case "DNI":
+                case DNI:
                     if (textField.getText().equals(defaultDniText)) {
-                        textField.setText("");
+                        textField.setText(BLANK);
                     }
                     break;
-                case "Dorsal":
+                case DORSAL:
                     if (textField.getText().equals(defaultDorsalText)) {
-                        textField.setText("");
+                        textField.setText(BLANK);
                     }
                     break;
-                case "Email":
+                case EMAIL:
                     if (textField.getText().equals(defaultEmailText)) {
-                        textField.setText("");
+                        textField.setText(BLANK);
                     }
                     break;
-                case "Phone":
+                case PHONE_NUMBER:
                     if (textField.getText().equals(defaultPhoneNumberText)) {
-                        textField.setText("");
+                        textField.setText(BLANK);
                     }
                     break;
             }
@@ -114,22 +119,22 @@ public class RegistrationController implements FocusListener, ActionListener {
     public void focusLost(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
-                case "DNI":
+                case DNI:
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultDniText);
                     }
                     break;
-                case "Dorsal":
+                case DORSAL:
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultDorsalText);
                     }
                     break;
-                case "Email":
+                case EMAIL:
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultEmailText);
                     }
                     break;
-                case "Phone":
+                case PHONE_NUMBER:
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultPhoneNumberText);
                     }

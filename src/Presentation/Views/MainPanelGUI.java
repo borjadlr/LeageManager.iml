@@ -16,6 +16,10 @@ public class MainPanelGUI extends JPanel {
     private static final int MAX_SPACE_TITLE = 90;
     private static final String LOGIN_BUTTON = "LOGIN_BUTTON";
     private static final String REGISTER_BUTTON = "REGISTER_BUTTON";
+    private static final String TitleLetterType = "Apple Casual";
+    private static final String LOGIN = "           Login          ";
+    private static final String REGISTER = "        Register        ";
+
 
     /**
      * Creates a new instance of the MainPanelGUI class.
@@ -34,7 +38,7 @@ public class MainPanelGUI extends JPanel {
         panel.setOpaque(true);
 
         JLabel title = new JLabel(TITLE);
-        title.setFont(new Font("Apple Casual", Font.PLAIN, 60));
+        title.setFont(new Font(TitleLetterType, Font.PLAIN, 60));
         title.setForeground(Color.BLACK);
         title.setBorder(BorderFactory.createEmptyBorder(4, 0, 10, 0));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -42,7 +46,7 @@ public class MainPanelGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(MAX_SPACE_TITLE));
 
-        login = new JButton("           Login          ");
+        login = new JButton(LOGIN);
         login.setActionCommand(LOGIN_BUTTON);
         login.setAlignmentX(Component.CENTER_ALIGNMENT);
         login.setBorder(BorderFactory.createLineBorder(Color.black, 2));
@@ -50,7 +54,7 @@ public class MainPanelGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(MAX_SPACE_BUTTONS));
 
-        register = new JButton("        Register        ");
+        register = new JButton(REGISTER);
         register.setActionCommand(REGISTER_BUTTON);
         register.setAlignmentX(Component.CENTER_ALIGNMENT);
         register.setBorder(BorderFactory.createLineBorder(Color.black, 2));

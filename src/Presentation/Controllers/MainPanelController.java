@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 public class MainPanelController implements ActionListener {
     private final MainFrameGUI mainFrame;
     private final TopPanelGUI topPanelGUI;
+    private static final String LOGIN_BUTTON = "LOGIN_BUTTON";
+    private static final String REGISTER_BUTTON = "REGISTER_BUTTON";
 
     /**
      * Constructs a MainPanelController object.
@@ -25,6 +27,7 @@ public class MainPanelController implements ActionListener {
         this.mainFrame = mainFrame;
         this.topPanelGUI = topPanelGUI;
     }
+
     /**
      * Handles the action events in the main panel view.
      *
@@ -34,11 +37,11 @@ public class MainPanelController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
             switch (e.getActionCommand()) {
-                case "LOGIN_BUTTON" -> {
+                case LOGIN_BUTTON -> {
                     mainFrame.showLogin();
                     topPanelGUI.hideShowDropDownButton(false);
                 }
-                case "REGISTER_BUTTON" -> {
+                case REGISTER_BUTTON -> {
                     mainFrame.showRegister();
                     topPanelGUI.hideShowDropDownButton(false);
                 }

@@ -23,6 +23,12 @@ public class MenuAdminController implements ActionListener {
     private final ListLeagueAdminGUI listLeagueAdminGUI;
     private final MatchManager matchManager;
     private final SimulationLeagueGUI simulationLeagueGUI;
+    private static final String CREATE_NEW_TEAM = "CREATE_NEW_TEAM";
+    private static final String CREATE_NEW_ACCOUNT = "CREATE_NEW_ACCOUNT";
+    private static final String NEW_LEAGUE = "NEW_LEAGUE";
+    private static final String VIEW_LEAGUES = "VIEW_LEAGUES";
+    private static final String VIEW_STATISTICS = "STATISTICS_VIEW";
+    private static final String VIEW_MATCHES = "VIEW_MATCHES";
     private int i;
 
     /**
@@ -55,16 +61,16 @@ public class MenuAdminController implements ActionListener {
 
         if (e.getSource() instanceof JButton) {
             switch (e.getActionCommand()) {
-                case "CREATE_NEW_ACCOUNT":
+                case CREATE_NEW_ACCOUNT:
                     mainFrameGUI.showLogin();
                     break;
-                case "CREATE_NEW_TEAM":
+                case CREATE_NEW_TEAM:
                     mainFrameGUI.showNewTeam();
                     break;
-                case "NEW_LEAGUE":
+                case NEW_LEAGUE:
                     mainFrameGUI.showMenuNewLeague();
                     break;
-                case "VIEW_LEAGUES":
+                case VIEW_LEAGUES:
                     try {
                         List<League> leagues = leagueManager.listLeagues();
                         listLeagueAdminGUI.addLeagues(leagues);
@@ -73,17 +79,17 @@ public class MenuAdminController implements ActionListener {
                         view.exceptionMessage(ex.getMessage());
                     }
                     break;
-                case "STATISTICS_VIEW":
+                case VIEW_STATISTICS:
                     mainFrameGUI.showStatistics();
                     break;
-                case "VIEW_MATCHES":
+                case VIEW_MATCHES:
                     try {
                         matchManager.simularPartidos(leagueManager.getAllMatches());
                         simulationLeagueGUI.addMatch(matchManager.getAllMatchesByJornada(i));
                         mainFrameGUI.showSimulationLeagueView();
                         i++;
                     } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
+                        view.exceptionMessage(ex.getMessage());
                     }
                     break;
             }

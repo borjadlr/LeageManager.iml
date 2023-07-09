@@ -17,8 +17,21 @@ public class NewLeagueGUI extends JPanel {
     private final JTextField data;
     private final JTextField numeroEquipos;
     private final JButton ok;
-
     private static final String OK_BUTTON = "OK_BUTTON";
+    private static final String TitleLetterType = "Apple Casual";
+    private static final String TITLE = "New League Creation";
+    private static final String LetterType = "Inter";
+    private static final String BackGroundColor = "#D9D9D9";
+    private static final String DLEAGUE_NAME = "League name: ";
+    private static final String DHOUR = "Hour: ";
+    private static final String DDATE = "Date: ";
+    private static final String DTEAM_NUMBER = "Team Number: ";
+    private static final String NEW_LEAGUE = "New League";
+    private static final String HOUR = "Hour";
+    private static final String DATE = "Date";
+    private static final String TEAM_NUMBER = "Team Number";
+    private static final String OK = "    OK    ";
+    private static final String BLANK = "";
 
     /**
      * Constructs a NewLeagueGUI object.
@@ -36,57 +49,53 @@ public class NewLeagueGUI extends JPanel {
         panel.setBackground(backgroundColor);
         panel.setOpaque(true);
 
-        JLabel title = new JLabel("New League Creation");
+        JLabel title = new JLabel(TITLE);
         title.setForeground(Color.BLACK);
         title.setBorder(BorderFactory.createEmptyBorder(4, 0, 10, 0));
-        title.setFont(new Font("Apple Casual", PLAIN, 60));
+        title.setFont(new Font(TitleLetterType, PLAIN, 60));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(title, BorderLayout.NORTH);
 
         panel.add(Box.createVerticalStrut(90));
 
-        String defaultPhoneText = "League name: ";
-        leagueName = new JTextField(defaultPhoneText);
-        leagueName.setFont(new Font("Inter", PLAIN, 20));
-        leagueName.setBackground(Color.decode("#D9D9D9"));
+        leagueName = new JTextField(DLEAGUE_NAME);
+        leagueName.setFont(new Font(LetterType, PLAIN, 20));
+        leagueName.setBackground(Color.decode(BackGroundColor));
         leagueName.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(leagueName);
 
         panel.add(Box.createVerticalStrut(15));
 
-        String defaultEmailText = "Hour: ";
-        hora = new JTextField(defaultEmailText);
-        hora.setFont(new Font("Inter", PLAIN, 20));
-        hora.setBackground(Color.decode("#D9D9D9"));
+        hora = new JTextField(DHOUR);
+        hora.setFont(new Font(LetterType, PLAIN, 20));
+        hora.setBackground(Color.decode(BackGroundColor));
         hora.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(hora);
 
         panel.add(Box.createVerticalStrut(15));
 
-        String defaultDniText = "Date: ";
-        data = new JTextField(defaultDniText);
-        data.setFont(new Font("Inter", PLAIN, 20));
-        data.setBackground(Color.decode("#D9D9D9"));
+        data = new JTextField(DDATE);
+        data.setFont(new Font(LetterType, PLAIN, 20));
+        data.setBackground(Color.decode(BackGroundColor));
         data.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(data);
 
         panel.add(Box.createVerticalStrut(15));
 
-        String defaultDorsalText = "Número equips: ";
-        numeroEquipos = new JTextField(defaultDorsalText);
-        numeroEquipos.setFont(new Font("Inter", PLAIN, 20));
-        numeroEquipos.setBackground(Color.decode("#D9D9D9"));
+        numeroEquipos = new JTextField(DTEAM_NUMBER);
+        numeroEquipos.setFont(new Font(LetterType, PLAIN, 20));
+        numeroEquipos.setBackground(Color.decode(BackGroundColor));
         numeroEquipos.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(numeroEquipos);
 
         panel.add(Box.createVerticalStrut(15));
 
-        ok = new JButton("    OK    ");
+        ok = new JButton(OK);
         ok.setActionCommand(OK_BUTTON);
         ok.setPreferredSize(new Dimension(150, 40));
         ok.setAlignmentX(Component.CENTER_ALIGNMENT);
         ok.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        ok.setBackground(Color.decode("#D9D9D9"));
+        ok.setBackground(Color.decode(BackGroundColor));
         panel.add(ok);
 
         this.add(panel);
@@ -140,9 +149,6 @@ public class NewLeagueGUI extends JPanel {
         JOptionPane.showMessageDialog(null, message);
     }
 
-    /**
-     * Displays a parse message dialog.
-     */
 
     /**
      * Registers a FocusListener to the input fields for handling focus events.
@@ -150,22 +156,22 @@ public class NewLeagueGUI extends JPanel {
      */
     public void newLeagueFocusListener(FocusListener focusListener) {
         leagueName.addFocusListener(focusListener);
-        leagueName.setName("New League");
+        leagueName.setName(NEW_LEAGUE);
         data.addFocusListener(focusListener);
-        data.setName("Date");
+        data.setName(DATE);
         numeroEquipos.addFocusListener(focusListener);
-        numeroEquipos.setName("Número equips");
+        numeroEquipos.setName(TEAM_NUMBER);
         hora.addFocusListener(focusListener);
-        hora.setName("Hora");
+        hora.setName(HOUR);
     }
 
     /**
      * Clears the text fields in the panel.
      */
     public void clearTextFields() {
-        leagueName.setText("");
-        hora.setText("");
-        data.setText("");
-        numeroEquipos.setText("");
+        leagueName.setText(BLANK);
+        hora.setText(BLANK);
+        data.setText(BLANK);
+        numeroEquipos.setText(BLANK);
     }
 }

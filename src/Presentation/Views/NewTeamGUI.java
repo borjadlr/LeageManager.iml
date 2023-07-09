@@ -10,6 +10,11 @@ import java.awt.event.ActionListener;
 public class NewTeamGUI extends JPanel {
     private final JButton searchButton;
     private static final String SEARCH_BUTTON = "SEARCH_BUTTON";
+    private static final String SEARCHBUTTON = "SEARCH BUTTON";
+    private static final String LetterType = "Inter";
+    private static final String NEW_TEAM = "Create new team";
+    private static final String TEAM_ADDED = "New teams have been added correctly";
+
 
     /**
      * Constructs a NewTeamGUI object.
@@ -26,11 +31,11 @@ public class NewTeamGUI extends JPanel {
         centerPanel.setBackground(Color.WHITE);
         add(centerPanel, BorderLayout.CENTER);
 
-        searchButton = new JButton("Buscar archivo");
+        searchButton = new JButton(SEARCHBUTTON);
         searchButton.setActionCommand(SEARCH_BUTTON);
 
-        JLabel createTeamLabel = new JLabel("Create new team");
-        createTeamLabel.setFont(new Font("Arial", Font.BOLD, 60));
+        JLabel createTeamLabel = new JLabel(NEW_TEAM);
+        createTeamLabel.setFont(new Font(LetterType, Font.BOLD, 60));
 
         createTeamLabel.add(Box.createVerticalStrut(90));
 
@@ -51,5 +56,20 @@ public class NewTeamGUI extends JPanel {
      */
     public void actionListener(ActionListener actionListener) {
         searchButton.addActionListener(actionListener);
+    }
+
+    /**
+     * Displays message dialog with a message of success.
+     */
+    public void teamsAddedSuccessfullyMessage(){
+        JOptionPane.showMessageDialog(null, TEAM_ADDED);
+    }
+
+    /**
+     * Displays an exception message dialog with the specified message.
+     * @param message The exception message to display.
+     */
+    public void exceptionMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
     }
 }

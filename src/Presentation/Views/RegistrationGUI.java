@@ -16,6 +16,21 @@ public class RegistrationGUI extends JPanel {
     private final JTextField dorsal;
     private final JButton ok;
     private static final String OK_BUTTON = "OK_BUTTON";
+    private static final String BLANK = "";
+    private static final String dDniText = "Dni: ";
+    private static final String dDorsalText = "Dorsal: ";
+    private static final String dEmailText = "Email: ";
+    private static final String defaultPhoneNumberText = "Phone number: ";
+    private static final String DNI = "DNI";
+    private static final String DORSAL = "Dorsal";
+    private static final String EMAIL = "Email";
+    private static final String PHONE_NUMBER = "Phone Number";
+    private static final String LetterType = "Inter";
+    private static final String BackGroundColor = "#D9D9D9";
+    private static final String TITLE = "LaegueManager Registration";
+    private static final String TitleLetterType = "Apple Casual";
+    private static final String NUMBER_ERROR = "This is not even a number!";
+    private static final String OK = "    OK    ";
 
     /**
      * Constructs a RegistrationGUI object.
@@ -34,53 +49,49 @@ public class RegistrationGUI extends JPanel {
         panel.setBackground(backgroundColor);
         panel.setOpaque(true);
 
-        JLabel title = new JLabel("LaegueManager Registration");
+        JLabel title = new JLabel(TITLE);
         title.setForeground(Color.BLACK);
         title.setBorder(BorderFactory.createEmptyBorder(4, 0, 10, 0));
-        title.setFont(new Font("Apple Casual", PLAIN, 60));
+        title.setFont(new Font(TitleLetterType, PLAIN, 60));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(title, BorderLayout.NORTH);
         panel.add(Box.createVerticalStrut(90));
 
-        String defaultPhoneText = "Phone number: ";
-        phoneNumber = new JTextField(defaultPhoneText);
-        phoneNumber.setFont(new Font("Inter", PLAIN, 20));
-        phoneNumber.setBackground(Color.decode("#D9D9D9"));
+        phoneNumber = new JTextField(defaultPhoneNumberText);
+        phoneNumber.setFont(new Font(LetterType, PLAIN, 20));
+        phoneNumber.setBackground(Color.decode(BackGroundColor));
         phoneNumber.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(phoneNumber);
 
         panel.add(Box.createVerticalStrut(15));
 
-        String defaultEmailText = "Email: ";
-        email = new JTextField(defaultEmailText);
-        email.setFont(new Font("Inter", PLAIN, 20));
-        email.setBackground(Color.decode("#D9D9D9"));
+        email = new JTextField(dEmailText);
+        email.setFont(new Font(LetterType, PLAIN, 20));
+        email.setBackground(Color.decode(BackGroundColor));
         email.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(email);
         panel.add(Box.createVerticalStrut(15));
 
-        String defaultDniText = "Dni: ";
-        dni = new JTextField(defaultDniText);
-        dni.setFont(new Font("Inter", PLAIN, 20));
-        dni.setBackground(Color.decode("#D9D9D9"));
+        dni = new JTextField(dDniText);
+        dni.setFont(new Font(LetterType, PLAIN, 20));
+        dni.setBackground(Color.decode(BackGroundColor));
         dni.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(dni);
         panel.add(Box.createVerticalStrut(15));
 
-        String defaultDorsalText = "Dorsal: ";
-        dorsal = new JTextField(defaultDorsalText);
-        dorsal.setFont(new Font("Inter", PLAIN, 20));
-        dorsal.setBackground(Color.decode("#D9D9D9"));
+        dorsal = new JTextField(dDorsalText);
+        dorsal.setFont(new Font(LetterType, PLAIN, 20));
+        dorsal.setBackground(Color.decode(BackGroundColor));
         dorsal.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         panel.add(dorsal);
         panel.add(Box.createVerticalStrut(15));
 
-        ok = new JButton("    OK    ");
+        ok = new JButton(OK);
         ok.setActionCommand(OK_BUTTON);
         ok.setPreferredSize(new Dimension(150, 40));
         ok.setAlignmentX(Component.CENTER_ALIGNMENT);
         ok.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        ok.setBackground(Color.decode("#D9D9D9"));
+        ok.setBackground(Color.decode(BackGroundColor));
         panel.add(ok);
 
         this.add(panel);
@@ -102,13 +113,13 @@ public class RegistrationGUI extends JPanel {
      */
     public void foscusListener(FocusListener focusListener) {
         dni.addFocusListener(focusListener);
-        dni.setName("DNI");
+        dni.setName(DNI);
         email.addFocusListener(focusListener);
-        email.setName("Email");
+        email.setName(EMAIL);
         dorsal.addFocusListener(focusListener);
-        dorsal.setName("Dorsal");
+        dorsal.setName(DORSAL);
         phoneNumber.addFocusListener(focusListener);
-        phoneNumber.setName("Phone");
+        phoneNumber.setName(PHONE_NUMBER);
     }
 
     /**
@@ -157,16 +168,16 @@ public class RegistrationGUI extends JPanel {
      * Displays a number format error message in a JOptionPane.
      */
     public void numberFormatMessage(){
-        JOptionPane.showMessageDialog(null, "This is not even a number!");
+        JOptionPane.showMessageDialog(null, NUMBER_ERROR);
     }
 
     /**
      * Clean the variables in JTextFields.
      */
     public void clear(){
-        email.setText("");
-        dni.setText("");
-        phoneNumber.setText("");
-        dorsal.setText("");
+        email.setText(BLANK);
+        dni.setText(BLANK);
+        phoneNumber.setText(BLANK);
+        dorsal.setText(BLANK);
     }
 }

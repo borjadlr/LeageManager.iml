@@ -19,7 +19,13 @@ public class MenuAdminGUI extends JPanel {
     private static final String VIEW_LEAGUES = "VIEW_LEAGUES";
     private static final String VIEW_STATISTICS = "STATISTICS_VIEW";
     private static final String VIEW_MATCHES = "VIEW_MATCHES";
-
+    private static final String TitleLetterType = "Apple Casual";
+    private static final String TITLE = "Admin Menu";
+    private static final String CreateTeam = "Create Team";
+    private static final String CreateNewLeague = "Create New League";
+    private static final String ViewLeagues = "View Leagues";
+    private static final String ViewStatistics = "View Statistics";
+    private static final String ViewMatches = "View Matches";
     private static final int MAX_SPACE_BUTTONS = 5;
 
     /**
@@ -40,8 +46,8 @@ public class MenuAdminGUI extends JPanel {
 
         panel.add(Box.createVerticalGlue());
 
-        JLabel title = new JLabel("Admin Menu");
-        title.setFont(new Font("Apple Casual", Font.PLAIN, 60));
+        JLabel title = new JLabel(TITLE);
+        title.setFont(new Font(TitleLetterType, Font.PLAIN, 60));
         title.setForeground(Color.black);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -49,27 +55,27 @@ public class MenuAdminGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(90));
 
-        createNewTeam = new JButton("Create Team");
+        createNewTeam = new JButton(CreateTeam);
         createNewTeam.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         createNewTeam.setActionCommand(CREATE_NEW_TEAM);
         createNewTeam.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        newLeague = new JButton("Create New League");
+        newLeague = new JButton(CreateNewLeague);
         newLeague.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         newLeague.setActionCommand(NEW_LEAGUE);
         newLeague.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        viewLeagues = new JButton("View Leagues");
+        viewLeagues = new JButton(ViewLeagues);
         viewLeagues.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         viewLeagues.setActionCommand(VIEW_LEAGUES);
         viewLeagues.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        viewStatistics = new JButton("View Statistics");
+        viewStatistics = new JButton(ViewStatistics);
         viewStatistics.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         viewStatistics.setActionCommand(VIEW_STATISTICS);
         viewStatistics.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        viewMatches = new JButton("View Matches");
+        viewMatches = new JButton(ViewMatches);
         viewMatches.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         viewMatches.setActionCommand(VIEW_MATCHES);
         viewMatches.setAlignmentX(Component.CENTER_ALIGNMENT);

@@ -15,6 +15,11 @@ public class MenuUserGUI extends JPanel {
     private static final String WATCH_MATCHES = "WATCH_MATCHES";
     private static final String VIEW_AVAILABLE_LEAGUES = "VIEW_LEAGUES";
     private static final String VIEW_STATISTICS = "VIEW_STATISTICS";
+    private static final String TitleLetterType = "Apple Casual";
+    private static final String TITLE = "User Menu";
+    private static final String WatchLiveMatches = "Watch Live Matches";
+    private static final String ViewAvailableLeagues = "View Available Leagues";
+    private static final String ViewStatistics = "View Statistics";
 
     /**
      * Constructs a MenuUserGUI panel.
@@ -32,8 +37,8 @@ public class MenuUserGUI extends JPanel {
 
         panel.add(Box.createVerticalGlue());
 
-        JLabel title = new JLabel("User Menu");
-        title.setFont(new Font("Apple Casual", Font.PLAIN, 60));
+        JLabel title = new JLabel(TITLE);
+        title.setFont(new Font(TitleLetterType, Font.PLAIN, 60));
         title.setForeground(Color.black);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -41,7 +46,7 @@ public class MenuUserGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(90));
 
-        watchMatches = new JButton("Watch Live Matches");
+        watchMatches = new JButton(WatchLiveMatches);
         watchMatches.setActionCommand(WATCH_MATCHES);
         watchMatches.setPreferredSize(new Dimension(150, 30));
         watchMatches.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -50,7 +55,7 @@ public class MenuUserGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(15));
 
-        viewAvailableLeagues = new JButton("View Available Leagues");
+        viewAvailableLeagues = new JButton(ViewAvailableLeagues);
         viewAvailableLeagues.setActionCommand(VIEW_AVAILABLE_LEAGUES);
         viewAvailableLeagues.setPreferredSize(new Dimension(150, 30));
         viewAvailableLeagues.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -59,7 +64,7 @@ public class MenuUserGUI extends JPanel {
 
         panel.add(Box.createVerticalStrut(15));
 
-        viewStatistics = new JButton("View Statistics");
+        viewStatistics = new JButton(ViewStatistics);
         viewStatistics.setActionCommand(VIEW_STATISTICS);
         viewStatistics.setPreferredSize(new Dimension(150, 30));
         viewStatistics.setAlignmentX(Component.CENTER_ALIGNMENT);

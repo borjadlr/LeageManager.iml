@@ -18,8 +18,10 @@ import java.sql.SQLException;
 public class NewTeamController implements ActionListener {
     private final MainFrameGUI mainFrame;
     private final NewTeamGUI view;
-
     private final TeamManager teamManager;
+    private static final String SEARCH_BUTTON = "SEARCH_BUTTON";
+    private static final String DESCRIPTION = "JSON Files";
+    private static final String EXTENSIONS = "json";
 
     /**
      * Constructs a NewTeamController object.
@@ -43,12 +45,12 @@ public class NewTeamController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
-            if ("SEARCH_BUTTON".equals(e.getActionCommand())) {
+            if (SEARCH_BUTTON.equals(e.getActionCommand())) {
                 mainFrame.showNewTeam();
                 try {
                     searchFile();
                 } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+                    view.exceptionMessage(ex.getMessage());
                 }
                 try {
                     System.out.println(view.getName());
@@ -69,7 +71,7 @@ public class NewTeamController implements ActionListener {
      */
     private void searchFile() throws SQLException {
         JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Files", "json");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(DESCRIPTION, EXTENSIONS);
         fileChooser.setFileFilter(filter);
 
         int result = fileChooser.showOpenDialog(null);
@@ -77,7 +79,7 @@ public class NewTeamController implements ActionListener {
             File selectedFile = fileChooser.getSelectedFile();
             String filePath = selectedFile.getAbsolutePath();
             teamManager.createTeam(filePath);
-            JOptionPane.showMessageDialog(null, "New teams have been added correctly");
+            view.teamsAddedSuccessfullyMessage();
         }
     }
 }

@@ -21,6 +21,10 @@ public class MenuUserController implements ActionListener {
     private final LeagueManager leagueManager;
     private final ListLeagueUserGUI listLeagueUserGUI;
     private final MenuUserGUI view;
+    private static final String VIEW_LEAGUES = "VIEW_LEAGUES";
+    private static final String VIEW_AVAILABLE_LEAGUES = "VIEW_AVAILABLE_LEAGUES";
+    private static final String VIEW_STATISTICS = "STATISTICS_VIEW";
+    private static final String WATCH_MATCHES = "WATCH_MATCHES";
 
     /**
      * Constructs a MenuUserController object.
@@ -44,16 +48,16 @@ public class MenuUserController implements ActionListener {
 
             if (e.getSource() instanceof JButton) {
                 switch (e.getActionCommand()) {
-                    case "WATCH_MATCHES":
+                    case WATCH_MATCHES:
                         mainFrameGUI.showSimulationLeagueView();
                         break;
-                    case "VIEW_AVAIABLE_LEAGUES":
+                    case VIEW_AVAILABLE_LEAGUES:
                         mainFrameGUI.showLeague();
                         break;
-                    case "VIEW_STATISTICS":
+                    case VIEW_STATISTICS:
                         mainFrameGUI.showStatistics();
                         break;
-                    case "VIEW_LEAGUES":
+                    case VIEW_LEAGUES:
                         try {
                             List<League> leagues = leagueManager.listLeagues();
                             listLeagueUserGUI.addLeagues(leagues);

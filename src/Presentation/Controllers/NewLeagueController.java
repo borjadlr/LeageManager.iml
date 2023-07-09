@@ -31,9 +31,14 @@ public class NewLeagueController implements ActionListener, FocusListener {
     private final TopPanelGUI topPanelGUI;
     private final String defaultDateText = "Date: ";
     private final String defaultLegueText = "League name: ";
-
     private final String defaultNumeroEquips = "Número equips: ";
     private final String defaultHora = "Hour: ";
+    private static final String OK_BUTTON = "OK_BUTTON";
+    private static final String NEW_LEAGUE = "New League";
+    private static final String HOUR = "Hour";
+    private static final String DATE = "Date";
+    private static final String TEAM_NUMBER = "Team Number";
+    private static final String BLANK = "";
     private final LeagueManager leagueManager;
     private final TeamListCreateLeague teamListCreateLeague;
     private final TeamManager teamManager;
@@ -65,7 +70,7 @@ public class NewLeagueController implements ActionListener, FocusListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
-            if ("OK_BUTTON".equals(e.getActionCommand())) {
+            if (OK_BUTTON.equals(e.getActionCommand())) {
                 try {
                     String date = leagueManager.correctData(view.getData());
                     String time = leagueManager.correctTime(view.getHora());
@@ -80,10 +85,8 @@ public class NewLeagueController implements ActionListener, FocusListener {
                     mainFrame.showTeamsNewLeague();
                     view.clearTextFields();
                 } catch (LeagueAlreadyExistsException | WrongTimeException | RepeatedTeamException |
-                         DateExpiredException | WrongTeamNumberException ex) {
+                         DateExpiredException | WrongTeamNumberException | SQLException | ParseException ex) {
                     view.exceptionMessage(ex.getMessage());
-                } catch (SQLException | ParseException ex) {
-                    throw new RuntimeException(ex);
                 }
             }
         }
@@ -98,24 +101,24 @@ public class NewLeagueController implements ActionListener, FocusListener {
     public void focusGained(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
-                case "Date":
+                case DATE:
                     if (textField.getText().equals(defaultDateText)) {
-                        textField.setText("");
+                        textField.setText(BLANK);
                     }
                     break;
-                case "New League":
+                case NEW_LEAGUE:
                     if (textField.getText().equals(defaultLegueText)) {
-                        textField.setText("");
+                        textField.setText(BLANK);
                     }
                     break;
-                case "Número equips":
+                case TEAM_NUMBER:
                     if (textField.getText().equals(defaultNumeroEquips)) {
-                        textField.setText("");
+                        textField.setText(BLANK);
                     }
                     break;
-                case "Hora":
+                case HOUR:
                     if (textField.getText().equals(defaultHora)) {
-                        textField.setText("");
+                        textField.setText(BLANK);
                     }
                     break;
             }
@@ -130,22 +133,22 @@ public class NewLeagueController implements ActionListener, FocusListener {
     public void focusLost(FocusEvent e) {
         if (e.getSource() instanceof JTextField textField) {
             switch (textField.getName()) {
-                case "Date":
+                case DATE:
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultDateText);
                     }
                     break;
-                case "New League":
+                case NEW_LEAGUE:
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultLegueText);
                     }
                     break;
-                case "Número equips":
+                case TEAM_NUMBER:
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultNumeroEquips);
                     }
                     break;
-                case "Hora":
+                case HOUR:
                     if (textField.getText().isEmpty()) {
                         textField.setText(defaultHora);
                     }
